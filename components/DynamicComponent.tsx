@@ -1,9 +1,8 @@
 import dynamic from 'next/dynamic'
 import type { ComponentType, FC } from 'react'
 import type { Props as HeaderSectionProps } from './staticPage/headerSection'
-import type { Props as AboutUsProps } from '../containers/aboutUs/index'
 
-export type Props = HeaderSectionProps | AboutUsProps
+export type Props = HeaderSectionProps
 
 type ComponentsMap = {
   [P in Props as P['type']]: ComponentType<P>
@@ -13,9 +12,6 @@ const componentsMap: ComponentsMap = {
   // sections
   HeaderSection: dynamic(() =>
     namedComponent(import('./staticPage/headerSection'), 'HeaderSection')
-  ),
-  AboutUs: dynamic(() =>
-    namedComponent(import('../containers/aboutUs/index'), 'AboutUs')
   ),
 }
 

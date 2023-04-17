@@ -56,7 +56,7 @@ const Session = ({ onSubmit, setIsSessionLimit, isOtp }: SessionProps) => {
   const removeAllDevices = () => {
     const sessionIds = (
       data || (dataOtp as unknown as GetActiveSessionsByUserInfo_Response)
-    )?.data?.otherSessions?.map((session) => session.id) as string[]
+    )?.data?.otherSessions?.map((session: any) => session.id) as string[]
 
     terminateSessionsByIds(sessionIds)
   }
@@ -114,7 +114,7 @@ const Session = ({ onSubmit, setIsSessionLimit, isOtp }: SessionProps) => {
       <div data-selector='session-wrapper'>
         {(
           data || (dataOtp as unknown as GetActiveSessionsByUserInfo_Response)
-        )?.data?.otherSessions?.map((session) => (
+        )?.data?.otherSessions?.map((session: any) => (
           <Row
             key={session.id}
             className={styles['session__card']}

@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux'
 // import { useGetHomeDataQuery } from 'libs/redux/services/home'
 import type { RootState } from 'libs/redux/store'
-import { LastSeen, MostViewed } from './helper'
 
 const TopResult = () => {
   const { accessToken } = useSelector((state: RootState) => state.auth)

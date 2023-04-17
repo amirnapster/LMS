@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { FailedReceiptSvg } from 'assets/icons'
-import { minCount } from 'containers/checkout/components/plans/helper'
+// import { minCount } from 'containers/checkout/components/plans/helper'
 import ContactSupport from 'components/contactSupport'
 import Button from 'components/ui/Button'
 import Modal from 'components/ui/Modal'
@@ -44,9 +44,9 @@ const ReceiptFailed = ({ receiptData }: ReceiptProps) => {
             btnType='primary'
             size='medium'
             data-selector='try'
-            href={`/checkout/?plan=${receiptData?.parameter}&count=${
-              minCount[receiptData?.parameter as string]
-            }`}
+            // href={`/checkout/?plan=${receiptData?.parameter}&count=${
+            //   minCount[receiptData?.parameter as string]
+            // }`}
             ripple
           >
             پرداخت مجدد

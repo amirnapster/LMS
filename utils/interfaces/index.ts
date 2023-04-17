@@ -1,4 +1,4 @@
-import type { Pricing_Response } from 'libs/redux/services/pricing/interface'
+// import type { Pricing_Response } from 'libs/redux/services/pricing/interface'
 import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import type { ReactElement, ReactNode } from 'react'
@@ -32,13 +32,13 @@ export type AppPropsWithLayout = AppProps & {
   campaign: boolean
 }
 
-export interface IPlans {
-  plans: Pricing_Response[]
-}
+// export interface IPlans {
+//   plans: Pricing_Response[]
+// }
 
-export type CheckoutPageType = NextPage<IPlans> & {
-  getLayout?: (page: ReactElement) => ReactNode
-}
+// export type CheckoutPageType = NextPage<IPlans> & {
+//   getLayout?: (page: ReactElement) => ReactNode
+// }
 
 export type LinkTarget = '_self' | '_blank' | '_parent' | '_top'
 

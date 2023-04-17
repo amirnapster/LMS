@@ -12,8 +12,8 @@ interface Props {
 }
 
 const Step = ({ title, id }: Props) => {
-  const { currentStep } = useSelector((state: RootState) => state.companyAuth)
-
+  // const { currentStep } = useSelector((state: RootState) => state.companyAuth)
+  const currentStep = 1
   const checkStatus = () => {
     if (id === currentStep) return styles['step--active']
     if (id < currentStep) return styles['step--finish']

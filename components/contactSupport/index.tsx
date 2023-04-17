@@ -16,8 +16,8 @@ const ContactSupport = () => {
   const dispatch = useDispatch()
   const intl = useIntl()
 
-  const handleClose = () =>
-    dispatch(displayCurrentState({ showContact: false }))
+  const handleClose = () => console.log('close')
+  // dispatch(displayCurrentState({ showContact: false }))
 
   return (
     <div className={styles['contactSupport']}>

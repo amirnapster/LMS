@@ -5,7 +5,6 @@ import Col from 'components/ui/Col'
 import Button from 'components/ui/Button'
 import cn from 'classnames'
 
-import { advancedSearchTitle } from 'utils/statics/searchStatics'
 import SearchResultContent from './helper'
 import styles from './simpleSearch.module.scss'
 
@@ -26,27 +25,6 @@ const SimpleSearch = () => {
             >
               {intl.formatMessage({ id: 'simple.search.guide' })}
             </Button>
-          </Row>
-          <Row direction='column' className={styles['simpleSearch__filter']}>
-            <p>{intl.formatMessage({ id: 'home.search.advanced' })}: </p>
-            <ul className='d-flex flex-wrap'>
-              {advancedSearchTitle.map(({ id, title, path, link, active }) => (
-                <li
-                  key={id}
-                  className={cn(
-                    styles['simpleSearch__filter--item'],
-                    !active
-                      ? styles['simpleSearch__filter--item--disabled']
-                      : ''
-                  )}
-                >
-                  <Button href={link} ripple>
-                    {svgCreator(active ? '#013b81' : '#5d58588f', path)}
-                    <span>{intl.formatMessage({ id: title })}</span>
-                  </Button>
-                </li>
-              ))}
-            </ul>
           </Row>
         </Col>
         <SearchResultContent />

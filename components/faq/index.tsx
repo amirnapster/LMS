@@ -6,7 +6,7 @@ import Row from 'components/ui/Row'
 import Col from 'components/ui/Col'
 import Container from 'components/container'
 import MyContext from 'utils/context'
-import { FAQItems } from 'utils/statics/pricingStatics'
+
 import Accordion from './muiFaq'
 import Unnecessary from './helper'
 
@@ -39,7 +39,7 @@ const Faq = ({ title, service, className }: FaqProps) => {
           </div>
         </Col>
         <Col lg={16} xl={17} flex='auto'>
-          {FAQItems[service].map(({ answer, question }, index) => (
+          {[].map(({ answer, question }, index) => (
             <Accordion
               key={answer}
               expanded={expanded === index}

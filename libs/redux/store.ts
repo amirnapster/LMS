@@ -24,7 +24,6 @@ export const store = configureStore({
     }).concat(
       emptySplitApi.middleware,
       authApi.middleware,
-      simpleSearchApi.middleware,
       rtkQueryErrorLogger
     ),
 })

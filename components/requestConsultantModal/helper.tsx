@@ -14,7 +14,6 @@ import TextArea from 'components/ui/Textarea'
 import Button from 'components/ui/Button'
 import cn from 'classnames'
 
-import { requestConsultantOptions } from 'utils/statics/pricingStatics'
 import type { RootState } from 'libs/redux/store'
 import type { RequestConsultantData } from './interface'
 import styles from './requestConsultantModal.module.scss'
@@ -188,7 +187,7 @@ const RequestConsultant = ({ className }: { className?: string }) => {
                   label={intl.formatMessage({ id: 'topic' })}
                   error={errors.topic}
                 >
-                  {requestConsultantOptions.map(({ title, value }) => (
+                  {[].map(({ title, value }) => (
                     <option key={title} value={value}>
                       {title}
                     </option>

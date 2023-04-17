@@ -11,31 +11,7 @@ export type HeaderSection = {
   body: string
 }
 
-export type AboutUsEmployee = {
-  type: 'AboutUsEmployee'
-  name: string
-  role: string
-  url: string
-  src: string
-}
-export type AboutUsDescription = {
-  type: 'AboutUsDescription'
-  title: string
-  subtitle: string
-  description: string
-  reverse: boolean
-  image: string
-}
-export type AboutUs = {
-  type: 'AboutUs'
-  title: string
-  video: string
-  height: string
-  descriptions?: AboutUsDescription[]
-  employees?: AboutUsEmployee[]
-}
-
-export type Section = HeaderSection | AboutUs
+export type Section = HeaderSection
 
 export type Page = {
   _id: string

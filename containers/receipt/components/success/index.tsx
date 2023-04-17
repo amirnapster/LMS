@@ -1,5 +1,5 @@
 import { SuccessReceiptSvg } from 'assets/icons'
-import { Payable } from 'containers/checkout/components/pricing/helper'
+// import { Payable } from 'containers/checkout/components/pricing/helper'
 import Row from 'components/ui/Row'
 import dayjs from 'dayjs'
 import jalaliday from 'jalaliday'
@@ -33,14 +33,14 @@ const ReceiptSuccess = ({ receiptData }: ReceiptProps) => (
       شما میتوانید از امکانات آن استفاده نمایید
     </div>
 
-    <Payable
+    {/* <Payable
       price={receiptData?.amountBeforeDiscount as number}
       discountPrice={
         Number(receiptData?.amountBeforeDiscount) / 10 -
         Number(receiptData?.amount) / 10
       }
       discount={receiptData?.amount}
-    />
+    /> */}
 
     <span className={styles['receipt__success--description']}>
       با استفاده از لینک زیر شما می‌توانید فایل فاکتور رسمی خود را دانلود یا
