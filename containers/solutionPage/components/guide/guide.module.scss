@@ -1,0 +1,52 @@
+.guide {
+  margin-block: 5rem;
+  padding: 0 1.5rem;
+
+  &__col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  [data-selector='title'] {
+    font-weight: map-get($font-weights, 800);
+    font-size: 2.5rem;
+    color: map-get($colors, text-color-800);
+    text-align: center;
+    margin-block-end: 1rem;
+  }
+
+  [data-selector='content'] {
+    font-weight: map-get($font-weights, 400);
+    font-size: 1.125rem;
+    color: map-get($colors, text-color-600);
+    text-align: center;
+    margin-block-end: 1.5rem;
+  }
+
+  [data-selector='try'] {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    span {
+      font-weight: map-get($font-weights, 700);
+      font-size: 14px;
+      color: map-get($colors, text-color-900);
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .guide {
+    padding: 0 1rem;
+
+    [data-selector='title'] {
+      font-size: map-get($font-sizes, 6);
+    }
+
+    [data-selector='content'] {
+      font-size: 1rem;
+    }
+  }
+}

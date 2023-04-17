@@ -1,0 +1,119 @@
+.checkout {
+  padding: 2rem 8.5rem;
+  overflow-x: hidden;
+
+  &--wrapper {
+    width: auto;
+  }
+
+  &--title {
+    display: inline-block;
+    color: map-get($colors, dark-gray-1);
+    margin-bottom: 1rem;
+  }
+
+  [data-selector='blank-header'] {
+    margin-inline: 0;
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .checkout {
+    padding: 2rem 1rem;
+  }
+}
+
+@include media-breakpoint-only(xl) {
+  .checkout {
+    padding: 2rem 4rem;
+    &--wrapper {
+      margin: -25px;
+
+      > * {
+        padding: 25px;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .checkout {
+    &--wrapper {
+      margin: -25px -10px;
+
+      > * {
+        padding: 25px 10px;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-only(lg) {
+  .checkout {
+    &--wrapper {
+      margin: -25px -20px;
+
+      > * {
+        padding: 25px 20px;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .checkout {
+    padding: 1rem;
+
+    [data-selector='blank-header'] {
+      margin-block-end: 1rem;
+    }
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .checkout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    [data-selector='blank-footer'] {
+      margin-top: auto;
+    }
+
+    [data-selector='blank-header'] {
+      width: 100%;
+    }
+  }
+}
+
+@include media-breakpoint-up(xl) {
+  .checkout {
+    padding: 2rem 4rem;
+
+    &--wrapper {
+      margin: -25px -50px;
+
+      > * {
+        padding: 25px 50px;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(xxl) {
+  .checkout {
+    padding: 2rem 0;
+
+    &--wrapper {
+      margin: 0 -50px;
+
+      > * {
+        padding: 0 50px;
+      }
+    }
+
+    &--title {
+      width: 100%;
+    }
+  }
+}

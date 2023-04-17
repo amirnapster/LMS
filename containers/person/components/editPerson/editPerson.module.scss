@@ -1,0 +1,149 @@
+.editCard {
+  padding: 1.5rem;
+  background-color: map-get($colors, white);
+  border-radius: 24px;
+  margin: 2rem 0 6rem;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    &--title {
+      span {
+        font-weight: map-get($font-weights, 700);
+        font-size: map-get($font-sizes, 5);
+        color: map-get($colors, text-color-800);
+      }
+      [data-selector='back-icon'] {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        margin-inline-end: 0.5rem;
+      }
+    }
+  }
+  &__body {
+    h2 {
+      margin: 2rem 0 1rem;
+      font-style: normal;
+      font-weight: map-get($font-weights, 700);
+      font-size: map-get($font-sizes, 4);
+      line-height: 190%;
+      letter-spacing: -0.005em;
+      color: map-get($colors, text-color-900);
+    }
+    &--baseInfo {
+      margin-block-end: 1rem;
+      [data-selector='company-logo'] {
+        background: #f4f4f4;
+        border-radius: 12px;
+        min-width: 88px;
+        min-height: 88px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img {
+          border-radius: 12px;
+        }
+      }
+      [data-selector='upload-box'] {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-inline-start: 0.5rem;
+
+        label {
+          padding: 0.5rem 1rem;
+          cursor: pointer;
+          border: 2px solid map-get($colors, primary);
+          border-radius: 12px;
+          font-weight: map-get($font-weights, 600);
+          font-size: map-get($font-sizes, 4);
+          line-height: 150%;
+          text-align: center;
+          color: map-get($colors, primary);
+          &:hover {
+            background: linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.1),
+                rgba(0, 0, 0, 0.1)
+              ),
+              var(--transparent, transparent);
+          }
+        }
+        input {
+          display: none;
+        }
+        span {
+          font-style: normal;
+          font-weight: map-get($font-weights, 400);
+          font-size: map-get($font-sizes, 3);
+          line-height: 20px;
+          color: map-get($colors, text-color-400);
+        }
+      }
+    }
+    textarea {
+      min-height: 91px;
+    }
+    label {
+      margin-block-end: 0.5rem;
+    }
+  }
+  &__footer {
+    margin-block-start: 2rem;
+    text-align: end;
+    button {
+      padding-inline: 1rem;
+      margin-inline-start: 1rem;
+    }
+  }
+  form {
+    max-width: 100%;
+  }
+}
+
+@include media-breakpoint-down(xxl) {
+  .editCard {
+    margin-inline: 1.5rem;
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .editCard {
+    margin-inline: 1rem;
+    &__body {
+      h2 {
+        margin-block-start: 1.5rem;
+      }
+    }
+  }
+}
+@include media-breakpoint-down(md) {
+  .editCard {
+    margin-block-start: 1.5rem;
+
+    &__header {
+      &--title {
+        [data-selector='back-icon'] {
+          min-width: 28px;
+          min-height: 48px;
+          padding-inline-start: 0;
+          margin-inline-end: 0;
+          justify-content: flex-start;
+        }
+      }
+    }
+  }
+}
+@include media-breakpoint-down(sm) {
+  .editCard {
+    margin-block-start: 1rem;
+    padding: 1rem;
+    &__body {
+      h2 {
+        margin-block-start: 1rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+@each $colorPrefix, $color in $colors {
+  .color-#{$colorPrefix} {
+    color: var(--#{$colorPrefix}, $color) !important;
+  }
+  .bg-color-#{$colorPrefix} {
+    background-color: var(--#{$colorPrefix}, $color) !important;
+  }
+  .border-color-#{$colorPrefix} {
+    border-color: var(--#{$colorPrefix}, $color) !important;
+  }
+  .fill-#{$colorPrefix} {
+    fill: var(--#{$colorPrefix}, $color) !important;
+  }
+  .bg-#{$colorPrefix} {
+    background: linear-gradient($color);
+  }
+
+  // Button's styles
+  .btn-bg-color-#{$colorPrefix} {
+    background-color: var(--#{$colorPrefix}, $color) !important;
+
+    &:hover {
+      background-color: unset;
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+        var(--#{$colorPrefix}, $color);
+    }
+    &:active {
+      background-color: unset;
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+        var(--#{$colorPrefix}, $color);
+    }
+  }
+  .btn-bg-#{$colorPrefix} {
+    background: linear-gradient(var(--#{$colorPrefix}, $color));
+
+    &:hover {
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+        linear-gradient(var(--#{$colorPrefix}, $color));
+    }
+
+    &:active {
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+        linear-gradient(var(--#{$colorPrefix}, $color));
+    }
+
+    &:disabled {
+      background: unset;
+      background-color: map-get($colors, gray-200);
+    }
+  }
+}

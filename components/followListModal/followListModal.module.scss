@@ -1,0 +1,99 @@
+.follow {
+  max-width: 33.5rem;
+  min-width: 33.5rem;
+  background-color: map-get($colors, simple-white);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+  border-radius: 2rem;
+  padding: 2rem;
+  position: relative;
+
+  &__wrapper {
+    max-height: 15rem;
+    overflow-y: auto;
+
+    > div {
+      margin-block-end: 1rem;
+
+      &:last-of-type {
+        margin-block-end: 0;
+      }
+
+      span {
+        font-weight: map-get($font-weights, 400);
+        color: map-get($colors, text-color-900);
+      }
+
+      input {
+        min-width: 1.5rem;
+        min-height: 1.5rem;
+        border-radius: 0.5rem;
+      }
+    }
+  }
+
+  &--title {
+    font-weight: map-get($font-weights, 700);
+    font-size: 1.25rem;
+    color: map-get($colors, text-color-900);
+    margin-block-end: 2rem;
+  }
+
+  &--close {
+    position: absolute;
+    width: 3rem;
+    height: 3rem;
+    top: 1rem;
+    left: 1rem;
+    background-color: unset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+      fill: map-get($colors, text-color-900);
+    }
+  }
+
+  &--subTitle {
+    font-weight: map-get($font-weights, 400);
+    font-size: map-get($font-sizes, 3);
+    color: map-get($colors, text-2);
+    margin-block-end: 1rem;
+  }
+
+  &--action {
+    margin-block-start: 2rem;
+
+    button {
+      &:first-of-type {
+        span {
+          font-weight: map-get($font-weights, 600);
+          margin-inline-start: 0.5rem;
+        }
+
+        svg {
+          path {
+            fill: map-get($colors, primary);
+          }
+        }
+      }
+
+      &:last-of-type {
+        padding: 0 2.5rem;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .follow {
+    width: 100vw;
+    min-width: unset;
+    height: 100vh;
+    border-radius: 0;
+
+    &__wrapper {
+      max-height: 35rem;
+    }
+  }
+}

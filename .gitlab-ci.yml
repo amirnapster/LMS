@@ -1,0 +1,15 @@
+image: node:16-alpine
+
+stages:
+  - update-dev
+
+deploy:
+  stage: update-dev
+  only:
+    - dev
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+  script:
+    - echo "$DevEnv" >> .env.production
+    - npm i -g @liara/cli@3
+    - liara deploy --app rasmiotest --api-token $TOKEN --detach

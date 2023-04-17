@@ -1,0 +1,84 @@
+.introduce {
+  position: relative;
+  padding: 17rem 0;
+
+  [data-selector='backdrop'] {
+    position: absolute;
+    width: 100%;
+    z-index: 000;
+    filter: blur(100px);
+  }
+  [data-selector='title'] {
+    z-index: 100;
+    h2 {
+      font-size: 4.5rem;
+      font-weight: map-get($font-weights, 900);
+      color: map-get($colors, white);
+    }
+    [data-selector='quot'] {
+      transform: scale(2);
+      margin-inline-start: 1rem;
+      path {
+        fill: map-get($colors, secondary);
+      }
+    }
+  }
+  &__card {
+    align-self: end;
+    padding: 3rem;
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0px 60px 60px -60px rgba(13, 114, 255, 0.3);
+    backdrop-filter: blur(30px);
+    border-radius: 48px;
+
+    [data-selector='header-svg'] {
+      width: 2rem;
+      height: 2rem;
+    }
+
+    [data-selector='header-title'] {
+      margin-inline-start: 0.5rem;
+      font-size: 1.5rem;
+      font-weight: map-get($font-weights, 600);
+    }
+    p {
+      font-weight: map-get($font-weights, 700);
+      line-height: 32px;
+      margin: 1rem 0;
+    }
+    [data-selector='description'] {
+      width: 90%;
+    }
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .introduce {
+    padding: 10rem 0;
+    [data-selector='title'] {
+      padding: 0 2rem;
+      h2 {
+        font-size: 3rem;
+        font-weight: map-get($font-weights, 800);
+      }
+    }
+
+    &__card {
+      width: 90%;
+      padding: 2rem;
+      p {
+        width: 70%;
+      }
+      [data-selector='description'] {
+        font-weight: map-get($font-weights, 400);
+        line-height: 32px;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-only(sm) {
+  .introduce {
+    padding: 4rem 0;
+  }
+}

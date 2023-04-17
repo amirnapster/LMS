@@ -1,0 +1,130 @@
+@mixin common-styles {
+  position: relative;
+  height: 30px;
+  width: 30px;
+  padding: 0.3rem;
+  box-shadow: (0px 1px 2px rgba(0, 0, 0, 0.4));
+}
+
+.mostViewed {
+  margin-bottom: 1.5rem;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.78rem;
+    svg {
+      margin: 0.5rem;
+    }
+
+    h2 {
+      font-size: 1rem;
+    }
+  }
+
+  &__table {
+    background-color: map-get($colors, white);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
+
+    &--row {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid rgba(21, 22, 23, 0.05);
+    }
+
+    &--btn {
+      background-color: map-get($colors, white);
+      padding: 0;
+    }
+
+    &--col {
+      font-size: map-get($font-sizes, 3);
+      color: map-get($colors, text-2);
+      text-align: start;
+
+      span {
+        font-size: inherit;
+        color: map-get($colors, text-1);
+      }
+
+      p {
+        font-size: map-get($font-sizes, 3);
+        color: map-get($colors, primary);
+      }
+    }
+    &--graph {
+      text-align: end;
+      [data-selector='graph-btn'] {
+        svg {
+          margin-inline-end: 0.5rem;
+        }
+      }
+      [data-selector='graph-lock-btn'] {
+        img {
+          padding: 0.25rem;
+          background: linear-gradient(315deg, #e13019 14.64%, #ec8078 85.36%);
+          box-shadow: 0px 0px 6px rgba(232, 66, 44, 0.8);
+          margin-inline-end: 0.5rem;
+          border-radius: 50%;
+        }
+      }
+    }
+
+    &--img {
+      [data-selector='personImg'] {
+        @include common-styles();
+        border-radius: 50%;
+
+        img {
+          border-radius: 50%;
+        }
+      }
+
+      [data-selector='companyImg'] {
+        @include common-styles();
+      }
+
+      p {
+        color: map-get($colors, primary);
+        font-size: map-get($font-sizes, 3);
+        text-align: start;
+        margin-inline-end: 0.75rem;
+      }
+    }
+  }
+}
+
+/* ------------------------------------ MOBILE RESPONSIVE --------------------------------------- */
+
+@include media-breakpoint-down(md) {
+  .mostViewed {
+    &__table {
+      &--row {
+        padding: 0.75rem 1rem;
+        gap: 0.5rem;
+      }
+      &--graph {
+        text-align: start;
+      }
+      &--col {
+        margin-inline-start: 2.3rem;
+        margin-block-end: 0.5rem;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-only(sm) {
+  .mostViewed {
+    &__table {
+      &--row {
+        padding: 0.75rem 1rem;
+        gap: 0.5rem;
+      }
+    }
+  }
+}

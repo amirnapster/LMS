@@ -1,0 +1,24 @@
+type: object
+name: AboutUsEmployee
+label: Employee
+labelField: name
+thumbnail: https://assets.stackbit.com/components/models/thumbnails/default.png
+groups:
+  - aboutEmployeeComponent
+fields:
+  - type: string
+    name: name
+    label: Name
+    default: امیر محبعلی نژاد
+  - type: string
+    name: role
+    label: Role
+    default: بیکار
+  - type: string
+    name: url
+    label: Linkedin
+    default:
+  - type: image
+    name: src
+    label: Image
+    default:

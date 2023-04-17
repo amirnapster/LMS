@@ -1,0 +1,59 @@
+.card {
+  width: 224px;
+  height: 370px;
+  margin: 0 0.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  flex: 0 0 auto;
+  background-color: map-get($colors, primary);
+  position: relative;
+  overflow: hidden;
+
+  &--img {
+    width: 100%;
+  }
+
+  &--title {
+    color: map-get($colors, white);
+    font-family: 'Yekan Bakh FaNum';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 1.25rem;
+    line-height: 40px;
+    text-align: right;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+
+  &--subTitle {
+    font-family: 'Yekan Bakh FaNum';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 2rem;
+    text-align: right;
+    color: map-get($colors, white);
+    position: absolute;
+    top: 3.5rem;
+    right: 1rem;
+  }
+
+  &--linkedin {
+    background-color: white;
+    width: 26px;
+    position: absolute;
+    right: 0.5rem;
+    top: 35%;
+    border: 1px solid map-get($colors, white);
+    padding: 3px 0.75px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5rem;
+    z-index: 200;
+  }
+}

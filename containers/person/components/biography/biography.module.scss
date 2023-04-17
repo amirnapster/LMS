@@ -1,0 +1,117 @@
+.biography {
+  width: 100%;
+  margin-block: 1.5rem;
+  [data-selector='card-content'] {
+    margin-block: 1rem;
+  }
+  &__row {
+    row-gap: 1rem;
+    margin-block: 2rem;
+
+    &:first-of-type {
+      margin-block-start: 0;
+    }
+    &:last-of-type {
+      margin-block-end: 0;
+    }
+    &--infoBox {
+      display: flex;
+      flex-direction: column;
+      p {
+        font-style: normal;
+        font-weight: map-get($font-weights, 400);
+        font-size: map-get($font-sizes, 3);
+        line-height: 150%;
+        color: map-get($colors, text-color-600);
+        margin-block-end: 0.5rem;
+      }
+      div {
+        display: flex;
+        align-items: center;
+        column-gap: 0.5rem;
+        span {
+          font-style: normal;
+          font-weight: map-get($font-weights, 400);
+          font-size: map-get($font-sizes, 3);
+          line-height: 150%;
+          color: map-get($colors, text-color-800);
+          display: flex;
+          align-items: center;
+        }
+        [data-selector='copy'] {
+          width: 32px;
+          height: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          svg {
+            min-width: 18px;
+          }
+        }
+      }
+    }
+    [data-selector='title'] {
+      font-style: normal;
+      font-weight: map-get($font-weights, 700);
+      font-size: map-get($font-sizes, 5);
+      line-height: 150%;
+      color: map-get($colors, text-color-800);
+    }
+    [data-selector='socials'] {
+      button {
+        background-color: unset;
+        display: flex;
+        transition: all 0.3s;
+        margin-inline-end: 2rem;
+        &:hover {
+          background-color: map-get($colors, primary-200);
+          transition: all 0.3s;
+        }
+
+        > svg {
+          height: 1.5rem;
+          aspect-ratio: 1/1;
+        }
+      }
+    }
+    &--content {
+      font-weight: map-get($font-weights, 400);
+      font-size: map-get($font-sizes, 4);
+      color: map-get($colors, text-color-600);
+    }
+    [data-selector='ellpsis'] {
+      > div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .biography {
+    &__row {
+      row-gap: 1rem;
+      &--infoBox {
+        margin-block-end: 1rem;
+
+        &:last-of-type {
+          margin-block-end: 0;
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .biography {
+    &__row {
+      &--infoBox {
+        &:nth-last-of-type(-n + 2) {
+          margin-block-end: 0;
+        }
+      }
+    }
+  }
+}

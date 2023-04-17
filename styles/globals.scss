@@ -1,0 +1,382 @@
+@import "./utilities";
+@import "../public/fonts/fonts";
+@import "./leaflet.css";
+/* -------------------  Rasmio Palette  ---------------- */
+/* test */
+/* --------- Main : --------- */
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  line-height: 1.6;
+  scroll-behavior: smooth !important;
+  background-color: #ebf3ff;
+}
+
+a {
+  color: inherit;
+  text-decoration: none !important;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+
+  &::selection {
+    background-color: map-get($colors, primary);
+    color: #fff;
+  }
+}
+
+body {
+  &::-webkit-scrollbar {
+    scroll-behavior: smooth;
+    width: 12px;
+    background-color: #e4e4e4;
+  }
+
+  &::-webkit-scrollbar-track {
+    padding: 0.25rem;
+    background-color: map-get($colors, primary-100);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: map-get($colors, gray-200);
+    border-radius: 16px;
+    min-height: 80px;
+
+    &:hover {
+      background-color: map-get($colors, primary-400);
+    }
+  }
+}
+
+input,
+textarea,
+button,
+select,
+a {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.blur-bg {
+  filter: blur(3px);
+  pointer-events: none;
+}
+
+.stop-scrolling {
+  overflow-y: hidden;
+}
+
+.scrollbar-width {
+  margin-inline-start: 12px;
+
+  @include media-breakpoint-down(md) {
+    margin-inline-start: 0;
+  }
+}
+
+select {
+  appearance: none;
+  background-image: url("/svg/search/arrow-down.svg");
+  background-size: 0.7rem;
+  background-repeat: no-repeat;
+  background-position-x: 5%;
+  background-position-y: 50%;
+  cursor: pointer;
+}
+
+tspan.highcharts-text-outline {
+  display: none;
+}
+
+/* امیر گدازگر برای ریسپانسیو کردن صفحه شرکت این رو گذاشته بود اما استیکی بودن تو پرایسینگ رو خراب می کرد!
+#__next {
+  overflow: hidden;
+} */
+.MuiToolbar-regular {
+  min-height: 0 !important;
+}
+/*  just for industry yellow terms searched */
+.yellow {
+  background: yellow;
+}
+.OrganizeLine svg {
+  margin-bottom: -6px;
+  margin-inline-start: 3px;
+}
+
+.headerGridAfter {
+  /* padding-top: 0!important;
+  padding-bottom: 0!important; */
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  top: 0px !important;
+  width: 100%;
+  padding: 0 !important;
+  transition-property: width;
+  transition-duration: 1s;
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
+    0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+}
+
+.Mui-disabled svg,
+.Mui-disabled img,
+.Mui-disabled {
+  filter: grayscale(100%);
+  transition-property: all;
+  transition-duration: 1s;
+}
+
+.container {
+  contain: paint;
+  //   @include media-breakpoint-only(sm) {
+  //     max-width: 576px;
+  //     box-sizing: border-box;
+  //   }
+
+  //   @include media-breakpoint-only(md) {
+  //     max-width: 768px;
+  //     box-sizing: border-box;
+  //   }
+
+  //   @include media-breakpoint-only(lg) {
+  //     max-width: 992px;
+  //     box-sizing: border-box;
+  //   }
+
+  //   @include media-breakpoint-only(xl) {
+  //     max-width: 1200px;
+  //     box-sizing: border-box;
+  //   }
+
+  [data-selector="campaign-wrapper"] {
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+    width: 100%;
+    display: flex;
+    background-color: #2b2d42;
+
+    button {
+      width: 100%;
+      border-radius: unset;
+      padding: unset;
+
+      div {
+        background-image: url("/svg/campaign/campaign.gif");
+        background-color: #00985b;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 64px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .MuiGrid-spacing-xs-2 {
+    margin: 0 !important;
+  }
+}
+
+.rotate180 {
+  rotate: 180deg;
+}
+
+.rc-select,
+.rc-select--active {
+  &__control {
+    background-color: map-get($colors, white-2);
+    min-height: 51px !important;
+    border-width: 1px !important;
+    border-radius: 12px !important;
+    border-color: black !important;
+
+    &--is-focused {
+      box-shadow: 0px 0px 4px rgba(13, 114, 255, 0.6) !important;
+      border-color: #0d72ff !important;
+    }
+
+    @include formStatus();
+  }
+
+  &__menu {
+    border: 1px solid #0d72ff !important;
+    border-radius: 12px !important;
+    box-shadow: 0px 0px 4px rgba(13, 114, 255, 0.6) !important;
+    overflow: hidden;
+
+    &-list {
+      padding: 0 !important;
+    }
+  }
+
+  &__indicators {
+    display: none !important;
+  }
+}
+
+.rc-select {
+  &__value {
+    &-container {
+      background-image: url("/svg/arrow-down.svg");
+      background-position-x: 1.5%;
+      background-position-y: 50%;
+      background-size: 1.75rem;
+      background-repeat: no-repeat;
+      cursor: pointer;
+    }
+  }
+}
+
+.customers__carousel {
+  .slider-wrapper {
+    ul {
+      gap: 1.5rem;
+      padding-bottom: 6rem;
+      li {
+        flex: 0 0 240px;
+        max-width: 240px;
+        min-width: 240px !important;
+
+        > * {
+          height: 90%;
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .customers__carousel {
+    .slider-wrapper {
+      ul {
+        gap: 1rem;
+        padding-bottom: 5rem;
+        li {
+          flex: 0 0 180px;
+          max-width: 180px;
+          min-width: 180px !important;
+
+          > * {
+            height: 90%;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .container {
+    [data-selector="campaign-wrapper"] {
+      button {
+        div {
+          background-size: contain;
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-only(md) {
+  .container {
+    [data-selector="campaign-wrapper"] {
+      button {
+        div {
+          height: 40px;
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .container {
+    [data-selector="campaign-wrapper"] {
+      button {
+        div {
+          background-image: url("/svg/campaign/campaign-mobile.gif");
+          height: 48px;
+        }
+      }
+    }
+  }
+}
+
+.graph-background {
+  background-image: url("/svg/staticPage/graph-background.svg");
+  min-height: 650px;
+}
+
+.advanced-search-background {
+  background-image: url("/svg/staticPage/advanced-search-background.svg");
+  min-height: 670px;
+}
+
+.ads-background {
+  background-image: url("/svg/staticPage/ads-background.svg");
+  min-height: 650px;
+}
+
+.persons-background {
+  background-image: url("/svg/staticPage/persons-background.svg");
+  min-height: 650px;
+}
+
+.companies-background {
+  background-image: url("/svg/staticPage/companies-background.svg");
+  min-height: 600px;
+}
+
+.industry-background {
+  background-image: url("/svg/staticPage/industry-background.svg");
+  min-height: 600px;
+}
+
+.api-background {
+  background-image: url("/svg/staticPage/api-background.svg");
+  min-height: 650px;
+}
+
+@include media-breakpoint-down(sm) {
+  .graph-background {
+    background-image: url("/svg/staticPage/graph-background-mobile.svg");
+    min-height: 530px;
+  }
+
+  .advanced-search-background {
+    background-image: url("/svg/staticPage/advanced-search-background-mobile.svg");
+    min-height: 600px;
+  }
+
+  .ads-background {
+    background-image: url("/svg/staticPage/ads-background-mobile.svg");
+    min-height: 600px;
+  }
+
+  .persons-background {
+    background-image: url("/svg/staticPage/persons-background-mobile.svg");
+    min-height: 600px;
+  }
+
+  .companies-background {
+    background-image: url("/svg/staticPage/companies-background-mobile.svg");
+    min-height: 580px;
+  }
+
+  .api-background {
+    background-image: url("/svg/staticPage/api-background-mobile.svg");
+    min-height: 670px;
+  }
+}

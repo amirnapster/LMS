@@ -1,0 +1,142 @@
+@mixin common-spacing($margin: 1.5) {
+  &__container {
+    > div {
+      > * {
+        margin-inline: #{$margin}rem;
+      }
+    }
+  }
+}
+
+.company {
+  &__ads {
+    position: relative;
+
+    &--c {
+      margin-block-start: 1.5rem;
+    }
+
+    &--m {
+      display: none;
+      position: fixed;
+      bottom: 80px;
+      height: 60px;
+      border-radius: 0;
+      padding-inline: 0.25rem;
+      overflow: visible;
+
+      img {
+        border-radius: 0;
+        height: inherit;
+      }
+
+      [data-selector='close'] {
+        position: absolute;
+        top: -24px;
+        background-color: unset;
+        right: 1rem;
+        color: black;
+        background-color: map-get($colors, primary-100);
+        padding: 0 0.5rem;
+        display: flex;
+        border-radius: 0.5rem 0.5rem 0 0;
+      }
+    }
+
+    &--a {
+      display: none;
+      margin-block-start: 1.5rem;
+
+      button {
+        margin-inline: 0.5rem;
+        height: 180px;
+      }
+    }
+
+    &--ab {
+      button {
+        margin-block-end: 1.5rem;
+      }
+    }
+    &--bWrapperSubTab {
+      position: sticky;
+      top: 200px;
+    }
+    &--bWrapper {
+      position: sticky;
+      top: 150px;
+    }
+    &--b {
+      display: none;
+      margin-block: 1.5rem;
+
+      > * {
+        width: auto;
+        margin-inline: 0.5rem;
+        height: 215px;
+
+        button {
+          height: inherit;
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-between(md, xxl) {
+  .company {
+    @include common-spacing();
+  }
+}
+
+@include media-breakpoint-only(md) {
+  .company {
+    @include common-spacing(1);
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .company {
+    @include common-spacing(0);
+  }
+}
+
+@include media-breakpoint-down(xl) {
+  .company {
+    &__ads {
+      &--c {
+        display: none;
+      }
+
+      &--a {
+        display: flex;
+      }
+
+      &--b {
+        display: flex;
+      }
+
+      &--ab {
+        display: none;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .company {
+    &__ads {
+      &--a {
+        display: none;
+      }
+
+      &--b {
+        display: none;
+      }
+
+      &--m {
+        display: block;
+      }
+    }
+  }
+}

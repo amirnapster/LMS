@@ -1,0 +1,91 @@
+.blockByVisit {
+  position: relative;
+  border-radius: 1.5rem;
+  padding: 23px 80px;
+  height: 111px;
+  color: map-get($colors, simple-white);
+  background-color: map-get($colors, black);
+  box-shadow: 0px 16px 32px rgba(0, 0, 0, 0.25);
+
+  &__container {
+    position: fixed;
+    inset-block-end: 2rem;
+    z-index: 500;
+  }
+
+  &__text {
+    border-inline-end: 1px solid white;
+    padding-inline-end: 5px;
+    margin-inline-end: 0.5rem;
+    max-width: 500px;
+
+    &--remaining {
+      font-size: 1.2rem;
+      font-weight: map-get($font-weights, 700);
+      color: map-get($colors, secondary);
+    }
+  }
+
+  &__actions {
+    [data-selector='free'],
+    [data-selector='buy'] {
+      span {
+        font-size: map-get($font-sizes, 3);
+        font-weight: map-get($font-weights, 700);
+      }
+
+      svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-inline-start: 0.5rem;
+      }
+    }
+  }
+
+  > svg {
+    position: absolute;
+    cursor: pointer;
+    inset-block-start: 1rem;
+    inset-inline-end: 1rem;
+  }
+}
+
+@include media-breakpoint-between(lg, xxl) {
+  .blockByVisit {
+    margin-inline: 1.5rem;
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .blockByVisit {
+    padding: 1rem;
+    height: auto;
+    flex-direction: column;
+    margin-inline: 0.5rem;
+
+    &__container {
+      inset-block-end: 6rem;
+    }
+
+    &__actions {
+      align-self: flex-end;
+    }
+
+    &__text {
+      align-self: flex-start;
+      font-size: map-get($font-sizes, 4);
+      border-inline-end: 0;
+      padding-inline-end: 1.5rem;
+      padding-block-end: 1rem;
+      margin: 0;
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .blockByVisit {
+    &__container {
+      inset-block-start: 0.5rem;
+    }
+  }
+}

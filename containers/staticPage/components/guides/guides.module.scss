@@ -1,0 +1,174 @@
+.guides {
+  padding: 0 1rem;
+  margin: 3rem 0;
+  row-gap: 3rem;
+
+  &__container {
+    margin-block-start: 6rem;
+  }
+
+  &__usage {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+
+    &--title {
+      font-weight: map-get($font-weights, 800);
+      font-size: 2.5rem;
+      color: map-get($colors, text-color-800);
+    }
+
+    &--description {
+      font-size: 1.12rem;
+      color: map-get($colors, text-color-600);
+    }
+
+    &--note {
+      font-weight: map-get($font-weights, 600);
+      font-size: map-get($font-sizes, 500);
+      color: map-get($colors, text-color-600);
+    }
+
+    &--action {
+      font-weight: map-get($font-weights, 600);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: unset;
+      padding: 0 0 0.25rem 0;
+    }
+  }
+
+  &__img {
+    display: flex;
+    justify-content: center;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  [data-selector='guides-video'] {
+    max-width: 534.5px;
+    height: 270px;
+    position: relative;
+  }
+
+  &__feature {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
+
+    &--title {
+      font-weight: map-get($font-weights, 800);
+      font-size: 2.5rem;
+      color: map-get($colors, text-color-800);
+      margin-block-end: 2rem;
+    }
+
+    [data-selector='subscription'] {
+      padding: 0.75rem 1.75rem;
+      border-radius: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      span {
+        font-weight: map-get($font-weights, 700);
+        font-size: map-get($font-sizes, 3);
+      }
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    [data-selector='download'] {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-radius: unset;
+      padding: 0 0 0.25rem 0;
+
+      span {
+        font-weight: map-get($font-weights, 600);
+      }
+    }
+  }
+
+  [data-selector='guides-action'] {
+    margin-block-start: 2rem;
+  }
+
+  [data-selector='check-list'] {
+    svg {
+      flex: 0 0 24px;
+    }
+  }
+}
+
+@include media-breakpoint-down(xxl) {
+  .guides {
+    &__usage {
+      &--title {
+        font-size: map-get($font-sizes, 7);
+      }
+
+      &--description {
+        font-size: map-get($font-sizes, 4);
+      }
+    }
+
+    &__feature {
+      &--title {
+        font-size: map-get($font-sizes, 7);
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .guides {
+    &__img {
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .guides {
+    &__usage,
+    &__feature {
+      &--title {
+        font-size: map-get($font-sizes, 6);
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .guides {
+    [data-selector='guides-video'] {
+      margin: 0 auto;
+    }
+  }
+}
+
+@include media-breakpoint-only(sm) {
+  .guides {
+    [data-selector='guides-video'] {
+      max-width: unset;
+      height: 200px;
+      width: 368px;
+    }
+    [data-selector='guides-action'] {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+}

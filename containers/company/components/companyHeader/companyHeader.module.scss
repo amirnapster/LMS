@@ -1,0 +1,13 @@
+.CompanyHeaderSticky {
+  width: 100%;
+  position: sticky;
+  top: 69px;
+  z-index: 200;
+  padding-inline: 0 !important;
+}
+
+@include media-breakpoint-down(xl) {
+  .CompanyHeaderSticky {
+    top: 64px;
+  }
+}

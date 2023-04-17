@@ -1,0 +1,67 @@
+.select {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  @include clearFieldIcon();
+
+  [data-selector='field-required'] {
+    &::after {
+      content: '*';
+      color: red;
+      position: relative;
+      inset-block-start: -0.5rem;
+      inset-inline-start: 0.125rem;
+    }
+  }
+
+  select {
+    background-image: url('/svg/arrow-down.svg');
+    background-position-x: 1.5%;
+    background-size: 1.75rem;
+    max-height: 48px;
+    background-color: map-get($colors, white);
+    border: 1px solid black;
+    border-radius: 12px;
+    width: 100%;
+    padding: 0.7rem 0.85rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    &:focus {
+      outline: none;
+    }
+
+    @include formStatus(0);
+
+    option {
+      background-color: white;
+    }
+  }
+  &--selected {
+    &--clear {
+      select {
+        background-image: none;
+        transition: all 0.2s ease;
+      }
+    }
+
+    select {
+      transition: all 0.2s ease;
+    }
+  }
+  &--error {
+    &--message {
+      @include fieldsError();
+    }
+    select {
+      border: 1px solid red !important;
+      box-shadow: 0px 0px 4px rgba(232, 66, 44, 0.6);
+    }
+  }
+  &--suffix {
+    position: absolute;
+    inset-inline-end: 1rem;
+    inset-block-start: 53%;
+  }
+}

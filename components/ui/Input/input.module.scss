@@ -1,0 +1,85 @@
+@mixin common-styles {
+  position: absolute;
+  inset-block-start: 35%;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  @include clearFieldIcon();
+
+  [data-selector='field-required'] {
+    &::after {
+      content: '*';
+      color: map-get($colors, secondary);
+      position: relative;
+      inset-block-start: -0.5rem;
+      inset-inline-start: 0.125rem;
+    }
+  }
+
+  [data-selector='prefix'] {
+    @include common-styles();
+    inset-inline-start: 0.85rem;
+  }
+
+  [data-selector='suffix'] {
+    @include common-styles();
+    inset-inline-end: 0.85rem;
+  }
+
+  &__wrapper {
+    position: relative;
+
+    input {
+      max-height: 48px;
+      background-color: map-get($colors, white);
+      width: 100%;
+      padding: 0.7rem 0.85rem;
+      border-radius: 12px;
+      border: 1px solid black;
+      outline: none;
+      font-size: 1rem;
+
+      @include formStatus();
+
+      &::placeholder {
+        font-size: 0.85rem;
+        overflow: visible;
+        //   color: ;
+      }
+    }
+
+    &--error {
+      input {
+        border: 1px solid map-get($colors, secondary) !important;
+        box-shadow: 0px 0px 4px rgba(232, 66, 44, 0.6);
+      }
+    }
+
+    &--readonly {
+      input {
+        background-color: #dbdbdb;
+        color: gray;
+      }
+    }
+
+    &:has([data-selector='prefix']) {
+      input {
+        padding-inline-start: 2.75rem;
+      }
+    }
+
+    &:has([data-selector='suffix']) {
+      input {
+        padding-inline-end: 2.75rem;
+      }
+    }
+  }
+
+  &--error {
+    @include fieldsError();
+  }
+}

@@ -1,0 +1,339 @@
+@use 'sass:list' as list;
+@use '../vars' as *;
+@use '../mixins' as *;
+
+// margins and paddings
+@each $space in $spaceAmounts {
+  @if $space==auto {
+    .m-#{$space} {
+      margin: #{$space};
+    }
+
+    .mx-#{$space} {
+      margin-inline-end: #{$space};
+      margin-inline-start: #{$space};
+    }
+
+    .my-#{$space} {
+      margin-top: #{$space};
+      margin-bottom: #{$space};
+    }
+
+    .ml-#{$space} {
+      margin-inline-end: #{$space};
+    }
+
+    .me-#{$space} {
+      margin-inline-end: #{$space};
+    }
+
+    .mr-#{$space} {
+      margin-inline-start: #{$space};
+    }
+
+    .ms-#{$space} {
+      margin-inline-start: #{$space};
+    }
+
+    .mb-#{$space} {
+      margin-bottom: #{$space};
+    }
+
+    .mt-#{$space} {
+      margin-top: #{$space};
+    }
+  } @else if($space== 'half') {
+    .m-#{$space} {
+      margin: 0.5rem;
+    }
+
+    .mx-#{$space} {
+      margin-inline-end: 0.5rem;
+      margin-inline-start: 0.5rem;
+    }
+
+    .my-#{$space} {
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .ml-#{$space} {
+      margin-inline-end: 0.5rem;
+    }
+
+    .me-#{$space} {
+      margin-inline-end: 0.5rem;
+    }
+
+    .mr-#{$space} {
+      margin-inline-start: 0.5rem;
+    }
+
+    .ms-#{$space} {
+      margin-block-start: 0.5rem;
+    }
+
+    .mb-#{$space} {
+      margin-bottom: 0.5rem;
+    }
+
+    .mt-#{$space} {
+      margin-top: 0.5rem;
+    }
+
+    .p-#{$space} {
+      padding: 0.5rem !important;
+    }
+
+    .px-#{$space} {
+      padding-inline-end: 0.5rem;
+      padding-inline-start: 0.5rem;
+    }
+
+    .py-#{$space} {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .pl-#{$space} {
+      padding-inline-end: 0.5rem;
+    }
+
+    .pe-#{$space} {
+      padding-inline-end: 0.5rem;
+    }
+
+    .pr-#{$space} {
+      padding-inline-start: 0.5rem;
+    }
+
+    .ps-#{$space} {
+      padding-inline-start: 0.5rem;
+    }
+
+    .pb-#{$space} {
+      padding-bottom: 0.5rem;
+    }
+
+    .pt-#{$space} {
+      padding-top: 0.5rem;
+    }
+  } @else {
+    .m-#{$space} {
+      margin: #{$space}rem !important;
+    }
+
+    .mx-#{$space} {
+      margin-inline-end: #{$space}rem;
+      margin-inline-start: #{$space}rem;
+    }
+
+    .my-#{$space} {
+      margin-top: #{$space}rem;
+      margin-bottom: #{$space}rem;
+    }
+
+    .ml-#{$space} {
+      margin-inline-end: #{$space}rem;
+    }
+
+    .me-#{$space} {
+      margin-inline-end: #{$space}rem;
+    }
+
+    .mr-#{$space} {
+      margin-inline-start: #{$space}rem;
+    }
+
+    .ms-#{$space} {
+      margin-block-start: #{$space}rem;
+    }
+
+    .mb-#{$space} {
+      margin-bottom: #{$space}rem;
+    }
+
+    .mt-#{$space} {
+      margin-top: #{$space}rem;
+    }
+
+    .p-#{$space} {
+      padding: #{$space}rem !important;
+    }
+
+    .px-#{$space} {
+      padding-inline-end: #{$space}rem;
+      padding-inline-start: #{$space}rem;
+    }
+
+    .py-#{$space} {
+      padding-top: #{$space}rem;
+      padding-bottom: #{$space}rem;
+    }
+
+    .pl-#{$space} {
+      padding-inline-end: #{$space}rem;
+    }
+
+    .pe-#{$space} {
+      padding-inline-end: #{$space}rem;
+    }
+
+    .pr-#{$space} {
+      padding-inline-start: #{$space}rem;
+    }
+
+    .ps-#{$space} {
+      padding-inline-start: #{$space}rem;
+    }
+
+    .pb-#{$space} {
+      padding-bottom: #{$space}rem;
+    }
+
+    .pt-#{$space} {
+      padding-top: #{$space}rem;
+    }
+  }
+}
+
+// grid columns
+@each $key, $breakpoint in $breakpoints {
+  @if $breakpoint == 'span' {
+    @for $i from 0 through $grid__cols {
+      @if $i == 0 {
+        .col-#{$i} {
+          display: none !important;
+        }
+      } @else {
+        .col-#{$i} {
+          flex: 0 0 (100 / ($grid__cols / $i)) * 1%;
+          max-width: (100 / ($grid__cols / $i)) * 1%;
+        }
+      }
+    }
+  } @else {
+    @media screen and (min-width: $breakpoint) {
+      @for $i from 0 through $grid__cols {
+        @if $i == 0 {
+          .col-#{$key}-#{$i} {
+            display: none !important;
+          }
+        } @else {
+          .col-#{$key}-#{$i} {
+            flex: 0 0 (100 / ($grid__cols / $i)) * 1%;
+            max-width: (100 / ($grid__cols / $i)) * 1%;
+          }
+        }
+      }
+    }
+  }
+}
+
+// alignments
+@each $align in $alignments {
+  .justify-#{$align} {
+    justify-content: #{$align};
+  }
+
+  .items-#{$align} {
+    align-items: #{$align};
+  }
+
+  .justify-items-#{$align} {
+    justify-items: #{$align};
+  }
+
+  .content-#{$align} {
+    align-content: #{$align};
+  }
+  .align-self-#{$align} {
+    align-self: #{$align};
+  }
+}
+
+@each $textAlign in $textAlignments {
+  .text-#{$textAlign} {
+    text-align: #{$textAlign};
+  }
+}
+
+// flex
+@each $directions in $flexDirections {
+  .flex-#{$directions} {
+    flex-direction: #{$directions} !important;
+  }
+}
+
+@each $state in $flexStates {
+  .flex-#{$state} {
+    flex-wrap: #{$state} !important;
+  }
+}
+
+// contain
+@each $contain in $containProps {
+  .contain-#{$contain} {
+    contain: #{$contain} !important;
+  }
+}
+
+// display
+@each $display in $displayProps {
+  .d-#{$display} {
+    display: #{$display};
+  }
+}
+
+@each $key in $displayBreakpoints {
+  $index: list.index($displayBreakpoints, $key);
+  @if ($index > 1) {
+    @include media-breakpoint-only($key) {
+      .d-#{$key}-none {
+        display: none;
+      }
+    }
+  } @else if ($index == 1) {
+    @include media-breakpoint-down($key) {
+      .d-#{$key}-none {
+        display: none;
+      }
+    }
+  }
+}
+
+// gap
+
+@each $key, $gap in $gaps {
+  .gap-#{$key} {
+    gap: #{$gap}rem;
+  }
+}
+
+// sizing
+@each $size in $sizePercents {
+  $val: $size + 0%;
+  .w-#{$size} {
+    width: $val !important;
+  }
+
+  .mw-#{$size} {
+    max-width: $val !important;
+  }
+
+  .h-#{$size} {
+    height: $val !important;
+  }
+
+  .mh-#{$size} {
+    max-height: $val !important;
+  }
+}
+
+// position
+
+@each $position in $positions {
+  .position-#{$position} {
+    position: $position !important;
+  }
+}

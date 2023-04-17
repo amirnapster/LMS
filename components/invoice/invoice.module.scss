@@ -1,0 +1,123 @@
+@mixin common-styles {
+  .invoice {
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    border-radius: unset;
+
+    &__header {
+      padding: 3rem 1.5rem 0.5rem 1.5rem;
+    }
+  }
+}
+
+.invoice {
+  width: 35rem;
+  background-color: map-get($colors, white);
+  border-radius: 0.75rem;
+  margin: 0 1rem;
+
+  &__header {
+    padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+    p {
+      font-weight: 800;
+      font-size: 1.25rem;
+      text-align: right;
+      color: map-get($colors, text-1);
+    }
+    button {
+      all: unset;
+      cursor: pointer;
+    }
+  }
+  &__subheader {
+    padding: 0.5rem;
+
+    button {
+      display: flex;
+      align-items: center;
+      width: 10.5rem;
+      padding: 0.7rem;
+      cursor: pointer;
+      color: black;
+      span {
+        margin-inline-start: 0.5rem;
+        font-weight: 400;
+      }
+      svg {
+        fill: black;
+      }
+    }
+    [data-selector='selected'] {
+      background: linear-gradient(277.31deg, #0065f2 0%, #7298ff 100%);
+      border-radius: 12px;
+      z-index: 100;
+      color: #fff;
+      svg {
+        fill: #fff;
+      }
+    }
+  }
+  &--loading {
+    padding: 1.5rem;
+  }
+  &--ready {
+    padding: 1.5rem;
+
+    p {
+      text-align: center;
+    }
+
+    [data-selector='pdf'] {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0px 6px 12px rgba(0, 101, 242, 0.4);
+      margin-inline-start: 0.5rem;
+    }
+
+    [data-selector='jpg'] {
+      width: 100%;
+      border: 2px solid #0d72ff;
+      border-radius: 12px;
+      color: #0d72ff;
+      margin-inline-end: 0.5rem;
+      background-color: #fff;
+    }
+  }
+}
+
+// =================================================================
+
+// Helper
+
+.form {
+  padding: 0.5rem 1.5rem;
+
+  &--btn {
+    width: 100%;
+    padding: 12px 16px;
+    box-shadow: 0px 6px 12px rgba(0, 101, 242, 0.4);
+    border-radius: 12px;
+    margin: 1rem auto;
+  }
+
+  &--search {
+    &--input {
+      [data-selector='suffix'] {
+        inset-block-start: 30%;
+      }
+    }
+  }
+
+  label {
+    margin-top: 0.5rem;
+  }
+}
+
+@include media-breakpoint-only(md) {
+  @include common-styles();
+}
+
+@include media-breakpoint-only(sm) {
+  @include common-styles();
+}

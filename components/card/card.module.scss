@@ -1,0 +1,98 @@
+.card {
+  padding: 1.5rem;
+  background-color: map-get($colors, white);
+  border-radius: 1.5rem;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+
+    &--title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      div {
+        display: flex;
+        align-items: center;
+      }
+
+      span {
+        font-weight: map-get($font-weights, 700);
+        font-size: 20px;
+        color: map-get($colors, text-color-800);
+      }
+    }
+
+    &--source {
+      background-color: unset;
+      font-weight: map-get($font-weights, 600);
+      color: map-get($colors, primary);
+    }
+
+    &--edit {
+      background-color: unset;
+      font-weight: map-get($font-weights, 600);
+      color: map-get($colors, primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem;
+    }
+
+    &--news {
+      background-color: unset;
+      color: map-get($colors, primary);
+      font-weight: 600;
+      display: flex;
+      gap: 0.5rem;
+      border-bottom: 1px solid map-get($colors, primary);
+      border-radius: 0;
+      padding: 0;
+    }
+  }
+
+  &__content {
+    margin-block-start: 2rem;
+  }
+
+  &--more {
+    background-color: unset;
+    font-weight: map-get($font-weights, 600);
+    color: map-get($colors, primary);
+    margin: 0 auto;
+  }
+
+  [data-selector='col'] {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .card {
+    border-radius: unset;
+    padding: 1rem;
+
+    &__content {
+      margin-block-start: 1.5rem;
+    }
+
+    &__header {
+      flex-wrap: wrap;
+
+      &--title {
+        > span:first-of-type {
+          font-size: 1.125rem;
+        }
+      }
+    }
+
+    [data-selector='col'] {
+      &:has(.card__header--edit) {
+        margin-inline-end: auto;
+      }
+    }
+  }
+}

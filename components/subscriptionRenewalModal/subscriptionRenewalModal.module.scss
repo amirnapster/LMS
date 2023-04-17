@@ -1,0 +1,74 @@
+.renewal {
+  max-width: 33.5rem;
+  position: fixed;
+  inset-inline-start: 1.5rem;
+  inset-block-end: 1.5rem;
+  background-color: map-get($colors, simple-white);
+  box-shadow: 0px 16px 32px rgba(0, 0, 0, 0.2);
+  border-radius: 1.5rem;
+  z-index: 100;
+  padding: 1.5rem;
+
+  &__content {
+    gap: 0.5rem;
+    margin-block-start: 1rem;
+
+    > span {
+      font-weight: map-get($font-weights, 400);
+      color: map-get($colors, text-color-900);
+      line-height: 190%;
+
+      span {
+        color: map-get($colors, secondary);
+        margin-inline: 0.25rem;
+      }
+    }
+  }
+
+  &--title {
+    font-weight: map-get($font-weights, 700);
+    font-size: 1.25rem;
+    color: map-get($colors, text-color-900);
+  }
+
+  [data-selector='close'] {
+    background-color: unset;
+    padding: 0;
+    min-width: 3rem;
+    min-height: 3rem;
+    margin-inline-end: -0.5rem;
+    margin-block-start: -0.5rem;
+  }
+
+  [data-selector='upgrade'] {
+    margin-inline-start: auto;
+    margin-block-start: 1rem;
+    padding: 0.75rem 1rem;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .renewal {
+    inset-inline: 1rem;
+    inset-block-end: 1rem;
+    padding: 0.75rem;
+
+    &__content {
+      span {
+        font-size: map-get($font-sizes, 3);
+      }
+
+      img {
+        display: none;
+      }
+    }
+
+    &--title {
+      font-size: 1.125rem;
+    }
+
+    [data-selector='upgrade'] {
+      width: 100%;
+    }
+  }
+}

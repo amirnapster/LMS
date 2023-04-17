@@ -1,0 +1,88 @@
+.pricing {
+  &__layout {
+    position: relative;
+    background-color: rgba(244, 244, 244, 0.8);
+    z-index: 300;
+
+    &--backdrop {
+      width: 100%;
+      margin: 0 !important;
+      padding: 0 !important;
+      filter: blur(80px);
+      position: absolute;
+      inset-inline-end: 0;
+      inset-inline-start: 0;
+      inset-block-start: 0;
+      opacity: 0.2;
+    }
+  }
+
+  &__discount {
+    width: 100%;
+    padding: 1.5rem 2rem;
+    background: transparent;
+    border-radius: 16px;
+    margin-bottom: 2rem;
+
+    [data-selector='pricing-paragraph'] {
+      color: map-get($colors, text-color);
+      font-weight: map-get($font-weights, 700);
+      text-align: center;
+    }
+
+    [data-selector='pricing-more'] {
+      color: map-get($colors, text-color);
+      background-color: map-get($colors, white);
+      padding: 0.85rem;
+      border-radius: 12px;
+      font-weight: map-get($font-weights, 700);
+      text-align: center;
+    }
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .pricing {
+    &__discount {
+      padding: 1.5rem 1rem;
+
+      > * {
+        flex-direction: column;
+      }
+
+      [data-selector='pricing-more'] {
+        padding: 0.5rem 1rem;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-only(sm) {
+  .pricing {
+    &__discount {
+      > * {
+        font-size: map-get($font-sizes, 3);
+
+        > * {
+          font-size: inherit;
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(xxl) {
+  .pricing {
+    &__layout {
+      &--backdrop {
+        width: auto;
+      }
+
+      main {
+        > div {
+          padding: 0 1rem;
+        }
+      }
+    }
+  }
+}

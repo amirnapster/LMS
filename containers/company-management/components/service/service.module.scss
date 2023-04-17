@@ -1,0 +1,77 @@
+.services {
+  position: relative;
+  margin-block: 7.5rem;
+
+  &__img {
+    display: flex;
+    justify-content: flex-end;
+    z-index: 200;
+
+    img {
+      width: 100%;
+      max-width: 440px;
+    }
+  }
+
+  &__service {
+    gap: 0.25rem;
+    margin-block: 2.5rem;
+
+    svg {
+      min-width: 24px;
+    }
+  }
+
+  [data-selector='title'] {
+    font-weight: map-get($font-weights, 800);
+    font-size: 2.5rem;
+    color: map-get($colors, text-color-800);
+  }
+
+  [data-selector='service'] {
+    font-weight: map-get($font-weights, 400);
+    color: map-get($colors, text-color-800);
+  }
+
+  [data-selector='try'] {
+    gap: 0.5rem;
+    margin-inline-start: 2rem;
+
+    button {
+      gap: 0.5rem;
+
+      span {
+        font-weight: map-get($font-weights, 600);
+        color: map-get($colors, simple-white);
+      }
+    }
+  }
+
+  [data-selector='vector'] {
+    position: absolute;
+    inset-inline-end: 50%;
+    inset-block-start: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@include media-breakpoint-down(xxl) {
+  .services {
+    padding: 0 1.5rem;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .services {
+    padding: 0 1rem;
+
+    &__img {
+      justify-content: center;
+      margin-block-end: 3rem;
+    }
+
+    [data-selector='title'] {
+      font-size: map-get($font-sizes, 6);
+    }
+  }
+}

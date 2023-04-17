@@ -1,0 +1,270 @@
+$colors: (
+  bg-color: var(--bg-color, #fff),
+  black: var(--black, #000),
+  white: var(--white, #fff),
+  simple-white: var(--simple-white, #ffffff),
+  dark-matter: var(--dark-matter, #000915),
+  corn-silk: var(--corn-silk, #fff2df),
+  quick-silver: var(--quick-silver, #a6a6a6),
+  gray-matter: var(--gray-matter, #d0cecc),
+  platinum: var(--platinum, #e7e6e6),
+  text-color-900: var(--text-color-900, #000915),
+  text-color-800: var(--text-color-800, #101822),
+  text-color-700: var(--text-color-700, #202730),
+  text-color-600: var(--text-color-600, #30363d),
+  text-color: var(--text-color, #40454b),
+  text-color-400: var(--text-color-400, #505358),
+  text-color-300: var(--text-color-300, #606265),
+  text-color-200: var(--text-color-200, #707173),
+  text-color-100: var(--text-color-100, #808080),
+  gray-900: var(--gray-900, #323232),
+  gray-800: var(--gray-800, #474747),
+  gray-700: var(--gray-700, #575757),
+  gray-600: var(--gray-600, #656565),
+  gray: var(--gray, #717171),
+  gray-400: var(--gray-400, #989898),
+  gray-300: var(--gray-300, #b7b7b7),
+  gray-200: var(--gray-200, #d2d2d2),
+  gray-100: var(--gray-100, #e9e9e9),
+  secondary-900: var(--secondary-900, #671d13),
+  secondary-800: var(--secondary-800, #92291b),
+  secondary-700: var(--secondary-700, #b33322),
+  secondary-600: var(--secondary-600, #cf3b27),
+  secondary: var(--secondary, #e8422c),
+  secondary-400: var(--secondary-400, #ec8078),
+  secondary-300: var(--secondary-300, #f1a9a4),
+  secondary-200: var(--secondary-200, #f6c9c7),
+  secondary-100: var(--secondary-100, #fae5e4),
+  primary-900: var(--primary-900, #053272),
+  primary-800: var(--primary-800, #0848a1),
+  primary-700: var(--primary-700, #0a58c5),
+  primary-600: var(--primary-600, #0b65e4),
+  primary: var(--primary, #0d72ff),
+  primary-400: var(--primary-400, #7298ff),
+  primary-300: var(--primary-300, #a1b7ff),
+  primary-200: var(--primary-200, #c5d2ff),
+  primary-100: var(--primary-100, #e4e9ff),
+  mari-gold-900: var(--mari-gold, #694810),
+  mari-gold-800: var(--mari-gold, #956616),
+  mari-gold-700: var(--mari-gold-700, #b77d1b),
+  mari-gold-600: var(--mari-gold-600, #d39020),
+  mari-gold: var(--mari-gold, #eda224),
+  mari-gold-400: var(--mari-gold-400, #f0b876),
+  mari-gold-300: var(--mari-gold-300, #f4cca3),
+  mari-gold-200: var(--mari-gold-200, #f7dec6),
+  mari-gold-100: var(--mari-gold-100, #fbefe4),
+  amethyst-900: var(--amethyst-900, #452e58),
+  amethyst-800: var(--amethyst-800, #62427d),
+  amethyst-700: var(--amethyst-700, #785199),
+  amethyst-600: var(--amethyst-600, #8a5db1),
+  amethyst: var(--amethyst, #9b69c6),
+  amethyst-400: var(--amethyst-400, #b393d2),
+  amethyst-300: var(--amethyst-300, #c9b4de),
+  amethyst-200: var(--amethyst-200, #dcd0e9),
+  amethyst-100: var(--amethyst-100, #eee8f4),
+  jade-900: var(--jade-900, #004c2d),
+  jade-800: var(--jade-800, #006c40),
+  jade-700: var(--jade-700, #00844f),
+  jade-600: var(--jade-600, #00985b),
+  jade: var(--jade, #00ab66),
+  jade-400: var(--jade-400, #72be92),
+  jade-300: var(--jade-300, #a1d0b3),
+  jade-200: var(--jade-200, #c5e1cf),
+  jade-100: var(--jade-100, #e4f0e8),
+  coral-900: var(--coral-900, #723829),
+  coral-800: var(--coral-800, #a1503a),
+  coral-700: var(--coral-700, #c56247),
+  coral-600: var(--coral-600, #e47152),
+  coral: var(--coral, #ff7f5c),
+  coral-400: var(--coral-400, #ffa08c),
+  coral-300: var(--coral-300, #ffbcb0),
+  coral-200: var(--coral-200, #ffd5cd),
+  coral-100: var(--coral-100, #ffebe7),
+  bright-turquoise-900: var(--bright-turquoise-900, #005f6b),
+  bright-turquoise-800: var(--bright-turquoise-800, #008697),
+  bright-turquoise-700: var(--bright-turquoise-700, #00a4b9),
+  bright-turquoise-600: var(--bright-turquoise-600, #00bed6),
+  bright-turquoise: var(--bright-turquoise, #00d5f0),
+  bright-turquoise-400: var(--bright-turquoise-400, #72def3),
+  bright-turquoise-300: var(--bright-turquoise-300, #a1e6f6),
+  bright-turquoise-200: var(--bright-turquoise-200, #c5eff9),
+  bright-turquoise-100: var(--bright-turquoise-100, #e4f7fc),
+  blue-purple-red-gradient:
+    var(
+      --blue-purple-red-gradient,
+      135deg,
+      #0d72ff 14.64%,
+      #9b69c6 50.94%,
+      #e13019 85.36%
+    ),
+  white-blue-gradient:
+    var(--white-blue-gradient, 315deg, #0065f2 14.64%, #7298ff 85.36%),
+  white-red-gradient:
+    var(--white-red-gradient, 315deg, #e13019 14.64%, #ec8078 85.36%),
+  white-gold-gradient:
+    var(--white-gold-gradient, 270deg, #eda224 0%, #f0b876 100%),
+  green-gradient: var(--green-gradient, 315deg, #009829 14.64%, #00c234 85.36%),
+  // should be removed later
+  blue-mui: #1976d2,
+  blue: #0056bc,
+  dark-blue: #053272,
+  light-gray: #f4f4f4,
+  dark-gray: #808080,
+  dark-gray-1: #505358,
+  blue-button: #0074ff,
+  blue-line: #98c7ff,
+  blue-icon: #d8e7ff,
+  blue-bg: #ebf3ff,
+  error: #da1414,
+  success: #04b20b,
+  warning: #d9bd07,
+  body-bg: #fafafa,
+  navbar: #0b65e4,
+  navbar-blue: #0d72ff,
+  return: #c5d2ff,
+  bg-btn: #e9e9e9,
+  subtitle: #e4e9ff,
+  transparent: transparent,
+  darkish-blue-80: rgba(1, 59, 129, 0.8),
+  darkish-blue-12: rgba(1, 59, 129, 0.12),
+  icon-bg: #ebebff,
+  disable-button: #c8c8c8,
+  text-1: #151617,
+  text-2: #5b5c5d,
+  text-3: #737374,
+  text-4: #969697,
+  error-2: #fec0c0,
+  disabled-btn: #d8d8d8,
+  orange: #ff9039,
+  orange-1: #eda224,
+  // /* --------- Graph Theme : --------- */
+  default-company: #1565c0,
+  default-edge: #798da4,
+  default-font: #253a50,
+
+  dark-bg: #011936,
+  dark-mainPerson: #24548f,
+  dark-person: #a7defa,
+  dark-company: #4ba2d2,
+  dark-edge: #6382a9,
+  dark-font: #aef0fe,
+
+  green-bg: #d2efd6,
+  green-mainPerson: #1b4332,
+  green-person: #93e7c0,
+  green-company: #5ac16a,
+  green-edge: #006637,
+  green-font: #081c15,
+
+  reddish-bg: #ffe5d9,
+  reddish-mainPerson: #87351d,
+  reddish-person: #ffa794,
+  reddish-company: #ffba08,
+  reddish-edge: #fb4b00,
+  reddish-font: #553e29,
+);
+
+$font-sizes: (
+  0: 0.5rem,
+  1: 0.625rem,
+  // 10px
+  2: 0.75rem,
+  // 12px
+  3: 0.875rem,
+  // 14px
+  4: 1rem,
+  5: 1.25rem,
+  6: 1.5rem,
+  // 24px
+  7: 2rem,
+);
+
+$font-weights: (
+  400: 400,
+  500: 500,
+  600: 600,
+  700: 700,
+  800: 800,
+  900: 900,
+  bold: bold,
+);
+
+$grid__cols: 24;
+
+$breakpoints: (
+  xxs: 0,
+  xs: 399.98px,
+  sm: 575.98px,
+  md: 767.98px,
+  lg: 991.98px,
+  xl: 1199.98px,
+  xxl: 1365.98px,
+  other: 'span',
+);
+
+$spaceAmounts: ('half', 0, 1, 2, 3, 4, 5, 6, 7, 8, auto);
+
+$alignments: (
+  'center',
+  'space-between',
+  'space-around',
+  'space-evenly',
+  'flex-start',
+  'flex-end',
+  'stretch'
+);
+
+$containProps: (
+  'content',
+  'inline-size',
+  'layout',
+  'none',
+  'paint',
+  'size',
+  'strict',
+  'style',
+  '-moz-initial',
+  'inherit',
+  'initial',
+  'revert',
+  'revert-layer',
+  'unset'
+);
+
+$displayProps: (
+  'block',
+  'inline-block',
+  'inline',
+  'flex',
+  'grid',
+  'inline-flex',
+  'inline-grid',
+  'table',
+  'inline-table',
+  'list-item',
+  'none',
+  'contents'
+);
+
+$displayValues: (359.98px, 575.98px, 767.98px, 991.98px, 1199.98px, 1365.98px);
+
+$displayBreakpoints: (xs, sm, md, lg, xl, xxl);
+
+$textAlignments: ('end', 'start', 'center', 'revert');
+
+$flexDirections: ('column', 'column-reverse', 'row', 'row-reverse');
+
+$sizePercents: (100, 80, 75, 50, 25, 33, 0);
+
+$flexStates: ('wrap', 'nowrap', 'wrap-reverse');
+
+$positions: (relative, absolute, fixed, sticky);
+
+$gaps: (
+  0: 0.5,
+  1: 1,
+  2: 1.5,
+  3: 2,
+  4: 2.5,
+  5: 3,
+);

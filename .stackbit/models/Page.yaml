@@ -1,0 +1,20 @@
+type: page
+name: Page
+label: Title
+labelField: title
+urlPath: /{slug}
+hideContent: true
+thumbnail: https://assets.stackbit.com/components/models/thumbnails/default.png
+fields:
+  - type: string
+    name: title
+    label: Title
+    default: Page title
+  - type: list
+    name: sections
+    label: Sections
+    items:
+      type: model
+      groups:
+        - sectionComponent
+    default:

@@ -1,0 +1,35 @@
+$maxLines: var(--maxLines, 3);
+$lineHeight: var(--lineHeight, 1.5);
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  max-height: calc($maxLines * 1em * $lineHeight);
+  line-height: $lineHeight;
+
+  &--vertical {
+    display: -webkit-box;
+    -webkit-line-clamp: $maxLines;
+    -webkit-box-orient: vertical;
+  }
+
+  &--more {
+    > button {
+      all: unset;
+      overflow: hidden;
+      display: flex;
+      gap: 0.25rem;
+      flex: 0 0 auto;
+      cursor: pointer;
+      color: map-get($colors, primary);
+      font-size: map-get($font-sizes, 3);
+      margin-block-start: 0.5rem;
+
+      svg {
+        aspect-ratio: 1/1;
+        width: 18px;
+      }
+    }
+  }
+}

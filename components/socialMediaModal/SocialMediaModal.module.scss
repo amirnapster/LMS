@@ -1,0 +1,104 @@
+@mixin common-styles {
+  .socialMedia {
+    min-width: 100%;
+    height: 100vh;
+    margin: 0;
+    border-radius: unset;
+    &__header {
+      padding: 0.5rem;
+    }
+  }
+}
+.socialMedia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
+  gap: 0.7rem;
+  width: 40%;
+  max-width: 700px;
+  min-width: 500px;
+  height: 20rem;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 0.75rem;
+  border: none;
+  &__header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    h2 {
+      font-style: normal;
+      font-weight: 600;
+      font-size: 1.5rem;
+      text-align: right;
+      color: #151617;
+    }
+    svg {
+      cursor: pointer;
+    }
+  }
+  &__main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    [data-selector='section'] {
+      display: flex;
+      margin: 3rem 0 3rem 0;
+      [data-selector='social-media'] {
+        background: map-get($colors, white);
+        border: 1px solid lightgray;
+        min-width: 3rem;
+        min-height: 3rem;
+        border-radius: 50%;
+        margin: 0.25rem;
+        font-size: 0.755rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        svg {
+          max-width: 1.5rem;
+          max-height: 1.5rem;
+        }
+      }
+    }
+    [data-selector='copy-url-section'] {
+      min-width: 80%;
+      max-width: 95%;
+      border-radius: 0.75rem;
+      border: 1px solid lightgray;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.2rem;
+      cursor: pointer;
+      [data-selector='copy'] {
+        min-width: 7rem;
+        padding: 0.5rem;
+        gap: 0.5rem;
+        font-size: 0.87rem;
+      }
+      [data-selector='url-title'] {
+        width: 65%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        direction: ltr;
+        padding: 0 0.5rem;
+        text-align: center;
+      }
+      [data-selector='link-icon'] {
+        color: gray !important;
+        margin: 0 0.5rem;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-only(md) {
+  @include common-styles();
+}
+
+@include media-breakpoint-only(sm) {
+  @include common-styles();
+}

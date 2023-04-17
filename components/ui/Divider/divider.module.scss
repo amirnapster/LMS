@@ -1,0 +1,19 @@
+.divider {
+  &--horizontal {
+    border-block-start: 1px solid rgba(0, 0, 0, 0.12);
+    margin-block: 1rem;
+
+    &--dashed {
+      border-block-start-style: dashed;
+    }
+  }
+
+  &--vertical {
+    border-inline-end: 1px solid rgba(0, 0, 0, 0.12);
+    margin-inline: 1rem;
+
+    &--dashed {
+      border-inline-end-style: dashed;
+    }
+  }
+}

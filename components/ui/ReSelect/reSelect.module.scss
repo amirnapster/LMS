@@ -1,0 +1,17 @@
+.reSelect {
+  position: relative;
+
+  @include clearFieldIcon();
+
+  &--error {
+    &--message {
+      @include fieldsError();
+    }
+    .reSelect__search {
+      > div:first-of-type {
+        border: 1px solid red !important;
+        box-shadow: 0px 0px 4px rgba(232, 66, 44, 0.6);
+      }
+    }
+  }
+}

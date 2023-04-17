@@ -1,0 +1,64 @@
+@mixin common-styles {
+  > div:last-of-type {
+    position: absolute;
+    @content;
+  }
+}
+.steps {
+  display: flex;
+  overflow-x: clip;
+
+  > * {
+    flex: 1;
+
+    &:not(:first-of-type, :last-of-type) {
+      @include common-styles() {
+        inset-inline-start: -35px;
+        text-align: center;
+        max-width: 115px;
+      }
+    }
+
+    &:first-of-type {
+      & > div:last-of-type {
+        inset-inline-start: 0;
+        inset-inline-end: 85px;
+        text-align: start;
+      }
+    }
+
+    &:last-of-type {
+      flex: none;
+
+      @include common-styles() {
+        inset-inline-end: 0;
+        inset-inline-start: -150px;
+        text-align: end;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-only(sm) {
+  .steps {
+    > * {
+      &:last-of-type {
+        > div:last-of-type {
+          inset-inline-start: -114px;
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-only(md) {
+  .steps {
+    > * {
+      &:last-of-type {
+        > div:last-of-type {
+          inset-inline-start: -114px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "airbnb",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/typescript",
+    "prettier",
+    "plugin:storybook/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "globals": {
+    "React": true,
+    "JSX": true
+  },
+  "plugins": ["react", "@typescript-eslint", "import"],
+  "settings": {
+    "import/resolver": {
+      "typescript": {
+        "project": "."
+      }
+    }
+  },
+  "rules": {
+    "react/no-unescaped-entities": "off",
+    "no-use-before-define": [
+      "error",
+      {
+        "variables": false
+      }
+    ],
+    "react/static-property-placement": "off",
+    "react/state-in-constructor": "off",
+    "react/prop-types": "off",
+    "dot-notation": "off",
+    "camelcase": "off",
+    "@typescript-eslint/camelcase": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "jsx-a11y/control-has-associated-label": "off",
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": "error",
+    "import/no-cycle": "off",
+    "import/prefer-default-export": "off",
+    "import/extensions": "off",
+    "import/no-named-as-default": 0,
+    "import/no-extraneous-dependencies": "off",
+    "no-underscore-dangle": "off",
+    "@typescript-eslint/no-var-requires": 0,
+    "react/button-has-type": "off",
+    "react/react-in-jsx-scope": 0,
+    "react/jsx-filename-extension": [
+      2,
+      {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    ],
+    "react/jsx-props-no-spreading": 0,
+    "react/function-component-definition": "off",
+    "no-plusplus": [
+      "error",
+      {
+        "allowForLoopAfterthoughts": true
+      }
+    ]
+  },
+  "ignorePatterns": [
+    "/node_modules/**",
+    "/build/**",
+    "/old/**",
+    "/*/.next/**",
+    "/*/types/**",
+    "/libs/types/*",
+    "/*/node_modules/**",
+    "/current/libs/redux/services/**"
+  ]
+}

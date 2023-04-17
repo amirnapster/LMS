@@ -1,0 +1,49 @@
+.copy {
+  background-color: unset;
+  display: flex;
+  border-radius: 0.5rem;
+
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  &:hover {
+    background-color: map-get($colors, primary-100);
+  }
+
+  &--active {
+    background-color: map-get($colors, jade-100);
+
+    svg {
+      path {
+        fill: map-get($colors, jade);
+      }
+    }
+
+    &:hover {
+      background-color: map-get($colors, jade-100);
+    }
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    transition: all 0.3s ease-in-out;
+    padding-inline: 0.75rem;
+    padding-inline-end: 0.5rem;
+    min-width: 120px;
+    background: linear-gradient(map-get($colors, white-blue-gradient));
+
+    svg {
+      path {
+        fill: map-get($colors, simple-white);
+      }
+    }
+
+    &--active {
+      background: map-get($colors, jade) !important;
+    }
+  }
+}

@@ -1,0 +1,293 @@
+.table {
+  box-shadow: unset !important;
+
+  table {
+    min-width: 1300px;
+  }
+
+  &__headerCell {
+    &,
+    div {
+      font-size: map-get($font-sizes, 3) !important;
+      font-weight: map-get($font-weights, 700) !important;
+      color: map-get($colors, text-color-800) !important;
+    }
+
+    &--active {
+      svg {
+        path {
+          fill: map-get($colors, primary-400) !important;
+        }
+      }
+    }
+
+    svg {
+      path {
+        fill: map-get($colors, black);
+      }
+    }
+
+    button {
+      background-color: unset;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0.5rem;
+      border-radius: 0;
+    }
+
+    &--title {
+      width: 400px !important;
+    }
+
+    &--position {
+      width: 230px !important;
+      text-align: start;
+    }
+
+    &--date {
+      width: 300px;
+      text-align: right;
+    }
+
+    &--news {
+      width: 120px !important;
+      text-align: start;
+    }
+
+    &--oldPosition {
+      width: 150px !important;
+      text-align: right;
+    }
+  }
+
+  &__row {
+    &--open {
+      transition-duration: 328ms;
+      background-color: #f7f7ff;
+    }
+  }
+
+  &__tag {
+    height: 26px;
+    padding: 4px 4px;
+    border-radius: 0.5rem;
+    color: map-get($colors, text-color-400);
+    display: inline-block;
+    margin: 0.25rem;
+    font-weight: map-get($font-weights, 700);
+    border-width: 1px !important;
+    font-size: map-get($font-sizes, 2);
+  }
+
+  &__arrow {
+    border-radius: 0.5rem !important;
+    color: map-get($colors, primary) !important;
+
+    &--open {
+      background-color: map-get($colors, primary-200) !important;
+    }
+  }
+
+  &__cell {
+    padding: 0 !important;
+  }
+
+  &--pagination {
+    margin-block-start: 0.5rem;
+
+    > div {
+      > p:first-of-type {
+        display: none !important;
+      }
+    }
+  }
+
+  &--cell {
+    border-block-end: unset !important;
+  }
+
+  [data-selector='person-image'] {
+    background-color: unset !important;
+    padding: 0;
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.06);
+    }
+  }
+
+  [data-selector='person-title'] {
+    background-color: unset;
+    border-radius: 0;
+    border-bottom: 2px solid transparent;
+    padding: 0;
+
+    &:hover {
+      border-bottom: 2px solid map-get($colors, primary-900);
+    }
+
+    span {
+      font-weight: map-get($font-weights, 600);
+      font-size: map-get($font-sizes, 3);
+      color: map-get($colors, primary-900);
+    }
+  }
+
+  [data-selector='delegation'] {
+    font-weight: map-get($font-sizes, 400);
+    font-size: map-get($font-sizes, 2);
+    color: map-get($colors, text-color-100);
+    margin-inline-end: 0.25rem;
+  }
+
+  [data-selector='company-title'] {
+    background-color: unset;
+    border-radius: 0;
+    border-bottom: 1px solid transparent;
+    padding: 0;
+
+    &:hover {
+      border-bottom: 1px solid map-get($colors, primary-900);
+    }
+
+    span {
+      font-weight: map-get($font-sizes, 400);
+      font-size: map-get($font-sizes, 2);
+      color: map-get($colors, primary-900);
+    }
+
+    button {
+      display: flex;
+    }
+  }
+
+  [data-selector='date-cell'] {
+    border-block-end: unset !important;
+
+    > div {
+      gap: 0.5rem;
+    }
+  }
+
+  [data-selector='preposition'] {
+    font-weight: map-get($font-weights, 400);
+    font-size: map-get($font-sizes, 3);
+    color: map-get($colors, text-color-200);
+  }
+
+  [data-selector='date'] {
+    font-weight: map-get($font-weights, 400);
+    font-size: map-get($font-sizes, 3);
+    color: map-get($colors, text-color-800);
+  }
+
+  [data-selector='news'] {
+    width: 34px;
+    height: 34px;
+    background-color: unset;
+    color: map-get($colors, primary);
+    padding: 0;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    svg {
+      width: 1.125rem;
+      height: 1.125rem;
+    }
+  }
+}
+
+.subManagers {
+  width: 100%;
+
+  td {
+    padding: 16px;
+  }
+  &--title {
+    width: 400px !important;
+  }
+
+  &--position {
+    width: 230px !important;
+    text-align: start;
+
+    span {
+      font-weight: map-get($font-weights, 400);
+      font-size: map-get($font-sizes, 2);
+      color: map-get($colors, text-color-600);
+    }
+  }
+
+  &--date {
+    width: 300px;
+    text-align: right;
+
+    > * {
+      margin-inline-end: 0.5rem;
+    }
+  }
+
+  &--news {
+    width: 120px !important;
+    text-align: center;
+  }
+
+  &--oldPosition {
+    width: 150px !important;
+    text-align: right;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .subManagers {
+    &--title {
+      width: 300px !important;
+    }
+  }
+
+  .table {
+    width: auto !important;
+    margin-inline-end: -1.5rem;
+
+    table {
+      min-width: 1130px;
+    }
+
+    &__headerCell {
+      &--title {
+        width: 300px !important;
+      }
+    }
+
+    [data-selector='company-title'] {
+      display: flex;
+
+      span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 147px;
+        display: inline-block;
+      }
+    }
+  }
+}

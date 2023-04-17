@@ -1,0 +1,24 @@
+@font-face {
+  font-family: YekanBakh;
+  src: url('/fonts/YekanBakhFaNum-VF.ttf');
+}
+
+* {
+  font-family: YekanBakh, YekanBakh, -apple-system, BlinkMacSystemFont, Segoe UI,
+    Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+    sans-serif, tahoma !important;
+  font-variation-settings: 'dots' 1;
+}
+
+p {
+  line-height: 32px;
+}
+
+@supports (font-variation-settings: normal) {
+  * {
+    font-family: YekanBakh, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+      Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+      sans-serif, tahoma !important;
+    font-variation-settings: 'dots' 1;
+  }
+}

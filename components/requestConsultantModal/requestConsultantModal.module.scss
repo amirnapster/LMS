@@ -1,0 +1,116 @@
+@mixin common-styles {
+  .reqConsultantModal {
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    border-radius: unset;
+
+    &__header {
+      padding: 0.5rem;
+    }
+  }
+
+  .reqPage {
+    height: auto;
+    margin-block-end: 3rem;
+  }
+}
+.reqConsultantModal {
+  background-color: map-get($colors, white);
+  width: 51rem;
+  padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+  border-radius: 0.75rem;
+  margin: 0 1rem;
+
+  &__header {
+    p {
+      font-weight: 600;
+      font-size: 1.5rem;
+      text-align: right;
+      color: map-get($colors, text-1);
+    }
+    button {
+      all: unset;
+      cursor: pointer;
+    }
+  }
+  label {
+    margin-block-end: 0.5rem;
+  }
+  p {
+    margin-block-start: 1rem;
+  }
+  textarea {
+    width: 100%;
+    height: 10rem;
+    padding: 1rem;
+  }
+  input[type='checkbox'] {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  form {
+    margin-block-start: 1rem;
+  }
+
+  [data-selector='checkbox'] {
+    label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-block-end: 0;
+
+      input,
+      & {
+        cursor: pointer;
+      }
+    }
+  }
+
+  [data-selector='buttons-wrapper'] {
+    width: 100%;
+    margin: 1rem auto;
+    [data-selector='cancel-btn'] {
+      width: 88px;
+      height: 44px;
+      text-align: center;
+      border-radius: 12px;
+    }
+    [data-selector='submit-btn'] {
+      padding: 0.6rem 1.1rem;
+      border-radius: 12px;
+    }
+  }
+}
+
+.reqPage {
+  width: auto;
+  margin-block: 2rem;
+
+  > div {
+    button {
+      display: none;
+    }
+  }
+
+  form {
+    > div {
+      row-gap: 1rem;
+    }
+  }
+
+  [data-selector='cancel-btn'] {
+    display: none;
+  }
+}
+
+// =================================================================
+
+@include media-breakpoint-only(md) {
+  @include common-styles();
+}
+
+@include media-breakpoint-only(sm) {
+  @include common-styles();
+}

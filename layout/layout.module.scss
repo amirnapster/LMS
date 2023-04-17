@@ -1,0 +1,20 @@
+.main {
+  background-color: #ebf3ff;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  width: 100%;
+  min-height: 44rem;
+}
+
+@media screen and (max-width: 600px) {
+  .returnToTop {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .main {
+    margin-top: 0;
+  }
+}

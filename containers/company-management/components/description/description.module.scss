@@ -1,0 +1,161 @@
+.description {
+  min-height: 725px;
+  padding: 4rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__container {
+    margin-block: 5rem 3rem;
+    background-image: url('/svg/solutions/purple-circle-description.svg'),
+      url('/svg/solutions/red-circle-description.svg');
+    background-repeat: no-repeat, no-repeat;
+    background-position: top right -200px, bottom left;
+    background-size: 760px, 405px;
+  }
+
+  &__row {
+    margin-block-end: 150px;
+  }
+
+  &__title {
+    span {
+      font-weight: map-get($font-weights, 800);
+      font-size: map-get($font-sizes, 6);
+      color: map-get($colors, text-color-800);
+    }
+  }
+
+  &__col {
+    z-index: 100;
+  }
+
+  &__wrapper {
+    padding: 4rem 5rem;
+    box-shadow: 0px 80px 80px -40px rgba(13, 114, 255, 0.2),
+      inset 8px 8px 20px rgba(255, 255, 255, 0.3);
+    width: 100%;
+    position: relative;
+  }
+
+  &--img {
+    img {
+      position: sticky;
+      top: 150px;
+      width: 100%;
+    }
+  }
+
+  &--bg {
+    display: none;
+  }
+
+  &--content {
+    font-weight: map-get($font-weights, 400);
+    color: map-get($colors, text-color-600);
+    margin-block-start: 1rem;
+    display: inline-block;
+  }
+
+  [data-selector='blur'] {
+    backdrop-filter: blur(50px);
+    position: absolute;
+    inset: 0;
+  }
+}
+
+@include media-breakpoint-between(xl, xxl) {
+  .description {
+    &__wrapper {
+      padding: 3rem 4rem;
+    }
+  }
+}
+
+@include media-breakpoint-only(xl) {
+  .description {
+    &__container {
+      background-size: 300px, 640px;
+      background-position: 105% 1%, bottom left -70%;
+      min-height: 640px;
+    }
+    &__wrapper {
+      padding: 3rem;
+    }
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .description {
+    &__wrapper {
+      justify-content: center;
+      padding: 2rem 0;
+      max-height: unset;
+      row-gap: 2rem;
+    }
+
+    &__col {
+      padding: 1rem;
+    }
+  }
+}
+
+@include media-breakpoint-only(lg) {
+  .description {
+    &__container {
+      background-size: 300px, 550px;
+      background-position: 105% 1%, -50% 100%;
+      min-height: 650px;
+    }
+  }
+}
+
+@include media-breakpoint-only(md) {
+  .description {
+    &__container {
+      background-size: 300px, 550px;
+      background-position: 105% 1%, -140% 100%;
+      min-height: 650px;
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .description {
+    &__container {
+      background-size: 300px, 400px;
+      background-position: 150% 0%, -100% 100%;
+      min-height: 400px;
+    }
+  }
+}
+
+@include media-breakpoint-down(xs) {
+  .description {
+    &__container {
+      background-size: 300px, 400px;
+      background-position: 150% 0%, 700% 100%;
+      min-height: 400px;
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .description {
+    &__row {
+      margin-block-end: 80px;
+    }
+
+    &--content {
+      margin-block-end: 1.5rem;
+    }
+
+    &--img {
+      display: none;
+    }
+
+    &--bg {
+      display: block;
+    }
+  }
+}

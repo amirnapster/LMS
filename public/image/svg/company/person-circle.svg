@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="person-circle" width="16" height="16" viewBox="0 0 16 16">
+    <defs>
+        <style>
+            .cls-2{fill:#013b81;fill-rule:evenodd}
+        </style>
+    </defs>
+    <path id="Path_227" fill="#013b81" d="M16.633 24.87c-.71-1.144-2.273-2.37-5.468-2.37S6.408 23.725 5.7 24.87a7 7 0 0 0 10.936 0z" transform="translate(-3.165 -12.5)"/>
+    <path id="Path_228" d="M14.25 12.75a3 3 0 1 0-3-3 3 3 0 0 0 3 3z" class="cls-2" transform="translate(-6.25 -3.75)"/>
+    <path id="Path_229" d="M8 1a7 7 0 1 0 7 7 7 7 0 0 0-7-7zM0 8a8 8 0 1 1 8 8 8 8 0 0 1-8-8z" class="cls-2"/>
+</svg>

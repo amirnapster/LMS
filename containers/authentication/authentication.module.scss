@@ -1,0 +1,43 @@
+.auth {
+  padding: 24px 128px 32px;
+  max-width: 640px;
+  background-color: map-get($colors, white);
+  box-shadow: 0px 16px 32px rgba(0, 0, 0, 0.2);
+  border-radius: 1.5rem;
+  width: 640px;
+  margin-inline: 1.5rem;
+  position: relative;
+
+  &__header {
+    [data-selector='title'] {
+      font-weight: map-get($font-weights, 700);
+      font-size: map-get($font-sizes, 7);
+      color: map-get($colors, text-color-900);
+      margin-block-start: 3rem;
+    }
+
+    [data-selector='close'] {
+      background-color: unset;
+      display: flex;
+      position: absolute;
+      top: 0.5rem;
+      left: 0.5rem;
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .auth {
+    padding: 24px 90px 32px;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .auth {
+    width: 100vw;
+    height: 100%;
+    margin: 0;
+    border-radius: unset;
+    padding: 1rem;
+  }
+}

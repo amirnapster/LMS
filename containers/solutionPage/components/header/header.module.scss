@@ -1,0 +1,113 @@
+.header {
+  margin-block: 5rem;
+  position: relative;
+  width: 100%;
+
+  &__content {
+    &--action {
+      gap: 1.5rem;
+      margin-block-start: 3rem;
+    }
+
+    [data-selector='title'] {
+      font-weight: map-get($font-weights, 800);
+      font-size: 3.5rem;
+      color: map-get($colors, text-color-800);
+      margin-block-start: 1rem;
+      display: inline-block;
+    }
+
+    [data-selector='subTitle'] {
+      font-weight: map-get($font-weights, 600);
+      font-size: map-get($font-sizes, 6);
+      color: map-get($colors, text-color-600);
+    }
+
+    [data-selector='icon'] {
+      display: flex;
+    }
+
+    [data-selector='try'] {
+      gap: 0.5rem;
+
+      span {
+        font-weight: map-get($font-weights, 700);
+        font-size: map-get($font-sizes, 3);
+        color: map-get($colors, text-color-900);
+      }
+    }
+
+    [data-selector='subscription'] {
+      font-weight: map-get($font-weights, 600);
+      color: map-get($colors, primary);
+      background-color: unset;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-block-end: 1px solid map-get($colors, primary);
+      border-radius: 0;
+      padding: 0;
+
+      &:hover {
+        color: map-get($colors, primary-700);
+        border-color: map-get($colors, primary-700);
+      }
+
+      &:active {
+        color: map-get($colors, primary-900);
+        border-color: map-get($colors, primary-900);
+      }
+    }
+  }
+
+  &__bg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      width: 100%;
+      max-width: 350px;
+    }
+  }
+
+  [data-selector='vector'] {
+    position: absolute;
+    inset-inline-end: 50%;
+    inset-block-start: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .header {
+    justify-content: space-between;
+    padding: 0 1.5rem;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .header {
+    row-gap: 2rem;
+    padding: 0 1rem;
+
+    [data-selector='subTitle'] {
+      font-size: 20px;
+    }
+
+    [data-selector='title'] {
+      font-size: map-get($font-sizes, 7);
+    }
+  }
+}
+
+@include media-breakpoint-down(xs) {
+  .header {
+    &__content {
+      &--action {
+        margin-block-start: 2rem;
+        flex-direction: column;
+      }
+    }
+  }
+}

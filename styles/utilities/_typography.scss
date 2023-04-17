@@ -1,0 +1,21 @@
+// @each $sizePrefix, $size in $font-sizes {
+//   @each $breakpoint in map_keys($grid-breakpoints) {
+//     @include media-breakpoint-up($breakpoint) {
+//       .text-#{$sizePrefix}#{if($breakpoint == xs, '', '-' + $breakpoint)} {
+//         font-size: $size;
+//       }
+//     }
+//   }
+// }
+
+@each $weight, $font-weight in $font-weights {
+  .text-weight-#{$weight} {
+    font-weight: $font-weight;
+  }
+}
+
+@each $sizePrefix, $size in $font-sizes {
+  .text-#{$sizePrefix} {
+    font-size: $size !important;
+  }
+}

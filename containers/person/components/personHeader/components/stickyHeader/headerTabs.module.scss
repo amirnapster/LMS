@@ -1,0 +1,171 @@
+.headerTabs {
+  min-width: 100%;
+
+  &--tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 0.5rem 0 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    border-bottom: 1px solid map-get($colors, gray-100);
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    > * {
+      scroll-snap-align: start;
+    }
+    button {
+      background-color: unset;
+      font-weight: map-get($font-weights, 600);
+      font-size: map-get($font-sizes, 4);
+      line-height: 150%;
+      color: map-get($colors, text-color-800);
+      border-radius: unset;
+      border-bottom: 2px solid transparent;
+      padding: 0.5rem 0.8rem;
+      overflow: visible;
+      white-space: nowrap;
+      &:hover {
+        background-color: #c5d2ff;
+      }
+
+      &:disabled {
+        background-color: unset !important;
+      }
+    }
+    [data-selector='actived-tab'] {
+      color: map-get($colors, primary-900);
+      border-bottom: 2px solid map-get($colors, primary-900);
+    }
+  }
+}
+
+.headerTabsSticky {
+  min-width: 100%;
+  background: #ffffff;
+  border-bottom: 1px solid map-get($colors, primary-300);
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-end;
+  box-shadow: 0px 20px 20px -10px rgba(0, 0, 0, 0.15);
+  padding-block-start: 0.5rem;
+  &--tabs {
+    display: flex;
+    align-items: center;
+    padding: 0.2rem 2rem 0;
+    border-bottom: 1px solid map-get($colors, gray-100);
+
+    &--buttons {
+      background-color: unset;
+      font-weight: map-get($font-weights, 600);
+      font-size: map-get($font-sizes, 4);
+      line-height: 150%;
+      color: map-get($colors, text-color-800);
+      border-radius: unset;
+      border-bottom: 2px solid transparent;
+      padding: 0.5rem 0.8rem;
+      &:hover {
+        background-color: #c5d2ff;
+      }
+
+      &:disabled {
+        background-color: unset !important;
+      }
+    }
+    [data-selector='actived-tab'] {
+      color: map-get($colors, primary-900);
+      border-bottom: 2px solid map-get($colors, primary-900);
+    }
+    [data-selector='logo-box'] {
+      display: flex;
+      align-items: center;
+      [data-selector='logo'] {
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-inline-end: 1rem;
+        box-shadow: (0px 4px 10px rgba(0, 0, 0, 0.06));
+        border-radius: 50%;
+        img {
+          border-radius: 50%;
+        }
+      }
+      h2 {
+        font-weight: map-get($font-weights, 700);
+        font-size: map-get($font-sizes, 5);
+        line-height: 150%;
+        color: map-get($colors, text-color-800);
+        margin-inline-end: 0.5rem;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+    }
+    [data-selector='buttons-box'] {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-right: auto;
+      text-align: left;
+      justify-content: flex-end;
+      padding-left: 0.5rem;
+
+      [data-selector='follow-btn'] {
+        padding: 0 0.75rem;
+        svg {
+          margin-inline-end: 0.5rem;
+        }
+      }
+      [data-selector='following-btn'] {
+        color: map-get($colors, primary) !important;
+        padding: 0 0.75rem;
+        font-weight: map-get($font-weights, 600);
+        line-height: 150%;
+        svg {
+          max-width: 24px;
+          max-height: 24px;
+          margin-inline-end: 0.5rem;
+          background: map-get($colors, primary);
+          border-radius: 50%;
+          path {
+            fill: #fff;
+          }
+        }
+      }
+      [data-selector='follow-lock-btn'] {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 0.75rem;
+        font-weight: map-get($font-weights, 600);
+        color: map-get($colors, gray-400);
+        img {
+          padding: 0.25rem;
+          background: linear-gradient(315deg, #e13019 14.64%, #ec8078 85.36%);
+          box-shadow: 0px 0px 6px rgba(232, 66, 44, 0.8);
+          margin-inline-end: 0.5rem;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .headerTabsSticky {
+    &--tabs {
+      [data-selector='buttons-box'] {
+        display: none;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .headerTabsSticky {
+    display: none;
+  }
+}

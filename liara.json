@@ -1,0 +1,8 @@
+{
+  "platform": "next",
+  "app": "rasmiotest",
+  "port": 3000,
+  "next": {
+    "modifyConfig": false
+  }
+}

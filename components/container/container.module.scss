@@ -1,0 +1,26 @@
+.container {
+  @include media-breakpoint-only(sm) {
+    max-width: 576px;
+  }
+
+  @include media-breakpoint-only(md) {
+    max-width: 768px;
+  }
+
+  @include media-breakpoint-only(lg) {
+    max-width: 992px;
+  }
+
+  @include media-breakpoint-only(xl) {
+    max-width: 1200px;
+  }
+
+  @include media-breakpoint-up(xxl) {
+    max-width: 1320px;
+    margin: 0 auto;
+
+    > * {
+      width: 100%;
+    }
+  }
+}

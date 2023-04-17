@@ -1,0 +1,167 @@
+.otp {
+  width: 100%;
+
+  &__form {
+    width: 100%;
+
+    [data-selector='submit'] {
+      width: 100%;
+      margin-block-start: 1.5rem;
+    }
+
+    [data-selector='enter'] {
+      width: 100%;
+      margin-block-start: 0.5rem;
+      font-weight: map-get($font-weights, 600);
+    }
+  }
+
+  &__policy {
+    margin-block-start: 1.5rem;
+
+    > * {
+      font-weight: map-get($font-weights, 400);
+      font-size: map-get($font-sizes, 3);
+      color: map-get($colors, text-color-900);
+    }
+
+    button {
+      padding: 0;
+      background-color: unset;
+      display: flex;
+      margin-inline: 0.25rem;
+      color: map-get($colors, primary);
+    }
+  }
+
+  &--subTitle {
+    font-weight: map-get($font-weights, 400);
+    font-size: 1.125rem;
+    color: map-get($colors, text-color-900);
+    text-align: center;
+    margin-block-end: 2rem;
+    line-height: 3rem;
+  }
+
+  &--title {
+    font-weight: map-get($font-weights, 700);
+    font-size: map-get($font-sizes, 7);
+    color: map-get($colors, text-color-900);
+    margin-block-start: 3rem;
+  }
+}
+
+//  ---------------------------------------------------------------
+
+.confirmOtp {
+  &__img {
+    width: 7rem;
+    height: 7rem;
+    border-radius: 50%;
+    background: linear-gradient(
+      135deg,
+      #0d72ff 14.64%,
+      #9b69c6 50.94%,
+      #e13019 85.36%
+    );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-block-start: 3rem;
+  }
+
+  &__inputs {
+    width: 100%;
+    gap: 1rem;
+
+    > input {
+      width: 84px;
+      height: 3rem;
+      border-radius: 0.75rem;
+      border-width: 2px;
+    }
+  }
+
+  &__reSend {
+    width: 100%;
+
+    > span {
+      font-weight: map-get($font-weights, 400);
+      font-size: map-get($font-sizes, 3);
+      color: map-get($colors, text-color-900);
+      padding: 0.8rem 0;
+    }
+  }
+
+  &__policy {
+    margin-block-start: 1.5rem;
+
+    > * {
+      font-weight: map-get($font-weights, 400);
+      font-size: map-get($font-sizes, 3);
+      color: map-get($colors, text-color-900);
+    }
+
+    button {
+      padding: 0;
+      background-color: unset;
+      display: flex;
+      margin-inline: 0.25rem;
+      color: map-get($colors, primary);
+    }
+  }
+
+  &--accept {
+    width: 100%;
+    font-weight: map-get($font-weights, 600);
+    margin-block-start: 1.5rem;
+  }
+
+  &--enter {
+    width: 100%;
+    margin-block-start: 0.5rem;
+    font-weight: map-get($font-weights, 600);
+  }
+
+  &--title {
+    font-weight: map-get($font-weights, 700);
+    font-size: 1.25rem;
+    color: map-get($colors, text-color-900);
+    margin-block-start: 0.5rem;
+  }
+
+  &--subTitle {
+    font-weight: map-get($font-weights, 400);
+    font-size: 1.125rem;
+    color: map-get($colors, text-color-900);
+    text-align: center;
+    max-width: 22rem;
+    margin-block: 0.5rem;
+    line-height: 190%;
+  }
+
+  &--inputError {
+    > * {
+      border-color: map-get($colors, secondary);
+    }
+  }
+
+  &--error {
+    width: 100%;
+    text-align: start;
+    margin-block-start: 0.5rem;
+    color: map-get($colors, secondary);
+  }
+
+  &--edit {
+    margin-block: 0.5rem 2rem;
+  }
+
+  [data-selector='back'] {
+    background-color: unset;
+    display: flex;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+}

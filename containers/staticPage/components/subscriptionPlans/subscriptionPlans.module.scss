@@ -1,0 +1,118 @@
+.subscriptionPlans {
+  margin: 4rem auto;
+
+  &--title {
+    font-weight: map-get($font-weights, 800);
+    font-size: map-get($font-sizes, 7);
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  &--box {
+    background: #ffffff;
+    border: 4px solid map-get($colors, primary);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
+    border-radius: 48px;
+    padding: 24px 32px;
+
+    [data-selector='header-item'] {
+      text-align: center;
+      h2 {
+        font-weight: map-get($font-weights, 800);
+        font-size: 24px;
+        line-height: 40px;
+      }
+      span {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 18px;
+        color: #000915;
+      }
+    }
+    &--body {
+      background: #f4f4f4;
+      border-radius: 24px;
+      padding: 16px;
+      margin: 0.5rem auto;
+      [data-selector='body-wrapper'] {
+        width: 100%;
+        margin: 1.2rem 0;
+
+        [data-selector='body-item'] {
+          text-align: center;
+          h2 {
+            font-weight: 600;
+            font-size: 20px;
+            line-height: 32px;
+            color: #000915;
+          }
+          span {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 18px;
+            color: #000915;
+          }
+          &:nth-child(1) {
+            h2 {
+              font-weight: 900;
+              font-size: 26.0174px;
+              line-height: 27px;
+              letter-spacing: -0.005em;
+              background: linear-gradient(277.31deg, #0065f2 0%, #7298ff 100%);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              background-clip: text;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-only(lg) {
+  .subscriptionPlans {
+    margin-inline: 1.5rem;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .subscriptionPlans {
+    margin: 2rem 1rem;
+
+    &--title {
+      font-size: map-get($font-sizes, 6);
+      margin-bottom: 1rem;
+    }
+    &--box {
+      padding: 1rem;
+      [data-selector='header-item'] {
+        text-align: center;
+        h2 {
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 20px;
+        }
+        span {
+          font-size: 10px;
+        }
+      }
+      &--body {
+        padding: 1rem 0;
+        [data-selector='body-item'] {
+          text-align: center;
+          h2 {
+            font-size: 16px;
+            line-height: 20px;
+          }
+
+          &:nth-child(1) {
+            h2 {
+              font-weight: 900;
+              font-size: 20px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

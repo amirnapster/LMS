@@ -1,0 +1,30 @@
+.quote {
+  height: 100%;
+  padding: 1.125rem 1rem;
+  background-color: map-get($colors, light-gray);
+  border-radius: 1rem;
+  position: relative;
+
+  [data-selector='title'] {
+    font-weight: map-get($font-weights, 800);
+    font-size: 20px;
+  }
+
+  [data-selector='subtitle'] {
+    font-size: 14px;
+  }
+
+  &__main {
+    height: 100%;
+
+    [data-selector='quote-content'] {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  [data-selector='quote-blur'] {
+    display: none;
+  }
+}

@@ -1,0 +1,123 @@
+.receipt {
+  &__layout {
+    [data-selector='return'] {
+      display: none;
+    }
+
+    [data-selector='blank-footer'] {
+      display: none;
+    }
+
+    [data-selector='blank-header'] {
+      margin-bottom: 0;
+    }
+  }
+
+  &__success {
+    &--tracking,
+    &--date {
+      span {
+        font-size: map-get($font-sizes, 3);
+        color: #30363d;
+
+        &:last-of-type {
+          font-weight: map-get($font-weights, 700);
+          margin-inline-start: 0.5rem;
+        }
+      }
+    }
+
+    &--status {
+      max-width: 340px;
+      text-align: center;
+      line-height: 2rem;
+      margin-top: 1rem;
+
+      span {
+        font-weight: map-get($font-weights, 600);
+        font-size: 1.25rem;
+        color: map-get($colors, navbar-blue);
+      }
+    }
+
+    [data-selector='payable'] {
+      padding: 0rem 1.25rem 0.5rem 1.25rem;
+      width: 32rem;
+      background-color: map-get($colors, light-gray);
+      border-radius: 0.5rem;
+      margin-top: 1rem;
+
+      [data-selector='factor'] {
+        display: none;
+      }
+    }
+
+    &--description {
+      max-width: 378px;
+      text-align: center;
+      font-size: map-get($font-sizes, 3);
+      line-height: 2rem;
+      margin-top: 1rem;
+    }
+
+    [data-selector='factor-request'] {
+      font-weight: map-get($font-weights, 600);
+      margin-inline-end: 0.75rem;
+    }
+
+    [data-selector='download'] {
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      margin-inline-start: 0.75rem;
+    }
+
+    &--return {
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      margin-top: 1.5rem;
+      font-weight: map-get($font-weights, 600);
+    }
+  }
+
+  &__failed {
+    text-align: center;
+    margin-top: 11rem;
+
+    &--title {
+      color: map-get($colors, error);
+      margin-top: 1rem;
+    }
+
+    &--description {
+      max-width: 296px;
+      margin-top: 1.5rem;
+    }
+
+    [data-selector='contact-support'] {
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-weight: map-get($font-weights, 600);
+      margin-inline-end: 0.75rem;
+    }
+
+    [data-selector='try'] {
+      padding: 0.5rem 2rem;
+      border-radius: 0.5rem;
+      font-weight: map-get($font-weights, 600);
+      margin-inline-start: 0.75rem;
+    }
+
+    [data-selector='home'] {
+      font-weight: map-get($font-weights, 600);
+    }
+  }
+}
+
+@include media-breakpoint-only(sm) {
+  .receipt {
+    [data-selector='payable'] {
+      width: 22rem;
+    }
+  }
+}

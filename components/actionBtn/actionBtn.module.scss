@@ -1,0 +1,28 @@
+.actionBtn {
+  background-color: unset;
+  display: flex;
+  border-radius: 0.5rem;
+
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  &:hover {
+    background-color: map-get($colors, primary-100);
+  }
+
+  &--active {
+    background-color: map-get($colors, primary-200);
+
+    svg {
+      path {
+        fill: map-get($colors, jade);
+      }
+    }
+
+    &:hover {
+      background-color: map-get($colors, primary-200);
+    }
+  }
+}

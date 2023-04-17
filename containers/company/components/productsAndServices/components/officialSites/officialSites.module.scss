@@ -1,0 +1,102 @@
+.site {
+  &__column {
+    margin-block-end: 1rem;
+
+    & > span {
+      font-weight: 400;
+      font-size: map-get($font-sizes, 3);
+      color: map-get($colors, text-color-800);
+      display: inline-block;
+      margin-block-end: 0.25rem;
+    }
+
+    &--address {
+      background-color: unset;
+      display: flex;
+      align-items: flex-end;
+      padding: 0;
+      gap: 0.5rem;
+
+      span {
+        font-weight: map-get($font-weights, 400);
+        color: map-get($colors, text-color-800);
+        max-width: 160px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        direction: ltr;
+      }
+    }
+
+    &--notRegistered {
+      font-weight: map-get($font-weights, 400);
+      color: map-get($colors, text-color-100);
+      margin-block-start: 0.25rem;
+    }
+
+    &--contact {
+      background-color: unset;
+      display: flex;
+      padding: 0;
+
+      span {
+        font-weight: 400;
+        color: map-get($colors, text-color-800);
+      }
+
+      svg {
+        path {
+          fill: map-get($colors, primary);
+        }
+      }
+    }
+  }
+
+  &__row {
+    row-gap: 0.25rem;
+    width: 100%;
+  }
+
+  &--title {
+    font-weight: map-get($font-weights, 700);
+    color: map-get($colors, text-color-800);
+    margin-block-end: 1rem;
+  }
+
+  &--card {
+    margin-top: 1.5rem;
+  }
+
+  &--wrapper {
+    margin-block-end: 2rem;
+    border-block-end: 1px solid map-get($colors, light-gray);
+
+    &:last-of-type {
+      margin-block-end: 0;
+      border-block-end: unset;
+    }
+  }
+
+  &--notFound {
+    margin-block-start: 1.5rem;
+  }
+
+  &--skeleton {
+    margin-block-start: 1.5rem;
+  }
+
+  [data-selector='site-logo'] {
+    position: relative;
+    aspect-ratio: 1/1;
+    height: 48px;
+    filter: drop-shadow(0px 2px 5px rgba(0, 0, 0, 0.06));
+    margin-inline-end: 1rem !important;
+  }
+}
+
+@include media-breakpoint-only(xl) {
+  .site {
+    &__row {
+      justify-content: space-between;
+    }
+  }
+}

@@ -1,0 +1,16 @@
+.profile {
+  &--title {
+    font-weight: map-get($font-weights, 700);
+    font-size: map-get($font-sizes, 7);
+    color: map-get($colors, text-color-900);
+    margin-block: 3rem 0.5rem;
+  }
+
+  &--subTitle {
+    font-weight: map-get($font-weights, 400);
+    font-size: 1.125rem;
+    text-align: center;
+    color: map-get($colors, text-color-900);
+    line-height: 190%;
+  }
+}

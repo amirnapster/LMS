@@ -1,0 +1,19 @@
+.codeInput {
+  width: 3.3rem;
+  height: 2.6rem;
+  background: map-get($colors, white);
+  border: 1px solid map-get($colors, text-3);
+  border-radius: 0.5rem;
+  text-align: center;
+  outline: unset;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &[type='number'] {
+    -moz-appearance: textfield;
+  }
+}

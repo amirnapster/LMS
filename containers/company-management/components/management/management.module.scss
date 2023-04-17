@@ -1,0 +1,121 @@
+.management {
+  padding: 0 1.5rem;
+
+  &__img {
+    width: 7.75rem;
+    height: 7.75rem;
+    background-color: map-get($colors, light-gray);
+    border-radius: 50%;
+    position: relative;
+  }
+
+  &__col {
+    width: 30%;
+    display: flex;
+
+    &--spacing {
+      justify-content: center;
+    }
+
+    > div {
+      max-width: 7.75rem;
+    }
+
+    [data-selector='line'] {
+      margin-block-start: 3.25rem;
+      margin-inline-start: 2rem;
+    }
+  }
+
+  &__row {
+    width: 100%;
+    margin-block: 3rem;
+  }
+
+  &--title {
+    font-weight: map-get($font-weights, 800);
+    font-size: map-get($font-sizes, 7);
+    color: map-get($colors, text-color-800);
+    text-align: center;
+  }
+
+  [data-selector='number'] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 34px;
+    height: 34px;
+    padding: 3px 8px 0px;
+    background-color: map-get($colors, coral);
+    border-radius: 50px;
+    color: map-get($colors, simple-white);
+    font-weight: map-get($font-weights, 600);
+    font-size: 1.25rem;
+  }
+
+  [data-selector='title'] {
+    font-weight: map-get($font-weights, 700);
+    color: map-get($colors, text-color-600);
+    margin-block-start: 1.5rem;
+    display: inline-block;
+    text-align: center;
+  }
+
+  [data-selector='vertical-line'] {
+    display: none;
+  }
+
+  [data-selector='start'] {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0 4rem;
+
+    span {
+      font-weight: map-get($font-weights, 600);
+      color: map-get($colors, simple-white);
+    }
+  }
+}
+
+@include media-breakpoint-down(xl) {
+  .management {
+    &__col {
+      &:nth-child(2) {
+        margin-inline-start: 3rem;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .management {
+    &__row {
+      flex-direction: column;
+
+      & > div:nth-child(even) {
+        padding: 0;
+      }
+    }
+
+    &__col {
+      width: 100%;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-inline-start: 0 !important;
+    }
+
+    &--title {
+      font-size: map-get($font-sizes, 6);
+    }
+
+    [data-selector='line'] {
+      display: none;
+    }
+
+    [data-selector='vertical-line'] {
+      display: block;
+      margin-block: 1rem;
+    }
+  }
+}

@@ -1,0 +1,84 @@
+.brands {
+  width: 100%;
+  margin-block-end: 1.5rem;
+
+  &__card {
+    width: 100%;
+  }
+
+  &__col {
+    display: flex;
+    gap: 1rem;
+  }
+
+  &__row {
+    row-gap: 2rem;
+    margin-block-end: 2rem;
+  }
+
+  &__logo {
+    width: 4rem;
+    height: 4rem;
+
+    img {
+      width: inherit;
+      height: inherit;
+      border-radius: 8px;
+    }
+  }
+
+  &__details {
+    row-gap: 0.5rem;
+
+    span {
+      font-weight: map-get($font-weights, 400);
+      color: map-get($colors, text-color-800);
+      font-size: map-get($font-sizes, 4);
+    }
+    p {
+      font-weight: map-get($font-sizes, 400);
+      font-size: map-get($font-sizes, 3);
+      color: map-get($colors, 600);
+    }
+  }
+
+  &__count {
+    gap: 1.125rem;
+    margin-block-end: 2rem;
+
+    > span {
+      font-weight: map-get($font-weights, 400);
+      font-size: map-get($font-sizes, 3);
+      color: map-get($colors, text-color-600);
+    }
+
+    > div {
+      font-weight: map-get($font-weights, 400);
+      color: map-get($colors, text-color-800);
+    }
+  }
+
+  &--notFound {
+    width: 100%;
+    margin-block-end: 1.5rem;
+  }
+
+  &--skeleton {
+    margin-block-end: 1.5rem;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .brands {
+    margin-block: 1rem;
+
+    &__row {
+      row-gap: 1.5rem;
+      margin-block-end: 1.5rem;
+    }
+    &__count {
+      gap: 1rem;
+      margin-block-end: 1.5rem;
+    }
+  }
+}

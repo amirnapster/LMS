@@ -1,0 +1,212 @@
+.navDropdown {
+  display: flex;
+  background-color: map-get($colors, light-gray);
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1),
+    0px 15px 20px -10px rgba(0, 0, 0, 0.1) inset;
+  z-index: 400;
+  transition: top 0.4s;
+
+  &--toast {
+    flex: 0 0 auto;
+  }
+
+  &--isSimple {
+    width: 12rem;
+    border-radius: 0.5rem;
+
+    span[data-selector='title'] {
+      padding: 0.85rem;
+    }
+
+    .navDropdownContent {
+      padding: 0;
+      background-color: map-get($colors, bg-color);
+      border-radius: 0.5rem;
+      box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.12),
+        inset 0px 2px 4px -1px rgba(0, 0, 0, 0.1);
+
+      &--wrapper {
+        padding: 1rem 0.25rem;
+      }
+
+      [data-selector='item'] {
+        display: flex;
+        button {
+          padding: 12px 16px;
+          border-radius: 4px;
+
+          &:hover {
+            background-color: map-get($colors, primary-100);
+          }
+
+          &:active {
+            background-color: map-get($colors, primary-300);
+          }
+        }
+      }
+    }
+  }
+}
+
+.navDropdownContent {
+  padding: 2rem 2.5rem 2.5rem;
+
+  > [data-selector='title'] {
+    font-weight: map-get($font-weights, 700);
+    font-size: 1.12rem;
+    color: map-get($colors, text-2);
+    margin-bottom: 1.5rem;
+  }
+
+  [data-selector='item'] {
+    margin: 0.25rem 0;
+
+    button {
+      all: unset;
+      cursor: pointer;
+      display: flex;
+      width: 100%;
+      padding: 15px 0 10px;
+      gap: 0.5rem;
+      position: relative;
+      overflow: hidden;
+
+      &:hover {
+        background-color: #e6e6e6;
+      }
+
+      span[data-selector='title'] {
+        font-weight: 700;
+        font-size: 14px;
+        color: map-get($colors, text-1);
+        margin: 0.25rem 0;
+      }
+
+      span[data-selector='description'] {
+        font-weight: map-get($font-weights, 400);
+        font-size: map-get($font-sizes, 3);
+        text-align: start;
+        color: map-get($colors, text-2);
+      }
+    }
+  }
+}
+
+.navDropdownSide {
+  flex: 0 0 320px;
+  box-shadow: inset -2px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background-color: #fff;
+  align-self: stretch;
+  padding: 6.5rem 1.75rem 2.5rem;
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+
+    span {
+      font-weight: map-get($font-weights, 800);
+      font-size: map-get($font-sizes, 6);
+      color: map-get($colors, text-1);
+      padding-inline-end: 3rem;
+    }
+
+    svg {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+
+    > span {
+      padding-inline-end: 3rem;
+      font-size: map-get($font-sizes, 3);
+      line-height: 2rem;
+      text-align: start;
+      color: map-get($colors, text-1);
+    }
+
+    button {
+      cursor: pointer;
+      width: max-content;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      font-weight: 500;
+      gap: 0.25rem;
+      padding: 6px 10px;
+      border-radius: 12px;
+      margin-top: 1rem;
+
+      span {
+        display: flex;
+        align-items: center;
+        font-weight: map-get($font-weights, 600);
+        font-size: map-get($font-sizes, 3);
+        line-height: 20px;
+        color: map-get($colors, blue-button);
+        margin: 0 !important;
+      }
+
+      svg {
+        color: map-get($colors, blue-button);
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}
+
+.navDropdownLoginSide {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  background-color: map-get($colors, white);
+  align-self: stretch;
+  width: 216px;
+
+  & > button {
+    all: unset;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    text-align: start;
+    gap: 0.5rem;
+  }
+
+  &__header {
+    width: 100%;
+    padding-top: 20px;
+
+    & > span {
+      display: inline-block;
+      width: 100%;
+      font-weight: map-get($font-weights, 700);
+      font-size: 18px;
+      line-height: 2rem;
+      color: map-get($colors, text-2);
+      text-align: center;
+    }
+  }
+
+  &__content {
+    flex-direction: column;
+    align-items: flex-start;
+
+    & > div {
+      padding: 0.75rem 3rem 1rem 0;
+    }
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .navDropdownSide {
+    box-shadow: 0px 0px 4px 1px rgb(0, 0, 0, 0.1);
+  }
+}

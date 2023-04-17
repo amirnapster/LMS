@@ -1,0 +1,29 @@
+.title {
+  margin-block-end: 1.5rem;
+  border-bottom: 4px solid #101822;
+  display: inline-flex;
+
+  > div {
+    display: flex;
+  }
+
+  span {
+    font-weight: map-get($font-weights, 700);
+    font-size: map-get($font-sizes, 7);
+    color: map-get($colors, text-color-900);
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .title {
+    span {
+      font-size: map-get($font-sizes, 6);
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .title {
+    margin-inline-start: 1rem;
+  }
+}

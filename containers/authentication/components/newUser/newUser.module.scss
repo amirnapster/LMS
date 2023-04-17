@@ -1,0 +1,27 @@
+.newUser {
+  &--title {
+    font-weight: map-get($font-weights, 700);
+    font-size: map-get($font-sizes, 7);
+    color: map-get($colors, jade);
+    margin-block-start: 3rem;
+  }
+
+  &--lottie {
+    max-width: 64px;
+    max-height: 64px;
+    margin-block-start: 2rem;
+  }
+
+  &--subTitle {
+    font-weight: map-get($font-weights, 400);
+    // font-size: 1.125rem;
+    color: map-get($colors, text-color-900);
+    text-align: center;
+    line-height: 190%;
+    margin-block-end: 2rem;
+  }
+
+  &--completed {
+    width: 100%;
+  }
+}

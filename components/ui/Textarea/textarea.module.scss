@@ -1,0 +1,70 @@
+.textarea {
+  display: flex;
+  flex-direction: column;
+
+  &__field {
+    resize: none;
+    padding: 0.7rem 0.85rem;
+    border: 1px solid;
+    border-radius: 0.75rem;
+    @include formStatus();
+
+    &--error {
+      border: 1px solid map-get($colors, secondary) !important;
+      box-shadow: 0px 0px 4px rgb(232 66 44 / 60%);
+      margin-block-end: 0 !important;
+      display: block !important;
+    }
+
+    &--readonly {
+      background-color: #dbdbdb;
+      color: gray;
+    }
+
+    &::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+    &::-webkit-scrollbar-button:start:decrement,
+    &::-webkit-scrollbar-button:end:increment {
+      height: 10px;
+      background-color: transparent;
+    }
+    &::-webkit-scrollbar-track-piece {
+      background-color: #eeeeee;
+      -webkit-border-radius: 0.75rem;
+    }
+    &::-webkit-scrollbar-thumb:vertical {
+      height: 10px;
+      background-color: map-get($colors, gray-200);
+      border: 1px solid #eee;
+      -webkit-border-radius: 0.75rem;
+
+      &:hover {
+        background-color: map-get($colors, primary-400);
+      }
+    }
+
+    &::placeholder {
+      font-size: 0.85rem;
+    }
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+
+  &--error {
+    @include fieldsError();
+  }
+
+  [data-selector='field-required'] {
+    &::after {
+      content: '*';
+      color: map-get($colors, secondary);
+      position: relative;
+      inset-block-start: -0.5rem;
+      inset-inline-start: 0.125rem;
+    }
+  }
+}

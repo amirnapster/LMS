@@ -1,0 +1,28 @@
+type: object
+name: AboutUsDescription
+label: Description
+labelField: title
+thumbnail: https://assets.stackbit.com/components/models/thumbnails/default.png
+groups:
+  - aboutDescriptionComponent
+fields:
+  - type: string
+    name: title
+    label: Title
+    default: که هستیم؟
+  - type: string
+    name: subtitle
+    label: Subtitle
+    default: ساده‌سازی تحلیل و برقراری ارتباط با و بین کسب‌وکارها
+  - type: string
+    name: description
+    label: Description
+    default:
+  - type: boolean
+    name: reverse
+    label: Reverse
+    default:
+  - type: image
+    name: image
+    label: Image
+    default:
