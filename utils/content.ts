@@ -59,7 +59,8 @@ export function urlToContent(url: string) {
   const urlToFiles = Object.fromEntries(urlToFilePairs())
 
   const file = urlToFiles[url]
-  return readContent(file)
+  if (file) return readContent(file)
+  return null
 }
 
 export function pagesByType(contentType: types.DocumentTypeNames) {
