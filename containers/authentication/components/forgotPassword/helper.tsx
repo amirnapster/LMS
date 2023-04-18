@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import {
-  useForgetPasswordMutation,
-  useResetPasswordMutation,
-} from 'libs/redux/services/auth'
 import { BackIcon } from 'assets/icons'
 import { validation } from 'utils/helpers/validations'
 import { notify } from 'utils/notification'
 import { Player } from '@lottiefiles/react-lottie-player'
+import {
+  useForgetPasswordMutation,
+  useResetPasswordMutation,
+} from 'libs/redux/services/karnama'
 import Row from 'components/ui/Row'
 import Button from 'components/ui/Button'
 import Input from 'components/ui/Input'
@@ -43,16 +43,16 @@ const ConfirmNumber = ({ value, setStep, changeMode }: IConfirmNumber) => {
   }, [timer])
 
   const resend = () => {
-    forgetPassword({ userName: value })
+    forgetPassword({ forgotPasswordForm: { userName: value } })
       .unwrap()
       .then(() => setTimer(60))
   }
 
   const onSubmit = (submitValue: AuthForgotPasswordFields) => {
-    resetPassword(submitValue)
+    resetPassword({ resetPasswordForm: submitValue })
       .unwrap()
       .then((data) => {
-        notify({ message: data.msg })
+        notify({ message: 'رمز شما با موفقیت تغییر یافت' })
         setChangedPass(true)
       })
   }

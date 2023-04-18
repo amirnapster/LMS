@@ -8,7 +8,6 @@ import {
   createRippleEffect,
   removeRippleEffect,
 } from './helper'
-import Badge from '../Badge'
 
 import type { ButtonProps } from './interface'
 import styles from './button.module.scss'
@@ -38,43 +37,39 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => (
     // @ts-ignore
-    <Badge
-      className={styles['button--lock']}
-      count={<img src={LockSvg} alt='' />}
-      lock={!lock}
+
+    <button
+      ref={ref}
+      className={cn(
+        className,
+        styles['button'],
+        size ? styles[`button--${size}`] : '',
+        disabled ? styles['button--disabled'] : '',
+        loading ? styles['button--loading'] : '',
+        btnTypeClassName(btnType, bgColor, color)
+      )}
+      id={id}
+      form={form}
+      onClick={onClick}
+      onMouseDown={ripple ? createRippleEffect : undefined}
+      onAnimationEnd={(e) => ripple && removeRippleEffect(e.currentTarget)}
+      type={type}
+      disabled={disabled}
+      {...restProps}
     >
-      <button
-        ref={ref}
-        className={cn(
-          className,
-          styles['button'],
-          size ? styles[`button--${size}`] : '',
-          disabled ? styles['button--disabled'] : '',
-          loading ? styles['button--loading'] : '',
-          btnTypeClassName(btnType, bgColor, color)
-        )}
-        id={id}
-        form={form}
-        onClick={onClick}
-        onMouseDown={ripple ? createRippleEffect : undefined}
-        onAnimationEnd={(e) => ripple && removeRippleEffect(e.currentTarget)}
-        type={type}
-        disabled={disabled}
-        {...restProps}
-      >
-        {children}
-        {loading && (
-          <CircularProgress className={styles['button--spinner']} size={15} />
-        )}
-        {href && (
-          <Link prefetch={false} href={href as string}>
-            <a target={target} rel={rel} href={href as string}>
-              {' '}
-            </a>
-          </Link>
-        )}
-      </button>
-    </Badge>
+      {children}
+      {loading && (
+        <CircularProgress className={styles['button--spinner']} size={15} />
+      )}
+      {href && (
+        <Link
+          target={target}
+          rel={rel}
+          prefetch={false}
+          href={href as string}
+        />
+      )}
+    </button>
   )
 )
 

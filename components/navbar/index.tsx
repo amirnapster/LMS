@@ -9,7 +9,8 @@ import {
 import { toggleTransition, toggleNavbarSearch } from 'libs/redux/slices/navbar'
 import { NavbarAvatar } from 'components/navbar/profile/helper'
 import { clearAuth, setVisible } from 'libs/redux/slices/auth'
-import { useLogoutMutation } from 'libs/redux/services/auth'
+import { useLogoutMutation } from 'libs/redux/services/karnama'
+import { useIntl } from 'react-intl'
 import Container from 'components/container'
 import Row from 'components/ui/Row'
 import Col from 'components/ui/Col'
@@ -17,7 +18,6 @@ import Button from 'components/ui/Button'
 import MyContext from 'utils/context'
 import cn from 'classnames'
 import type { RootState } from 'libs/redux/store'
-import { useIntl } from 'react-intl'
 import NavbarSearch from './search'
 import NavbarProfile from './profile'
 import NavbarDrawer from './drawer'
@@ -55,7 +55,7 @@ const Navbar = () => {
 
   const login = () => {
     if (accessToken) {
-      logoutUser(null)
+      logoutUser()
         .unwrap()
         .then(() => {
           dispatch(clearAuth())

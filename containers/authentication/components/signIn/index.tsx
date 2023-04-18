@@ -1,33 +1,34 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Alert, Collapse } from '@mui/material'
-import { useLoginMutation } from 'libs/redux/services/auth'
 import { setUserNameAndPassword } from 'libs/redux/slices/auth'
+import {
+  ApiError,
+  SignInApiArg,
+  useSignInMutation,
+} from 'libs/redux/services/karnama'
+import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query'
+// import Session from '../session'
 import Modal from 'components/ui/Modal'
 import Row from 'components/ui/Row'
-import type {
-  AuthCallBackProps,
-  AuthFields,
-} from 'containers/authentication/interface'
-import Session from '../session'
 
+import type { AuthCallBackProps } from 'containers/authentication/interface'
 import { AuthForm, onLogin } from './helper'
 import styles from './signIn.module.scss'
 
 const SignIn = ({ changeMode }: AuthCallBackProps) => {
   const dispatch = useDispatch()
 
-  const [login, { isLoading, data }] = useLoginMutation()
+  const [login, { isLoading, error }] = useSignInMutation()
   const [open, setOpen] = useState(false)
   const [isSessionLimit, setIsSessionLimit] = useState(false)
 
-  const onSubmit = (value: AuthFields) => {
-    login(value)
+  const apiError = (error as FetchBaseQueryError)?.data as ApiError
+
+  const onSubmit = (value: SignInApiArg['userSignInForm']) => {
+    login({ userSignInForm: value })
       .unwrap()
       .then((res) => {
-        if (res.statusCode === 10) {
-          return
-        }
         onLogin(res)
       })
       .catch((err) => {
@@ -43,13 +44,13 @@ const SignIn = ({ changeMode }: AuthCallBackProps) => {
 
   return (
     <Row className={styles['signIn']} direction='column' align='middle'>
-      <Modal visible={isSessionLimit}>
+      {/* <Modal visible={isSessionLimit}>
         <Session
           isOtp={false}
           onSubmit={onSubmit}
           setIsSessionLimit={setIsSessionLimit}
         />
-      </Modal>
+      </Modal> */}
 
       <span className={styles['signIn--title']}>ورود با رمز عبور</span>
 
@@ -62,7 +63,7 @@ const SignIn = ({ changeMode }: AuthCallBackProps) => {
         {open ? (
           <Collapse in={open}>
             <Alert className='mt-1' severity='error'>
-              {data?.message}
+              {apiError?.message}
             </Alert>
           </Collapse>
         ) : undefined}

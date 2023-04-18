@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux'
 import { WEB } from 'utils/statics/routes/web'
 import cn from 'classnames'
 import Col from 'components/ui/Col'
-import Tooltip from 'components/ui/Tooltip'
 import Button from 'components/ui/Button'
 // import LimitTooltip from 'components/limitTooltip'
 

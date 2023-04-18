@@ -29,7 +29,7 @@ const Footer = () => {
                   link && window.open(link.url, link.type, link.options)
                 }
               >
-                <Image src={imgSource} layout='fill' />
+                <Image src={imgSource} layout='fill' alt='source' />
               </Button>
             ))}
           </Col>

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { validation } from 'utils/helpers/validations'
-import { useSignInByOtpMutation } from 'libs/redux/services/v3'
+import { useSignInByOtpMutation } from 'libs/redux/services/karnama'
 import Button from 'components/ui/Button'
 import Input from 'components/ui/Input'
 import Row from 'components/ui/Row'
