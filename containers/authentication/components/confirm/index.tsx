@@ -1,22 +1,26 @@
 import { useForm } from 'react-hook-form'
 import { useIntl } from 'react-intl'
 import { useSelector } from 'react-redux'
-import { useConfirmMutation, useLoginMutation } from 'libs/redux/services/auth'
 import { validation } from 'utils/helpers/validations'
 import { notify } from 'utils/notification'
+import {
+  useSignInByOtpMutation,
+  useVerfySignInByOtpMutation,
+} from 'libs/redux/services/karnama'
 import Button from 'components/ui/Button'
 import Input from 'components/ui/Input'
 import TitleBox from 'components/titleBox'
 
+import type { Token } from 'libs/redux/services/karnama'
 import type { RootState } from 'libs/redux/store'
 import { onLogin } from '../signIn/helper'
 import styles from './confirm.module.scss'
 
 const Confirm = () => {
   const intl = useIntl()
-  const [confirmOtp, { isLoading }] = useConfirmMutation()
-  const [login] = useLoginMutation()
-  const { userName, password } = useSelector((state: RootState) => state.auth)
+  const [confirmOtp, { isLoading }] = useVerfySignInByOtpMutation()
+  const [login] = useSignInByOtpMutation()
+  const { userName } = useSelector((state: RootState) => state.auth)
   const {
     handleSubmit,
     register,
@@ -26,12 +30,14 @@ const Confirm = () => {
 
   const onSubmit = (value: { otp: string }) => {
     const data = { otp: value.otp, username: userName }
-    confirmOtp(data)
+    confirmOtp({
+      verfySignInByOtpCommand: { userName: data.username, code: data.otp },
+    })
       .unwrap()
       .then(() =>
-        login({ userName, password })
+        login({ signInByOtpCommand: { userName } })
           .unwrap()
-          .then((res) => onLogin(res))
+          .then((res) => onLogin(res as Token))
       )
       .catch((err) => notify({ type: 'error', message: err.data.descripton }))
   }
@@ -44,7 +50,7 @@ const Confirm = () => {
         className={styles['confirm__form']}
       >
         <Input
-          defaultValue={userName}
+          defaultValue={userName as string}
           readOnly
           label={intl.formatMessage({ id: 'username' })}
         />

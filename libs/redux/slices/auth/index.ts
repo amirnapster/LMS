@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import Cookies from 'js-cookie'
+import { SignInApiArg, Token } from 'libs/redux/services/karnama'
 
-import type { Package_Type, Token } from 'libs/redux/services/auth/interface'
 import type { AuthSlice, IVisibleData, UserData } from './interface'
 
 const initialState: AuthSlice = {
@@ -20,7 +20,7 @@ export const authSlice = createSlice({
   reducers: {
     setUserAuth: (state, action: PayloadAction<Token>) => {
       const { accessToken, refreshToken } = action.payload
-      Cookies.set('token', accessToken, {
+      Cookies.set('token', accessToken as string, {
         expires: new Date(new Date().setFullYear(new Date().getFullYear() + 2)),
       })
       return { ...state, accessToken, refreshToken }
@@ -44,7 +44,7 @@ export const authSlice = createSlice({
         : action.payload.userName || state.userName,
       mode: action.payload.mode || state.mode,
     }),
-    setPackageType: (state, action: PayloadAction<Package_Type>) => {
+    setPackageType: (state, action: PayloadAction<number>) => {
       Cookies.set('packageType', String(action.payload), {
         expires: new Date(new Date().setFullYear(new Date().getFullYear() + 2)),
       })
@@ -57,7 +57,10 @@ export const authSlice = createSlice({
       const { userName, password } = action.payload
       return { ...state, mode: 'confirm', userName, password }
     },
-    setUserNameAndPassword: (state, action: PayloadAction<UserData>) => {
+    setUserNameAndPassword: (
+      state,
+      action: PayloadAction<SignInApiArg['userSignInForm']>
+    ) => {
       const { userName, password } = action.payload
       return { ...state, userName, password }
     },

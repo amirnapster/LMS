@@ -9,30 +9,30 @@ import Row from 'components/ui/Row'
 import Button from 'components/ui/Button'
 import Input from 'components/ui/Input'
 
+import type { Token } from 'libs/redux/services/karnama'
 import type { AuthFormProps } from 'containers/authentication/interface'
-import type { V2Response } from 'libs/redux/services/auth/interface'
 import styles from './signIn.module.scss'
 
-export const onLogin = (res: V2Response) => {
+export const onLogin = (res: Token) => {
   const { asPath, push } = Router
-  const { token, credits } = res.data
+  const { packageType } = res
 
   notify({
     message: 'ورود با موفقیت انجام شد.',
     config: { autoClose: 3000 },
   })
 
-  store.dispatch(setUserAuth(token))
+  store.dispatch(setUserAuth(res))
 
-  store.dispatch(setPackageType(credits.package!))
+  store.dispatch(setPackageType(packageType as number))
 
-  if ((res as V2Response).data.isNewUser)
+  if ((res as Token).isNewUser)
     store.dispatch(setVisible({ visible: true, mode: 'newUser' }))
-  else if ((res as V2Response).data.completedProfile === false)
+  else if ((res as Token).completedProfile === false)
     store.dispatch(setVisible({ visible: true, mode: 'completeProfile' }))
   else store.dispatch(setVisible({ visible: false }))
 
-  if (asPath === '/') push('/dashboard')
+  // if (asPath === '/') push('/dashboard')
 }
 
 export const AuthForm = ({

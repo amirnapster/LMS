@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { BackIcon } from 'assets/icons'
-import { useForgetPasswordMutation } from 'libs/redux/services/auth'
 import { validation } from 'utils/helpers/validations'
+import { useForgetPasswordMutation } from 'libs/redux/services/karnama'
 import Button from 'components/ui/Button'
 import Input from 'components/ui/Input'
 import Row from 'components/ui/Row'
@@ -30,7 +30,7 @@ const ForgotPassword = ({ changeMode }: AuthCallBackProps) => {
 
   const onSubmit = (value: ValueType) => {
     setData(value?.userName)
-    forgetPassword(value)
+    forgetPassword({ forgotPasswordForm: value })
       .unwrap()
       .then(() => setStep(2))
       .catch((err) => {

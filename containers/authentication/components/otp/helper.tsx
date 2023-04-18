@@ -2,21 +2,21 @@ import { useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { BackIcon, OtpAvatarImg } from 'assets/icons'
 import { onLogin } from 'containers/authentication/components/signIn/helper'
-import {
-  useVerfySignInByOtpMutation,
-  useSignInByOtpMutation,
-} from 'libs/redux/services/v3'
 import { setUserNameAndPassword } from 'libs/redux/slices/auth'
+import {
+  ApiError,
+  useSignInByOtpMutation,
+  useVerfySignInByOtpMutation,
+} from 'libs/redux/services/karnama'
 import Modal from 'components/ui/Modal'
 import Button from 'components/ui/Button'
 import CodeInput from 'components/ui/CodeInput'
 import Row from 'components/ui/Row'
 import cn from 'classnames'
 
-import type { V2Response } from 'libs/redux/services/auth/interface'
 import type { AuthFields } from 'containers/authentication/interface'
+import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query'
 import type { IConfirmOtpProps } from './interface'
-import Session from '../session'
 import styles from './otp.module.scss'
 
 export const ConfirmOtp = ({ changeMode, data, setStep }: IConfirmOtpProps) => {
@@ -25,8 +25,10 @@ export const ConfirmOtp = ({ changeMode, data, setStep }: IConfirmOtpProps) => {
   const [timer, setTimer] = useState<number>(60)
   const [code, setCode] = useState<string>('')
 
-  const [verifyOtp, { isLoading, data: verifyOtpResult }] =
+  const [verifyOtp, { isLoading, data: verifyOtpResult, error }] =
     useVerfySignInByOtpMutation()
+
+  const apiError = (error as FetchBaseQueryError)?.data as ApiError
 
   const [signInByOTP] = useSignInByOtpMutation()
 
@@ -36,10 +38,7 @@ export const ConfirmOtp = ({ changeMode, data, setStep }: IConfirmOtpProps) => {
     })
       .unwrap()
       .then((res) => {
-        if (res.statusCode === 10) {
-          return
-        }
-        onLogin(res as V2Response)
+        onLogin(res)
       })
       .catch((err) => {
         if (err.status === 403) {
@@ -76,13 +75,13 @@ export const ConfirmOtp = ({ changeMode, data, setStep }: IConfirmOtpProps) => {
 
   return (
     <Row className={styles['confirmOtp']} direction='column' align='middle'>
-      <Modal visible={isSessionLimit}>
+      {/* <Modal visible={isSessionLimit}>
         <Session
           isOtp
           onSubmit={onSubmit}
           setIsSessionLimit={setIsSessionLimit}
         />
-      </Modal>
+      </Modal> */}
 
       <div className={styles['confirmOtp__img']}>
         <img src={OtpAvatarImg} alt='avatar' />
@@ -116,9 +115,7 @@ export const ConfirmOtp = ({ changeMode, data, setStep }: IConfirmOtpProps) => {
       <Row
         className={cn(
           styles['confirmOtp__inputs'],
-          verifyOtpResult && !verifyOtpResult.isSuccess
-            ? styles['confirmOtp--inputError']
-            : ''
+          verifyOtpResult ? styles['confirmOtp--inputError'] : ''
         )}
         direction='row-reverse'
         justify='space-between'
@@ -129,10 +126,8 @@ export const ConfirmOtp = ({ changeMode, data, setStep }: IConfirmOtpProps) => {
           onChange={(e) => setCode(e)}
         />
       </Row>
-      {!verifyOtpResult?.isSuccess && (
-        <span className={styles['confirmOtp--error']}>
-          {verifyOtpResult?.message}
-        </span>
+      {apiError && (
+        <span className={styles['confirmOtp--error']}>{apiError?.message}</span>
       )}
 
       <Row

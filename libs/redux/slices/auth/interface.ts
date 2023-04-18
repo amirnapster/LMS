@@ -1,4 +1,4 @@
-import { Package_Type } from 'libs/redux/services/auth/interface'
+import type { SignInApiArg, Token } from 'libs/redux/services/karnama'
 
 export type AuthMode =
   | 'signIn'
@@ -10,16 +10,16 @@ export type AuthMode =
   | 'completeProfile'
 
 export interface UserData {
-  userName: string
-  password: string
+  userName: SignInApiArg['userSignInForm']['userName']
+  password: SignInApiArg['userSignInForm']['password']
 }
 
 export interface AuthSlice extends UserData {
   mode: AuthMode
-  accessToken: string
-  refreshToken: string
+  accessToken: Token['accessToken']
+  refreshToken: Token['refreshToken']
   visible: boolean
-  packageType?: Package_Type
+  packageType?: number
 }
 
 export interface IVisibleData {

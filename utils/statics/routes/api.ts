@@ -7,7 +7,7 @@ export const API = {
   VISIT_LOG: '/VisitLog',
   UPDATE_VISIT_LOG: '/UpdateVisitLogDuration',
   GET_HOMEPAGE: 'v1/Home/GetHomePage',
-  LOGOUT: 'v2/Account/Logout',
+  LOGOUT: '/Account/Logout',
   FORGET_PASSWORD: 'v1/Account/ForgetPassword',
   REGISTER: 'v1/Account/SignUp',
   RESET_PASSWORD: 'v1/Account/ResetPassword',
@@ -37,5 +37,5 @@ export const API = {
   FOLLOW_COMPANY: 'v1/Companies/FollowCompany',
   UNFOLLOW_COMPANY: 'v1/Companies/UnfollowCompany',
   ADD_TO_NEWSLETTER: 'v2/Profile/AddToNewsletter',
-  SIGN_IN_BY_OTP: 'v3/Account/SignInByOTP',
+  SIGN_IN_BY_OTP: '/Account/SignInByOTP',
 }

@@ -71,31 +71,3 @@ export const closePanel = (cn: string) => {
 }
 export const copyToClipBoard = (text: string) =>
   navigator.clipboard.writeText(text)
-
-export const returnEntityRoute = (
-  entity: string,
-  entityId: number | string,
-  entityTitle: string
-) => {
-  if (entity === 'person') {
-    const encodeId = Number(entityId).toString(16)
-    return `/${entity}/${encodeId}/${entityTitle}`
-  }
-  if (entity === 'export' || entity === 'import') {
-    return `/hs/${entityId}/${entityTitle}`
-  }
-  if (entityId > 0) return `/${entity}/${entityId}/${entityTitle}`
-
-  return ''
-}
-
-export const entityRouteHandler = (
-  entity: string,
-  entityId: number | string,
-  entityTitle: string
-) => {
-  window.open(
-    window.location.origin + returnEntityRoute(entity, entityId, entityTitle),
-    '_blank'
-  )
-}
