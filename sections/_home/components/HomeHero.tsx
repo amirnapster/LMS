@@ -12,7 +12,7 @@ import {
 // utils
 import { bgGradient } from 'utils/helpers/cssStyles'
 // hooks
-import useResponsive from 'utils/utils/hooks/useResponsive'
+import useResponsive from 'utils/hooks/useResponsive'
 import useBoundingClientRect from 'utils/hooks/useBoundingClientRect'
 // components
 import Image from 'components/image'

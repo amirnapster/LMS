@@ -1,7 +1,7 @@
-import { memo } from 'react';
+import { memo, ReactNode } from 'react'
 // @mui
-import { alpha, styled } from '@mui/material/styles';
-import { Box, BoxProps } from '@mui/material';
+import { alpha, styled } from '@mui/material/styles'
+import { Box, BoxProps } from '@mui/material'
 
 // ----------------------------------------------------------------------
 
@@ -16,7 +16,7 @@ const StyledContent = styled('div')(({ theme }) => ({
   justifyContent: 'center',
   clipPath: 'polygon(25% 0, 100% 0, 100% 100%, 0 100%, 0 25%)',
   boxShadow: `inset 0px -4px 6px rgba(0, 0, 0, 0.48)`,
-}));
+}))
 
 const StyledShape01 = styled('div')(() => ({
   top: -2,
@@ -36,7 +36,7 @@ const StyledShape01 = styled('div')(() => ({
     position: 'absolute',
     backgroundColor: 'rgba(255,255,255,0.4)',
   },
-}));
+}))
 
 const StyledShape02 = styled('div')(({ theme }) => ({
   top: 2,
@@ -48,25 +48,25 @@ const StyledShape02 = styled('div')(({ theme }) => ({
   position: 'absolute',
   transform: 'rotate(45deg)',
   backgroundColor: theme.palette.common.black,
-}));
+}))
 
 // ----------------------------------------------------------------------
 
-interface Props extends BoxProps {
-  color: string;
-  content: React.ReactElement;
+interface IconProps extends BoxProps {
+  color: string
+  content: any
 }
 
-function Icon({ content, color, sx, ...other }: Props) {
+function Icon({ content, color, sx, ...other }: IconProps) {
   return (
     <Box
       sx={{
         p: 1.5,
         borderRadius: 2.5,
-        background: `linear-gradient(to bottom, ${alpha(color, 0.24)} -8%, ${alpha(
+        background: `linear-gradient(to bottom, ${alpha(
           color,
-          0
-        )} 120%)`,
+          0.24
+        )} -8%, ${alpha(color, 0)} 120%)`,
         ...sx,
       }}
       {...other}
@@ -75,7 +75,8 @@ function Icon({ content, color, sx, ...other }: Props) {
         sx={{
           bgcolor: color,
           borderRadius: 3,
-          boxShadow: (theme) => `0px 24px 48px ${alpha(theme.palette.common.black, 0.4)}`,
+          boxShadow: (theme) =>
+            `0px 24px 48px ${alpha(theme.palette.common.black, 0.4)}`,
         }}
       >
         <StyledContent sx={{ bgcolor: color }}>
@@ -85,7 +86,7 @@ function Icon({ content, color, sx, ...other }: Props) {
         </StyledContent>
       </Box>
     </Box>
-  );
+  )
 }
 
-export default memo(Icon);
+export default memo(Icon)

@@ -53,6 +53,7 @@
     "react/require-default-props": "off",
     "no-restricted-exports": "off",
     "@typescript-eslint/no-empty-function": "off",
+    "import/no-unresolved": "off",
     "no-use-before-define": "off",
     "@typescript-eslint/no-var-requires": 0,
     "react/button-has-type": "off",

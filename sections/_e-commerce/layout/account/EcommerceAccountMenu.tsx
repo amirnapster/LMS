@@ -14,7 +14,7 @@ import {
 } from '@mui/material'
 // hooks
 import useResponsive from 'utils/hooks/useResponsive'
-import useActiveLink from 'hooks/useActiveLink'
+import useActiveLink from 'utils/hooks/useActiveLink'
 // config
 import { NAV } from 'config-global'
 // routes

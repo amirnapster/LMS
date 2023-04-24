@@ -16,7 +16,7 @@ import fa from 'assets/locales/fa-IR.json'
 import en from 'assets/locales/en-US.json'
 import 'react-toastify/dist/ReactToastify.css'
 import '../styles/globals.scss'
-import ThemeProvider from 'theme'
+import Theme from 'theme'
 import MyContext from 'utils/context'
 
 gtm()
@@ -59,20 +59,20 @@ const MyApp = ({
     <>
       <AppHead />
       <Provider store={store}>
-        <ThemeProvider>
-          <IntlProvider
-            locale={locale as string}
-            messages={messages}
-            onError={() => null}
-          >
+        <IntlProvider
+          locale={locale as string}
+          messages={messages}
+          onError={() => null}
+        >
+          <Theme>
             <PersistGate persistor={persistor}>
               <MyContext.Provider value={myContextValue}>
                 {getLayout(<Component {...pageProps} />)}
               </MyContext.Provider>
               <ToastContainer enableMultiContainer limit={1} />
             </PersistGate>
-          </IntlProvider>
-        </ThemeProvider>
+          </Theme>
+        </IntlProvider>
       </Provider>
     </>
   )

@@ -9,7 +9,7 @@ import {
   InputAdornment,
 } from '@mui/material'
 // hooks
-import useCountdown from 'hooks/useCountdown'
+import useCountdown from 'utils/hooks/useCountdown'
 // _mock
 import { _socials } from '_mock'
 // components

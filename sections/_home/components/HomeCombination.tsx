@@ -2,7 +2,7 @@ import { m } from 'framer-motion'
 // @mui
 import { Button, Box, Container, Typography } from '@mui/material'
 // hooks
-import useResponsive from 'utils/utils/hooks/useResponsive'
+import useResponsive from 'utils/hooks/useResponsive'
 // components
 import Image from 'components/image'
 import Iconify from 'components/iconify'

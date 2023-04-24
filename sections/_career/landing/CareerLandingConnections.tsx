@@ -18,7 +18,7 @@ import {
 import { paths } from 'routes/paths'
 // hooks
 import useResponsive from 'utils/hooks/useResponsive'
-import useBoundingClientRect from 'hooks/useBoundingClientRect'
+import useBoundingClientRect from 'utils/hooks/useBoundingClientRect'
 // types
 import { IJobByCountryProps } from 'types/job'
 // components

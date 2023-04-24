@@ -13,7 +13,7 @@ import {
   Unstable_Grid2 as Grid,
 } from '@mui/material'
 // hooks
-import useResponsive from 'utils/utils/hooks/useResponsive'
+import useResponsive from 'utils/hooks/useResponsive'
 
 // components
 import Iconify from 'components/iconify'

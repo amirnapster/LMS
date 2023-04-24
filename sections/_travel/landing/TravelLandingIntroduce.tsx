@@ -3,7 +3,7 @@ import { useRef } from 'react'
 import { Typography, Container, Stack, Box, Card } from '@mui/material'
 // hooks
 import useResponsive from 'utils/hooks/useResponsive'
-import useBoundingClientRect from 'hooks/useBoundingClientRect'
+import useBoundingClientRect from 'utils/hooks/useBoundingClientRect'
 // components
 import Image from 'components/image'
 import Iconify from 'components/iconify'
