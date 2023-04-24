@@ -55,7 +55,7 @@ declare module 'leaflet' {
   ): Transformation
 
   /**
-   * @see https://github.com/Leaflet/Leaflet/blob/bc918d4bdc2ba189807bc207c77080fb41ecc196/src/geometry/LineUtil.js#L118
+   * @see https://github.com/Leaflet/Leaflet/blob/bc918d4bdc2ba189807bc207c77080fb41ecc196/geometry/LineUtil.js#L118
    */
   export namespace LineUtil {
     function simplify(points: Point[], tolerance: number): Point[]
@@ -4323,10 +4323,10 @@ declare module 'leaflet' {
     let emptyImageUrl: string
   }
 
-  export const extend: typeof Util['extend']
-  export const bind: typeof Util['bind']
-  export const stamp: typeof Util['stamp']
-  export const setOptions: typeof Util['setOptions']
+  export const extend: (typeof Util)['extend']
+  export const bind: (typeof Util)['bind']
+  export const stamp: (typeof Util)['stamp']
+  export const setOptions: (typeof Util)['setOptions']
 
   export function noConflict(): any
 }

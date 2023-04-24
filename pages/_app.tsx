@@ -17,6 +17,7 @@ import en from 'assets/locales/en-US.json'
 import 'react-toastify/dist/ReactToastify.css'
 import '../styles/globals.scss'
 import { ThemeProvider } from '@mui/material'
+import CustomTheme from 'theme'
 import MyContext from 'utils/context'
 import oldTheme from '../Theme'
 
@@ -60,7 +61,8 @@ const MyApp = ({
     <>
       <AppHead />
       <Provider store={store}>
-        <ThemeProvider theme={oldTheme}>
+        {/* <ThemeProvider theme={oldTheme}> */}
+        <CustomTheme>
           <IntlProvider
             locale={locale as string}
             messages={messages}
@@ -73,7 +75,8 @@ const MyApp = ({
               <ToastContainer enableMultiContainer limit={1} />
             </PersistGate>
           </IntlProvider>
-        </ThemeProvider>
+        </CustomTheme>
+        {/* </ThemeProvider> */}
       </Provider>
     </>
   )

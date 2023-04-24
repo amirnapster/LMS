@@ -1,4 +1,4 @@
-﻿import { createTheme } from '@mui/material/styles'
+﻿import { createTheme, alpha } from '@mui/material/styles'
 import { faIR } from '@mui/material/locale'
 import { faIR as datagridFa } from '@mui/x-data-grid'
 
@@ -14,7 +14,6 @@ const oldTheme = createTheme(
         main: '#961b1e',
       },
     },
-    spacing: [8, 12, 16, 24, 32, 36, 40, 48, 56, 64, 72, 80, 88],
     shape: {
       borderRadius: 12,
     },
@@ -26,6 +25,10 @@ const oldTheme = createTheme(
             count !== 10000 ? count : `بیش‌از ${count} نتیجه`
           }`,
       },
+    },
+    customShadows: {
+      primary: `0 8px 16px 0 ${alpha('#013b81', 0.24)}`,
+      secondary: `0 8px 16px 0 ${alpha('#961b1e', 0.24)}`,
     },
   },
   faIR,

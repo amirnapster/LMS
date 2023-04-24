@@ -1,9 +1,6 @@
+import CountUp from 'components/count-up/CountUp'
 import Button from 'components/ui/Button'
 
-const Home = () => (
-  <Button href='/test' target='_blank'>
-    test
-  </Button>
-)
+const Home = () => <span>home</span>
 
 export default Home
