@@ -28,7 +28,6 @@ export default function NavList({ data, depth, hasChild }: NavListRootProps) {
     if (!active) {
       handleClose()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname])
 
   const handleToggle = () => {

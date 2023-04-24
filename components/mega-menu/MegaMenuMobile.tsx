@@ -1,7 +1,7 @@
-import { useState, useEffect, forwardRef } from 'react';
+import { useState, useEffect, forwardRef } from 'react'
 // next
-import NextLink from 'next/link';
-import { useRouter } from 'next/router';
+import NextLink from 'next/link'
+import { useRouter } from 'next/router'
 // @mui
 import {
   Box,
@@ -16,40 +16,49 @@ import {
   ListItemText,
   ListItemIcon,
   ListItemButton,
-} from '@mui/material';
+} from '@mui/material'
 // config
-import { NAV, ICON } from '../../config-global';
+import { NAV, ICON } from '../../config-global'
 // types
-import { ParentItemProps, MegaMenuItemProps } from './types';
+import { ParentItemProps, MegaMenuItemProps } from './types'
 //
-import Logo from '../logo';
-import Iconify from '../iconify';
-import Scrollbar from '../scrollbar';
+import Logo from '../logo'
+import Iconify from '../iconify'
+import Scrollbar from '../scrollbar'
 
 // ----------------------------------------------------------------------
 
 type Props = {
-  data: MegaMenuItemProps[];
-  open: boolean;
-  onOpen: VoidFunction;
-  onClose: VoidFunction;
-  action?: React.ReactNode;
-};
+  data: MegaMenuItemProps[]
+  open: boolean
+  onOpen: VoidFunction
+  onClose: VoidFunction
+  action?: React.ReactNode
+}
 
-export default function MegaMenuMobile({ data, open, action, onOpen, onClose }: Props) {
-  const { pathname } = useRouter();
+export default function MegaMenuMobile({
+  data,
+  open,
+  action,
+  onOpen,
+  onClose,
+}: Props) {
+  const { pathname } = useRouter()
 
   useEffect(() => {
     if (open) {
-      onClose();
+      onClose()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+  }, [pathname])
 
   return (
     <>
       {action || (
-        <Button variant="contained" onClick={onOpen} startIcon={<Iconify icon="carbon:menu" />}>
+        <Button
+          variant='contained'
+          onClick={onOpen}
+          startIcon={<Iconify icon='carbon:menu' />}
+        >
           Menu
         </Button>
       )}
@@ -69,14 +78,18 @@ export default function MegaMenuMobile({ data, open, action, onOpen, onClose }: 
         </Scrollbar>
       </Drawer>
     </>
-  );
+  )
 }
 
 // ----------------------------------------------------------------------
 
 const ParentItem = forwardRef<HTMLDivElement, ParentItemProps>(
   ({ icon, title, hasSub, ...other }, ref) => (
-    <ListItemButton ref={ref} sx={{ height: 44, textTransform: 'capitalize' }} {...other}>
+    <ListItemButton
+      ref={ref}
+      sx={{ height: 44, textTransform: 'capitalize' }}
+      {...other}
+    >
       <ListItemIcon
         sx={{
           width: ICON.NAV_ITEM,
@@ -85,43 +98,49 @@ const ParentItem = forwardRef<HTMLDivElement, ParentItemProps>(
       >
         {icon}
       </ListItemIcon>
-      <ListItemText primaryTypographyProps={{ typography: 'body2' }}>{title}</ListItemText>
-      {hasSub && <Iconify icon="carbon:chevron-right" width={16} />}
+      <ListItemText primaryTypographyProps={{ typography: 'body2' }}>
+        {title}
+      </ListItemText>
+      {hasSub && <Iconify icon='carbon:chevron-right' width={16} />}
     </ListItemButton>
   )
-);
+)
 
 // ----------------------------------------------------------------------
 
 type SubMenuProps = {
-  parent: MegaMenuItemProps;
-  pathname: string;
-};
+  parent: MegaMenuItemProps
+  pathname: string
+}
 
 function SubMenu({ parent, pathname }: SubMenuProps) {
-  const { title, icon, path, children } = parent;
+  const { title, icon, path, children } = parent
 
-  const [openDrawer, setOpenDrawer] = useState(false);
+  const [openDrawer, setOpenDrawer] = useState(false)
 
   useEffect(() => {
     if (openDrawer) {
-      handleCloseDrawer();
+      handleCloseDrawer()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+  }, [pathname])
 
   const handleOpenDrawer = () => {
-    setOpenDrawer(true);
-  };
+    setOpenDrawer(true)
+  }
 
   const handleCloseDrawer = () => {
-    setOpenDrawer(false);
-  };
+    setOpenDrawer(false)
+  }
 
   if (children) {
     return (
       <>
-        <ParentItem title={title} icon={icon} onClick={handleOpenDrawer} hasSub />
+        <ParentItem
+          title={title}
+          icon={icon}
+          onClick={handleOpenDrawer}
+          hasSub
+        />
 
         <Drawer
           open={openDrawer}
@@ -135,12 +154,16 @@ function SubMenu({ parent, pathname }: SubMenuProps) {
             },
           }}
         >
-          <Stack direction="row" alignItems="center" px={1} py={1.5}>
+          <Stack direction='row' alignItems='center' px={1} py={1.5}>
             <IconButton onClick={handleCloseDrawer}>
-              <Iconify icon="carbon:chevron-left" width={16} />
+              <Iconify icon='carbon:chevron-left' width={16} />
             </IconButton>
 
-            <Typography noWrap variant="subtitle1" sx={{ ml: 1, textTransform: 'capitalize' }}>
+            <Typography
+              noWrap
+              variant='subtitle1'
+              sx={{ ml: 1, textTransform: 'capitalize' }}
+            >
               {title}
             </Typography>
           </Stack>
@@ -149,13 +172,13 @@ function SubMenu({ parent, pathname }: SubMenuProps) {
           <Scrollbar>
             <Stack spacing={5} py={3}>
               {children.map((list) => {
-                const { subheader, items } = list;
+                const { subheader, items } = list
 
                 return (
                   <List key={subheader} disablePadding>
                     <Typography
-                      component="div"
-                      variant="overline"
+                      component='div'
+                      variant='overline'
                       sx={{ px: 2.5, mb: 1, color: 'text.secondary' }}
                       noWrap
                     >
@@ -166,8 +189,8 @@ function SubMenu({ parent, pathname }: SubMenuProps) {
                         key={link.title}
                         component={NextLink}
                         href={link.path}
-                        color="inherit"
-                        underline="none"
+                        color='inherit'
+                        underline='none'
                       >
                         <ListItemButton sx={{ px: 1.5 }}>
                           <ListItemIcon
@@ -192,24 +215,27 @@ function SubMenu({ parent, pathname }: SubMenuProps) {
 
                           <ListItemText
                             primary={link.title}
-                            primaryTypographyProps={{ noWrap: true, typography: 'body2' }}
+                            primaryTypographyProps={{
+                              noWrap: true,
+                              typography: 'body2',
+                            }}
                           />
                         </ListItemButton>
                       </Link>
                     ))}
                   </List>
-                );
+                )
               })}
             </Stack>
           </Scrollbar>
         </Drawer>
       </>
-    );
+    )
   }
 
   return (
-    <Link component={NextLink} href={path} color="inherit" underline="none">
+    <Link component={NextLink} href={path} color='inherit' underline='none'>
       <ParentItem title={title} icon={icon} />
     </Link>
-  );
+  )
 }

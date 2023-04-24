@@ -58,7 +58,6 @@ export default function SupportView() {
     if (mobileOpen) {
       setMobileOpen(false)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [topic])
 
   return (

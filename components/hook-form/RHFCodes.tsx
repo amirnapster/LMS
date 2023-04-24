@@ -36,7 +36,8 @@ export default function RHFCodes({
     event: React.ChangeEvent<HTMLInputElement>,
     handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void
   ) => {
-    const { maxLength, value, name } = event.target
+    const { target } = event
+    const { maxLength, value, name } = target
 
     const fieldIndex = name.replace(keyName, '')
 
@@ -47,7 +48,7 @@ export default function RHFCodes({
     )
 
     if (value.length > maxLength) {
-      event.target.value = value[0]
+      target.value = value.substring(0, maxLength)
     }
 
     if (value.length >= maxLength && fieldIntIndex < 6 && nextfield !== null) {
@@ -82,9 +83,7 @@ export default function RHFCodes({
                   height: { xs: 36, sm: 56 },
                   '& input': { p: 0, textAlign: 'center' },
                 },
-              }}
-              inputProps={{
-                maxLength: 1,
+                // maxLength: 1,
                 type: 'number',
               }}
               {...other}

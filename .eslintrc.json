@@ -34,12 +34,6 @@
   },
   "rules": {
     "react/no-unescaped-entities": "off",
-    "no-use-before-define": [
-      "error",
-      {
-        "variables": false
-      }
-    ],
     "react/static-property-placement": "off",
     "react/state-in-constructor": "off",
     "react/prop-types": "off",
@@ -58,10 +52,18 @@
     "no-underscore-dangle": "off",
     "react/require-default-props": "off",
     "no-restricted-exports": "off",
+    "@typescript-eslint/no-empty-function": "off",
     "no-use-before-define": "off",
     "@typescript-eslint/no-var-requires": 0,
     "react/button-has-type": "off",
     "react/react-in-jsx-scope": 0,
+    "react/no-unstable-nested-components": [
+      "warn",
+      {
+        "allowAsProps": true,
+        "customValidators": [] /* optional array of validators used for propTypes validation */
+      }
+    ],
     "react/jsx-filename-extension": [
       2,
       {
