@@ -4,7 +4,7 @@ import { m } from 'framer-motion'
 import { useTheme } from '@mui/material/styles'
 import { Box, BoxProps } from '@mui/material'
 // hooks
-import useHoverParallax from 'hooks/useHoverParallax'
+import useHoverParallax from 'utils/hooks/useHoverParallax'
 // components
 import Image from 'components/image'
 import SvgColor from 'components/svg-color'

@@ -56,6 +56,8 @@
     "import/no-named-as-default": 0,
     "import/no-extraneous-dependencies": "off",
     "no-underscore-dangle": "off",
+    "react/require-default-props": "off",
+    "no-restricted-exports": "off",
     "no-use-before-define": "off",
     "@typescript-eslint/no-var-requires": 0,
     "react/button-has-type": "off",
