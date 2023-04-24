@@ -1,23 +1,22 @@
-import Head from 'next/head'
+// next
 import Layout from 'layout'
-import Home from 'containers/home'
+import Head from 'next/head'
+import { ElearningLandingView } from 'sections/_e-learning/view'
 
-import type { ReactElement } from 'react'
-import type { NextPageWithLayout } from 'utils/interfaces'
+// ----------------------------------------------------------------------
 
-const HomePage: NextPageWithLayout = () => <Home />
+HomePage.getLayout = (page: React.ReactElement) => <Layout>{page}</Layout>
 
-HomePage.getLayout = function getLayout(page: ReactElement) {
-  // const { device } = page.props
+// ----------------------------------------------------------------------
 
+export default function HomePage() {
   return (
     <>
       <Head>
-        <title>Rasmio | رسمیو</title>
+        <title>The starting point for your next project | ZONE UI</title>
       </Head>
-      <Layout> {page} </Layout>
+
+      <ElearningLandingView />
     </>
   )
 }
-
-export default HomePage

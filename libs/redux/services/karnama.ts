@@ -1,5 +1,4 @@
 import { emptySplitApi as api } from './emptyApi'
-
 export const addTagTypes = [
   'Account',
   'Categories',

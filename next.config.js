@@ -55,16 +55,16 @@ const next = {
       test: /\.svg$/,
       use: ['@svgr/webpack'],
     })
-    configCopy.plugins.push(
-      new CopyPlugin({
-        patterns: [
-          {
-            from: './page',
-            to: './page',
-          },
-        ],
-      })
-    )
+    // configCopy.plugins.push(
+    //   new CopyPlugin({
+    //     patterns: [
+    //       {
+    //         from: './page',
+    //         to: './page',
+    //       },
+    //     ],
+    //   })
+    // )
 
     return configCopy
   },
