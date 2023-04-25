@@ -5,10 +5,10 @@ import { useRouter } from 'next/router';
 // @mui
 import { Fade, Portal, Stack, Box, Link, Unstable_Grid2 as Grid } from '@mui/material';
 // hooks
-import useActiveLink from 'src/hooks/useActiveLink';
+import useActiveLink from hooks/useActiveLink';
 // components
-import Image from 'src/components/image';
-import Label from 'src/components/label';
+import Image from components/image';
+import Label from components/label';
 //
 import { NavItemBaseProps, NavListProps } from '../types';
 import { StyledMenu, StyledSubheader } from './styles';

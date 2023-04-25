@@ -4,7 +4,7 @@ import NextLink from 'next/link';
 // @mui
 import { Link } from '@mui/material';
 // components
-import Iconify from 'src/components/iconify';
+import Iconify from components/iconify';
 //
 import { NavItemProps } from '../types';
 import { StyledNavItem } from './styles';
