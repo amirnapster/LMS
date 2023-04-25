@@ -2,7 +2,7 @@ import { useState } from 'react';
 // @mui
 import { Stack, Collapse, Typography } from '@mui/material';
 // components
-import Iconify from components/iconify';
+import Iconify from 'src/components/iconify';
 //
 import { NavListProps } from '../nav';
 import { StyledLink } from './styles';

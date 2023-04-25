@@ -1,5 +1,5 @@
 // routes
-import { paths } from routes/paths';
+import { paths } from 'src/routes/paths';
 
 // ----------------------------------------------------------------------
 

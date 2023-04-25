@@ -4,9 +4,9 @@ import { useRouter } from 'next/router';
 // @mui
 import { Collapse } from '@mui/material';
 // hooks
-import useActiveLink from hooks/useActiveLink';
+import useActiveLink from 'src/hooks/useActiveLink';
 // components
-import { NavSectionVertical } from components/nav-section';
+import { NavSectionVertical } from 'src/components/nav-section';
 //
 import { NavItemBaseProps } from '../types';
 import NavItem from './NavItem';
