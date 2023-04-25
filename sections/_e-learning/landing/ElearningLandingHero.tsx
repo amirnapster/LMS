@@ -173,7 +173,7 @@ export default function ElearningLandingHero() {
       <PlayerDialog
         open={openVideo}
         onClose={handleCloseVideo}
-        videoPath={_mock.video(0)}
+        videoPath='https://lms.namatek.com/wp-content/uploads/2023/03/Cdl-Teaser.mp4'
       />
     </>
   )

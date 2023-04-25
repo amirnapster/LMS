@@ -74,7 +74,7 @@ export default function CarouselArrows({
 }: Props) {
   const theme = useTheme()
 
-  const isRTL = theme.direction === 'ltr'
+  const isRTL = theme.direction === 'rtl'
 
   const hasChild = !!children
 

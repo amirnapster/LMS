@@ -27,13 +27,19 @@ import {
   ElearningCourseDetailsSummary,
   ElearningCourseDetailsTeachersInfo,
 } from '../course/details'
+import { useGetApiCoursesByIdQuery } from 'libs/redux/services/karnama'
+import { useRouter } from 'next/router'
 
 // ----------------------------------------------------------------------
 
 const _mockCourse = _courses[0]
 
 export default function ElearningCourseView() {
+  const { query } = useRouter()
   const isMdUp = useResponsive('up', 'md')
+  const { data } = useGetApiCoursesByIdQuery({ id: Number(query.id) })
+
+  console.log(data)
 
   const [loading, setLoading] = useState(true)
 

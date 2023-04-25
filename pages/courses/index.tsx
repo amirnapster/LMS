@@ -1,22 +1,19 @@
 // next
 import Layout from 'layout'
-import MainLayout from 'layout/main/MainLayout'
 import Head from 'next/head'
 import { ElearningLandingView } from 'sections/_e-learning/view'
 
 // ----------------------------------------------------------------------
 
-HomePage.getLayout = (page: React.ReactElement) => (
-  <MainLayout>{page}</MainLayout>
-)
+Courses.getLayout = (page: React.ReactElement) => <Layout>{page}</Layout>
 
 // ----------------------------------------------------------------------
 
-export default function HomePage() {
+export default function Courses() {
   return (
     <>
       <Head>
-        <title>home</title>
+        <title>courses</title>
       </Head>
 
       <ElearningLandingView />

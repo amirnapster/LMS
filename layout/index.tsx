@@ -25,25 +25,25 @@ const Layout = ({ children, className }: LayoutProps) => {
     <>
       <SubscriptionRenewalModal />
 
-      <div className='container'>
-        {/* در کمپین بعدی فاصله ها در دسکتاپ و موبایل در صفحه شرکت و ... چک شود و از فلگ هم استفده شود */}
-        {campaign && (
-          <div data-selector='campaign-wrapper'>
-            <Button href='/pricing'>
-              <div />
-            </Button>
-          </div>
-        )}
+      {/* <div className='container'> */}
+      {/* در کمپین بعدی فاصله ها در دسکتاپ و موبایل در صفحه شرکت و ... چک شود و از فلگ هم استفده شود */}
+      {campaign && (
+        <div data-selector='campaign-wrapper'>
+          <Button href='/pricing'>
+            <div />
+          </Button>
+        </div>
+      )}
 
-        {/* در کمپین بعدی عکس عوض شود و با فلگ چک شود */}
-        {/* <CampaignModal /> */}
-        <InvitationModalComponent />
-        <Navbar />
-        <main className={cn(styles['main'], className)}>
-          {isSearching ? <SimpleSearch /> : children}
-        </main>
-        <TempLayout />
-      </div>
+      {/* در کمپین بعدی عکس عوض شود و با فلگ چک شود */}
+      {/* <CampaignModal /> */}
+      <InvitationModalComponent />
+      <Navbar />
+      <main className={cn(styles['main'], className)}>
+        {isSearching ? <SimpleSearch /> : children}
+      </main>
+      <TempLayout />
+      {/* </div> */}
 
       {returnToTop}
     </>
