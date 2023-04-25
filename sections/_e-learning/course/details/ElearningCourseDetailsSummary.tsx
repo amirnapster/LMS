@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux'
 // @mui
 import { alpha } from '@mui/material/styles'
 import { Stack, Typography, Chip, Box } from '@mui/material'
@@ -7,6 +8,7 @@ import { ICourseProps } from 'types/course'
 import Iconify from 'components/iconify'
 //
 import ElearningCourseDetailsLessonList from './ElearningCourseDetailsLessonList'
+import type { RootState } from 'libs/redux/store'
 
 // ----------------------------------------------------------------------
 
@@ -15,15 +17,18 @@ type Props = {
 }
 
 export default function ElearningCourseDetailsSummary({ course }: Props) {
-  const { lessons, skills, learnList } = course
+  const { skills, learnList } = course
+  const { details } = useSelector((state: RootState) => state.course)
 
   return (
     <Stack spacing={5}>
-      <ElearningCourseDetailsLessonList lessons={lessons} />
+      {details?.sections?.map((section) => (
+        <ElearningCourseDetailsLessonList section={section} />
+      ))}
 
       {/* --  Learn -- */}
       <div>
-        <Typography variant='h4' sx={{ mb: 3 }}>
+        {/* <Typography variant='h4' sx={{ mb: 3 }}>
           What You Will Learn
         </Typography>
 
@@ -51,11 +56,11 @@ export default function ElearningCourseDetailsSummary({ course }: Props) {
               {learn}
             </Stack>
           ))}
-        </Stack>
+        </Stack> */}
       </div>
 
       {/* -- Skills -- */}
-      <div>
+      {/* <div>
         <Typography variant='h4' sx={{ mb: 3 }}>
           Skills You Will Gain
         </Typography>
@@ -70,10 +75,10 @@ export default function ElearningCourseDetailsSummary({ course }: Props) {
             />
           ))}
         </Stack>
-      </div>
+      </div> */}
 
       {/* -- Overview -- */}
-      <div>
+      {/* <div>
         <Typography variant='h4' sx={{ mb: 2 }}>
           Overview
         </Typography>
@@ -85,7 +90,7 @@ export default function ElearningCourseDetailsSummary({ course }: Props) {
           apparet assentior pudoris sint leves neglegebat unde reliquisti
           simile.
         </Typography>
-      </div>
+      </div> */}
     </Stack>
   )
 }

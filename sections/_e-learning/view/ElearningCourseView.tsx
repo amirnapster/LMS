@@ -37,9 +37,7 @@ const _mockCourse = _courses[0]
 export default function ElearningCourseView() {
   const { query } = useRouter()
   const isMdUp = useResponsive('up', 'md')
-  const { data } = useGetApiCoursesByIdQuery({ id: Number(query.id) })
-
-  console.log(data)
+  useGetApiCoursesByIdQuery({ id: Number(query.id) })
 
   const [loading, setLoading] = useState(true)
 
@@ -78,7 +76,7 @@ export default function ElearningCourseView() {
           <Grid xs={12} md={7} lg={8}>
             <ElearningCourseDetailsSummary course={_mockCourse} />
 
-            <Stack direction='row' flexWrap='wrap' sx={{ mt: 5 }}>
+            {/* <Stack direction='row' flexWrap='wrap' sx={{ mt: 5 }}>
               <Typography variant='subtitle2' sx={{ mt: 0.75, mr: 1.5 }}>
                 Share:
               </Typography>
@@ -105,9 +103,9 @@ export default function ElearningCourseView() {
                   </Button>
                 ))}
               </Stack>
-            </Stack>
+            </Stack> */}
 
-            <Divider sx={{ my: 5 }} />
+            {/* <Divider sx={{ my: 5 }} /> */}
 
             <ElearningCourseDetailsTeachersInfo
               teachers={_mockCourse.teachers}

@@ -11,6 +11,9 @@ import {
 import { ICourseLessonProp } from 'types/course'
 // components
 import Iconify from 'components/iconify'
+import type { Lesson } from 'libs/redux/services/karnama'
+import { useSelector } from 'react-redux'
+import { RootState } from 'libs/redux/store'
 
 // ----------------------------------------------------------------------
 
@@ -39,7 +42,7 @@ const StyledAccordionSummary = styled(AccordionSummary)(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 type LessonItemProps = {
-  lesson: ICourseLessonProp
+  lesson: Lesson
   expanded: boolean
   selected: boolean
   onOpen: VoidFunction
@@ -53,10 +56,10 @@ export default function ElearningCourseDetailsLessonItem({
   onExpanded,
   onOpen,
 }: LessonItemProps) {
-  const { title, duration, description, isUnLock } = lesson
+  const { title, description } = lesson
 
   const handleOpen = () => {
-    if (!isUnLock) {
+    if (lesson.isFree) {
       onOpen()
     }
   }
@@ -67,7 +70,7 @@ export default function ElearningCourseDetailsLessonItem({
     <Box sx={{ position: 'relative' }}>
       <Iconify
         width={24}
-        icon={isUnLock ? 'carbon:locked' : playIcon}
+        icon={!lesson.isFree ? 'carbon:locked' : playIcon}
         onClick={handleOpen}
         sx={{
           mr: 2,
@@ -79,7 +82,7 @@ export default function ElearningCourseDetailsLessonItem({
           ...(selected && {
             color: 'primary.main',
           }),
-          ...(isUnLock && {
+          ...(!lesson.isFree && {
             color: 'text.disabled',
           }),
         }}
@@ -88,7 +91,7 @@ export default function ElearningCourseDetailsLessonItem({
       <StyledAccordion
         expanded={expanded}
         onChange={onExpanded}
-        disabled={isUnLock}
+        disabled={!lesson.isFree}
       >
         <StyledAccordionSummary>
           <Typography
@@ -105,14 +108,14 @@ export default function ElearningCourseDetailsLessonItem({
           </Typography>
 
           <Typography variant='body2' sx={{ mr: 2 }}>
-            {duration} m
+            {lesson.duation} دقیقه
           </Typography>
 
           <Iconify
             icon={expanded ? 'carbon:chevron-down' : 'carbon:chevron-right'}
             sx={{
               color: 'text.secondary',
-              ...(isUnLock && { color: 'text.disabled' }),
+              ...(!lesson.isFree && { color: 'text.disabled' }),
             }}
           />
         </StyledAccordionSummary>

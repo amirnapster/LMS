@@ -79,9 +79,9 @@ export default function ReviewItem({
             justifyContent={{ sm: 'space-between' }}
           >
             <Typography variant='subtitle2'>{name}</Typography>
-            {!hasReply && (
+            {/* {!hasReply && (
               <Rating size='small' value={rating} precision={0.5} readOnly />
-            )}
+            )} */}
           </Stack>
 
           {postedAt && (
@@ -93,15 +93,15 @@ export default function ReviewItem({
                 color: 'text.disabled',
               }}
             >
-              {fDate(postedAt)}
+              {postedAt as string}
             </Typography>
           )}
 
           <Typography variant='body2'>
-            {tagUser && <strong>{`@${tagUser} `}</strong>}
+            {/* {tagUser && <strong>{`@${tagUser} `}</strong>} */}
             {message}
           </Typography>
-
+          {/* 
           {!hasReply && (
             <Stack
               direction='row'
@@ -135,9 +135,9 @@ export default function ReviewItem({
                 Reply
               </Button>
             </Stack>
-          )}
+          )} */}
 
-          {!hasReply && openReply && (
+          {/* {!hasReply && openReply && (
             <TextField
               fullWidth
               hiddenLabel
@@ -145,7 +145,7 @@ export default function ReviewItem({
               InputProps={{ sx: { height: 48 } }}
               sx={{ mt: 3 }}
             />
-          )}
+          )} */}
         </Stack>
       </Stack>
 

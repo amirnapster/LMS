@@ -6,6 +6,8 @@ import { fCurrency } from 'utils/helpers/formatNumber'
 import { ICourseProps } from 'types/course'
 // components
 import Iconify from 'components/iconify'
+import { useSelector } from 'react-redux'
+import { RootState } from 'libs/redux/store'
 
 // ----------------------------------------------------------------------
 
@@ -16,10 +18,17 @@ type Props = {
 export default function ElearningCourseDetailsInfo({ course }: Props) {
   const { price, priceSale, lessons, resources } = course
 
+  const { details } = useSelector((state: RootState) => state.course)
+
+  const lessonCount = details?.sections?.reduce(
+    (acc, section) => (section?.lessons?.length ?? 0) + acc,
+    0
+  )
+
   return (
     <Card sx={{ p: 3, borderRadius: 2 }}>
       <Stack spacing={3}>
-        <Stack direction='row' sx={{ typography: 'h3' }}>
+        {/* <Stack direction='row' sx={{ typography: 'h3' }}>
           {priceSale > 0 && (
             <Box
               component='span'
@@ -34,10 +43,10 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
             </Box>
           )}
           {fCurrency(price)}
-        </Stack>
+        </Stack> */}
 
         <Stack spacing={2}>
-          <Typography>This course includes:</Typography>
+          <Typography>این درس شامل موارد زیر است:</Typography>
 
           <Stack
             direction='row'
@@ -46,9 +55,9 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
           >
             <Iconify icon='carbon:document' sx={{ mr: 1 }} />
             <Box component='strong' sx={{ mr: 0.5 }}>
-              {lessons?.length}
+              {details?.sections?.length}
             </Box>
-            Lessons
+            بخش
           </Stack>
 
           <Stack
@@ -58,9 +67,9 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
           >
             <Iconify icon='carbon:document-download' sx={{ mr: 1 }} />
             <Box component='strong' sx={{ mr: 0.5 }}>
-              {resources}
+              {lessonCount}
             </Box>
-            Downloadable resources
+            درس
           </Stack>
 
           <Stack
@@ -69,7 +78,7 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
             sx={{ typography: 'body2' }}
           >
             <Iconify icon='carbon:data-accessor' sx={{ mr: 1 }} />
-            Full lifetime access
+            دسترسی دایم به کل دوره
           </Stack>
 
           <Stack
@@ -78,7 +87,7 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
             sx={{ typography: 'body2' }}
           >
             <Iconify icon='carbon:devices' sx={{ mr: 1 }} />
-            Access on desktops, tablets, mobile
+            قابل استفاده در کامپیوتر و موبایل
           </Stack>
 
           <Stack
@@ -87,12 +96,12 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
             sx={{ typography: 'body2' }}
           >
             <Iconify icon='carbon:certificate' sx={{ mr: 1 }} />
-            Certificate of completion
+            مدرک پایان دوره
           </Stack>
         </Stack>
 
         <Button variant='contained' size='large' color='inherit'>
-          Enrol Now
+          شروع دوره
         </Button>
       </Stack>
     </Card>

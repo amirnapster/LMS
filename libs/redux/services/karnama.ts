@@ -6,7 +6,7 @@ export const addTagTypes = [
   'Qualifications',
   'WeatherForecast',
 ] as const
-const injectedRtkApi = api
+export const injectedRtkApi = api
   .enhanceEndpoints({
     addTagTypes,
   })
@@ -287,10 +287,13 @@ export type Enroll = {
 }
 export type Course = {
   id?: number
+  categoryId?: number
   title?: string | null
+  description?: string | null
   titleFa?: string | null
   totalDuration?: number | null
   imageUrl?: string | null
+  category?: Category
   comments?: Comment[] | null
   courseQualifications?: CourseQualification[] | null
   enrolls?: Enroll[] | null

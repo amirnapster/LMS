@@ -7,12 +7,10 @@ import {
   ListItemButton,
   IconButton,
 } from '@mui/material'
-// types
-import { ICourseLessonProp } from 'types/course'
-// components
 import Player from 'components/player'
 import Iconify from 'components/iconify'
 import Scrollbar from 'components/scrollbar'
+import type { Lesson } from 'libs/redux/services/karnama'
 
 // ----------------------------------------------------------------------
 
@@ -21,9 +19,9 @@ type Props = {
   selected: boolean
   onClose: VoidFunction
   onVideoEnded: VoidFunction
-  lessons: ICourseLessonProp[]
-  selectLesson: ICourseLessonProp | null
-  onSelectVideo: (lesson: ICourseLessonProp) => void
+  lessons: Lesson[]
+  selectLesson: Lesson | null
+  onSelectVideo: (lesson: Lesson) => void
 }
 
 export default function ElearningCourseDetailsLessonsDialog({
@@ -60,7 +58,7 @@ export default function ElearningCourseDetailsLessonsDialog({
 
           <Player
             controls
-            url={selectLesson?.videoPath}
+            url={selectLesson?.videoUrl as string}
             playing={selected}
             onEnded={onVideoEnded}
           />
@@ -85,31 +83,31 @@ export default function ElearningCourseDetailsLessonsDialog({
 
 type LessonItemProps = {
   selected: boolean
-  lesson: ICourseLessonProp
+  lesson: Lesson
   onSelectVideo: VoidFunction
 }
 
 function LessonItem({ lesson, selected, onSelectVideo }: LessonItemProps) {
-  const { title, description, isUnLock } = lesson
+  const { title, description } = lesson
 
   const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play'
 
   return (
     <ListItemButton
       selected={selected}
-      disabled={isUnLock}
+      disabled={!lesson.isFree}
       onClick={onSelectVideo}
       sx={{ borderRadius: 1 }}
     >
       <Iconify
         width={24}
-        icon={isUnLock ? 'carbon:locked' : playIcon}
+        icon={!lesson.isFree ? 'carbon:locked' : playIcon}
         sx={{
           mr: 2,
           ...(selected && {
             color: 'primary.main',
           }),
-          ...(isUnLock && {
+          ...(!lesson.isFree && {
             color: 'text.disabled',
           }),
         }}

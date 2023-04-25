@@ -25,7 +25,7 @@ export default function MainLayout({ children }: Props) {
           flexGrow: 1,
         }}
       >
-        <Spacing />
+        {/* <Spacing /> */}
         {children}
       </Box>
       <Footer />
