@@ -1,22 +1,21 @@
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 // @mui
 import { Typography } from '@mui/material'
-// types
-import { ICourseLessonProp } from 'types/course'
-//
 import ElearningCourseDetailsLessonItem from './ElearningCourseDetailsLessonItem'
 import ElearningCourseDetailsLessonsDialog from './ElearningCourseDetailsLessonsDialog'
+import type { Lesson, Section } from 'libs/redux/services/karnama'
+import type { RootState } from 'libs/redux/store'
 
 // ----------------------------------------------------------------------
 
 type Props = {
-  lessons: ICourseLessonProp[]
+  section: Section
 }
 
-export default function ElearningCourseDetailsLessonList({ lessons }: Props) {
-  const [selectLesson, setSelectLesson] = useState<ICourseLessonProp | null>(
-    null
-  )
+export default function ElearningCourseDetailsLessonList({ section }: Props) {
+  const [selectLesson, setSelectLesson] = useState<Lesson | null>(null)
+  const { details } = useSelector((state: RootState) => state.course)
 
   const [open, setOpen] = useState(false)
 
@@ -24,12 +23,12 @@ export default function ElearningCourseDetailsLessonList({ lessons }: Props) {
 
   const [expanded, setExpanded] = useState<string | false>(false)
 
-  const handleSelectVideo = (lesson: ICourseLessonProp) => {
+  const handleSelectVideo = (lesson: Lesson) => {
     setSelectLesson(lesson)
     setPlay(true)
   }
 
-  const handleOpen = (lesson: ICourseLessonProp) => {
+  const handleOpen = (lesson: Lesson) => {
     setOpen(true)
     if (lesson) {
       handleSelectVideo(lesson)
@@ -54,16 +53,16 @@ export default function ElearningCourseDetailsLessonList({ lessons }: Props) {
   return (
     <div>
       <Typography variant='h4' sx={{ mb: 3 }}>
-        Lessons
+        {section.title}
       </Typography>
 
-      {lessons?.map((lesson) => (
+      {section?.lessons?.map((lesson) => (
         <ElearningCourseDetailsLessonItem
           key={lesson.id}
           lesson={lesson}
           selected={play && selectLesson?.id === lesson.id}
-          expanded={expanded === lesson.id}
-          onExpanded={handleExpanded(lesson.id)}
+          expanded={expanded === String(lesson.id)}
+          onExpanded={handleExpanded(String(lesson.id))}
           onOpen={() => handleOpen(lesson)}
         />
       ))}
@@ -71,7 +70,7 @@ export default function ElearningCourseDetailsLessonList({ lessons }: Props) {
       <ElearningCourseDetailsLessonsDialog
         selected={play}
         open={open}
-        lessons={lessons}
+        lessons={details.sections as Section[]}
         onClose={handleClose}
         selectLesson={selectLesson}
         onVideoEnded={handleVideoEnded}

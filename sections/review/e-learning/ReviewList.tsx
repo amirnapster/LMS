@@ -1,9 +1,16 @@
 // @mui
 import { Box, Pagination } from '@mui/material'
+import { RootState } from 'libs/redux/store'
+import { useSelector } from 'react-redux'
 // types
 import { IReviewItemProp } from 'types/review'
 //
 import ReviewItem from './ReviewItem'
+
+import dayjs from 'dayjs'
+import jalaliday from 'jalaliday'
+
+dayjs.extend(jalaliday)
 
 // ----------------------------------------------------------------------
 
@@ -12,34 +19,41 @@ type Props = {
 }
 
 export default function Reviews({ reviews }: Props) {
+  const { details } = useSelector((state: RootState) => state.course)
+
   return (
     <>
-      {reviews.map((review) => {
+      {details?.comments?.map((review) => {
         const {
           id,
-          name,
-          rating,
-          helpful,
-          message,
-          postedAt,
-          avatarUrl,
-          replyComment,
-          users,
+          text,
+          insertDate,
+          // name,
+          // rating,
+          // helpful,
+          // message,
+          // postedAt,
+          // avatarUrl,
+          // replyComment,
+          // users,
         } = review
 
-        const hasReply = !!replyComment.length
+        // const hasReply = !!replyComment.length
 
         return (
           <Box key={id}>
             <ReviewItem
-              name={name}
-              avatarUrl={avatarUrl}
-              postedAt={postedAt}
-              message={message}
-              rating={rating}
-              helpful={helpful}
+              name={'حسین'}
+              avatarUrl={''}
+              postedAt={dayjs(insertDate)
+                .calendar('jalali')
+                .locale('fa')
+                .format('YYYY/MM/DD')}
+              message={text as string}
+              rating={2}
+              helpful={2}
             />
-            {hasReply &&
+            {/* {hasReply &&
               replyComment.map((reply) => {
                 const userReply = users.filter(
                   (user) => user.id === reply.userId
@@ -56,12 +70,12 @@ export default function Reviews({ reviews }: Props) {
                     hasReply
                   />
                 )
-              })}
+              })} */}
           </Box>
         )
       })}
 
-      <Pagination
+      {/* <Pagination
         count={10}
         color='primary'
         size='large'
@@ -72,7 +86,7 @@ export default function Reviews({ reviews }: Props) {
             justifyContent: 'center',
           },
         }}
-      />
+      /> */}
     </>
   )
 }

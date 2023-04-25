@@ -12,6 +12,7 @@ import navbarSlice from './navbar'
 import type { AuthSlice } from './auth/interface'
 import contactSupportSlice from './contactSupport'
 import requestConsultantSlice from './requestConsultant'
+import courseSlice from './course'
 
 const cookiePersistConfig = {
   key: 'cookie',
@@ -26,6 +27,7 @@ const cookiePersistConfig = {
 
 export const reducers = combineReducers({
   auth: persistReducer<AuthSlice>(cookiePersistConfig, authSlice),
+  course: courseSlice,
   contactSupport: contactSupportSlice,
   requestConsultant: requestConsultantSlice,
   navbar: navbarSlice,

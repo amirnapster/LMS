@@ -17,7 +17,7 @@ export default function ElearningCourseDetailsTeachersInfo({
 }: Props) {
   return (
     <>
-      <Typography variant='h4' sx={{ mb: 5 }}>
+      {/* <Typography variant='h4' sx={{ mb: 5 }}>
         Instructors ({teachers.length})
       </Typography>
 
@@ -34,7 +34,7 @@ export default function ElearningCourseDetailsTeachersInfo({
         {teachers.map((teacher) => (
           <TeacherItem key={teacher.id} teacher={teacher} />
         ))}
-      </Box>
+      </Box> */}
     </>
   )
 }

@@ -1,9 +1,6 @@
-import { useState } from 'react'
-// @mui
 import { alpha, styled } from '@mui/material/styles'
 import {
   Box,
-  Fab,
   Link,
   Stack,
   Avatar,
@@ -25,15 +22,18 @@ import _mock from '_mock'
 import Label from 'components/label'
 import Image from 'components/image'
 import Iconify from 'components/iconify'
-import { PlayerDialog } from 'components/player'
 import CustomBreadcrumbs from 'components/custom-breadcrumbs'
+
+import type { Course } from 'libs/redux/services/karnama'
+import { useSelector } from 'react-redux'
+import { RootState } from 'libs/redux/store'
 
 // ----------------------------------------------------------------------
 
 const StyledOverlay = styled('div')(({ theme }) => ({
   ...bgGradient({
-    startColor: `${alpha(theme.palette.common.black, 0)} 0%`,
-    endColor: `${theme.palette.common.black} 75%`,
+    startColor: `${alpha(theme.palette.common.black, 0)} 50%`,
+    endColor: `#aaa 100%`,
   }),
   top: 0,
   left: 0,
@@ -51,33 +51,25 @@ type Props = {
 
 export default function ElearningCourseDetailsHero({ course }: Props) {
   const {
-    slug,
     level,
     ratings,
     quizzes,
-    lessons,
     category,
-    coverImg,
     languages,
     bestSeller,
-    totalHours,
-    description,
     reviews,
     students,
     teachers = [],
   } = course
 
+  const { details } = useSelector((state: RootState) => state.course)
+
+  const lessonCount = details?.sections?.reduce(
+    (acc, section) => (section?.lessons?.length ?? 0) + acc,
+    0
+  )
+
   const isMdUp = useResponsive('up', 'md')
-
-  const [openVideo, setOpenVideo] = useState(false)
-
-  const handleOpenVideo = () => {
-    setOpenVideo(true)
-  }
-
-  const handleCloseVideo = () => {
-    setOpenVideo(false)
-  }
 
   return (
     <>
@@ -90,9 +82,9 @@ export default function ElearningCourseDetailsHero({ course }: Props) {
         <Container sx={{ overflow: 'hidden' }}>
           <CustomBreadcrumbs
             links={[
-              { name: 'Home', href: '/' },
-              { name: 'Courses', href: '/' },
-              { name: course.slug || '' },
+              { name: 'خانه', href: '/' },
+              { name: 'دوره ها', href: '/courses' },
+              { name: details.titleFa || '' },
             ]}
             sx={{
               pt: 5,
@@ -111,22 +103,11 @@ export default function ElearningCourseDetailsHero({ course }: Props) {
                   overflow: 'hidden',
                 }}
               >
-                <Fab
-                  color='primary'
-                  onClick={handleOpenVideo}
-                  sx={{
-                    zIndex: 9,
-                    position: 'absolute',
-                  }}
-                >
-                  <Iconify icon='carbon:play' width={24} />
-                </Fab>
-
                 <StyledOverlay />
 
                 <Image
                   alt='hero'
-                  src={coverImg}
+                  src={details?.imageUrl as string}
                   ratio={isMdUp ? '3/4' : '4/3'}
                 />
               </Stack>
@@ -149,19 +130,19 @@ export default function ElearningCourseDetailsHero({ course }: Props) {
                     variant='overline'
                     sx={{ color: 'secondary.main' }}
                   >
-                    {category}
+                    {details?.category?.title}
                   </Typography>
 
                   <Typography variant='h3' component='h1'>
-                    {slug}
+                    {details?.titleFa}
                   </Typography>
 
                   <Typography sx={{ color: 'text.secondary' }}>
-                    {description}
+                    {details?.description}
                   </Typography>
                 </Stack>
 
-                <Stack
+                {/* <Stack
                   spacing={1.5}
                   direction='row'
                   alignItems='center'
@@ -191,9 +172,9 @@ export default function ElearningCourseDetailsHero({ course }: Props) {
                       students
                     </Box>
                   </Stack>
-                </Stack>
+                </Stack> */}
 
-                <Stack direction='row' alignItems='center'>
+                {/* <Stack direction='row' alignItems='center'>
                   <Avatar src={teachers[0]?.picture} />
 
                   <Typography variant='body2' sx={{ ml: 1, mr: 0.5 }}>
@@ -209,7 +190,7 @@ export default function ElearningCourseDetailsHero({ course }: Props) {
                       + {teachers.length} teachers
                     </Link>
                   )}
-                </Stack>
+                </Stack> */}
 
                 <Divider sx={{ borderStyle: 'dashed' }} />
 
@@ -227,7 +208,9 @@ export default function ElearningCourseDetailsHero({ course }: Props) {
                       sx={{ typography: 'body2' }}
                     >
                       <Iconify icon='carbon:time' sx={{ mr: 1 }} />{' '}
-                      {`${totalHours} hours`}
+                      {`${((details?.totalDuration as number) / 60).toFixed(
+                        0
+                      )} ساعت`}
                     </Stack>
 
                     <Stack
@@ -236,10 +219,10 @@ export default function ElearningCourseDetailsHero({ course }: Props) {
                       sx={{ typography: 'body2' }}
                     >
                       <Iconify icon='carbon:document' sx={{ mr: 1 }} />
-                      {`${lessons?.length} Lessons`}
+                      {`${lessonCount} درس`}
                     </Stack>
 
-                    <Stack
+                    {/* <Stack
                       direction='row'
                       alignItems='center'
                       sx={{ typography: 'body2' }}
@@ -255,10 +238,10 @@ export default function ElearningCourseDetailsHero({ course }: Props) {
                         sx={{ mr: 1 }}
                       />
                       {level}
-                    </Stack>
+                    </Stack> */}
                   </Stack>
 
-                  <Stack
+                  {/* <Stack
                     direction='row'
                     flexWrap='wrap'
                     sx={{
@@ -287,19 +270,13 @@ export default function ElearningCourseDetailsHero({ course }: Props) {
                       <Iconify icon='carbon:help' sx={{ mr: 1 }} />{' '}
                       {`${quizzes} Quizzes`}
                     </Stack>
-                  </Stack>
+                  </Stack> */}
                 </Stack>
               </Stack>
             </Grid>
           </Grid>
         </Container>
       </Box>
-
-      <PlayerDialog
-        open={openVideo}
-        onClose={handleCloseVideo}
-        videoPath={_mock.video(0)}
-      />
     </>
   )
 }
