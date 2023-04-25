@@ -18,6 +18,24 @@ import 'react-toastify/dist/ReactToastify.css'
 import '../styles/globals.scss'
 import Theme from 'theme'
 import MyContext from 'utils/context'
+import { ThemeSettings } from 'components/settings'
+import ProgressBar from 'components/progress-bar/ProgressBar'
+import { MotionLazyContainer } from 'components/animate'
+
+// scroll bar
+import 'simplebar-react/dist/simplebar.min.css'
+
+// lightbox
+import 'yet-another-react-lightbox/styles.css'
+import 'yet-another-react-lightbox/plugins/captions.css'
+import 'yet-another-react-lightbox/plugins/thumbnails.css'
+
+// slick-carousel
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+
+// lazy image
+import 'react-lazy-load-image-component/src/effects/blur.css'
 
 gtm()
 
@@ -65,12 +83,17 @@ const MyApp = ({
           onError={() => null}
         >
           <Theme>
-            <PersistGate persistor={persistor}>
-              <MyContext.Provider value={myContextValue}>
-                {getLayout(<Component {...pageProps} />)}
-              </MyContext.Provider>
-              <ToastContainer enableMultiContainer limit={1} />
-            </PersistGate>
+            <ThemeSettings>
+              <PersistGate persistor={persistor}>
+                <MyContext.Provider value={myContextValue}>
+                  <MotionLazyContainer>
+                    <ProgressBar />
+                    {getLayout(<Component {...pageProps} />)}
+                  </MotionLazyContainer>
+                </MyContext.Provider>
+                <ToastContainer enableMultiContainer limit={1} />
+              </PersistGate>
+            </ThemeSettings>
           </Theme>
         </IntlProvider>
       </Provider>

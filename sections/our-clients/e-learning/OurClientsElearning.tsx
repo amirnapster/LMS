@@ -6,7 +6,6 @@ import { IBrandProps } from 'types/brand'
 // components
 import SvgColor from 'components/svg-color'
 import Carousel from 'components/carousel'
-import Row from 'components/ui/Row'
 
 // ----------------------------------------------------------------------
 
@@ -59,7 +58,7 @@ export default function CustomerElearning({ brands }: Props) {
         </Typography>
       </Stack>
 
-      <Row gap={1}>
+      {/* <Row gap={1}>
         {brands.map((brand) => (
           <SvgColor
             key={brand.id}
@@ -67,7 +66,17 @@ export default function CustomerElearning({ brands }: Props) {
             sx={{ width: 106, height: 32 }}
           />
         ))}
-      </Row>
+      </Row> */}
+
+      <Carousel {...carouselSettings}>
+        {brands.map((brand) => (
+          <SvgColor
+            key={brand.id}
+            src={brand.image}
+            sx={{ width: 106, height: 32 }}
+          />
+        ))}
+      </Carousel>
     </Container>
   )
 }

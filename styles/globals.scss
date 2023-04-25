@@ -1,6 +1,6 @@
-@import "./utilities";
-@import "../public/fonts/fonts";
-@import "./leaflet.css";
+@import './utilities';
+@import '../public/fonts/fonts';
+@import './leaflet.css';
 /* -------------------  Rasmio Palette  ---------------- */
 /* test */
 /* --------- Main : --------- */
@@ -11,7 +11,6 @@ body {
   margin: 0;
   line-height: 1.6;
   scroll-behavior: smooth !important;
-  background-color: #ebf3ff;
 }
 
 a {
@@ -29,7 +28,6 @@ li {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-size: 1rem;
 
   &::selection {
     background-color: map-get($colors, primary);
@@ -87,7 +85,7 @@ a {
 
 select {
   appearance: none;
-  background-image: url("/svg/search/arrow-down.svg");
+  background-image: url('/svg/search/arrow-down.svg');
   background-size: 0.7rem;
   background-repeat: no-repeat;
   background-position-x: 5%;
@@ -159,7 +157,7 @@ tspan.highcharts-text-outline {
   //     box-sizing: border-box;
   //   }
 
-  [data-selector="campaign-wrapper"] {
+  [data-selector='campaign-wrapper'] {
     position: sticky;
     top: 0;
     z-index: 2000;
@@ -173,7 +171,7 @@ tspan.highcharts-text-outline {
       padding: unset;
 
       div {
-        background-image: url("/svg/campaign/campaign.gif");
+        background-image: url('/svg/campaign/campaign.gif');
         background-color: #00985b;
         background-repeat: no-repeat;
         background-position: center;
@@ -229,7 +227,7 @@ tspan.highcharts-text-outline {
 .rc-select {
   &__value {
     &-container {
-      background-image: url("/svg/arrow-down.svg");
+      background-image: url('/svg/arrow-down.svg');
       background-position-x: 1.5%;
       background-position-y: 50%;
       background-size: 1.75rem;
@@ -279,7 +277,7 @@ tspan.highcharts-text-outline {
 
 @include media-breakpoint-up(sm) {
   .container {
-    [data-selector="campaign-wrapper"] {
+    [data-selector='campaign-wrapper'] {
       button {
         div {
           background-size: contain;
@@ -291,7 +289,7 @@ tspan.highcharts-text-outline {
 
 @include media-breakpoint-only(md) {
   .container {
-    [data-selector="campaign-wrapper"] {
+    [data-selector='campaign-wrapper'] {
       button {
         div {
           height: 40px;
@@ -303,10 +301,10 @@ tspan.highcharts-text-outline {
 
 @include media-breakpoint-down(sm) {
   .container {
-    [data-selector="campaign-wrapper"] {
+    [data-selector='campaign-wrapper'] {
       button {
         div {
-          background-image: url("/svg/campaign/campaign-mobile.gif");
+          background-image: url('/svg/campaign/campaign-mobile.gif');
           height: 48px;
         }
       }
@@ -315,68 +313,68 @@ tspan.highcharts-text-outline {
 }
 
 .graph-background {
-  background-image: url("/svg/staticPage/graph-background.svg");
+  background-image: url('/svg/staticPage/graph-background.svg');
   min-height: 650px;
 }
 
 .advanced-search-background {
-  background-image: url("/svg/staticPage/advanced-search-background.svg");
+  background-image: url('/svg/staticPage/advanced-search-background.svg');
   min-height: 670px;
 }
 
 .ads-background {
-  background-image: url("/svg/staticPage/ads-background.svg");
+  background-image: url('/svg/staticPage/ads-background.svg');
   min-height: 650px;
 }
 
 .persons-background {
-  background-image: url("/svg/staticPage/persons-background.svg");
+  background-image: url('/svg/staticPage/persons-background.svg');
   min-height: 650px;
 }
 
 .companies-background {
-  background-image: url("/svg/staticPage/companies-background.svg");
+  background-image: url('/svg/staticPage/companies-background.svg');
   min-height: 600px;
 }
 
 .industry-background {
-  background-image: url("/svg/staticPage/industry-background.svg");
+  background-image: url('/svg/staticPage/industry-background.svg');
   min-height: 600px;
 }
 
 .api-background {
-  background-image: url("/svg/staticPage/api-background.svg");
+  background-image: url('/svg/staticPage/api-background.svg');
   min-height: 650px;
 }
 
 @include media-breakpoint-down(sm) {
   .graph-background {
-    background-image: url("/svg/staticPage/graph-background-mobile.svg");
+    background-image: url('/svg/staticPage/graph-background-mobile.svg');
     min-height: 530px;
   }
 
   .advanced-search-background {
-    background-image: url("/svg/staticPage/advanced-search-background-mobile.svg");
+    background-image: url('/svg/staticPage/advanced-search-background-mobile.svg');
     min-height: 600px;
   }
 
   .ads-background {
-    background-image: url("/svg/staticPage/ads-background-mobile.svg");
+    background-image: url('/svg/staticPage/ads-background-mobile.svg');
     min-height: 600px;
   }
 
   .persons-background {
-    background-image: url("/svg/staticPage/persons-background-mobile.svg");
+    background-image: url('/svg/staticPage/persons-background-mobile.svg');
     min-height: 600px;
   }
 
   .companies-background {
-    background-image: url("/svg/staticPage/companies-background-mobile.svg");
+    background-image: url('/svg/staticPage/companies-background-mobile.svg');
     min-height: 580px;
   }
 
   .api-background {
-    background-image: url("/svg/staticPage/api-background-mobile.svg");
+    background-image: url('/svg/staticPage/api-background-mobile.svg');
     min-height: 670px;
   }
 }

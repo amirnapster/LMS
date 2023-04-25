@@ -108,13 +108,20 @@ export default function ElearningLandingFeaturedCourses({ courses }: Props) {
             },
           }}
         >
-          <Row gutter={[20, 20]} wrap>
+          <Carousel ref={carouselRef} {...carouselSettings}>
             {courses.map((course) => (
-              <Col span={8} key={course.id}>
+              <Box
+                key={course.id}
+                sx={{
+                  px: 2,
+                  pt: { xs: 8, md: 10 },
+                  pb: { xs: 10, md: 15 },
+                }}
+              >
                 <ElearningCourseItem course={course} vertical />
-              </Col>
+              </Box>
             ))}
-          </Row>
+          </Carousel>
         </CarouselArrows>
       </Box>
     </Container>
