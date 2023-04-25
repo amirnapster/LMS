@@ -1,44 +1,44 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
 // next
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/router'
 // @mui
-import { List, Drawer, IconButton, Button, Stack } from '@mui/material';
+import { List, Drawer, IconButton, Button, Stack } from '@mui/material'
 // config
-import { NAV } from 'src/config-global';
+import { NAV } from 'config-global'
 // components
-import Logo from 'src/components/logo';
-import Iconify from 'src/components/iconify';
-import Scrollbar from 'src/components/scrollbar';
+import Logo from 'components/logo'
+import Iconify from 'components/iconify'
+import Scrollbar from 'components/scrollbar'
 //
-import { NavProps } from '../types';
-import NavList from './NavList';
+import { NavProps } from '../types'
+import NavList from './NavList'
 
 // ----------------------------------------------------------------------
 
 export default function NavMobile({ data }: NavProps) {
-  const { pathname } = useRouter();
+  const { pathname } = useRouter()
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     if (open) {
-      handleClose();
+      handleClose()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+  }, [pathname])
 
   const handleOpen = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
   const handleClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   return (
     <>
       <IconButton onClick={handleOpen} sx={{ ml: 1, color: 'inherit' }}>
-        <Iconify icon="carbon:menu" />
+        <Iconify icon='carbon:menu' />
       </IconButton>
 
       <Drawer
@@ -54,19 +54,19 @@ export default function NavMobile({ data }: NavProps) {
         <Scrollbar>
           <Logo sx={{ mx: 2.5, my: 3 }} />
 
-          <List component="nav" disablePadding>
+          <List component='nav' disablePadding>
             {data.map((link) => (
               <NavList key={link.title} item={link} />
             ))}
           </List>
 
           <Stack spacing={1.5} sx={{ p: 3 }}>
-            <Button fullWidth variant="contained" color="inherit">
+            <Button fullWidth variant='contained' color='inherit'>
               Buy Now
             </Button>
           </Stack>
         </Scrollbar>
       </Drawer>
     </>
-  );
+  )
 }

@@ -1,17 +1,23 @@
 // next
-import NextLink from 'next/link';
+import NextLink from 'next/link'
 // @mui
-import { Link, ListItemText, ListItemIcon } from '@mui/material';
+import { Link, ListItemText, ListItemIcon } from '@mui/material'
 // components
-import Iconify from 'src/components/iconify';
+import Iconify from 'components/iconify'
 //
-import { NavItemProps } from '../types';
-import { StyledNavItem } from './styles';
+import { NavItemProps } from '../types'
+import { StyledNavItem } from './styles'
 
 // ----------------------------------------------------------------------
 
-export default function NavItem({ item, open, active, isExternalLink, ...other }: NavItemProps) {
-  const { title, path, icon, children } = item;
+export default function NavItem({
+  item,
+  open,
+  active,
+  isExternalLink,
+  ...other
+}: NavItemProps) {
+  const { title, path, icon, children } = item
 
   const renderContent = (
     <StyledNavItem active={active} {...other}>
@@ -27,26 +33,26 @@ export default function NavItem({ item, open, active, isExternalLink, ...other }
         />
       )}
     </StyledNavItem>
-  );
+  )
 
   // ExternalLink
   if (isExternalLink) {
     return (
-      <Link href={path} target="_blank" rel="noopener" underline="none">
+      <Link href={path} target='_blank' rel='noopener' underline='none'>
         {renderContent}
       </Link>
-    );
+    )
   }
 
   // Has child
   if (children) {
-    return renderContent;
+    return renderContent
   }
 
   // Default
   return (
-    <Link component={NextLink} href={path} underline="none">
+    <Link component={NextLink} href={path} underline='none'>
       {renderContent}
     </Link>
-  );
+  )
 }

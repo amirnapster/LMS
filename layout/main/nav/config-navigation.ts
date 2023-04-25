@@ -1,5 +1,5 @@
 // routes
-import { paths } from 'src/routes/paths';
+import { paths } from 'routes/paths'
 
 // ----------------------------------------------------------------------
 
@@ -106,7 +106,7 @@ export const pageLinks = [
       { title: 'Support', path: paths.support },
     ],
   },
-];
+]
 
 export const navConfig = [
   { title: 'Home', path: '/' },
@@ -114,7 +114,14 @@ export const navConfig = [
   {
     title: 'Pages',
     path: paths.pages,
-    children: [pageLinks[0], pageLinks[1], pageLinks[2], pageLinks[3], pageLinks[4], pageLinks[5]],
+    children: [
+      pageLinks[0],
+      pageLinks[1],
+      pageLinks[2],
+      pageLinks[3],
+      pageLinks[4],
+      pageLinks[5],
+    ],
   },
   { title: 'Documentation', path: paths.docs },
-];
+]

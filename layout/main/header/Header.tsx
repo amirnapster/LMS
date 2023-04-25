@@ -1,39 +1,45 @@
 // @mui
-import { useTheme } from '@mui/material/styles';
-import { Box, Link, Stack, Button, AppBar, Toolbar, Container } from '@mui/material';
+import { useTheme } from '@mui/material/styles'
+import {
+  Box,
+  Link,
+  Stack,
+  Button,
+  AppBar,
+  Toolbar,
+  Container,
+} from '@mui/material'
 // hooks
-import useOffSetTop from 'src/hooks/useOffSetTop';
-import useResponsive from 'src/hooks/useResponsive';
+import useOffSetTop from 'utils/hooks/useOffSetTop'
+import useResponsive from 'utils/hooks/useResponsive'
 // utils
-import { bgBlur } from 'src/utils/cssStyles';
+import { bgBlur } from 'utils/helpers/cssStyles'
 // routes
-import { paths } from 'src/routes/paths';
+import { paths } from 'routes/paths'
 // config
-import { HEADER } from 'src/config-global';
+import { HEADER } from 'config-global'
 // components
-import Logo from 'src/components/logo';
-import Label from 'src/components/label';
-import SettingsDrawer from 'src/components/settings/drawer';
+import Logo from 'components/logo'
+import Label from 'components/label'
+import SettingsDrawer from 'components/settings/drawer'
 //
-import { NavMobile, NavDesktop, navConfig } from '../nav';
-import Searchbar from '../../components/Searchbar';
-import HeaderShadow from '../../components/HeaderShadow';
+import { NavMobile, NavDesktop, navConfig } from '../nav'
 
 // ----------------------------------------------------------------------
 
 type Props = {
-  headerOnDark: boolean;
-};
+  headerOnDark: boolean
+}
 
 export default function Header({ headerOnDark }: Props) {
-  const theme = useTheme();
+  const theme = useTheme()
 
-  const isMdUp = useResponsive('up', 'md');
+  const isMdUp = useResponsive('up', 'md')
 
-  const isOffset = useOffSetTop();
+  const isOffset = useOffSetTop()
 
   return (
-    <AppBar color="transparent" sx={{ boxShadow: 'none' }}>
+    <AppBar color='transparent' sx={{ boxShadow: 'none' }}>
       <Toolbar
         disableGutters
         sx={{
@@ -61,9 +67,13 @@ export default function Header({ headerOnDark }: Props) {
           <Box sx={{ lineHeight: 0, position: 'relative' }}>
             <Logo />
 
-            <Link href="https://zone-docs.vercel.app/changelog" target="_blank" rel="noopener">
+            <Link
+              href='https://zone-docs.vercel.app/changelog'
+              target='_blank'
+              rel='noopener'
+            >
               <Label
-                color="info"
+                color='info'
                 sx={{
                   ml: 0.5,
                   px: 0.5,
@@ -85,23 +95,21 @@ export default function Header({ headerOnDark }: Props) {
           <Stack
             spacing={2}
             flexGrow={1}
-            direction="row"
-            alignItems="center"
-            justifyContent="flex-end"
+            direction='row'
+            alignItems='center'
+            justifyContent='flex-end'
           >
-            <Stack spacing={1} direction="row" alignItems="center">
-              <Searchbar />
-
+            <Stack spacing={1} direction='row' alignItems='center'>
               <SettingsDrawer />
             </Stack>
 
             {isMdUp && (
               <Button
-                variant="contained"
-                color="inherit"
+                variant='contained'
+                color='inherit'
                 href={paths.zoneStore}
-                target="_blank"
-                rel="noopener"
+                target='_blank'
+                rel='noopener'
               >
                 Buy Now
               </Button>
@@ -112,7 +120,7 @@ export default function Header({ headerOnDark }: Props) {
         </Container>
       </Toolbar>
 
-      {isOffset && <HeaderShadow />}
+      {/* {isOffset && <HeaderShadow />} */}
     </AppBar>
-  );
+  )
 }

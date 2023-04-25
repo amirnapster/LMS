@@ -1,27 +1,27 @@
-import { useState } from 'react';
+import { useState } from 'react'
 // @mui
-import { Stack, Collapse, Typography } from '@mui/material';
+import { Stack, Collapse, Typography } from '@mui/material'
 // components
-import Iconify from 'src/components/iconify';
+import Iconify from 'components/iconify'
 //
-import { NavListProps } from '../nav';
-import { StyledLink } from './styles';
+import { NavListProps } from '../nav'
+import { StyledLink } from './styles'
 
 // ----------------------------------------------------------------------
 
 export default function ListMobile({ list }: { list: NavListProps }) {
-  const { subheader, items } = list;
+  const { subheader, items } = list
 
-  const [expand, setExpand] = useState(false);
+  const [expand, setExpand] = useState(false)
 
   const onExpand = () => {
-    setExpand(!expand);
-  };
+    setExpand(!expand)
+  }
 
   return (
-    <Stack spacing={1.5} alignItems="flex-start">
+    <Stack spacing={1.5} alignItems='flex-start'>
       <Typography
-        variant="subtitle2"
+        variant='subtitle2'
         onClick={onExpand}
         sx={{
           cursor: 'pointer',
@@ -38,7 +38,7 @@ export default function ListMobile({ list }: { list: NavListProps }) {
       </Typography>
 
       <Collapse in={expand} unmountOnExit sx={{ width: 1 }}>
-        <Stack spacing={1.5} alignItems="flex-start">
+        <Stack spacing={1.5} alignItems='flex-start'>
           {items?.map((link) => (
             <StyledLink key={link.title} href={link.path}>
               {link.title}
@@ -47,5 +47,5 @@ export default function ListMobile({ list }: { list: NavListProps }) {
         </Stack>
       </Collapse>
     </Stack>
-  );
+  )
 }

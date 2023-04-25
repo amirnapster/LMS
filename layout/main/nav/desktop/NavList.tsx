@@ -1,50 +1,61 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
 // next
-import NextLink from 'next/link';
-import { useRouter } from 'next/router';
+import NextLink from 'next/link'
+import { useRouter } from 'next/router'
 // @mui
-import { Fade, Portal, Stack, Box, Link, Unstable_Grid2 as Grid } from '@mui/material';
+import {
+  Fade,
+  Portal,
+  Stack,
+  Box,
+  Link,
+  Unstable_Grid2 as Grid,
+} from '@mui/material'
 // hooks
-import useActiveLink from 'src/hooks/useActiveLink';
+import useActiveLink from 'utils/hooks/useActiveLink'
 // components
-import Image from 'src/components/image';
-import Label from 'src/components/label';
+import Image from 'components/image'
+import Label from 'components/label'
 //
-import { NavItemBaseProps, NavListProps } from '../types';
-import { StyledMenu, StyledSubheader } from './styles';
-import { NavItem } from './NavItem';
+import { NavItemBaseProps, NavListProps } from '../types'
+import { StyledMenu, StyledSubheader } from './styles'
+import { NavItem } from './NavItem'
 
 // ----------------------------------------------------------------------
 
 export default function NavList({ item }: { item: NavItemBaseProps }) {
-  const { pathname } = useRouter();
+  const { pathname } = useRouter()
 
-  const [openMenu, setOpenMenu] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false)
 
-  const { path, children } = item;
+  const { path, children } = item
 
-  const { active, isExternalLink } = useActiveLink(path, false);
+  const { active, isExternalLink } = useActiveLink(path, false)
 
-  const mainList = children ? children.filter((list) => list.subheader !== 'Common') : [];
+  const mainList = children
+    ? children.filter((list) => list.subheader !== 'Common')
+    : []
 
-  const commonList = children ? children.find((list) => list.subheader === 'Common') : null;
+  const commonList = children
+    ? children.find((list) => list.subheader === 'Common')
+    : null
 
   useEffect(() => {
     if (openMenu) {
-      handleCloseMenu();
+      handleCloseMenu()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+  }, [pathname])
 
   const handleOpenMenu = () => {
     if (children) {
-      setOpenMenu(true);
+      setOpenMenu(true)
     }
-  };
+  }
 
   const handleCloseMenu = () => {
-    setOpenMenu(false);
-  };
+    setOpenMenu(false)
+  }
 
   return (
     <>
@@ -60,13 +71,16 @@ export default function NavList({ item }: { item: NavItemBaseProps }) {
       {!!children && openMenu && (
         <Portal>
           <Fade in={openMenu}>
-            <StyledMenu onMouseEnter={handleOpenMenu} onMouseLeave={handleCloseMenu}>
+            <StyledMenu
+              onMouseEnter={handleOpenMenu}
+              onMouseLeave={handleCloseMenu}
+            >
               <Grid container columns={15}>
                 <Grid xs={12}>
                   <Box
                     gap={5}
-                    display="grid"
-                    gridTemplateColumns="repeat(5, 1fr)"
+                    display='grid'
+                    gridTemplateColumns='repeat(5, 1fr)'
                     sx={{
                       p: 5,
                       height: 1,
@@ -89,7 +103,10 @@ export default function NavList({ item }: { item: NavItemBaseProps }) {
                 {commonList && (
                   <Grid xs={3}>
                     <Box sx={{ bgcolor: 'background.default', p: 5 }}>
-                      <NavSubList subheader={commonList.subheader} items={commonList.items} />
+                      <NavSubList
+                        subheader={commonList.subheader}
+                        items={commonList.items}
+                      />
                     </Box>
                   </Grid>
                 )}
@@ -99,24 +116,24 @@ export default function NavList({ item }: { item: NavItemBaseProps }) {
         </Portal>
       )}
     </>
-  );
+  )
 }
 
 // ----------------------------------------------------------------------
 
 function NavSubList({ subheader, isNew, cover, items }: NavListProps) {
-  const { pathname } = useRouter();
+  const { pathname } = useRouter()
 
-  const coverPath = items.length ? items[0].path : '';
+  const coverPath = items.length ? items[0].path : ''
 
-  const commonList = subheader === 'Common';
+  const commonList = subheader === 'Common'
 
   return (
     <Stack spacing={2}>
       <StyledSubheader>
         {subheader}
         {isNew && (
-          <Label color="info" sx={{ ml: 1 }}>
+          <Label color='info' sx={{ ml: 1 }}>
             NEW
           </Label>
         )}
@@ -128,7 +145,7 @@ function NavSubList({ subheader, isNew, cover, items }: NavListProps) {
             disabledEffect
             alt={cover}
             src={cover || '/assets/placeholder.svg'}
-            ratio="16/9"
+            ratio='16/9'
             sx={{
               borderRadius: 1,
               cursor: 'pointer',
@@ -143,11 +160,16 @@ function NavSubList({ subheader, isNew, cover, items }: NavListProps) {
         </Link>
       )}
 
-      <Stack spacing={1.5} alignItems="flex-start">
+      <Stack spacing={1.5} alignItems='flex-start'>
         {items.map((item) => (
-          <NavItem key={item.title} item={item} active={item.path === pathname} subItem />
+          <NavItem
+            key={item.title}
+            item={item}
+            active={item.path === pathname}
+            subItem
+          />
         ))}
       </Stack>
     </Stack>
-  );
+  )
 }
