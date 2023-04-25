@@ -17,7 +17,7 @@ const isProd = process.env.NODE_ENV === 'production'
  */
 
 const next = {
-  output: 'standalone',
+  // output: 'standalone',
   i18n: {
     locales: ['en-US', 'fa-IR'],
     defaultLocale: 'fa-IR',
