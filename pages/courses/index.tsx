@@ -1,8 +1,7 @@
 // next
-import Layout from 'layout'
 import MainLayout from 'layout/main/MainLayout'
 import Head from 'next/head'
-import { ElearningLandingView } from 'sections/_e-learning/view'
+import { ElearningCoursesView } from 'sections/_e-learning/view'
 
 // ----------------------------------------------------------------------
 
@@ -19,7 +18,7 @@ export default function Courses() {
         <title>courses</title>
       </Head>
 
-      <ElearningLandingView />
+      <ElearningCoursesView />
     </>
   )
 }

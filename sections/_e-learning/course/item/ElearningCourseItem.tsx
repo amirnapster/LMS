@@ -21,59 +21,54 @@ import Image from 'components/image'
 import Label from 'components/label'
 import Iconify from 'components/iconify'
 import TextMaxLine from 'components/text-max-line'
+import type { Course } from 'libs/redux/services/karnama'
 
 // ----------------------------------------------------------------------
 
 type Props = {
-  course: ICourseProps
+  course: Course
   vertical?: boolean
 }
 
 export default function ElearningCourseItem({ course, vertical }: Props) {
-  const {
-    slug,
-    level,
-    price,
-    ratings,
-    reviews,
-    teachers,
-    students,
-    coverImg,
-    category,
-    priceSale,
-    bestSeller,
-    totalHours,
-    description,
-  } = course
+  const { category, description } = course
+
+  const lessonCount = course?.sections?.reduce(
+    (acc, section) => (section?.lessons?.length ?? 0) + acc,
+    0
+  )
+
+  console.log(course.sections)
 
   return (
-    <Card
-      sx={{
-        display: { sm: 'flex' },
-        '&:hover': {
-          boxShadow: (theme) => theme.customShadows.z24,
-        },
-        ...(vertical && {
-          flexDirection: 'column',
-        }),
-      }}
-    >
-      <Box sx={{ flexShrink: { sm: 0 } }}>
-        <Image
-          alt={slug}
-          src={coverImg}
-          sx={{
-            height: 1,
-            objectFit: 'cover',
-            width: { sm: 240 },
-            ...(vertical && {
-              width: { sm: 1 },
-            }),
-          }}
-        />
-      </Box>
+    <Link href={`/courses/${course.id}`}>
+      <Card
+        sx={{
+          display: { sm: 'flex' },
+          '&:hover': {
+            boxShadow: (theme) => theme.customShadows.z24,
+          },
+          ...(vertical && {
+            flexDirection: 'column',
+          }),
+        }}
+      >
+        <Box sx={{ flexShrink: { sm: 0 } }}>
+          <Image
+            alt='avatar'
+            src={course.imageUrl as string}
+            sx={{
+              height: 1,
+              objectFit: 'cover',
+              width: { sm: 240 },
+              ...(vertical && {
+                width: { sm: 1 },
+              }),
+            }}
+          />
+        </Box>
 
-      {bestSeller && (
+        {/* {true && (
         <Label
           color='warning'
           variant='filled'
@@ -86,25 +81,25 @@ export default function ElearningCourseItem({ course, vertical }: Props) {
         >
           Best Seller
         </Label>
-      )}
+      )} */}
 
-      <Stack spacing={3} sx={{ p: 3 }}>
-        <Stack
-          spacing={{
-            xs: 3,
-            sm: vertical ? 3 : 1,
-          }}
-        >
+        <Stack spacing={3} sx={{ p: 3 }}>
           <Stack
-            direction='row'
-            alignItems='center'
-            justifyContent='space-between'
+            spacing={{
+              xs: 3,
+              sm: vertical ? 3 : 1,
+            }}
           >
-            <Typography variant='overline' sx={{ color: 'primary.main' }}>
-              {category}
-            </Typography>
+            <Stack
+              direction='row'
+              alignItems='center'
+              justifyContent='space-between'
+            >
+              <Typography variant='overline' sx={{ color: 'primary.main' }}>
+                {course.category?.title}
+              </Typography>
 
-            <Typography variant='h4'>
+              {/* <Typography variant='h4'>
               {priceSale > 0 && (
                 <Box
                   component='span'
@@ -118,35 +113,35 @@ export default function ElearningCourseItem({ course, vertical }: Props) {
                 </Box>
               )}
               {fCurrency(price)}
-            </Typography>
-          </Stack>
+            </Typography> */}
+            </Stack>
 
-          <Stack spacing={1}>
-            <Link
-              component={NextLink}
-              href={paths.eLearning.course}
-              color='inherit'
-            >
-              <TextMaxLine variant='h6' line={1}>
-                {slug}
+            <Stack spacing={1}>
+              <Link
+                component={NextLink}
+                href={paths.eLearning.course}
+                color='inherit'
+              >
+                <TextMaxLine variant='h6' line={1}>
+                  {course.titleFa}
+                </TextMaxLine>
+              </Link>
+
+              <TextMaxLine
+                variant='body2'
+                color='text.secondary'
+                sx={{
+                  ...(vertical && {
+                    display: { sm: 'none' },
+                  }),
+                }}
+              >
+                {course.shortDescription}
               </TextMaxLine>
-            </Link>
-
-            <TextMaxLine
-              variant='body2'
-              color='text.secondary'
-              sx={{
-                ...(vertical && {
-                  display: { sm: 'none' },
-                }),
-              }}
-            >
-              {description}
-            </TextMaxLine>
+            </Stack>
           </Stack>
-        </Stack>
 
-        <Stack
+          {/* <Stack
           spacing={1.5}
           direction='row'
           alignItems='center'
@@ -174,10 +169,10 @@ export default function ElearningCourseItem({ course, vertical }: Props) {
               students
             </Box>
           </Stack>
-        </Stack>
+        </Stack> */}
 
-        <Stack direction='row' alignItems='center'>
-          <Avatar src={teachers[0]?.picture} />
+          {/* <Stack direction='row' alignItems='center'>
+          <Avatar src={''} />
 
           <Typography variant='body2' sx={{ ml: 1, mr: 0.5 }}>
             {teachers[0]?.name}
@@ -188,9 +183,9 @@ export default function ElearningCourseItem({ course, vertical }: Props) {
               + {teachers?.length} teachers
             </Link>
           )}
-        </Stack>
+        </Stack> */}
 
-        <Divider
+          {/* <Divider
           sx={{
             borderStyle: 'dashed',
             display: { sm: 'none' },
@@ -198,41 +193,37 @@ export default function ElearningCourseItem({ course, vertical }: Props) {
               display: 'block',
             }),
           }}
-        />
-
-        <Stack
-          direction='row'
-          flexWrap='wrap'
-          alignItems='center'
-          sx={{ color: 'text.disabled', '& > *:not(:last-child)': { mr: 2.5 } }}
-        >
-          <Stack
-            direction='row'
-            alignItems='center'
-            sx={{ typography: 'body2' }}
-          >
-            <Iconify icon='carbon:time' sx={{ mr: 1 }} />{' '}
-            {`${totalHours} hours`}
-          </Stack>
+        /> */}
 
           <Stack
             direction='row'
+            flexWrap='wrap'
             alignItems='center'
-            sx={{ typography: 'body2' }}
+            sx={{
+              color: 'text.disabled',
+              '& > *:not(:last-child)': { mr: 2.5 },
+            }}
           >
-            <Iconify
-              icon={
-                (level === 'Beginner' && 'carbon:skill-level-basic') ||
-                (level === 'Intermediate' &&
-                  'carbon:skill-level-intermediate') ||
-                'carbon:skill-level-advanced'
-              }
-              sx={{ mr: 1 }}
-            />
-            {level}
+            <Stack
+              direction='row'
+              alignItems='center'
+              sx={{ typography: 'body2' }}
+            >
+              <Iconify icon='carbon:time' sx={{ mr: 1 }} />{' '}
+              {`${((course.totalDuration as number) / 60).toFixed(0)} ساعت`}
+            </Stack>
+
+            <Stack
+              direction='row'
+              alignItems='center'
+              sx={{ typography: 'body2' }}
+            >
+              <Iconify icon='carbon:document' sx={{ mr: 1 }} />
+              {`${lessonCount} درس`}
+            </Stack>
           </Stack>
         </Stack>
-      </Stack>
-    </Card>
+      </Card>
+    </Link>
   )
 }

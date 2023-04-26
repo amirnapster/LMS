@@ -32,7 +32,7 @@ export default function ElearningLandingView() {
 
       <ElearningLandingIntroduce />
 
-      <ElearningLandingFeaturedCourses courses={_courses} />
+      {/* <ElearningLandingFeaturedCourses courses={_courses} /> */}
 
       <ElearningLandingCategories categories={_coursesByCategories} />
 

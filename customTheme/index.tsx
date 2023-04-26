@@ -39,10 +39,7 @@ function CustomTheme({ children }: Props) {
       shape: {
         borderRadius: 12,
       },
-      customShadows: {
-        primary: `0 8px 16px 0 ${alpha('#013b81', 0.24)}`,
-        secondary: `0 8px 16px 0 ${alpha('#961b1e', 0.24)}`,
-      },
+      customShadows: customShadows(themeMode),
       typography,
       shadows: shadows(themeMode),
     }),
