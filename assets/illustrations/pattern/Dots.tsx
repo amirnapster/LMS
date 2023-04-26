@@ -2,7 +2,7 @@ import { memo } from 'react'
 // @mui
 import { Box, BoxProps } from '@mui/material'
 // theme
-import { ColorSchema } from 'theme/palette'
+import { ColorSchema } from 'customTheme/palette'
 
 // ----------------------------------------------------------------------
 

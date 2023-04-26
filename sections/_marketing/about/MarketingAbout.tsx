@@ -10,7 +10,7 @@ import {
 // utils
 import { fShortenNumber } from 'utils/helpers/formatNumber'
 // theme
-import { ColorSchema } from 'theme/palette'
+import { ColorSchema } from 'customTheme/palette'
 // hooks
 import useResponsive from 'utils/hooks/useResponsive'
 // components

@@ -12,7 +12,7 @@ import { paths } from 'routes/paths'
 // types
 import { IProductItemProps } from 'types/product'
 // theme
-import { ColorSchema } from 'theme/palette'
+import { ColorSchema } from 'customTheme/palette'
 // components
 import Image from 'components/image'
 import TextMaxLine from 'components/text-max-line'

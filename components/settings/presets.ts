@@ -1,5 +1,5 @@
 // theme
-import palette from 'theme/palette'
+import palette from 'customTheme/palette'
 // types
 import { ThemeColorPresetsValue } from './types'
 

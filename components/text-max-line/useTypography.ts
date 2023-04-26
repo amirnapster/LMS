@@ -4,7 +4,7 @@ import { Variant } from '@mui/material/styles/createTypography'
 // hooks
 import { useWidth } from 'utils/hooks/useResponsive'
 // theme
-import { remToPx } from 'theme/typography'
+import { remToPx } from 'customTheme/typography'
 
 // ----------------------------------------------------------------------
 
