@@ -96,7 +96,7 @@ export const AuthForm = ({
       <span data-selector='policy'>
         ورود/ثبت نام، به معنای پذیرش
         <Button target='_blank' href='/terms'>
-          قوانین رسمیو
+          قوانین نماتک
         </Button>
         می‌باشد.
       </span>
@@ -111,7 +111,7 @@ export const AuthForm = ({
         size='large'
         ripple
       >
-        ورود به رسمیو
+        ورود به نماتک
       </Button>
 
       <Row className={styles['signIn__action']} justify='space-between'>

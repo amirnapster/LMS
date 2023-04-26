@@ -11,17 +11,15 @@ import Carousel, { CarouselArrows } from 'components/carousel'
 //
 import Row from 'components/ui/Row'
 import Col from 'components/ui/Col'
-import { Course } from 'libs/redux/services/karnama'
+import { Course, useGetFeaturedQuery } from 'libs/redux/services/karnama'
 import { ElearningCourseItem } from '../course/item'
 
 // ----------------------------------------------------------------------
 
-type Props = {
-  courses: Course[]
-}
-
-export default function ElearningLandingFeaturedCourses({ courses }: Props) {
+export default function ElearningLandingFeaturedCourses() {
   const theme = useTheme()
+
+  const { data } = useGetFeaturedQuery()
 
   const isMdUp = useResponsive('up', 'md')
 
@@ -66,7 +64,7 @@ export default function ElearningLandingFeaturedCourses({ courses }: Props) {
         }}
       >
         <Stack spacing={3} flexGrow={1}>
-          <Typography variant='h2'>Featured Courses</Typography>
+          <Typography variant='h2'>دروس ویژه</Typography>
           <Typography sx={{ color: 'text.secondary' }}>
             Nullam accumsan lorem in dui. Praesent ac massa at ligula laoreet
             iaculis.
@@ -110,7 +108,7 @@ export default function ElearningLandingFeaturedCourses({ courses }: Props) {
           }}
         >
           <Carousel ref={carouselRef} {...carouselSettings}>
-            {courses.map((course) => (
+            {data?.map((course) => (
               <Box
                 key={course.id}
                 sx={{

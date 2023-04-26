@@ -59,7 +59,7 @@ const InvitationModalComponent = () => {
         </Col>
         <Col xxs={24} md={11} className={styles['invitation__row--contentBox']}>
           <div data-selector='header'>
-            <h2>با ارتقا اشتراک خود از امکانات رسمیو لذت ببرید</h2>
+            <h2>با ارتقا اشتراک خود از امکانات نماتک لذت ببرید</h2>
 
             <Button onClick={closeModal} btnType='ghost' ripple>
               <PlusIcon />

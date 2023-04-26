@@ -126,7 +126,7 @@ export default function ElearningCourseDetailsHero({ course }: Props) {
                   </Label>
                 )}
 
-                <Typography variant='overline' sx={{ color: 'secondary.main' }}>
+                <Typography variant='overline' sx={{ color: 'primary.main' }}>
                   {details?.category?.title}
                 </Typography>
 

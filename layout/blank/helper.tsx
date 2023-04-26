@@ -52,8 +52,8 @@ export const BlankFooter = () => (
       <a href='mailto:salam@rasm.io'>salam@rasm.io</a>
     </Col>
     <Col span={24} className='text-center' data-selector='content'>
-      <span>کلیه حقوق این وبسایت و برند رسمیو متعلق به </span>
-      <a href='/company/14009396050/Rasmio/'>شرکت پیشگامان رسمی پردازش دانا</a>
+      <span>کلیه حقوق این وبسایت و برند نماتک متعلق به </span>
+      <a href='/company/14009396050/Rasmio/'>شرکت توسعه مهارت نماتک</a>
       <span> است.</span>
     </Col>
   </Row>

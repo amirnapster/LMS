@@ -52,7 +52,7 @@ const RequestConsultant = ({ className }: { className?: string }) => {
     // requestConsultant(userData).then(() => {
     //   notify({
     //     message:
-    //       'درخواست شما ثبت شد؛ کارشناسان رسمیو بزودی با شما تماس خواهند گرفت.',
+    //       'درخواست شما ثبت شد؛ کارشناسان نماتک بزودی با شما تماس خواهند گرفت.',
     //     config: { autoClose: 3000 },
     //   })
     //   closeModal()
@@ -91,7 +91,7 @@ const RequestConsultant = ({ className }: { className?: string }) => {
         </Col>
       </Row>
       <p>
-        لطفا فرم زیر را پر کنید تا کارشناسان رسمیو در اولین فرصت با شما تماس
+        لطفا فرم زیر را پر کنید تا کارشناسان نماتک در اولین فرصت با شما تماس
         بگیرند.
       </p>
       <form
@@ -212,7 +212,7 @@ const RequestConsultant = ({ className }: { className?: string }) => {
                 type='checkbox'
                 {...register('testCheckBox')}
               />
-              مایل به عضویت در خبرنامه رسمیو هستم
+              مایل به عضویت در خبرنامه نماتک هستم
             </label>
           </Col>
           <Row data-selector='buttons-wrapper' align='middle' justify='end'>

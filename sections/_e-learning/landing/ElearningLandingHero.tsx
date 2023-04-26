@@ -99,7 +99,7 @@ export default function ElearningLandingHero() {
                   alignItems='center'
                   direction={{ xs: 'column', md: 'row' }}
                 >
-                  <Button color='inherit' size='large' variant='contained'>
+                  <Button color='primary' size='large' variant='contained'>
                     Ready Start
                   </Button>
 

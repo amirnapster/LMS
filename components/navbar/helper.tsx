@@ -120,7 +120,7 @@ export const Logo = ({ className, src }: LogoProps) => {
 
   return (
     <Button className={styles['logo']} href={accessToken ? '/dashboard/' : '/'}>
-      <img src={src} alt='لوگو رسمیو' className={className} />
+      <img src={src} alt='لوگو نماتک' className={className} />
     </Button>
   )
 }

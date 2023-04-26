@@ -118,22 +118,9 @@ export const footerItems: IFooterLinks = {
 
 export const footerSignItems: IFooterSigns[] = [
   {
-    imgSource: '/svg/about/nasr.svg',
-    link: {
-      url: 'https://tehran.irannsr.org/fa/trade_unit/2376501/swd_id/104366/%D8%A7%D8%B9%D8%B6%D8%A7%DB%8C-%D8%AD%D9%82%D9%88%D9%82%DB%8C-%D9%BE%DB%8C%D8%B4%DA%AF%D8%A7%D9%85%D8%A7%D9%86-%D8%B1%D8%B3%D9%85%DB%8C-%D9%BE%D8%B1%D8%AF%D8%A7%D8%B2%D8%B4-%D8%AF%D8%A7%D9%86%D8%A7.html',
-      type: 'Popup',
-      options:
-        'toolbar=no, scrollbars=no, location=no, statusbar=no, menubar=no, resizable=0, width=450, height=630, top=30',
-    },
-  },
-  {
-    imgSource: '/svg/about/daneshbonyan.svg',
-    link: undefined,
-  },
-  {
     imgSource: '/svg/about/namad.svg',
     link: {
-      url: 'https://trustseal.enamad.ir/?id=179736&code=RN41jMl5Q99SLGoRhOzt',
+      url: 'https://trustseal.enamad.ir/?id=139667&code=1HMGO60VJQaZyrQhqtNP',
       type: 'Popup',
       options:
         'toolbar=no, scrollbars=no, location=no, statusbar=no, menubar=no, resizable=0, width=450, height=630, top=30',
@@ -142,7 +129,7 @@ export const footerSignItems: IFooterSigns[] = [
   {
     imgSource: '/svg/about/sabt.svg',
     link: {
-      url: 'https://logo.samandehi.ir/Verify.aspx?id=209191&p=uiwkobpdpfvlrfthpfvlrfth',
+      url: 'https://logo.samandehi.ir/Verify.aspx?id=161114&p=rfthgvkarfthrfthrfthaods',
       type: 'Popup',
       options:
         'toolbar=no, scrollbars=no, location=no, statusbar=no, menubar=no, resizable=0, width=450, height=630, top=30',
@@ -151,7 +138,7 @@ export const footerSignItems: IFooterSigns[] = [
   {
     imgSource: '/svg/about/etehadie.svg',
     link: {
-      url: 'https://ecunion.ir/verify/rasm.io?token=2862725602a5eff44df8',
+      url: 'https://ecunion.ir/verify/namatek.com?token=51524456076ae553b2fa',
       type: 'Popup',
       options:
         'toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=580, height=600, top=30',
@@ -161,24 +148,19 @@ export const footerSignItems: IFooterSigns[] = [
 
 export const footerSocialItems: IFooterSocials[] = [
   {
-    icon: <img src={TwitterIcon} alt='twitter-icon' />,
-    label: 'توییتر رسمیو',
-    link: 'https://twitter.com/rasm_io',
-  },
-  {
     icon: <img src={LinkedInIcon} alt='linkedin-icon' />,
-    label: 'لینکدین رسمیو',
-    link: 'https://linkedin.com/company/rasmio',
+    label: 'لینکدین نماتک',
+    link: 'https://linkedin.com/company/namatek',
   },
   {
     icon: <img src={TelegramIcon} alt='telegram-icon' />,
-    label: 'تلگرام رسمیو',
-    link: 'https://t.me/rasm_io',
+    label: 'تلگرام نماتک',
+    link: 'https://t.me/namatek_media',
   },
   {
     icon: <img src={InstagramIcon} alt='instagram-icon' />,
-    label: 'اینستاگرام رسمیو',
-    link: 'https://instagram.com/rasm_io',
+    label: 'اینستاگرام نماتک',
+    link: 'https://instagram.com/namatekcom',
   },
 ]
 
@@ -186,19 +168,19 @@ export const footerInfoItems: IFooterInfo[] = [
   {
     key: '1st-section',
     text: [
-      'بسیاری از سازمان ها برای بهبود مسیر تجاری و بازاریابی خود نیازمند اطلاعاتی هستند که به‌طور پراکنده و غیر منسجم به وسیله روزنامه رسمی، سازمان ثبت، اداره مالیات و دیگر سازمان‌های دولتی منتشر می‌شود. رسمیو به عنوان اولین پلتفرم تحلیل و ارتباط کسب‌وکارها، با ارائه مواردی نظیر شماره ثبت، کد‌اقتصادی، اسامی مدیران شرکت و غیره، اطلاعات مورد نیاز افراد را بطور دقیق و شفاف در اختیار مخاطبین خود قرار می‌دهد.',
+      'بسیاری از سازمان ها برای بهبود مسیر تجاری و بازاریابی خود نیازمند اطلاعاتی هستند که به‌طور پراکنده و غیر منسجم به وسیله روزنامه رسمی، سازمان ثبت، اداره مالیات و دیگر سازمان‌های دولتی منتشر می‌شود. نماتک به عنوان اولین پلتفرم تحلیل و ارتباط کسب‌وکارها، با ارائه مواردی نظیر شماره ثبت، کد‌اقتصادی، اسامی مدیران شرکت و غیره، اطلاعات مورد نیاز افراد را بطور دقیق و شفاف در اختیار مخاطبین خود قرار می‌دهد.',
     ],
   },
   {
     key: '2nd-section',
-    title: 'رسمیو چیست؟',
+    title: 'نماتک چیست؟',
     text: [
-      'رسمیو به عنوان اولین بستر تحلیل و ارتباط کسب و کارها در ایران، از سال 1397 با هدف تسهیل فرآیندهای تجاری سازمان‌ها شروع به فعالیت کرده است. رسمیو با کنار هم قرار دادن اطلاعات ثبتی و رسمی هر کسب و کار توانسته گام بزرگی در جهت بهبود فضای تجاری کشور بردارد. ارائه آمارهای مربوط به صادرات و واردات، شرکت های مادر و زیرمجموعه ها و غیره از جمله خدماتی است که نظر بسیاری از افراد را به رسمیو جلب کرده است.',
+      'نماتک به عنوان اولین بستر تحلیل و ارتباط کسب و کارها در ایران، از سال 1397 با هدف تسهیل فرآیندهای تجاری سازمان‌ها شروع به فعالیت کرده است. نماتک با کنار هم قرار دادن اطلاعات ثبتی و رسمی هر کسب و کار توانسته گام بزرگی در جهت بهبود فضای تجاری کشور بردارد. ارائه آمارهای مربوط به صادرات و واردات، شرکت های مادر و زیرمجموعه ها و غیره از جمله خدماتی است که نظر بسیاری از افراد را به نماتک جلب کرده است.',
     ],
   },
   {
     key: '3rd-section',
-    title: 'رسمیو برای چه کسانی مناسب است؟',
+    title: 'نماتک برای چه کسانی مناسب است؟',
     text: [
       'برای شرکت‌های بازرگانی برای تحلیل شرکتها و افراد',
       'متخصصان مالی برای حسابداری، حسابرسی و بازرسی شرکت ها',
@@ -212,7 +194,7 @@ export const footerInfoItems: IFooterInfo[] = [
   },
   {
     key: '4th-section',
-    title: 'رسمیو برای چه کسانی مناسب نیست؟',
+    title: 'نماتک برای چه کسانی مناسب نیست؟',
     text: [
       'کسانی که به دنبال اطلاعات خصوصی افراد و شرکت‌ها هستند.',
       'کسانی که وقت و حوصله کلنجار با سایت های دولتی را دارند.',

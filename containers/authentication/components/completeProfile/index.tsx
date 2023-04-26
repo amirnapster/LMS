@@ -32,7 +32,7 @@ const CompleteProfileModal = () => {
         size='large'
         onClick={() => dispatch(setVisible({ visible: false }))}
       >
-        بعدا؛ ورود به رسمیو
+        بعدا؛ ورود به نماتک
       </Button>
     </Row>
   )
