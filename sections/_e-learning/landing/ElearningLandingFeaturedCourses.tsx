@@ -9,14 +9,15 @@ import { ICourseProps } from 'types/course'
 // components
 import Carousel, { CarouselArrows } from 'components/carousel'
 //
-import { ElearningCourseItem } from '../course/item'
 import Row from 'components/ui/Row'
 import Col from 'components/ui/Col'
+import { Course } from 'libs/redux/services/karnama'
+import { ElearningCourseItem } from '../course/item'
 
 // ----------------------------------------------------------------------
 
 type Props = {
-  courses: ICourseProps[]
+  courses: Course[]
 }
 
 export default function ElearningLandingFeaturedCourses({ courses }: Props) {

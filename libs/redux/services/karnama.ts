@@ -1,4 +1,5 @@
 import { emptySplitApi as api } from './emptyApi'
+
 export const addTagTypes = [
   'Account',
   'Categories',
@@ -90,12 +91,28 @@ export const injectedRtkApi = api
         query: (queryArg) => ({ url: `/api/Categories/${queryArg.id}` }),
         providesTags: ['Categories'],
       }),
-      getApiCourses: build.query<GetApiCoursesApiResponse, GetApiCoursesApiArg>(
-        {
-          query: () => ({ url: `/api/Courses` }),
-          providesTags: ['Courses'],
-        }
-      ),
+      getCourses: build.query<GetCoursesApiResponse, GetCoursesApiArg>({
+        query: () => ({ url: `/api/Courses/GetCourses` }),
+        providesTags: ['Courses'],
+      }),
+      getFeatured: build.query<GetFeaturedApiResponse, GetFeaturedApiArg>({
+        query: () => ({ url: `/api/Courses/GetFeatured` }),
+        providesTags: ['Courses'],
+      }),
+      searchCourse: build.query<SearchCourseApiResponse, SearchCourseApiArg>({
+        query: (queryArg) => ({
+          url: `/api/Courses/SearchCourse`,
+          params: { term: queryArg.term },
+        }),
+        providesTags: ['Courses'],
+      }),
+      byCategory: build.query<ByCategoryApiResponse, ByCategoryApiArg>({
+        query: (queryArg) => ({
+          url: `/api/Courses/ByCategory`,
+          params: { categoryId: queryArg.categoryId },
+        }),
+        providesTags: ['Courses'],
+      }),
       getApiCoursesById: build.query<
         GetApiCoursesByIdApiResponse,
         GetApiCoursesByIdApiArg
@@ -160,8 +177,18 @@ export type GetApiCategoriesByIdApiResponse = /** status 200 Success */ Category
 export type GetApiCategoriesByIdApiArg = {
   id: number
 }
-export type GetApiCoursesApiResponse = /** status 200 Success */ Course[]
-export type GetApiCoursesApiArg = void
+export type GetCoursesApiResponse = /** status 200 Success */ Course[]
+export type GetCoursesApiArg = void
+export type GetFeaturedApiResponse = /** status 200 Success */ Course[]
+export type GetFeaturedApiArg = void
+export type SearchCourseApiResponse = /** status 200 Success */ Course[]
+export type SearchCourseApiArg = {
+  term?: string
+}
+export type ByCategoryApiResponse = /** status 200 Success */ Course[]
+export type ByCategoryApiArg = {
+  categoryId?: number
+}
 export type GetApiCoursesByIdApiResponse = /** status 200 Success */ Course
 export type GetApiCoursesByIdApiArg = {
   id: number
@@ -277,6 +304,23 @@ export type Comment = {
   course?: Course
   lesson?: Lesson
 }
+export type Qualification = {
+  id?: number
+  title?: string | null
+  categoryId?: number
+  titleEn?: string | null
+  description?: string | null
+  category?: Category
+  courseQualifications?: CourseQualification[] | null
+}
+export type CourseQualification = {
+  id?: number
+  courseId?: number
+  qualitficationId?: number
+  isMandatory?: number
+  course?: Course
+  qualitfication?: Qualification
+}
 export type Enroll = {
   id?: number
   userId?: number
@@ -290,6 +334,7 @@ export type Course = {
   categoryId?: number
   title?: string | null
   description?: string | null
+  shortDescription?: string | null
   titleFa?: string | null
   totalDuration?: number | null
   imageUrl?: string | null
@@ -299,26 +344,10 @@ export type Course = {
   enrolls?: Enroll[] | null
   sections?: Section[] | null
 }
-export type CourseQualification = {
-  id?: number
-  courseId?: number
-  qualitficationId?: number
-  isMandatory?: number
-  course?: Course
-  qualitfication?: Qualification
-}
-export type Qualification = {
-  id?: number
-  title?: string | null
-  categoryId?: number
-  titleEn?: string | null
-  description?: string | null
-  category?: Category
-  courseQualifications?: CourseQualification[] | null
-}
 export type Category = {
   id?: number
   title?: string | null
+  courses?: Course[] | null
   qualifications?: Qualification[] | null
 }
 export type WeatherForecast = {
@@ -341,8 +370,14 @@ export const {
   useLazyGetApiCategoriesQuery,
   useGetApiCategoriesByIdQuery,
   useLazyGetApiCategoriesByIdQuery,
-  useGetApiCoursesQuery,
-  useLazyGetApiCoursesQuery,
+  useGetCoursesQuery,
+  useLazyGetCoursesQuery,
+  useGetFeaturedQuery,
+  useLazyGetFeaturedQuery,
+  useSearchCourseQuery,
+  useLazySearchCourseQuery,
+  useByCategoryQuery,
+  useLazyByCategoryQuery,
   useGetApiCoursesByIdQuery,
   useLazyGetApiCoursesByIdQuery,
   useGetApiQualificationsQuery,

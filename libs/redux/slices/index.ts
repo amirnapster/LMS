@@ -9,10 +9,12 @@ import { emptySplitApi } from '../services/emptyApi'
 import authSlice from './auth'
 import navbarSlice from './navbar'
 // import storage from 'redux-persist/lib/storage'  # For Local Storage
-import type { AuthSlice } from './auth/interface'
 import contactSupportSlice from './contactSupport'
 import requestConsultantSlice from './requestConsultant'
 import courseSlice from './course'
+import coursesSlice from './courses'
+
+import type { AuthSlice } from './auth/interface'
 
 const cookiePersistConfig = {
   key: 'cookie',
@@ -28,6 +30,7 @@ const cookiePersistConfig = {
 export const reducers = combineReducers({
   auth: persistReducer<AuthSlice>(cookiePersistConfig, authSlice),
   course: courseSlice,
+  courses: coursesSlice,
   contactSupport: contactSupportSlice,
   requestConsultant: requestConsultantSlice,
   navbar: navbarSlice,

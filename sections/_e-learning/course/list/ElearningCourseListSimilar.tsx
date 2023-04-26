@@ -11,6 +11,8 @@ import { ICourseProps } from 'types/course'
 // components
 import Iconify from 'components/iconify'
 //
+import { useSelector } from 'react-redux'
+import { RootState } from 'libs/redux/store'
 import { ElearningCourseItem } from '../item'
 
 // ----------------------------------------------------------------------
@@ -22,14 +24,16 @@ type Props = {
 export default function ElearningCourseListSimilar({ courses }: Props) {
   const isMdUp = useResponsive('up', 'md')
 
+  const { details } = useSelector((state: RootState) => state.course)
+
   const viewAllBtn = (
     <Button
       component={NextLink}
-      href={paths.eLearning.courses}
+      href={`/category/${details.categoryId}`}
       color='inherit'
-      endIcon={<Iconify icon='carbon:chevron-right' />}
+      endIcon={<Iconify icon='carbon:chevron-left' />}
     >
-      View All
+      مشاهده همه
     </Button>
   )
 
@@ -49,7 +53,7 @@ export default function ElearningCourseListSimilar({ courses }: Props) {
             mb: { xs: 8, md: 10 },
           }}
         >
-          <Typography variant='h3'>Similar Courses</Typography>
+          <Typography variant='h3'>دوره های مشابه</Typography>
 
           {isMdUp && viewAllBtn}
         </Stack>
@@ -65,7 +69,7 @@ export default function ElearningCourseListSimilar({ courses }: Props) {
             },
           }}
         >
-          {courses.map((course) => (
+          {details?.category?.courses?.map((course) => (
             <ElearningCourseItem key={course.id} course={course} vertical />
           ))}
         </Box>

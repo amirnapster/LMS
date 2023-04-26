@@ -1,4 +1,4 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import { injectedRtkApi } from 'libs/redux/services/karnama'
 import type { CourseSlice } from './interface'
 

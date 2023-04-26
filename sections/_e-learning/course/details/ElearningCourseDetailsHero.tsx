@@ -27,6 +27,7 @@ import CustomBreadcrumbs from 'components/custom-breadcrumbs'
 import type { Course } from 'libs/redux/services/karnama'
 import { useSelector } from 'react-redux'
 import { RootState } from 'libs/redux/store'
+import Markdown from 'markdown-to-jsx'
 
 // ----------------------------------------------------------------------
 
@@ -72,77 +73,75 @@ export default function ElearningCourseDetailsHero({ course }: Props) {
   const isMdUp = useResponsive('up', 'md')
 
   return (
-    <>
-      <Box
-        sx={{
-          bgcolor: 'background.neutral',
-          pb: { xs: 5, md: 10 },
-        }}
-      >
-        <Container sx={{ overflow: 'hidden' }}>
-          <CustomBreadcrumbs
-            links={[
-              { name: 'خانه', href: '/' },
-              { name: 'دوره ها', href: '/courses' },
-              { name: details.titleFa || '' },
-            ]}
-            sx={{
-              pt: 5,
-              mb: { xs: 5, md: 10 },
-            }}
-          />
+    <Box
+      sx={{
+        bgcolor: 'background.neutral',
+        pb: { xs: 5, md: 10 },
+      }}
+    >
+      <Container sx={{ overflow: 'hidden' }}>
+        <CustomBreadcrumbs
+          links={[
+            { name: 'خانه', href: '/' },
+            { name: 'دوره ها', href: '/courses' },
+            { name: details.titleFa || '' },
+          ]}
+          sx={{
+            pt: 5,
+            mb: { xs: 5, md: 10 },
+          }}
+        />
 
-          <Grid container spacing={{ xs: 5, md: 10 }} direction='row-reverse'>
-            <Grid xs={12} md={5}>
-              <Stack
-                alignItems='center'
-                justifyContent='center'
-                sx={{
-                  position: 'relative',
-                  borderRadius: 2,
-                  overflow: 'hidden',
-                }}
-              >
-                <StyledOverlay />
+        <Grid container spacing={{ xs: 5, md: 10 }} direction='row-reverse'>
+          <Grid xs={12} md={5}>
+            <Stack
+              alignItems='center'
+              justifyContent='center'
+              sx={{
+                position: 'relative',
+                borderRadius: 2,
+                overflow: 'hidden',
+              }}
+            >
+              <StyledOverlay />
 
-                <Image
-                  alt='hero'
-                  src={details?.imageUrl as string}
-                  ratio={isMdUp ? '3/4' : '4/3'}
-                />
-              </Stack>
-            </Grid>
+              <Image
+                alt='hero'
+                src={details?.imageUrl as string}
+                ratio={isMdUp ? '3/4' : '4/3'}
+              />
+            </Stack>
+          </Grid>
 
-            <Grid xs={12} md={7}>
-              <Stack spacing={3}>
-                <Stack spacing={2} alignItems='flex-start'>
-                  {bestSeller && (
-                    <Label
-                      color='warning'
-                      variant='filled'
-                      sx={{ textTransform: 'uppercase' }}
-                    >
-                      Best Seller
-                    </Label>
-                  )}
-
-                  <Typography
-                    variant='overline'
-                    sx={{ color: 'secondary.main' }}
+          <Grid xs={12} md={7}>
+            <Stack spacing={3}>
+              <Stack spacing={2} alignItems='flex-start'>
+                {bestSeller && (
+                  <Label
+                    color='warning'
+                    variant='filled'
+                    sx={{ textTransform: 'uppercase' }}
                   >
-                    {details?.category?.title}
-                  </Typography>
+                    Best Seller
+                  </Label>
+                )}
 
-                  <Typography variant='h3' component='h1'>
-                    {details?.titleFa}
-                  </Typography>
+                <Typography variant='overline' sx={{ color: 'secondary.main' }}>
+                  {details?.category?.title}
+                </Typography>
 
-                  <Typography sx={{ color: 'text.secondary' }}>
-                    {details?.description}
-                  </Typography>
-                </Stack>
+                <Typography variant='h3' component='h1'>
+                  {details?.titleFa}
+                </Typography>
 
-                {/* <Stack
+                <Typography sx={{ color: 'text.secondary' }}>
+                  {details?.description && (
+                    <Markdown>{details?.description as string}</Markdown>
+                  )}
+                </Typography>
+              </Stack>
+
+              {/* <Stack
                   spacing={1.5}
                   direction='row'
                   alignItems='center'
@@ -174,7 +173,7 @@ export default function ElearningCourseDetailsHero({ course }: Props) {
                   </Stack>
                 </Stack> */}
 
-                {/* <Stack direction='row' alignItems='center'>
+              {/* <Stack direction='row' alignItems='center'>
                   <Avatar src={teachers[0]?.picture} />
 
                   <Typography variant='body2' sx={{ ml: 1, mr: 0.5 }}>
@@ -192,37 +191,37 @@ export default function ElearningCourseDetailsHero({ course }: Props) {
                   )}
                 </Stack> */}
 
-                <Divider sx={{ borderStyle: 'dashed' }} />
+              <Divider sx={{ borderStyle: 'dashed' }} />
 
-                <Stack spacing={2}>
+              <Stack spacing={2}>
+                <Stack
+                  direction='row'
+                  flexWrap='wrap'
+                  sx={{
+                    '& > *': { my: 0.5, mr: 3 },
+                  }}
+                >
                   <Stack
                     direction='row'
-                    flexWrap='wrap'
-                    sx={{
-                      '& > *': { my: 0.5, mr: 3 },
-                    }}
+                    alignItems='center'
+                    sx={{ typography: 'body2' }}
                   >
-                    <Stack
-                      direction='row'
-                      alignItems='center'
-                      sx={{ typography: 'body2' }}
-                    >
-                      <Iconify icon='carbon:time' sx={{ mr: 1 }} />{' '}
-                      {`${((details?.totalDuration as number) / 60).toFixed(
-                        0
-                      )} ساعت`}
-                    </Stack>
+                    <Iconify icon='carbon:time' sx={{ mr: 1 }} />{' '}
+                    {`${((details?.totalDuration as number) / 60).toFixed(
+                      0
+                    )} ساعت`}
+                  </Stack>
 
-                    <Stack
-                      direction='row'
-                      alignItems='center'
-                      sx={{ typography: 'body2' }}
-                    >
-                      <Iconify icon='carbon:document' sx={{ mr: 1 }} />
-                      {`${lessonCount} درس`}
-                    </Stack>
+                  <Stack
+                    direction='row'
+                    alignItems='center'
+                    sx={{ typography: 'body2' }}
+                  >
+                    <Iconify icon='carbon:document' sx={{ mr: 1 }} />
+                    {`${lessonCount} درس`}
+                  </Stack>
 
-                    {/* <Stack
+                  {/* <Stack
                       direction='row'
                       alignItems='center'
                       sx={{ typography: 'body2' }}
@@ -239,9 +238,9 @@ export default function ElearningCourseDetailsHero({ course }: Props) {
                       />
                       {level}
                     </Stack> */}
-                  </Stack>
+                </Stack>
 
-                  {/* <Stack
+                {/* <Stack
                     direction='row'
                     flexWrap='wrap'
                     sx={{
@@ -271,12 +270,11 @@ export default function ElearningCourseDetailsHero({ course }: Props) {
                       {`${quizzes} Quizzes`}
                     </Stack>
                   </Stack> */}
-                </Stack>
               </Stack>
-            </Grid>
+            </Stack>
           </Grid>
-        </Container>
-      </Box>
-    </>
+        </Grid>
+      </Container>
+    </Box>
   )
 }
