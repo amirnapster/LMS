@@ -16,7 +16,7 @@ import fa from 'assets/locales/fa-IR.json'
 import en from 'assets/locales/en-US.json'
 import 'react-toastify/dist/ReactToastify.css'
 import '../styles/globals.scss'
-import Theme from 'theme'
+import CustomTheme from 'customTheme'
 import MyContext from 'utils/context'
 import { ThemeSettings } from 'components/settings'
 import ProgressBar from 'components/progress-bar/ProgressBar'
@@ -82,7 +82,7 @@ const MyApp = ({
           messages={messages}
           onError={() => null}
         >
-          <Theme>
+          <CustomTheme>
             <ThemeSettings>
               <PersistGate persistor={persistor}>
                 <MyContext.Provider value={myContextValue}>
@@ -94,7 +94,7 @@ const MyApp = ({
                 <ToastContainer enableMultiContainer limit={1} />
               </PersistGate>
             </ThemeSettings>
-          </Theme>
+          </CustomTheme>
         </IntlProvider>
       </Provider>
     </>

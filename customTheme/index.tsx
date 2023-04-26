@@ -22,7 +22,7 @@ type Props = {
   children: React.ReactNode
 }
 
-export default function Theme({ children }: Props) {
+function CustomTheme({ children }: Props) {
   const { themeMode, themeDirection } = useSettingsContext()
 
   const themeOptions: any = useMemo(
@@ -58,3 +58,5 @@ export default function Theme({ children }: Props) {
     </MUIThemeProvider>
   )
 }
+
+export default CustomTheme
