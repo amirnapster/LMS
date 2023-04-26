@@ -39,7 +39,7 @@ const Otp = ({ changeMode }: AuthCallBackProps) => {
       <span className={styles['otp--title']}>ورود / ثبت نام</span>
 
       <span className={styles['otp--subTitle']}>
-        سلام؛ به رسمیو خوش آمدید.
+        سلام؛ به نماتک خوش آمدید.
         <br /> لطفا شماره موبایل یا ایمیل خود را وارد نمایید
       </span>
 
@@ -55,7 +55,7 @@ const Otp = ({ changeMode }: AuthCallBackProps) => {
         <Row className={styles['otp__policy']} justify='center'>
           <span>ورود/ثبت نام، به معنای پذیرش</span>
           <Button target='_blank' href='/terms'>
-            قوانین رسمیو
+            قوانین نماتک
           </Button>
           <span>می‌باشد.</span>
         </Row>

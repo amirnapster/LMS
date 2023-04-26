@@ -186,7 +186,7 @@ const ConfirmNumber = ({ value, setStep, changeMode }: IConfirmNumber) => {
         bgColor='white-blue-gradient'
         size='large'
       >
-        ورود به رسمیو
+        ورود به نماتک
       </Button>
     </Row>
   )

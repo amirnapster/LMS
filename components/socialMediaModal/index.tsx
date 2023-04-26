@@ -20,7 +20,7 @@ const SocialMediaModal = ({ name, id, mode }: ISocialMedia) => {
   // const { socialModalVisible: socialModalVisiblePerson } = useSelector(
   //   (state: RootState) => state.person
   // )
-  const textToShare = `${name} رو در رسمیو ببین`
+  const textToShare = `${name} رو در نماتک ببین`
   const router = useRouter()
 
   // const onClose = () => {

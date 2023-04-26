@@ -52,13 +52,13 @@ const NavbarDrawer = ({ login }: NavbarDrawerProps) => {
 
           <Col
             xs={24}
-            className='bg-color-navbar-blue d-flex justify-space-between'
+            className='bg-color-navbar-green d-flex justify-space-between'
           >
             <Button data-selector='navbar-rasmio' href='/what-is-rasmio'>
               <Row direction='column' align='top' className='gap-0'>
-                <span data-selector='title'>رسمیو چیست؟</span>
+                <span data-selector='title'>نماتک چیست؟</span>
                 <span data-selector='subtitle'>
-                  درباره رسمیو بیشتر بدانید...
+                  درباره نماتک بیشتر بدانید...
                 </span>
               </Row>
 

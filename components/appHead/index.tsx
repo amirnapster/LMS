@@ -6,7 +6,7 @@ const AppHead = () => {
 
   return (
     <Head>
-      <title>رسمیو</title>
+      <title>نماتک</title>
       ------------ CLEAR CACHE -------------------------------
       <meta httpEquiv='cache-control' content='no-cache' />
       <meta httpEquiv='expires' content='0' />
@@ -16,7 +16,7 @@ const AppHead = () => {
         rel='search'
         type='application/opensearchdescription+xml'
         href='https://rasm.io/opensearch.xml'
-        title='جستجو در رسمیو'
+        title='جستجو در نماتک'
       />
       <meta
         name='viewport'
@@ -92,7 +92,7 @@ const AppHead = () => {
         sizes='16x16'
         href='/icons/favicon-16x16.png'
       />
-      <link rel='icon' href='/rasmio_Icon.ico' />
+      <link rel='icon' sizes='192x192' href='/svg/layout/navbar-logo.svg' />
       <link
         rel='alternate'
         href={`https://rasm.io${asPath}`}

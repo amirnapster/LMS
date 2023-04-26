@@ -7,7 +7,7 @@ export const gtm = () => {
   ) {
     TagManager.initialize({ gtmId: 'GTM-N7H8B8F' })
     const msg =
-      '%c jobs@rasm.io سلام 👋! اگه فک می‌کنی می‌تونی تو رسمیو تأثیرگذار باشی رزومتو ایمیل کن'
+      '%c jobs@rasm.io سلام 👋! اگه فک می‌کنی می‌تونی تو نماتک تأثیرگذار باشی رزومتو ایمیل کن'
     const styles = [
       'font-size: 20px',
       'font-family: calibri',

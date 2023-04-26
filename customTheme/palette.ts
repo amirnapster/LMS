@@ -1,20 +1,26 @@
-import { alpha } from '@mui/material/styles';
+import { alpha } from '@mui/material/styles'
 
 // ----------------------------------------------------------------------
 
-export type ColorSchema = 'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'error';
+export type ColorSchema =
+  | 'primary'
+  | 'secondary'
+  | 'info'
+  | 'success'
+  | 'warning'
+  | 'error'
 
 declare module '@mui/material/styles/createPalette' {
   interface TypeBackground {
-    neutral: string;
+    neutral: string
   }
   interface SimplePaletteColorOptions {
-    lighter: string;
-    darker: string;
+    lighter: string
+    darker: string
   }
   interface PaletteColor {
-    lighter: string;
-    darker: string;
+    lighter: string
+    darker: string
   }
 }
 
@@ -31,25 +37,25 @@ const GREY = {
   700: '#454F5B',
   800: '#212B36',
   900: '#161C24',
-};
+}
 
 const PRIMARY = {
   lighter: '#FEE9D1',
   light: '#FDAB76',
-  main: '#FA541C',
+  main: '#007d67',
   dark: '#B3200E',
   darker: '#770508',
   contrastText: '#FFFFFF',
-};
+}
 
 const SECONDARY = {
   lighter: '#E6DBFE',
   light: '#B195FE',
-  main: '#754FFE',
+  main: '#f7ed26',
   dark: '#4027B6',
   darker: '#1C0F79',
   contrastText: '#FFFFFF',
-};
+}
 
 const INFO = {
   lighter: '#CAFDF5',
@@ -58,7 +64,7 @@ const INFO = {
   dark: '#006C9C',
   darker: '#003768',
   contrastText: '#FFFFFF',
-};
+}
 
 const SUCCESS = {
   lighter: '#D8FBDE',
@@ -67,7 +73,7 @@ const SUCCESS = {
   dark: '#1B806A',
   darker: '#0A5554',
   contrastText: '#FFFFFF',
-};
+}
 
 const WARNING = {
   lighter: '#FFF5CC',
@@ -76,7 +82,7 @@ const WARNING = {
   dark: '#B76E00',
   darker: '#7A4100',
   contrastText: GREY[800],
-};
+}
 
 const ERROR = {
   lighter: '#FFE9D5',
@@ -85,7 +91,7 @@ const ERROR = {
   dark: '#B71D18',
   darker: '#7A0916',
   contrastText: '#FFFFFF',
-};
+}
 
 const COMMON = {
   common: { black: '#000000', white: '#FFFFFF' },
@@ -106,7 +112,7 @@ const COMMON = {
     hoverOpacity: 0.08,
     disabledOpacity: 0.48,
   },
-};
+}
 
 export default function palette(themeMode: 'light' | 'dark') {
   const light = {
@@ -122,7 +128,7 @@ export default function palette(themeMode: 'light' | 'dark') {
       ...COMMON.action,
       active: GREY[600],
     },
-  } as const;
+  } as const
 
   const dark = {
     ...COMMON,
@@ -141,7 +147,7 @@ export default function palette(themeMode: 'light' | 'dark') {
       ...COMMON.action,
       active: GREY[500],
     },
-  } as const;
+  } as const
 
-  return themeMode === 'light' ? light : dark;
+  return themeMode === 'light' ? light : dark
 }

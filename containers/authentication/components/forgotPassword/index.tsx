@@ -77,7 +77,7 @@ const ForgotPassword = ({ changeMode }: AuthCallBackProps) => {
             justify='space-between'
             align='middle'
           >
-            <span>شماره موبایل/ایمیل در رسمیو ثبت نشده.</span>
+            <span>شماره موبایل/ایمیل در نماتک ثبت نشده.</span>
             <Button onClick={() => changeMode('signIn')}>
               ثبت نام با این شماره/ایمیل
             </Button>

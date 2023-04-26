@@ -89,28 +89,28 @@ const FooterSocials = () => (
   </Row>
 )
 
-const FooterDownloadable = () => {
-  const intl = useIntl()
-  const link = {
-    href: 'https://chrome.google.com/webstore/detail/%D8%B1%D8%B3%D9%85%DB%8C%D9%88-rasmio/bjbnpbcfdafpkplddacjlfiiimdhpkhd?hl=fa',
-    rel: 'noreferrer noopener',
-  }
+// const FooterDownloadable = () => {
+//   const intl = useIntl()
+//   const link = {
+//     href: '',
+//     rel: 'noreferrer noopener',
+//   }
 
-  return (
-    <Row className={styles['footer__box--extension']} wrap>
-      <Button
-        target='_blank'
-        btnType='secondary'
-        color='white'
-        {...link}
-        ripple
-      >
-        {/* <img src={GoogleIcon} alt='google-icon' /> */}
-        <div>{intl.formatMessage({ id: 'footer.dlExtension' })}</div>
-      </Button>
-    </Row>
-  )
-}
+//   return (
+//     <Row className={styles['footer__box--extension']} wrap>
+//       <Button
+//         target='_blank'
+//         btnType='secondary'
+//         color='white'
+//         {...link}
+//         ripple
+//       >
+//         {/* <img src={GoogleIcon} alt='google-icon' /> */}
+//         <div>{intl.formatMessage({ id: 'footer.dlExtension' })}</div>
+//       </Button>
+//     </Row>
+//   )
+// }
 
 const FooterSubscribe = () => {
   const inputRef = useRef<HTMLInputElement | null>(null)
@@ -166,11 +166,9 @@ const FooterSide = () => {
   return (
     <Row wrap>
       <Col xxs={24} md={14} lg={10} xl={23} data-selector='socials'>
-        <Col xxs={24} md={12} data-selector='downloads'>
-          <FooterDownloadable />
-        </Col>
+        {/* <Col xxs={24} md={12} data-selector='downloads'></Col>     */}
 
-        <Col data-selector='socials-wrapper' xxs={24} md={12}>
+        <Col data-selector='socials-wrapper' className='mb-1' xxs={24} md={12}>
           <FooterSocials />
         </Col>
       </Col>
@@ -196,7 +194,7 @@ const FooterLogin = () => {
   return (
     <Row direction='column' gap={2} className={styles['footer__login']}>
       <Col data-selector='title'>
-        برای استفاده از امکانات رسمیو، رایگان ثبت نام کنید
+        برای استفاده از امکانات نماتک، رایگان ثبت نام کنید
       </Col>
       <div data-selector='bg' />
       <Col className={styles['footer__login--field']}>

@@ -21,7 +21,7 @@ const NewUserModal = () => {
       </div>
       <span className={styles['newUser--title']}>ثبت نام شما انجام شد</span>
       <span className={styles['newUser--subTitle']}>
-        به رسمیو خوش آمدید؛ اکنون می‌توانید از امکانات رسمیو استفاده نمایید.
+        به نماتک خوش آمدید؛ اکنون می‌توانید از امکانات نماتک استفاده نمایید.
       </span>
 
       <Button
@@ -37,7 +37,7 @@ const NewUserModal = () => {
       <Row className='w-100 ms-half' align='middle' gap={0}>
         <Col flex={1}>
           <Button className='w-100' href='/about-us' btnType='ghost'>
-            درباره رسمیو
+            درباره نماتک
           </Button>
         </Col>
         <Col flex={1}>
@@ -46,7 +46,7 @@ const NewUserModal = () => {
             onClick={() => dispatch(setVisible({ visible: false }))}
             btnType='secondary'
           >
-            ورود به رسمیو
+            ورود به نماتک
           </Button>
         </Col>
       </Row>

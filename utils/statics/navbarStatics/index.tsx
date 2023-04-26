@@ -122,7 +122,7 @@ export const navItemsData: NavItemsType = {
         route: '/about-api',
       },
       {
-        title: 'تبلیغات در رسمیو',
+        title: 'تبلیغات در نماتک',
         description: 'افزایش فروش و شناخته‌شدن بیشتر',
         icon: <AdsIcon />,
         route: '/about-ads',
@@ -142,7 +142,7 @@ export const navItemsData: NavItemsType = {
       { title: 'درباره ما', icon: <RasmioLogoSvg />, route: '/about-us' },
       { title: 'منابع داده', icon: <DataIcon />, route: '/sources' },
       {
-        title: 'راهنمای رسمیو',
+        title: 'راهنمای نماتک',
         icon: <GuideIcon />,
         route:
           '/blog/%d9%be%d8%a7%db%8c%da%af%d8%a7%d9%87-%d8%af%d8%a7%d9%86%d8%b4/',

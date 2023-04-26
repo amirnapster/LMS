@@ -34,13 +34,13 @@ const Footer = () => {
             ))}
           </Col>
           <Col className={styles['footer__copyrights']} span={24}>
-            کلیه حقوق این وبسایت و برند رسمیو، متعلق به{' '}
-            <a target='_blank' href='/company/14009396050/Rasmio/'>
-              شرکت پیشگامان رسمی پردازش دانا
+            کلیه حقوق این وبسایت و برند نماتک، متعلق به{' '}
+            <a target='_blank' href='https://namatek.com' rel='noreferrer'>
+              شرکت توسعه مهارت نماتک
             </a>{' '}
             است.{' '}
-            <a target='_blank' href='/blog/rasmio-update/' rel='noreferrer'>
-              v3.2.3
+            <a target='_blank' href='https://namatek.com' rel='noreferrer'>
+              v1
             </a>{' '}
           </Col>
         </Row>

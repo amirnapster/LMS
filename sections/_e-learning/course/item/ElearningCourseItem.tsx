@@ -63,6 +63,7 @@ export default function ElearningCourseItem({ course, vertical }: Props) {
               width: { sm: 240 },
               ...(vertical && {
                 width: { sm: 1 },
+                height: 220,
               }),
             }}
           />

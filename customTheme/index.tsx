@@ -30,10 +30,10 @@ function CustomTheme({ children }: Props) {
       direction: themeDirection,
       palette: {
         primary: {
-          main: '#013b81',
+          main: '#008d67',
         },
         secondary: {
-          main: '#961b1e',
+          main: '#f7ed26',
         },
       },
       shape: {
