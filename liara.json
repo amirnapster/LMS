@@ -1,6 +1,6 @@
 {
   "platform": "next",
-  "app": "rasmiotest",
+  "app": "namatek",
   "port": 3000,
   "next": {
     "modifyConfig": false
