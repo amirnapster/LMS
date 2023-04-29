@@ -63,17 +63,6 @@ export default function ElearningCourseDetailsLessonsDialog({
             onEnded={onVideoEnded}
           />
         </Box>
-
-        <Scrollbar sx={{ p: 1, maxHeight: 640 }}>
-          {lessons?.map((lesson) => (
-            <LessonItem
-              key={lesson.id}
-              lesson={lesson}
-              selected={selectLesson?.id === lesson.id}
-              onSelectVideo={() => onSelectVideo(lesson)}
-            />
-          ))}
-        </Scrollbar>
       </Stack>
     </Dialog>
   )
