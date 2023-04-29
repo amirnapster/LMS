@@ -29,7 +29,7 @@ export default function ElearningCourseListSimilar({ courses }: Props) {
   const viewAllBtn = (
     <Button
       component={NextLink}
-      href={`/category/${details.categoryId}`}
+      href={`/categories/${details.categoryId}`}
       color='inherit'
       endIcon={<Iconify icon='carbon:chevron-left' />}
     >
