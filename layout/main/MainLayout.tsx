@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux'
 // next
 // @mui
 import { Box } from '@mui/material'
@@ -5,6 +6,9 @@ import { Box } from '@mui/material'
 import { HEADER } from 'config-global'
 import Navbar from 'components/navbar'
 import Footer from 'components/footer'
+import SimpleSearch from 'containers/simpleSearch'
+
+import type { RootState } from 'libs/redux/store'
 
 // ----------------------------------------------------------------------
 
@@ -15,6 +19,8 @@ type Props = {
 }
 
 export default function MainLayout({ children }: Props) {
+  const { isSearching } = useSelector((state: RootState) => state.navbar)
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: 1 }}>
       <Navbar />
@@ -26,7 +32,8 @@ export default function MainLayout({ children }: Props) {
         }}
       >
         {/* <Spacing /> */}
-        {children}
+        {/* {children} */}
+        {isSearching ? <SimpleSearch /> : children}
       </Box>
       <Footer />
     </Box>

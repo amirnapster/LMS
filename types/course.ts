@@ -31,28 +31,28 @@ export type ICourseByCategoryProps = {
 }
 
 export type ICourseProps = {
-  id: string
-  slug: string
-  price: number
-  level: string
-  ratings: number
-  quizzes: number
-  reviews: number
-  coverImg: string
-  category: string
-  skills: string[]
-  students: number
-  priceSale: number
-  resources: number
-  totalHours: number
-  description: string
-  bestSeller: boolean
-  languages: string[]
-  learnList: string[]
-  shareLinks: ISocialLinks
-  lessons: ICourseLessonProp[]
-  teachers: ICourseTeacherProp[]
-  createdAt: Date | string | number
+  id?: string
+  slug?: string
+  price?: number
+  level?: string
+  ratings?: number
+  quizzes?: number
+  reviews?: number
+  coverImg?: string
+  category?: string
+  skills?: string[]
+  students?: number
+  priceSale?: number
+  resources?: number
+  totalHours?: number
+  description?: string
+  bestSeller?: boolean
+  languages?: string[]
+  learnList?: string[]
+  shareLinks?: ISocialLinks
+  lessons?: ICourseLessonProp[]
+  teachers?: ICourseTeacherProp[]
+  createdAt?: Date | string | number
 }
 
 export type ICourseFiltersProps = {

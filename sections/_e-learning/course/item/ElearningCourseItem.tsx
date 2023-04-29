@@ -38,8 +38,6 @@ export default function ElearningCourseItem({ course, vertical }: Props) {
     0
   )
 
-  console.log(course.sections)
-
   return (
     <Link href={`/courses/${course.id}`}>
       <Card
