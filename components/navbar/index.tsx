@@ -148,7 +148,7 @@ const Navbar = () => {
               )}
             </Col>
             <Col xxs={24} md={12} lg={16}>
-              <Row align='middle' className='w-100'>
+              <Row align='middle' className='w-100 h-100'>
                 <Col
                   xxs={24}
                   md={isSearching ? 22 : 18}

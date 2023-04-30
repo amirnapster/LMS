@@ -60,7 +60,7 @@ const Dropdown = ({
             item && (
               <animated.div
                 ref={setDropdownRef}
-                style={{ ...style, ...styles.popper }}
+                style={{ ...style, ...styles.popper, zIndex: '300' }}
                 onMouseEnter={() => toggleDropDown('list')}
                 onMouseLeave={() => toggleDropDown('list')}
                 {...attributes.popper}
