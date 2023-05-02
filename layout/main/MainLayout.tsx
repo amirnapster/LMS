@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux'
 // next
 // @mui
 import { Box } from '@mui/material'
@@ -8,7 +7,6 @@ import Navbar from 'components/navbar'
 import Footer from 'components/footer'
 import SimpleSearch from 'containers/simpleSearch'
 
-import type { RootState } from 'libs/redux/store'
 import Authentication from 'containers/authentication'
 import Modal from 'components/ui/Modal'
 import { useDispatch, useSelector } from 'react-redux'

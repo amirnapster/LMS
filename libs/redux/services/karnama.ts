@@ -130,6 +130,13 @@ export const injectedRtkApi = api
         query: () => ({ url: `/api/Payments/MyPayments` }),
         providesTags: ['Payments'],
       }),
+      receipt: build.query<ReceiptApiResponse, ReceiptApiArg>({
+        query: (queryArg) => ({
+          url: `/api/Payments/Receipt`,
+          params: { id: queryArg.id },
+        }),
+        providesTags: ['Payments'],
+      }),
       pricing: build.query<PricingApiResponse, PricingApiArg>({
         query: () => ({ url: `/api/Pricing/Pricing` }),
         providesTags: ['Pricing'],
@@ -218,6 +225,10 @@ export type GetApiCoursesByIdApiArg = {
 }
 export type MyPaymentsApiResponse = /** status 200 Success */ Payment[]
 export type MyPaymentsApiArg = void
+export type ReceiptApiResponse = /** status 200 Success */ Payment
+export type ReceiptApiArg = {
+  id?: number
+}
 export type PricingApiResponse = /** status 200 Success */ Pricing[]
 export type PricingApiArg = void
 export type PaymentApiResponse = /** status 200 Success */ string
@@ -272,6 +283,7 @@ export type Payment = {
   package?: number
   duration?: number
   card?: string | null
+  insertDate?: string
   user?: AspNetUser
 }
 export type CourseQualification = {
@@ -521,6 +533,8 @@ export const {
   useLazyGetApiCoursesByIdQuery,
   useMyPaymentsQuery,
   useLazyMyPaymentsQuery,
+  useReceiptQuery,
+  useLazyReceiptQuery,
   usePricingQuery,
   useLazyPricingQuery,
   usePaymentQuery,
