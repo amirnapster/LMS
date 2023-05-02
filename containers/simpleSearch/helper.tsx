@@ -120,15 +120,9 @@ const SearchResultContent = () => {
                   </Stack>
 
                   <Stack spacing={1}>
-                    <Link
-                      component={NextLink}
-                      href={paths.eLearning.course}
-                      color='inherit'
-                    >
-                      <TextMaxLine variant='h6' line={1}>
-                        {course.titleFa}
-                      </TextMaxLine>
-                    </Link>
+                    <TextMaxLine variant='h6' line={1}>
+                      {course.titleFa}
+                    </TextMaxLine>
 
                     <TextMaxLine
                       variant='body2'

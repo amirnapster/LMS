@@ -29,6 +29,7 @@ import {
 } from '../course/details'
 import { useGetApiCoursesByIdQuery } from 'libs/redux/services/karnama'
 import { useRouter } from 'next/router'
+import Head from 'next/head'
 
 // ----------------------------------------------------------------------
 
@@ -37,7 +38,9 @@ const _mockCourse = _courses[0]
 export default function ElearningCourseView() {
   const { query } = useRouter()
   const isMdUp = useResponsive('up', 'md')
-  useGetApiCoursesByIdQuery({ id: Number(query.id) })
+  const { data } = useGetApiCoursesByIdQuery({ id: Number(query.id) })
+
+  console.log(data)
 
   const [loading, setLoading] = useState(true)
 
@@ -57,6 +60,10 @@ export default function ElearningCourseView() {
 
   return (
     <>
+      <Head>
+        <title>دوره {data?.titleFa} - نماتک</title>
+      </Head>
+
       <ElearningCourseDetailsHero course={_mockCourse} />
 
       <Container
