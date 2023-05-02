@@ -14,7 +14,7 @@ const SimpleSearch = () => {
   return (
     <Row className={styles['simpleSearch']} wrap>
       <Col xxs={24} xs={24} lg={20} data-selector='content'>
-        <Col span={24} className={styles['simpleSearch__header']}>
+        {/* <Col span={24} className={styles['simpleSearch__header']}>
           <Row align='middle' className={styles['simpleSearch__header--title']}>
             <h1>{intl.formatMessage({ id: 'simple.search.info' })}</h1>
             <Button
@@ -26,7 +26,7 @@ const SimpleSearch = () => {
               {intl.formatMessage({ id: 'simple.search.guide' })}
             </Button>
           </Row>
-        </Col>
+        </Col> */}
         <SearchResultContent />
       </Col>
       {/* Ads */}
