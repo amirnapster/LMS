@@ -1,32 +1,16 @@
 import { useState } from 'react'
 // @mui
-import { alpha } from '@mui/material/styles'
-import {
-  Box,
-  Stack,
-  Container,
-  Typography,
-  ToggleButton,
-  ToggleButtonGroup,
-} from '@mui/material'
+import { Box, Container, Typography } from '@mui/material'
 // _mock
 import { _pricing01 } from '_mock'
 import PlanCard from 'containers/pricing/components/planCard'
+import { usePricingQuery } from 'libs/redux/services/karnama'
 //
 
 // ----------------------------------------------------------------------
 
 export default function Pricing() {
-  const [subscription, setSubscription] = useState('monthly')
-
-  const handleChangeSubscription = (
-    event: React.MouseEvent<HTMLElement>,
-    newValue: string
-  ) => {
-    if (newValue !== null) {
-      setSubscription(newValue)
-    }
-  }
+  const { data } = usePricingQuery()
 
   return (
     <Container
@@ -45,7 +29,7 @@ export default function Pricing() {
         Choose your plan and make modern online conversation magic
       </Typography>
 
-      <Stack sx={{ my: { xs: 5, md: 8 } }}>
+      {/* <Stack sx={{ my: { xs: 5, md: 8 } }}>
         <ToggleButtonGroup
           exclusive
           color='standard'
@@ -76,21 +60,23 @@ export default function Pricing() {
           <ToggleButton value='monthly'>MONTHLY</ToggleButton>
           <ToggleButton value='yearly'>YEARLY (save 10%)</ToggleButton>
         </ToggleButtonGroup>
-      </Stack>
+      </Stack> */}
 
       <Box
         sx={{
           gap: 4,
+          marginBlockStart: '4rem',
           display: 'grid',
           alignItems: 'center',
           gridTemplateColumns: {
             xs: 'repeat(1, 1fr)',
-            md: 'repeat(3, 1fr)',
+            md: 'repeat(2, 1fr)',
+            xl: 'repeat(3, 1fr)',
           },
         }}
       >
-        {_pricing01.map((plan) => (
-          <PlanCard key={plan.license} plan={plan} />
+        {data?.map((plan, index) => (
+          <PlanCard key={plan.duration} plan={plan} index={index} />
         ))}
       </Box>
     </Container>

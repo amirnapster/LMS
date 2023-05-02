@@ -1,25 +1,75 @@
 // @mui
 import { Card, Stack, Button, Typography } from '@mui/material'
 // types
-import { IPricing01Props } from 'types/pricing'
-// components
 import Label from 'components/label'
 import Image from 'components/image'
+
+import {
+  Pricing,
+  useLazyPaymentQuery,
+  usePaymentQuery,
+} from 'libs/redux/services/karnama'
+import { numberSeparator } from 'utils/helpers/global'
+import { useRouter } from 'next/router'
 
 // ----------------------------------------------------------------------
 
 type Props = {
-  plan: IPricing01Props
+  plan: Pricing
+  index: number
 }
 
-export default function PlanCard({ plan }: Props) {
-  const { license, icon, options, price } = plan
+export default function PlanCard({ plan, index }: Props) {
+  const { push } = useRouter()
+  const { amount, campaign, duration, package: packageType } = plan
 
-  const basicLicense = license === 'Basic'
+  const [payment] = useLazyPaymentQuery()
 
-  const starterLicense = license === 'Starter'
+  const starterLicense = index === 1
 
-  const premiumLicense = license === 'Premium'
+  const imageHandler = () => {
+    switch (index) {
+      case 0:
+        return '/assets/icons/pricing/ic_plan_basic01.svg'
+
+      case 1:
+        return '/assets/icons/pricing/ic_plan_starter01.svg'
+
+      case 2:
+        return '/assets/icons/pricing/ic_plan_premium01.svg'
+
+      case 3:
+        return ''
+
+      default:
+        return ''
+    }
+
+    return ''
+  }
+
+  const onSubmit = () => {
+    payment({
+      duration,
+      package: packageType,
+    })
+      .unwrap()
+      .then((res) => {
+        push((res as any).url)
+      })
+  }
+
+  const campaignHandler = () => {
+    if (
+      campaign &&
+      new Date() > new Date(campaign?.startDate as string) &&
+      new Date() < new Date(campaign?.endDate as string)
+    ) {
+      return campaign?.amount
+    }
+
+    return 0
+  }
 
   return (
     <Card
@@ -35,71 +85,61 @@ export default function PlanCard({ plan }: Props) {
     >
       {starterLicense && (
         <Label color='info' sx={{ position: 'absolute', top: 16, right: 16 }}>
-          POPULAR
+          پر طرفدار
         </Label>
       )}
 
       <Stack spacing={5} alignItems='center'>
-        <Typography
-          variant='overline'
-          component='div'
-          sx={{ color: 'text.secondary' }}
-        >
-          {license}
-        </Typography>
-
-        <Image alt={icon} src={icon} sx={{ width: 80, height: 80 }} />
+        <Image
+          alt='avatar'
+          src={imageHandler()}
+          sx={{ width: 80, height: 80 }}
+        />
 
         <Stack
-          direction='row'
+          direction='column'
           alignItems='center'
           justifyContent='center'
           spacing={0.5}
         >
-          {!basicLicense && (
-            <Typography variant='h4' component='span'>
-              $
-            </Typography>
-          )}
-
-          <Typography variant='h3' component='span'>
-            {price}
+          <Typography
+            variant={campaign ? 'h4' : 'h3'}
+            component='span'
+            sx={{
+              textDecoration: campaign ? 'line-through' : '',
+              color: campaign ? 'text.disabled' : '',
+            }}
+          >
+            {numberSeparator((amount as number) / 10000)} تومان
           </Typography>
 
-          {!basicLicense && (
-            <Typography variant='subtitle2' component='span'>
-              /mo
+          {campaign && (
+            <Typography variant='h3' component='span'>
+              {numberSeparator((campaignHandler() as number) / 10000)} تومان
             </Typography>
           )}
         </Stack>
 
+        <Typography variant='subtitle1' component='span'>
+          {`${((duration as number) / 30).toFixed(0)} ماهه`}
+        </Typography>
+
         <Stack spacing={1} sx={{ textAlign: 'center' }}>
-          {options.map((option) => (
-            <Typography
-              key={option.title}
-              variant={option.disabled ? 'body2' : 'subtitle2'}
-              sx={{
-                ...(option.disabled && {
-                  color: 'text.disabled',
-                  textDecoration: 'line-through',
-                }),
-              }}
-            >
-              {option.title}
-            </Typography>
-          ))}
+          <Typography variant='body2'>دسترسی به دوره ها</Typography>
+          <Typography variant='body2'>دسترسی به دوره ها</Typography>
         </Stack>
 
         <Button
-          fullWidth
-          disabled={basicLicense}
+          onClick={onSubmit}
           size='large'
-          variant={basicLicense ? 'outlined' : 'contained'}
-          color={premiumLicense ? 'primary' : 'inherit'}
+          variant='contained'
+          color='primary'
+          fullWidth
         >
-          {basicLicense && 'Current Plan'}
+          {/* {basicLicense && 'Current Plan'}
           {starterLicense && 'Choose Starter'}
-          {premiumLicense && 'Choose Premium'}
+          {premiumLicense && 'Choose Premium'} */}
+          خرید اشتراک
         </Button>
       </Stack>
     </Card>
