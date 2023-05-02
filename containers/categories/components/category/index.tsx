@@ -10,18 +10,23 @@ import Iconify from 'components/iconify'
 //
 import {
   GetCoursesApiResponse,
+  useGetApiCategoriesByIdQuery,
   useGetCoursesQuery,
 } from 'libs/redux/services/karnama'
-import NewsletterElearning from '../../newsletter/e-learning'
-import ElearningFilters from '../course/filters'
-import { ElearningCourseList } from '../course/list'
+import NewsletterElearning from 'sections/newsletter/e-learning/NewsletterElearning'
+import ElearningFilters from 'sections/_e-learning/course/filters/ElearningFilters'
+import { ElearningCourseList } from 'sections/_e-learning/course/list'
+import { useRouter } from 'next/router'
 
 // ----------------------------------------------------------------------
 
-export default function ElearningCoursesView() {
+export default function CategoryComponent() {
+  const {
+    query: { id },
+  } = useRouter()
   const [mobileOpen, setMobileOpen] = useState(false)
 
-  const { data } = useGetCoursesQuery()
+  const { data } = useGetApiCategoriesByIdQuery({ id: Number(id) })
 
   const [loading, setLoading] = useState(true)
 
@@ -54,7 +59,7 @@ export default function ElearningCoursesView() {
             py: 5,
           }}
         >
-          <Typography variant='h2'>دوره ها</Typography>
+          <Typography variant='h2'>{data?.title}</Typography>
 
           <Button
             color='inherit'
@@ -84,7 +89,7 @@ export default function ElearningCoursesView() {
             }}
           >
             <ElearningCourseList
-              courses={data as GetCoursesApiResponse}
+              courses={data?.courses as GetCoursesApiResponse}
               loading={loading}
             />
           </Box>

@@ -4,24 +4,25 @@ import { useSelector } from 'react-redux'
 import { ICourseProps } from 'types/course'
 // types
 import type { RootState } from 'libs/redux/store'
+import { Course } from 'libs/redux/services/karnama'
 import { ElearningCourseItem, ElearningCourseItemSkeleton } from '../item'
 
 // ----------------------------------------------------------------------
 
 type Props = {
-  courses: ICourseProps[]
+  courses: Course[]
   loading?: boolean
 }
 
 export default function ElearningCourseList({ courses, loading }: Props) {
-  const { details } = useSelector((state: RootState) => state.courses)
+  // const { details } = useSelector((state: RootState) => state.courses)
 
-  console.log(details)
+  console.log(courses)
 
   return (
     <>
       <Stack spacing={4}>
-        {(loading ? [...Array(9)] : details).map((course) =>
+        {(loading ? [...Array(9)] : courses)?.map((course) =>
           course ? (
             <ElearningCourseItem key={course?.id} course={course} />
           ) : (

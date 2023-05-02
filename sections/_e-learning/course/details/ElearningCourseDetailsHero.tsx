@@ -126,9 +126,11 @@ export default function ElearningCourseDetailsHero({ course }: Props) {
                   </Label>
                 )}
 
-                <Typography variant='overline' sx={{ color: 'primary.main' }}>
-                  {details?.category?.title}
-                </Typography>
+                <Link href={`/categories/${details.categoryId}`}>
+                  <Typography variant='overline' sx={{ color: 'primary.main' }}>
+                    {details?.category?.title}
+                  </Typography>
+                </Link>
 
                 <Typography variant='h3' component='h1'>
                   {details?.titleFa}
