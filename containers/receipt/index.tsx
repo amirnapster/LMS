@@ -1,5 +1,6 @@
 // import { useGetReceiptQuery } from 'libs/redux/services/pricing'
-import { useReceiptQuery } from 'libs/redux/services/karnama'
+import SkeletonComponent from 'components/skeleton'
+import { Payment, useReceiptQuery } from 'libs/redux/services/karnama'
 import { useRouter } from 'next/router'
 import ReceiptFailed from './components/failed'
 import ReceiptSuccess from './components/success'
@@ -14,13 +15,21 @@ const Receipt = () => {
   console.log(receiptData)
 
   return (
-    <div className={styles['receipt']}>
-      {true ? (
-        <ReceiptSuccess receiptData={null} />
-      ) : (
-        <ReceiptFailed receiptData={null} />
-      )}
-    </div>
+    <SkeletonComponent
+      data={receiptData}
+      variant='rounded'
+      width='100%'
+      height='460px'
+      className='mt-3'
+    >
+      <div className={styles['receipt']}>
+        {receiptData?.paid ? (
+          <ReceiptSuccess receiptData={receiptData} />
+        ) : (
+          <ReceiptFailed receiptData={null} />
+        )}
+      </div>
+    </SkeletonComponent>
   )
 }
 

@@ -43,6 +43,7 @@ const ReceiptFailed = ({ receiptData }: ReceiptProps) => {
           <Button
             btnType='primary'
             size='medium'
+            href='/pricing'
             data-selector='try'
             // href={`/checkout/?plan=${receiptData?.parameter}&count=${
             //   minCount[receiptData?.parameter as string]

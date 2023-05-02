@@ -283,6 +283,7 @@ export type Payment = {
   package?: number
   duration?: number
   card?: string | null
+  insertDate?: string
   user?: AspNetUser
 }
 export type CourseQualification = {
