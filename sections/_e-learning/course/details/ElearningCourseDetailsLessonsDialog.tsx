@@ -11,6 +11,9 @@ import Player from 'components/player'
 import Iconify from 'components/iconify'
 import Scrollbar from 'components/scrollbar'
 import type { Lesson } from 'libs/redux/services/karnama'
+import VideoJS from 'components/videoPlayer'
+import videojs from 'video.js'
+import { useRef } from 'react'
 
 // ----------------------------------------------------------------------
 
@@ -33,6 +36,34 @@ export default function ElearningCourseDetailsLessonsDialog({
   onVideoEnded,
   onSelectVideo,
 }: Props) {
+  const playerRef = useRef(null)
+
+  const videoJsOptions = {
+    autoplay: true,
+    controls: true,
+
+    fluid: true,
+    sources: [
+      {
+        src: selectLesson?.videoUrl as string,
+        type: 'video/mp4',
+      },
+    ],
+  }
+
+  const handlePlayerReady = (player: any) => {
+    playerRef.current = player
+
+    // You can handle player events here, for example:
+    player.on('waiting', () => {
+      videojs.log('player is waiting')
+    })
+
+    player.on('dispose', () => {
+      videojs.log('player will dispose')
+    })
+  }
+
   return (
     <Dialog
       fullWidth
@@ -41,29 +72,21 @@ export default function ElearningCourseDetailsLessonsDialog({
       onClose={onClose}
       PaperProps={{ sx: { overflow: 'hidden' } }}
     >
-      <Stack direction={{ xs: 'column', md: 'row' }}>
-        <Box
-          sx={{
-            position: 'relative',
-            width: { xs: 1, md: 0.5 },
-            height: { xs: 320, md: 640 },
-          }}
-        >
-          <IconButton
-            onClick={onClose}
-            sx={{ top: 16, left: 16, zIndex: 9, position: 'absolute' }}
-          >
-            <Iconify icon='carbon:close' />
-          </IconButton>
+      <IconButton
+        onClick={onClose}
+        sx={{ top: 16, left: 16, zIndex: 9, position: 'absolute' }}
+      >
+        <Iconify icon='carbon:close' />
+      </IconButton>
 
-          <Player
+      <VideoJS options={videoJsOptions} onReady={handlePlayerReady} />
+
+      {/* <Player
             controls
             url={selectLesson?.videoUrl as string}
             playing={selected}
             onEnded={onVideoEnded}
-          />
-        </Box>
-      </Stack>
+          /> */}
     </Dialog>
   )
 }

@@ -108,7 +108,7 @@ export default function ElearningCourseDetailsHero({ course }: Props) {
               <Image
                 alt='hero'
                 src={details?.imageUrl as string}
-                ratio={isMdUp ? '3/4' : '4/3'}
+                ratio={isMdUp ? '5/3' : '4/3'}
               />
             </Stack>
           </Grid>

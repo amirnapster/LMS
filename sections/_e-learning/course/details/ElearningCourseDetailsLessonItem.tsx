@@ -67,11 +67,10 @@ export default function ElearningCourseDetailsLessonItem({
   const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play'
 
   return (
-    <Box sx={{ position: 'relative' }}>
+    <Box onClick={handleOpen} sx={{ position: 'relative' }}>
       <Iconify
         width={24}
         icon={!lesson.isFree ? 'carbon:locked' : playIcon}
-        onClick={handleOpen}
         sx={{
           mr: 2,
           top: 18,
@@ -90,7 +89,7 @@ export default function ElearningCourseDetailsLessonItem({
 
       <StyledAccordion
         expanded={expanded}
-        onChange={onExpanded}
+        // onChange={onExpanded}
         disabled={!lesson.isFree}
       >
         <StyledAccordionSummary>
@@ -113,6 +112,11 @@ export default function ElearningCourseDetailsLessonItem({
 
           <Iconify
             icon={expanded ? 'carbon:chevron-down' : 'carbon:chevron-right'}
+            //call onExpanded when users clicks this and prevent propagation
+            onClick={(e) => {
+              e.stopPropagation()
+              onExpanded(e, !expanded)
+            }}
             sx={{
               color: 'text.secondary',
               ...(!lesson.isFree && { color: 'text.disabled' }),

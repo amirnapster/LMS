@@ -17,6 +17,7 @@ import NewsletterElearning from 'sections/newsletter/e-learning/NewsletterElearn
 import ElearningFilters from 'sections/_e-learning/course/filters/ElearningFilters'
 import { ElearningCourseList } from 'sections/_e-learning/course/list'
 import { useRouter } from 'next/router'
+import Head from 'next/head'
 
 // ----------------------------------------------------------------------
 
@@ -50,6 +51,10 @@ export default function CategoryComponent() {
 
   return (
     <>
+      <Head>
+        <title>دسته بندی {data?.title} - نماتک</title>
+      </Head>
+
       <Container>
         <Stack
           direction='row'
