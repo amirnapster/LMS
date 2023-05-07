@@ -76,7 +76,7 @@ a {
 }
 
 .scrollbar-width {
-  margin-inline-start: 12px;
+  margin-inline-start: 6px;
 
   @include media-breakpoint-down(md) {
     margin-inline-start: 0;
