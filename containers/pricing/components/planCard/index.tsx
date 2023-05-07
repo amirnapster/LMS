@@ -110,12 +110,12 @@ export default function PlanCard({ plan, index }: Props) {
               color: campaign ? 'text.disabled' : '',
             }}
           >
-            {numberSeparator((amount as number) / 10000)} تومان
+            {numberSeparator((amount as number) / 10000)} هزار تومان
           </Typography>
 
           {campaign && (
             <Typography variant='h3' component='span'>
-              {numberSeparator((campaignHandler() as number) / 10000)} تومان
+              {numberSeparator((campaignHandler() as number) / 10000)} هزار تومان
             </Typography>
           )}
         </Stack>
