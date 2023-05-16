@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setVisible } from 'libs/redux/slices/auth'
-import { CloseIcon, RasmioLogo } from 'assets/icons'
+import { CloseIcon, NamatekLogo } from 'assets/icons'
 import Row from 'components/ui/Row'
 import Button from 'components/ui/Button'
 import type { AuthMode } from 'libs/redux/slices/auth/interface'
@@ -59,7 +59,7 @@ const Authentication = () => {
           <CloseIcon />
         </Button>
 
-        <RasmioLogo />
+        <NamatekLogo />
       </Row>
       {authMemorized}
     </Row>

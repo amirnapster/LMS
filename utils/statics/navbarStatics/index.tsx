@@ -16,7 +16,7 @@ import {
   PersonDataIcon,
   PersonSvgIcon,
   ProductDevelopmentIcon,
-  RasmioLogoSvg,
+  NamatekLogoSvg,
   SearchIcon,
   WebServiceIcon,
 } from 'assets/icons'
@@ -139,7 +139,7 @@ export const navItemsData: NavItemsType = {
   about: {
     isSimple: true,
     content: [
-      { title: 'درباره ما', icon: <RasmioLogoSvg />, route: '/about-us' },
+      { title: 'درباره ما', icon: <NamatekLogoSvg />, route: '/about-us' },
       { title: 'منابع داده', icon: <DataIcon />, route: '/sources' },
       {
         title: 'راهنمای نماتک',

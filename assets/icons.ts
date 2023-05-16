@@ -22,7 +22,7 @@ import PersonDataIcon from 'public/svg/navbar/personData.svg'
 import ProductDevelopmentIcon from 'public/svg/navbar/productDevelopment.svg'
 import SearchIcon from 'public/svg/navbar/search.svg'
 import WebServiceIcon from 'public/svg/navbar/webService.svg'
-import RasmioLogoSvg from 'public/svg/navbar/rasmio.svg'
+import NamatekLogoSvg from 'public/svg/navbar/rasmio.svg'
 import LampSvg from 'public/svg/navbar/lamp.svg'
 import CompanySvgIcon from 'public/svg/search/company.svg'
 import PersonSvgIcon from 'public/svg/search/person.svg'
@@ -106,7 +106,7 @@ import ExcelIcon from 'public/svg/excel-icon.svg'
 import PrintIcon from 'public/svg/print-icon.svg'
 import CopiedIcon from 'public/svg/copied.svg'
 
-import RasmioLogo from 'public/svg/rasmio-logo.svg'
+import NamatekLogo from 'public/svg/rasmio-logo.svg'
 import CloseIcon from 'public/svg/close.svg'
 import BackIcon from 'public/svg/arrow-right.svg'
 
@@ -296,7 +296,7 @@ export {
   ProductDevelopmentIcon,
   SearchIcon,
   WebServiceIcon,
-  RasmioLogoSvg,
+  NamatekLogoSvg,
   LampSvg,
   CompanySvgIcon,
   PersonSvgIcon,
@@ -433,7 +433,7 @@ export {
   CompanyEditMapIcon,
   CopiedIcon,
   StaticPageAdsImage,
-  RasmioLogo,
+  NamatekLogo,
   CloseIcon,
   BackIcon,
   OtpAvatarImg,
