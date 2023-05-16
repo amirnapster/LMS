@@ -379,6 +379,7 @@ export type Lesson = {
   isQuiz?: boolean
   priority?: number
   isFree?: boolean
+  isOpen?: boolean
   section?: Section
   attachments?: Attachment[] | null
   comments?: Comment[] | null

@@ -107,19 +107,19 @@ function LessonItem({ lesson, selected, onSelectVideo }: LessonItemProps) {
   return (
     <ListItemButton
       selected={selected}
-      disabled={!lesson.isFree}
+      disabled={!lesson.isFree && !lesson.isOpen}
       onClick={onSelectVideo}
       sx={{ borderRadius: 1 }}
     >
       <Iconify
         width={24}
-        icon={!lesson.isFree ? 'carbon:locked' : playIcon}
+        icon={!lesson.isFree && !lesson.isOpen ? 'carbon:locked' : playIcon}
         sx={{
           mr: 2,
           ...(selected && {
             color: 'primary.main',
           }),
-          ...(!lesson.isFree && {
+          ...(!lesson.isFree && !lesson.isOpen&& {
             color: 'text.disabled',
           }),
         }}

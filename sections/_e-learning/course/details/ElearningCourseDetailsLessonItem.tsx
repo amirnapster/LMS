@@ -59,7 +59,7 @@ export default function ElearningCourseDetailsLessonItem({
   const { title, description } = lesson
 
   const handleOpen = () => {
-    if (lesson.isFree) {
+    if (lesson.isFree || lesson.isOpen) {
       onOpen()
     }
   }
@@ -70,7 +70,7 @@ export default function ElearningCourseDetailsLessonItem({
     <Box onClick={handleOpen} sx={{ position: 'relative' }}>
       <Iconify
         width={24}
-        icon={!lesson.isFree ? 'carbon:locked' : playIcon}
+        icon={!lesson.isFree && !lesson.isOpen ? 'carbon:locked' : playIcon}
         sx={{
           mr: 2,
           top: 18,
@@ -81,7 +81,7 @@ export default function ElearningCourseDetailsLessonItem({
           ...(selected && {
             color: 'primary.main',
           }),
-          ...(!lesson.isFree && {
+          ...((!lesson.isFree && !lesson.isOpen) && {
             color: 'text.disabled',
           }),
         }}
@@ -90,7 +90,7 @@ export default function ElearningCourseDetailsLessonItem({
       <StyledAccordion
         expanded={expanded}
         // onChange={onExpanded}
-        disabled={!lesson.isFree}
+        disabled={!lesson.isFree && !lesson.isOpen}
       >
         <StyledAccordionSummary>
           <Typography
