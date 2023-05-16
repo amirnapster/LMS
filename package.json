@@ -102,7 +102,7 @@
     "swiper": "^8.4.2",
     "video.js": "^8.3.0",
     "videojs-playbackrate-adjuster": "^1.0.1",
-    "yet-another-react-lightbox": "^3.4.0",
+    "yet-another-react-lightbox": "^3.8.2",
     "yup": "^1.1.1"
   },
   "devDependencies": {

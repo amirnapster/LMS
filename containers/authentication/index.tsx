@@ -59,7 +59,7 @@ const Authentication = () => {
           <CloseIcon />
         </Button>
 
-        <NamatekLogo />
+        {/* <NamatekLogo /> */}
       </Row>
       {authMemorized}
     </Row>

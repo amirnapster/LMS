@@ -57,6 +57,7 @@
     "no-use-before-define": "off",
     "@typescript-eslint/no-var-requires": 0,
     "react/button-has-type": "off",
+    "import/no-duplicates": "off",
     "react/react-in-jsx-scope": 0,
     "react/no-unstable-nested-components": [
       "warn",

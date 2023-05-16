@@ -93,13 +93,13 @@ export const AuthForm = ({
       />
       {children}
 
-      <span data-selector='policy'>
+      {/* <span data-selector='policy'>
         ورود/ثبت نام، به معنای پذیرش
         <Button target='_blank' href='/terms'>
           قوانین نماتک
         </Button>
         می‌باشد.
-      </span>
+      </span> */}
 
       <Button
         data-selector='submit'

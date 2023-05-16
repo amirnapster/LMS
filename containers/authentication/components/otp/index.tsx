@@ -39,8 +39,7 @@ const Otp = ({ changeMode }: AuthCallBackProps) => {
       <span className={styles['otp--title']}>ورود / ثبت نام</span>
 
       <span className={styles['otp--subTitle']}>
-        سلام؛ به نماتک خوش آمدید.
-        <br /> لطفا شماره موبایل یا ایمیل خود را وارد نمایید
+        برای دسترسی رایگان، شماره موبایل خود را وارد کنید
       </span>
 
       <form onSubmit={handleSubmit(onSubmit)} className={styles['otp__form']}>
@@ -52,13 +51,13 @@ const Otp = ({ changeMode }: AuthCallBackProps) => {
           data-selector='input'
         />
 
-        <Row className={styles['otp__policy']} justify='center'>
+        {/* <Row className={styles['otp__policy']} justify='center'>
           <span>ورود/ثبت نام، به معنای پذیرش</span>
           <Button target='_blank' href='/terms'>
             قوانین نماتک
           </Button>
           <span>می‌باشد.</span>
-        </Row>
+        </Row> */}
 
         <Button
           btnType='primary'

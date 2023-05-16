@@ -144,13 +144,13 @@ export const ConfirmOtp = ({ changeMode, data, setStep }: IConfirmOtpProps) => {
         </span>
       </Row>
 
-      <Row className={styles['confirmOtp__policy']} justify='center'>
+      {/* <Row className={styles['confirmOtp__policy']} justify='center'>
         <span>ورود/ثبت نام، به معنای پذیرش</span>
         <Button target='_blank' href='/terms'>
           قوانین نماتک
         </Button>
         <span>می‌باشد.</span>
-      </Row>
+      </Row> */}
 
       <Button
         className={styles['confirmOtp--accept']}

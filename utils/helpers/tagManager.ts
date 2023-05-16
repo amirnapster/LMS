@@ -2,8 +2,7 @@ import TagManager from 'react-gtm-module'
 
 export const gtm = () => {
   if (
-    typeof document !== 'undefined' &&
-    process.env.NODE_ENV === 'production'
+    typeof document !== 'undefined'
   ) {
     TagManager.initialize({ gtmId: 'GTM-PP4DC86' })
     // const msg =
