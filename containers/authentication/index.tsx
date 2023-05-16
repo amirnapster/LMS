@@ -58,8 +58,8 @@ const Authentication = () => {
         <Button onClick={closeModal} data-selector='close'>
           <CloseIcon />
         </Button>
-
-        {/* <NamatekLogo /> */}
+     <img src='/svg/layout/navbar-logo.svg' alt='logo' style={{height:'55px'}} />
+     
       </Row>
       {authMemorized}
     </Row>

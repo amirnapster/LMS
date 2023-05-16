@@ -39,7 +39,8 @@ const Otp = ({ changeMode }: AuthCallBackProps) => {
       <span className={styles['otp--title']}>ورود / ثبت نام</span>
 
       <span className={styles['otp--subTitle']}>
-        برای دسترسی رایگان، شماره موبایل خود را وارد کنید
+        برای دسترسی رایگان به ویدئوهای آموزشی،<br/>
+         شماره موبایل خود را وارد کنید
       </span>
 
       <form onSubmit={handleSubmit(onSubmit)} className={styles['otp__form']}>
@@ -47,7 +48,7 @@ const Otp = ({ changeMode }: AuthCallBackProps) => {
           autoComplete='username'
           register={register('userName', validation.LOGIN_EMAIL_USERNAME)}
           error={errors.userName}
-          placeholder='شماره موبایل یا ایمیل'
+          placeholder='شماره موبایل'
           data-selector='input'
         />
 
@@ -71,7 +72,7 @@ const Otp = ({ changeMode }: AuthCallBackProps) => {
         >
           تایید
         </Button>
-
+{/* 
         <Button
           onClick={() => changeMode('signIn')}
           btnType='ghost'
@@ -81,7 +82,7 @@ const Otp = ({ changeMode }: AuthCallBackProps) => {
           type='button'
         >
           ورود با رمز عبور
-        </Button>
+        </Button> */}
       </form>
     </Row>
   ) : (

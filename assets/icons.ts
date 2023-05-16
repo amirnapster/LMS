@@ -106,7 +106,7 @@ import ExcelIcon from 'public/svg/excel-icon.svg'
 import PrintIcon from 'public/svg/print-icon.svg'
 import CopiedIcon from 'public/svg/copied.svg'
 
-import NamatekLogo from 'public/svg/rasmio-logo.svg'
+import NamatekLogo from 'public/svg/layout/navbar-logo.svg'
 import CloseIcon from 'public/svg/close.svg'
 import BackIcon from 'public/svg/arrow-right.svg'
 
