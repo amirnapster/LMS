@@ -57,8 +57,6 @@
     "cypress": "^10.8.0",
     "date-fns": "^2.29.3",
     "dayjs": "^1.11.4",
-    "fabric": "^5.2.4",
-    "fabricjs-react": "^1.0.8",
     "formik": "^2.2.9",
     "framer-motion": "^10.12.3",
     "front-matter": "^4.0.2",
@@ -103,6 +101,7 @@
     "stylis-plugin-rtl": "^2.1.1",
     "swiper": "^8.4.2",
     "video.js": "^8.3.0",
+    "videojs-playbackrate-adjuster": "^1.0.1",
     "yet-another-react-lightbox": "^3.4.0",
     "yup": "^1.1.1"
   },
