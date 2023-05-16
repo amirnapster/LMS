@@ -16,7 +16,6 @@ import useResponsive from 'utils/hooks/useResponsive'
 // components
 import Image from 'components/image'
 import Iconify from 'components/iconify'
-import CountUp from 'components/count-up'
 
 // ----------------------------------------------------------------------
 
@@ -141,11 +140,7 @@ export default function MarketingAbout() {
             </StyledIcon>
 
             <Typography variant='h2' sx={{ mt: 2, mb: 1 }}>
-              <CountUp
-                start={value.total / 5}
-                end={value.total}
-                formattingFn={(newValue: number) => fShortenNumber(newValue)}
-              />
+              {value.total}
             </Typography>
 
             <Typography sx={{ color: 'text.secondary' }}>

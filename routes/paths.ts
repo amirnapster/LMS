@@ -86,7 +86,6 @@ export const paths = {
     root: '/components',
     animate: '/components/animate',
     carousel: '/components/carousel',
-    countUp: '/components/count-up',
     form: '/components/form-validation',
     icons: '/components/icons',
     image: '/components/image',

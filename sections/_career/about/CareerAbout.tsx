@@ -12,7 +12,6 @@ import { bgGradient } from 'utils/helpers/cssStyles'
 import { fShortenNumber } from 'utils/helpers/formatNumber'
 // components
 import Image from 'components/image'
-import CountUp from 'components/count-up'
 
 // ----------------------------------------------------------------------
 
@@ -158,11 +157,7 @@ function Section() {
                 gutterBottom
                 sx={{ color: 'primary.main' }}
               >
-                <CountUp
-                  start={value.number / 5}
-                  end={value.number}
-                  formattingFn={(newValue: number) => fShortenNumber(newValue)}
-                />
+               {value.number}
 
                 <Typography
                   variant='h3'

@@ -14,7 +14,6 @@ import useResponsive from 'utils/hooks/useResponsive'
 import _mock from '_mock'
 // components
 import Image from 'components/image'
-import CountUp from 'components/count-up'
 
 // ----------------------------------------------------------------------
 
@@ -81,11 +80,7 @@ export default function TravelAbout() {
         {SUMMARY.map((value) => (
           <div key={value.name}>
             <Typography variant='h2' gutterBottom>
-              <CountUp
-                start={value.number / 5}
-                end={value.number}
-                formattingFn={(newValue: number) => fShortenNumber(newValue)}
-              />
+            {value.number}
 
               <Typography
                 variant='h4'

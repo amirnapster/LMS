@@ -4,7 +4,6 @@ import { Typography, Container, Stack, Box } from '@mui/material'
 import { fShortenNumber } from 'utils/helpers/formatNumber'
 // components
 import Image from 'components/image'
-import CountUp from 'components/count-up'
 
 // ----------------------------------------------------------------------
 
@@ -79,11 +78,7 @@ export default function TravelLandingSummary() {
             />
 
             <Typography variant='h3'>
-              <CountUp
-                start={value.total / 5}
-                end={value.total}
-                formattingFn={(newValue: number) => fShortenNumber(newValue)}
-              />
+            {value.total}
             </Typography>
 
             <Typography sx={{ color: 'text.secondary' }}>

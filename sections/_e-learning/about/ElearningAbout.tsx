@@ -10,7 +10,6 @@ import {
 import { fShortenNumber } from 'utils/helpers/formatNumber'
 // components
 import Image from 'components/image'
-import CountUp from 'components/count-up'
 
 // ----------------------------------------------------------------------
 
@@ -108,13 +107,8 @@ export default function ElearningAbout() {
                 </Typography>
 
                 <Typography variant='h2' sx={{ mt: 1, mb: 2 }}>
-                  <CountUp
-                    start={value.number / 2}
-                    end={value.number}
-                    formattingFn={(newValue: number) =>
-                      fShortenNumber(newValue)
-                    }
-                  />
+                {value.number}
+
                   +
                 </Typography>
 
