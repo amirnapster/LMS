@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { Slide, SlideImage, SlideVideo } from 'yet-another-react-lightbox';
+import { Slide, SlideImage } from 'yet-another-react-lightbox';
 
 // ----------------------------------------------------------------------
 
@@ -17,9 +17,8 @@ export default function useLightBox(slides: Slide[]): ReturnType {
   const handleOpen = useCallback(
     (slideUrl: string) => {
       const slideIndex = slides.findIndex((slide) =>
-        slide.type === 'video'
-          ? (slide as SlideVideo).poster === slideUrl
-          : (slide as SlideImage).src === slideUrl
+        // slide.type === 'video' ? (slide as SlideVideo).poster === slideUrl:
+           (slide as SlideImage).src === slideUrl
       );
 
       setSelected(slideIndex);
