@@ -46,7 +46,7 @@ export default function ElearningCourseDetailsLessonsDialog({
     sources: [
       {
         src: selectLesson?.videoUrl as string,
-        type: 'application/x-mpegURL',
+        type: selectLesson?.videoUrl?.endsWith('m3u8')? 'application/x-mpegURL':'video/mp4'
       },
     ],
   }
