@@ -18,6 +18,20 @@ export const VideoJS = (props: any) => {
 
       const player = videojs(videoElement, options, () => {
         videojs.log('player is ready')
+        const s1= options.sources[0]
+        if(s1.src.endsWith('mp4'))
+        {
+            player.addRemoteTextTrack({ kind: 'subtitles',
+            src: s1.src.replace('.mp4','.fa.vtt'),
+            srclang: "fa",
+            label: "فارسی",
+            default: true})
+            player.addRemoteTextTrack({ kind: 'subtitles',
+            src: s1.src.replace('.mp4','.vtt'),
+            srclang: "en",
+            label: "انگلسی",
+            default: false})
+        }
         if (onReady) onReady(player)
       })
 
@@ -28,6 +42,12 @@ export const VideoJS = (props: any) => {
 
       player.autoplay(options.autoplay)
       player.src(options.sources)
+     console.log(options.sources)
+
+    
+        
+      
+
     }
   }, [options, videoRef])
 
