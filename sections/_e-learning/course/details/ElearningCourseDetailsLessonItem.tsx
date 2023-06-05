@@ -107,7 +107,7 @@ export default function ElearningCourseDetailsLessonItem({
           </Typography>
 
           <Typography variant='body2' sx={{ mr: 2 }}>
-            {lesson.duation} دقیقه
+          {`${((lesson.duation as number) / 60).toFixed(0)} دقیقه`}
           </Typography>
 
           <Iconify

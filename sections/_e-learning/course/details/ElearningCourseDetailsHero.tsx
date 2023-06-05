@@ -209,7 +209,7 @@ export default function ElearningCourseDetailsHero({ course }: Props) {
                     sx={{ typography: 'body2' }}
                   >
                     <Iconify icon='carbon:time' sx={{ mr: 1 }} />{' '}
-                    {`${((details?.totalDuration as number) / 60).toFixed(
+                    {`${((details?.totalDuration as number) / 3600).toFixed(
                       0
                     )} ساعت`}
                   </Stack>

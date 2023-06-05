@@ -207,7 +207,7 @@ const SearchResultContent = () => {
                     sx={{ typography: 'body2' }}
                   >
                     <Iconify icon='carbon:time' sx={{ mr: 1 }} />{' '}
-                    {`${((course.totalDuration as number) / 60).toFixed(
+                    {`${((course.totalDuration as number) / 3600).toFixed(
                       0
                     )} ساعت`}
                   </Stack>
