@@ -100,6 +100,7 @@
     "stylis-plugin-rtl": "^2.1.1",
     "swiper": "^8.4.2",
     "video.js": "^8.3.0",
+    "videojs-hotkeys": "^0.2.28",
     "videojs-playbackrate-adjuster": "^1.0.1",
     "yet-another-react-lightbox": "^3.8.2",
     "yup": "^1.1.1"

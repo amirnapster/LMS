@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 // @mui
 import {
   Box,
@@ -12,8 +13,8 @@ import Iconify from 'components/iconify'
 import Scrollbar from 'components/scrollbar'
 import type { Lesson } from 'libs/redux/services/karnama'
 import VideoJS from 'components/videoPlayer'
+import 'videojs-hotkeys'
 import videojs from 'video.js'
-import { useRef } from 'react'
 
 // ----------------------------------------------------------------------
 
@@ -42,11 +43,23 @@ export default function ElearningCourseDetailsLessonsDialog({
     autoplay: true,
     controls: true,
 
+    plugins: {
+      hotkeys: {
+        volumeStep: 0.1,
+        seekStep: 5,
+        enableModifiersForNumbers: false,
+      },
+
+      playbackRates: [0.5, 1, 1.5, 2],
+    },
+
     fluid: true,
     sources: [
       {
         src: selectLesson?.videoUrl as string,
-        type: selectLesson?.videoUrl?.endsWith('m3u8')? 'application/x-mpegURL':'video/mp4'
+        type: selectLesson?.videoUrl?.endsWith('m3u8')
+          ? 'application/x-mpegURL'
+          : 'video/mp4',
       },
     ],
   }
@@ -119,9 +132,10 @@ function LessonItem({ lesson, selected, onSelectVideo }: LessonItemProps) {
           ...(selected && {
             color: 'primary.main',
           }),
-          ...(!lesson.isFree && !lesson.isOpen&& {
-            color: 'text.disabled',
-          }),
+          ...(!lesson.isFree &&
+            !lesson.isOpen && {
+              color: 'text.disabled',
+            }),
         }}
       />
 

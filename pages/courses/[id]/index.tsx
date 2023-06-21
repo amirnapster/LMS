@@ -1,8 +1,7 @@
 // next
-import Layout from 'layout'
+import { ElearningCourseView } from 'sections/_e-learning/view'
 import MainLayout from 'layout/main/MainLayout'
 import Head from 'next/head'
-import { ElearningCourseView } from 'sections/_e-learning/view'
 
 // ----------------------------------------------------------------------
 

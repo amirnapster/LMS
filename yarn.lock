@@ -12266,6 +12266,11 @@ videojs-font@4.1.0:
   resolved "https://registry.yarnpkg.com/videojs-font/-/videojs-font-4.1.0.tgz#3ae1dbaac60b4f0f1c4e6f7ff9662a89df176015"
   integrity sha512-X1LuPfLZPisPLrANIAKCknZbZu5obVM/ylfd1CN+SsCmPZQ3UMDPcvLTpPBJxcBuTpHQq2MO1QCFt7p8spnZ/w==
 
+videojs-hotkeys@^0.2.28:
+  version "0.2.28"
+  resolved "https://registry.yarnpkg.com/videojs-hotkeys/-/videojs-hotkeys-0.2.28.tgz#73d7d7b43ff62b046e6b93a0ce71c6ed5fcac105"
+  integrity sha512-M8rlD5OSB3EDRdbS4MRNlGKFpA2sSIStmUPvy5zfl/NigzWaN6r4wnb32rEN0v97GiQwmUfXSmqrPNrXhiFQmQ==
+
 videojs-playbackrate-adjuster@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/videojs-playbackrate-adjuster/-/videojs-playbackrate-adjuster-1.0.1.tgz#9ea44bd92c5bd776d88b4fcd7220b12b2324c661"
