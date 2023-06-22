@@ -181,6 +181,11 @@ tspan.highcharts-text-outline {
   }
 }
 
+.vjs-text-track-display div {
+  color: red !important;
+  background-color: unset !important;
+}
+
 @media only screen and (max-width: 600px) {
   .MuiGrid-spacing-xs-2 {
     margin: 0 !important;
