@@ -50,7 +50,7 @@ const NavbarDrawer = ({ login }: NavbarDrawerProps) => {
             </Button>
           </Col>
 
-          <Col
+          {/* <Col
             xs={24}
             className='bg-color-navbar-green d-flex justify-space-between'
           >
@@ -66,7 +66,7 @@ const NavbarDrawer = ({ login }: NavbarDrawerProps) => {
                 <KeyboardArrowLeftOutlined />
               </Row>
             </Button>
-          </Col>
+          </Col> */}
         </Row>
 
         <MobileNavItem />

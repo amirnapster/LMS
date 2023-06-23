@@ -25,7 +25,7 @@ export type ICourseLessonProp = {
 }
 
 export type ICourseByCategoryProps = {
-  id: string
+  id: number
   name: string
   students: number
 }

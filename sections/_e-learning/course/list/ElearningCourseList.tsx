@@ -1,5 +1,5 @@
 // @mui
-import { Pagination, Stack } from '@mui/material'
+import { Box, Pagination, Stack } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { ICourseProps } from 'types/course'
 // types
@@ -21,15 +21,25 @@ export default function ElearningCourseList({ courses, loading }: Props) {
 
   return (
     <>
-      <Stack spacing={4}>
+      <Box
+          sx={{
+            gap: 4,
+            display: 'grid',
+            gridTemplateColumns: {
+              xs: 'repeat(1, 1fr)',
+              sm: 'repeat(2, 1fr)',
+              md: 'repeat(3, 1fr)',
+            },
+          }}
+        >
         {(loading ? [...Array(9)] : courses)?.map((course) =>
           course ? (
-            <ElearningCourseItem key={course?.id} course={course} />
+            <ElearningCourseItem key={course?.id} course={course} vertical />
           ) : (
             <ElearningCourseItemSkeleton key={course?.id} />
           )
         )}
-      </Stack>
+      </Box>
 
       {/* <Pagination
         count={10}

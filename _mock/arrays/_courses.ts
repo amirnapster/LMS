@@ -61,19 +61,18 @@ export const _courses = [...Array(12)].map((_, index) => ({
 // ----------------------------------------------------------------------
 
 const CATEGORY_NAMES = [
-  'Python',
-  'Design',
-  'History',
-  'Photoshop',
-  'Management',
-  'Cyber Security',
-  'Web Development',
-  'Machine Learning',
-  'Photography',
-];
+  { id: 71,title:'بازاریابی و فروش'},
+{ id: 73,title:'فناوری اطلاعات'},
+{ id: 74,title:'فنی و اجرایی'},
+{ id: 75,title:'کارشناسی و ارائه خدمات'},
+{ id: 76,title:'مالی، اداری و حقوقی'},
+{ id: 77,title:'مدیریتی'},
+{ id: 78,title:'مهندسی'},
+{ id: 79,title:'هنر، رسانه و آموزش'},
+] 
 
-export const _coursesByCategories = [...Array(9)].map((_, index) => ({
-  id: _mock.id(index),
-  name: CATEGORY_NAMES[index],
+export const _coursesByCategories = [...Array(8)].map((_, index) => ({
+  id: CATEGORY_NAMES[index].id,
+  name: CATEGORY_NAMES[index].title,
   students: 101 + index,
 }));

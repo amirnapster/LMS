@@ -23,7 +23,7 @@ export const NavItem = () => {
   return (
     <div className={styles['navbar__items']}>
       {!isSearching && <NavbarTab />}
-      {!accessToken && !isSearching && (
+      {/* {!accessToken && !isSearching && (
         <div className={styles['navbar__tab--item']}>
           <Button href='/what-is-rasmio' id='nav-whatisrasmio'>
             <Row
@@ -37,7 +37,7 @@ export const NavItem = () => {
             </Row>
           </Button>
         </div>
-      )}
+      )} */}
     </div>
   )
 }
@@ -46,7 +46,7 @@ export const NavItemMenu = ({ item, id }: NavKeyItem) => {
   const intl = useIntl()
   const { accessToken } = useSelector((state: RootState) => state.auth)
   const { isSearching } = useSelector((state: RootState) => state.navbar)
-
+return null;
   return (
     <div
       className={cn(

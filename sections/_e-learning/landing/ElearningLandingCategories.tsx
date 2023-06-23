@@ -12,6 +12,7 @@ import { ICourseByCategoryProps } from 'types/course'
 // components
 import Iconify from 'components/iconify'
 import TextMaxLine from 'components/text-max-line'
+import Link from 'next/link'
 
 // ----------------------------------------------------------------------
 
@@ -41,21 +42,20 @@ export default function ElearningLandingCategories({ categories }: Props) {
               textAlign: { xs: 'center', lg: 'unset' },
             }}
           >
-            <Typography variant='h2'>Featured Category</Typography>
+            <Typography variant='h2'>دسته شغلی</Typography>
 
             <Typography sx={{ color: 'text.secondary', mt: 2, mb: 5 }}>
-              Since wire-frame renderings are relatively simple and fast to
-              calculate, they are often used in cases
+              آموزش‌های مرتبط با هر دسته شغلی
             </Typography>
 
-            <Button
+            {/* <Button
               variant='contained'
               size='large'
               color='inherit'
               endIcon={<Iconify icon='carbon:chevron-right' />}
             >
               Explore more
-            </Button>
+            </Button> */}
           </Grid>
 
           <Grid xs={12} lg={7}>
@@ -88,6 +88,7 @@ type CategoryItemProps = {
 
 function CategoryItem({ category }: CategoryItemProps) {
   return (
+    <Link href={`/tags/${category.id}`}>
     <Paper
       variant='outlined'
       sx={{
@@ -113,8 +114,9 @@ function CategoryItem({ category }: CategoryItemProps) {
       </TextMaxLine>
 
       <Typography variant='body2' sx={{ color: 'text.disabled' }}>
-        {category.students} students
+        {category.students} آموزش
       </Typography>
     </Paper>
+    </Link>
   )
 }

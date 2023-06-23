@@ -1,5 +1,4 @@
 import { emptySplitApi as api } from './emptyApi'
-
 export const addTagTypes = [
   'Account',
   'Categories',
@@ -7,6 +6,7 @@ export const addTagTypes = [
   'Payments',
   'Pricing',
   'Qualifications',
+  'Tags',
   'WeatherForecast',
 ] as const
 export const injectedRtkApi = api
@@ -25,6 +25,14 @@ export const injectedRtkApi = api
       }),
       info: build.mutation<InfoApiResponse, InfoApiArg>({
         query: () => ({ url: `/Account/Info`, method: 'POST' }),
+        invalidatesTags: ['Account'],
+      }),
+      setInfo: build.mutation<SetInfoApiResponse, SetInfoApiArg>({
+        query: (queryArg) => ({
+          url: `/Account/SetInfo`,
+          method: 'POST',
+          body: queryArg.setInfoModel,
+        }),
         invalidatesTags: ['Account'],
       }),
       verfySignInByOtp: build.mutation<
@@ -162,6 +170,17 @@ export const injectedRtkApi = api
         query: (queryArg) => ({ url: `/api/Qualifications/${queryArg.id}` }),
         providesTags: ['Qualifications'],
       }),
+      getApiTags: build.query<GetApiTagsApiResponse, GetApiTagsApiArg>({
+        query: () => ({ url: `/api/Tags` }),
+        providesTags: ['Tags'],
+      }),
+      getApiTagsById: build.query<
+        GetApiTagsByIdApiResponse,
+        GetApiTagsByIdApiArg
+      >({
+        query: (queryArg) => ({ url: `/api/Tags/${queryArg.id}` }),
+        providesTags: ['Tags'],
+      }),
       getWeatherForecast: build.query<
         GetWeatherForecastApiResponse,
         GetWeatherForecastApiArg
@@ -179,6 +198,10 @@ export type SignInByOtpApiArg = {
 }
 export type InfoApiResponse = /** status 200 Success */ UserInfo
 export type InfoApiArg = void
+export type SetInfoApiResponse = /** status 200 Success */ UserInfo
+export type SetInfoApiArg = {
+  setInfoModel: SetInfoModel
+}
 export type VerfySignInByOtpApiResponse = /** status 200 Success */ Token
 export type VerfySignInByOtpApiArg = {
   verfySignInByOtpCommand: VerfySignInByOtpCommand
@@ -244,6 +267,12 @@ export type GetApiQualificationsByIdApiResponse =
 export type GetApiQualificationsByIdApiArg = {
   id: number
 }
+export type GetApiTagsApiResponse = /** status 200 Success */ Tag[]
+export type GetApiTagsApiArg = void
+export type GetApiTagsByIdApiResponse = /** status 200 Success */ Tag
+export type GetApiTagsByIdApiArg = {
+  id: number
+}
 export type GetWeatherForecastApiResponse =
   /** status 200 Success */ WeatherForecast[]
 export type GetWeatherForecastApiArg = void
@@ -271,21 +300,6 @@ export type AspNetUserToken = {
   value?: string | null
   user?: AspNetUser
 }
-export type Payment = {
-  id?: number
-  userId?: number
-  amount?: number
-  tax?: number
-  token?: string | null
-  rrn?: string | null
-  paid?: boolean
-  gateway?: string | null
-  package?: number
-  duration?: number
-  card?: string | null
-  insertDate?: string
-  user?: AspNetUser
-}
 export type CourseQualification = {
   id?: number
   courseId?: number
@@ -309,50 +323,33 @@ export type Category = {
   courses?: Course[] | null
   qualifications?: Qualification[] | null
 }
-export type Comment = {
-  id?: number
-  text?: string | null
-  courseId?: number
-  lessonId?: number | null
-  userId?: number
-  insertDate?: string
-  approved?: boolean
-  replyId?: number | null
-  course?: Course
-  lesson?: Lesson
-}
-export type Enroll = {
-  id?: number
-  userId?: number
-  courseId?: number
-  insertDate?: string
-  progress?: number
-  course?: Course
-}
-export type Course = {
+export type SectionQuestion = {
   id?: number
   title?: string | null
-  titleFa?: string | null
-  totalDuration?: number | null
+  sectionId?: number
+  lessonId?: number | null
   imageUrl?: string | null
-  categoryId?: number
-  description?: string | null
-  shortDescription?: string | null
-  category?: Category
-  comments?: Comment[] | null
-  courseQualifications?: CourseQualification[] | null
-  enrolls?: Enroll[] | null
-  sections?: Section[] | null
+  answer1?: string | null
+  answerImage1?: string | null
+  answer2?: string | null
+  answerImage2?: string | null
+  answer3?: string | null
+  answerImage3?: string | null
+  answer4?: string | null
+  answerImage4?: string | null
+  section?: Section
 }
 export type Section = {
   id?: number
   courseId?: number
   title?: string | null
+  titleEn?: string | null
   weekNumber?: number
   description?: string | null
   priority?: number
   course?: Course
   lessons?: Lesson[] | null
+  sectionQuestions?: SectionQuestion[] | null
 }
 export type Attachment = {
   id?: number
@@ -360,6 +357,18 @@ export type Attachment = {
   url?: string | null
   lessonId?: number
   lesson?: Lesson
+}
+export type PlayLog = {
+  id?: number
+  userId?: number
+  action?: string | null
+  insertDate?: string
+  lessonId?: number
+  time?: number
+  ip?: string | null
+  speed?: number
+  lesson?: Lesson
+  user?: AspNetUser
 }
 export type UserLessonCompleted = {
   id?: number
@@ -380,22 +389,134 @@ export type Lesson = {
   priority?: number
   isFree?: boolean
   isOpen?: boolean
+  hasSubtitle?: boolean | null
   section?: Section
   attachments?: Attachment[] | null
   comments?: Comment[] | null
   playLogs?: PlayLog[] | null
   userLessonCompleteds?: UserLessonCompleted[] | null
 }
-export type PlayLog = {
+export type Comment = {
+  id?: number
+  text?: string | null
+  courseId?: number
+  lessonId?: number | null
+  userId?: number
+  insertDate?: string
+  approved?: boolean
+  replyId?: number | null
+  course?: Course
+  lesson?: Lesson
+}
+export type Tag = {
+  id?: number
+  title?: string | null
+  courseTags?: CourseTag[] | null
+}
+export type CourseTag = {
+  id?: number
+  courseId?: number
+  tagId?: number
+  course?: Course
+  tag?: Tag
+}
+export type Enroll = {
   id?: number
   userId?: number
-  action?: string | null
+  courseId?: number
   insertDate?: string
-  lessonId?: number
-  time?: number
-  ip?: string | null
-  speed?: number
-  lesson?: Lesson
+  progress?: number
+  course?: Course
+}
+export type Course = {
+  id?: number
+  title?: string | null
+  titleFa?: string | null
+  totalDuration?: number | null
+  imageUrl?: string | null
+  categoryId?: number
+  description?: string | null
+  shortDescription?: string | null
+  slug?: string | null
+  category?: Category
+  comments?: Comment[] | null
+  courseQualifications?: CourseQualification[] | null
+  courseTags?: CourseTag[] | null
+  enrolls?: Enroll[] | null
+  exams?: Exam[] | null
+  sections?: Section[] | null
+}
+export type UserAnswer = {
+  id?: number
+  userId?: number
+  questionId?: number
+  correct?: boolean
+  answerIndex?: number | null
+  insertDated?: string
+  examId?: number | null
+  userStarted?: string | null
+  exam?: Exam
+  question?: ExamQuestion
+  user?: AspNetUser
+}
+export type ExamQuestion = {
+  id?: number
+  title?: string | null
+  examId?: number
+  imageUrl?: string | null
+  answer1?: string | null
+  answerImage1?: string | null
+  answer2?: string | null
+  answerImage2?: string | null
+  answer3?: string | null
+  answerImage3?: string | null
+  answer4?: string | null
+  answerImage4?: string | null
+  correctAnswer?: number
+  exam?: Exam
+  userAnswers?: UserAnswer[] | null
+}
+export type Exam = {
+  id?: number
+  userId?: number
+  courseId?: number
+  startTime?: string
+  endTime?: string
+  score?: number
+  maxScore?: number
+  certificate?: string | null
+  code?: string | null
+  serialNumber?: number | null
+  course?: Course
+  user?: AspNetUser
+  examQuestions?: ExamQuestion[] | null
+  userAnswers?: UserAnswer[] | null
+}
+export type Payment = {
+  id?: number
+  userId?: number
+  amount?: number
+  tax?: number
+  token?: string | null
+  rrn?: string | null
+  paid?: boolean
+  gateway?: string | null
+  package?: number
+  duration?: number
+  card?: string | null
+  insertDate?: string | null
+  user?: AspNetUser
+}
+export type UserVerification = {
+  id?: number
+  firstName?: string | null
+  lastName?: string | null
+  nationalCard?: string | null
+  insertDate?: string
+  isAccepted?: boolean
+  isRejected?: boolean
+  userId?: number
+  nationalCode?: string | null
   user?: AspNetUser
 }
 export type AspNetRoleClaim = {
@@ -430,13 +551,18 @@ export type AspNetUser = {
   lockoutEnabled?: boolean
   accessFailedCount?: number
   fullname?: string | null
+  companyName?: string | null
+  jobTitle?: string | null
   aspNetUserClaims?: AspNetUserClaim[] | null
   aspNetUserLogins?: AspNetUserLogin[] | null
   aspNetUserTokens?: AspNetUserToken[] | null
+  exams?: Exam[] | null
   payments?: Payment[] | null
   playLogs?: PlayLog[] | null
   premia?: Premium[] | null
+  userAnswers?: UserAnswer[] | null
   userLessonCompleteds?: UserLessonCompleted[] | null
+  userVerifications?: UserVerification[] | null
   roles?: AspNetRole[] | null
 }
 export type Premium = {
@@ -451,10 +577,17 @@ export type UserInfo = {
   id?: number
   fullname?: string | null
   premium?: Premium
+  companyName?: string | null
+  jobTitle?: string | null
 }
 export type ApiError = {
   message?: string | null
   isWarning?: boolean
+}
+export type SetInfoModel = {
+  fullname?: string | null
+  companyName?: string | null
+  jobTitle?: string | null
 }
 export type Token = {
   accessToken?: string | null
@@ -512,6 +645,7 @@ export type WeatherForecast = {
 export const {
   useSignInByOtpMutation,
   useInfoMutation,
+  useSetInfoMutation,
   useVerfySignInByOtpMutation,
   useSetUserPasswordMutation,
   useSignInMutation,
@@ -544,6 +678,10 @@ export const {
   useLazyGetApiQualificationsQuery,
   useGetApiQualificationsByIdQuery,
   useLazyGetApiQualificationsByIdQuery,
+  useGetApiTagsQuery,
+  useLazyGetApiTagsQuery,
+  useGetApiTagsByIdQuery,
+  useLazyGetApiTagsByIdQuery,
   useGetWeatherForecastQuery,
   useLazyGetWeatherForecastQuery,
 } = injectedRtkApi

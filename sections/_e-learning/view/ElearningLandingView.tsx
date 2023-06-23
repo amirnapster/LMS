@@ -20,6 +20,7 @@ import {
   ElearningLandingCategories,
   ElearningLandingFeaturedCourses,
 } from '../landing'
+import { ICourseByCategoryProps } from 'types/course'
 
 // ----------------------------------------------------------------------
 
@@ -28,23 +29,23 @@ export default function ElearningLandingView() {
     <>
       <ElearningLandingHero />
 
-      <OurClientsElearning brands={_brandsColor} />
+      {/* <OurClientsElearning brands={_brandsColor} /> */}
 
-      <ElearningLandingIntroduce />
+      {/* <ElearningLandingIntroduce /> */}
+      <ElearningLandingCategories categories={_coursesByCategories as ICourseByCategoryProps[]} />
 
       <ElearningLandingFeaturedCourses />
 
-      <ElearningLandingCategories categories={_coursesByCategories} />
 
-      <TeamElearning members={_members.slice(0, 4)} />
+      {/* <TeamElearning members={_members.slice(0, 4)} /> */}
 
       {/* <TestimonialElearning testimonials={_testimonials} /> */}
 
-      <BlogElearningLatestPosts posts={_blogCoursePosts.slice(0, 4)} />
+      {/* <BlogElearningLatestPosts posts={_blogCoursePosts.slice(0, 4)} />
 
-      <DownloadAppElearning />
+      <DownloadAppElearning /> 
 
-      <NewsletterElearning />
+      <NewsletterElearning />*/}
     </>
   )
 }
