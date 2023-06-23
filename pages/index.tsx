@@ -16,7 +16,7 @@ export default function HomePage() {
   return (
     <>
       <Head>
-        <title>home</title>
+        <title>نماتک پرو</title>
       </Head>
 
       <ElearningLandingView />

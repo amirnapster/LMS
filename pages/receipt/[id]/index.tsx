@@ -15,7 +15,7 @@ export default function ReceiptPage() {
   return (
     <>
       <Head>
-        <title>courses</title>
+        <title>رسید</title>
       </Head>
 
       <Receipt />

@@ -13,7 +13,7 @@ export default function Course() {
   return (
     <>
       <Head>
-        <title>course</title>
+        <title>دوره</title>
       </Head>
 
       <ElearningCourseView />

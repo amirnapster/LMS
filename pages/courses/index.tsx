@@ -15,7 +15,7 @@ export default function Courses() {
   return (
     <>
       <Head>
-        <title>courses</title>
+        <title>لیست دوره‌ها</title>
       </Head>
 
       <ElearningCoursesView />

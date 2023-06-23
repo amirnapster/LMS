@@ -14,7 +14,7 @@ export default function Categories() {
   return (
     <>
       <Head>
-        <title>categories</title>
+        <title>دسته آموزش</title>
       </Head>
 
       <Category />
