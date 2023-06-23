@@ -123,7 +123,7 @@ export default function ElearningCourseView() {
             <Stack spacing={5}>
               {isMdUp && <ElearningCourseDetailsInfo course={_mockCourse} />}
 
-              <Advertisement
+              {/* <Advertisement
                 advertisement={{
                   title: 'Advertisement',
                   description:
@@ -131,7 +131,7 @@ export default function ElearningCourseView() {
                   imageUrl: _mock.image.course(7),
                   path: '',
                 }}
-              />
+              /> */}
             </Stack>
           </Grid>
         </Grid>
