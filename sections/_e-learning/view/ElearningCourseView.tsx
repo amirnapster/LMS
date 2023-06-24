@@ -40,8 +40,6 @@ export default function ElearningCourseView() {
   const isMdUp = useResponsive('up', 'md')
   const { data } = useGetApiCoursesByIdQuery({ id: Number(query.id) })
 
-  console.log(data)
-
   const [loading, setLoading] = useState(true)
 
   const courseSimilar = _courses.slice(-3)
