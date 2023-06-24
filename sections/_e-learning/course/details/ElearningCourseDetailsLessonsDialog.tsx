@@ -43,6 +43,7 @@ export default function ElearningCourseDetailsLessonsDialog({
     autoplay: true,
     controls: true,
 
+    textTrackSettings: false,
     plugins: {
       hotkeys: {
         volumeStep: 0.1,
