@@ -1,3 +1,4 @@
+import { useLogMutation } from 'libs/redux/services/karnama'
 import React, { RefObject, useEffect, useMemo } from 'react'
 import videojs from 'video.js'
 import 'video.js/dist/video-js.css'
@@ -7,8 +8,10 @@ export const VideoJS = (props: any) => {
   const playerRef = React.useRef<any>(null)
   const { src, id } = props
 
-  const videoJsOptions = useMemo(() => {
-    return {
+  const [sendLog] = useLogMutation()
+
+  const videoJsOptions = useMemo(
+    () => ({
       autoplay: true,
       controls: true,
 
@@ -28,27 +31,59 @@ export const VideoJS = (props: any) => {
       sources: [
         {
           src: src as string,
-          type: src
-            ? src.endsWith('m3u8')
-              ? 'application/x-mpegURL'
-              : 'video/mp4'
-            : '',
+          type:
+            src && src.endsWith('m3u8') ? 'application/x-mpegURL' : 'video/mp4',
         },
       ],
-    }
-  }, [src])
+    }),
+    [src]
+  )
 
   const handlePlayerReady = (player: any) => {
     playerRef.current = player
 
-    // You can handle player events here, for example:
+    let isPlaying = false
+
+    const localSendLog = (action: string) => {
+      sendLog({
+        playLogDto: {
+          action,
+          time: +player.currentTime().toFixed('0'),
+          lessonId: +(window as any).lessonId,
+          speed: player.playbackRate(),
+        },
+      })
+    }
+
+    player.on(['waiting', 'pause'], () => {
+      isPlaying = false
+    })
+
+    player.on('playing', () => {
+      isPlaying = true
+    })
+
+    setInterval(() => {
+      if (isPlaying) {
+        localSendLog('Playing')
+      }
+    }, 60000)
+
     player.on('waiting', () => {
       videojs.log('player is waiting')
     })
 
-    player.on('timeupdate', function () {
-      var currentTime = player.currentTime()
-      localStorage.setItem('currentTimeVideo-' + id, currentTime)
+    player.on('timeupdate', () => {
+      const currentTime = player.currentTime()
+      localStorage.setItem(`currentTimeVideo-${id}`, currentTime)
+    })
+
+    player.on('pause', () => {
+      localSendLog('Pause')
+    })
+
+    player.on('play', () => {
+      localSendLog('Play')
     })
 
     player.on('loadedmetadata', () => {
@@ -69,6 +104,7 @@ export const VideoJS = (props: any) => {
 
       // The Video.js player needs to be _inside_ the component el for React 18 Strict Mode.
       const videoElement = document.createElement('video-js')
+      ;(window as any).lessonId = id
 
       videoElement.classList.add('vjs-big-play-centered')
       ;(videoRef.current as HTMLDivElement).appendChild(videoElement)
@@ -99,6 +135,7 @@ export const VideoJS = (props: any) => {
       // on prop change, for example:
     } else {
       const player = playerRef.current
+      ;(window as any).lessonId = id
 
       player.autoplay(videoJsOptions.autoplay)
       player.src(videoJsOptions.sources)

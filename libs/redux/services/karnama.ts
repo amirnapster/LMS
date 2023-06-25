@@ -1,4 +1,5 @@
 import { emptySplitApi as api } from './emptyApi'
+
 export const addTagTypes = [
   'Account',
   'Categories',
@@ -127,6 +128,14 @@ export const injectedRtkApi = api
         }),
         providesTags: ['Courses'],
       }),
+      log: build.mutation<LogApiResponse, LogApiArg>({
+        query: (queryArg) => ({
+          url: `/api/Courses/Log`,
+          method: 'POST',
+          body: queryArg.playLogDto,
+        }),
+        invalidatesTags: ['Courses'],
+      }),
       getApiCoursesById: build.query<
         GetApiCoursesByIdApiResponse,
         GetApiCoursesByIdApiArg
@@ -241,6 +250,10 @@ export type SearchCourseApiArg = {
 export type ByCategoryApiResponse = /** status 200 Success */ Course[]
 export type ByCategoryApiArg = {
   categoryId?: number
+}
+export type LogApiResponse = unknown
+export type LogApiArg = {
+  playLogDto: PlayLogDto
 }
 export type GetApiCoursesByIdApiResponse = /** status 200 Success */ Course
 export type GetApiCoursesByIdApiArg = {
@@ -374,6 +387,8 @@ export type UserLessonCompleted = {
   id?: number
   userId?: number
   lessonId?: number
+  timeOfVideo?: number
+  finished?: boolean
   insertDate?: string
   lesson?: Lesson
   user?: AspNetUser
@@ -619,6 +634,12 @@ export type ResetPasswordForm = {
   userName?: string | null
   newPassword?: string | null
 }
+export type PlayLogDto = {
+  action?: string | null
+  lessonId?: number
+  time?: number
+  speed?: number
+}
 export type CampaignPrice = {
   id?: number
   startDate?: string
@@ -664,6 +685,7 @@ export const {
   useLazySearchCourseQuery,
   useByCategoryQuery,
   useLazyByCategoryQuery,
+  useLogMutation,
   useGetApiCoursesByIdQuery,
   useLazyGetApiCoursesByIdQuery,
   useMyPaymentsQuery,
