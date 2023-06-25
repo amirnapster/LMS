@@ -6,7 +6,6 @@ export const addTagTypes = [
   'Payments',
   'Pricing',
   'Qualifications',
-  'Tags',
   'WeatherForecast',
 ] as const
 export const injectedRtkApi = api
@@ -127,6 +126,14 @@ export const injectedRtkApi = api
         }),
         providesTags: ['Courses'],
       }),
+      log: build.mutation<LogApiResponse, LogApiArg>({
+        query: (queryArg) => ({
+          url: `/api/Courses/Log`,
+          method: 'POST',
+          body: queryArg.playLogDto,
+        }),
+        invalidatesTags: ['Courses'],
+      }),
       getApiCoursesById: build.query<
         GetApiCoursesByIdApiResponse,
         GetApiCoursesByIdApiArg
@@ -169,17 +176,6 @@ export const injectedRtkApi = api
       >({
         query: (queryArg) => ({ url: `/api/Qualifications/${queryArg.id}` }),
         providesTags: ['Qualifications'],
-      }),
-      getApiTags: build.query<GetApiTagsApiResponse, GetApiTagsApiArg>({
-        query: () => ({ url: `/api/Tags` }),
-        providesTags: ['Tags'],
-      }),
-      getApiTagsById: build.query<
-        GetApiTagsByIdApiResponse,
-        GetApiTagsByIdApiArg
-      >({
-        query: (queryArg) => ({ url: `/api/Tags/${queryArg.id}` }),
-        providesTags: ['Tags'],
       }),
       getWeatherForecast: build.query<
         GetWeatherForecastApiResponse,
@@ -242,6 +238,10 @@ export type ByCategoryApiResponse = /** status 200 Success */ Course[]
 export type ByCategoryApiArg = {
   categoryId?: number
 }
+export type LogApiResponse = unknown
+export type LogApiArg = {
+  playLogDto: PlayLogDto
+}
 export type GetApiCoursesByIdApiResponse = /** status 200 Success */ Course
 export type GetApiCoursesByIdApiArg = {
   id: number
@@ -265,12 +265,6 @@ export type GetApiQualificationsApiArg = void
 export type GetApiQualificationsByIdApiResponse =
   /** status 200 Success */ Qualification
 export type GetApiQualificationsByIdApiArg = {
-  id: number
-}
-export type GetApiTagsApiResponse = /** status 200 Success */ Tag[]
-export type GetApiTagsApiArg = void
-export type GetApiTagsByIdApiResponse = /** status 200 Success */ Tag
-export type GetApiTagsByIdApiArg = {
   id: number
 }
 export type GetWeatherForecastApiResponse =
@@ -323,33 +317,15 @@ export type Category = {
   courses?: Course[] | null
   qualifications?: Qualification[] | null
 }
-export type SectionQuestion = {
-  id?: number
-  title?: string | null
-  sectionId?: number
-  lessonId?: number | null
-  imageUrl?: string | null
-  answer1?: string | null
-  answerImage1?: string | null
-  answer2?: string | null
-  answerImage2?: string | null
-  answer3?: string | null
-  answerImage3?: string | null
-  answer4?: string | null
-  answerImage4?: string | null
-  section?: Section
-}
 export type Section = {
   id?: number
   courseId?: number
   title?: string | null
-  titleEn?: string | null
   weekNumber?: number
   description?: string | null
   priority?: number
   course?: Course
   lessons?: Lesson[] | null
-  sectionQuestions?: SectionQuestion[] | null
 }
 export type Attachment = {
   id?: number
@@ -374,6 +350,8 @@ export type UserLessonCompleted = {
   id?: number
   userId?: number
   lessonId?: number
+  timeOfVideo?: number
+  finished?: boolean
   insertDate?: string
   lesson?: Lesson
   user?: AspNetUser
@@ -389,7 +367,6 @@ export type Lesson = {
   priority?: number
   isFree?: boolean
   isOpen?: boolean
-  hasSubtitle?: boolean | null
   section?: Section
   attachments?: Attachment[] | null
   comments?: Comment[] | null
@@ -408,18 +385,6 @@ export type Comment = {
   course?: Course
   lesson?: Lesson
 }
-export type Tag = {
-  id?: number
-  title?: string | null
-  courseTags?: CourseTag[] | null
-}
-export type CourseTag = {
-  id?: number
-  courseId?: number
-  tagId?: number
-  course?: Course
-  tag?: Tag
-}
 export type Enroll = {
   id?: number
   userId?: number
@@ -437,11 +402,9 @@ export type Course = {
   categoryId?: number
   description?: string | null
   shortDescription?: string | null
-  slug?: string | null
   category?: Category
   comments?: Comment[] | null
   courseQualifications?: CourseQualification[] | null
-  courseTags?: CourseTag[] | null
   enrolls?: Enroll[] | null
   exams?: Exam[] | null
   sections?: Section[] | null
@@ -551,8 +514,6 @@ export type AspNetUser = {
   lockoutEnabled?: boolean
   accessFailedCount?: number
   fullname?: string | null
-  companyName?: string | null
-  jobTitle?: string | null
   aspNetUserClaims?: AspNetUserClaim[] | null
   aspNetUserLogins?: AspNetUserLogin[] | null
   aspNetUserTokens?: AspNetUserToken[] | null
@@ -619,6 +580,12 @@ export type ResetPasswordForm = {
   userName?: string | null
   newPassword?: string | null
 }
+export type PlayLogDto = {
+  action?: string | null
+  lessonId?: number
+  time?: number
+  speed?: number
+}
 export type CampaignPrice = {
   id?: number
   startDate?: string
@@ -664,6 +631,7 @@ export const {
   useLazySearchCourseQuery,
   useByCategoryQuery,
   useLazyByCategoryQuery,
+  useLogMutation,
   useGetApiCoursesByIdQuery,
   useLazyGetApiCoursesByIdQuery,
   useMyPaymentsQuery,
@@ -678,10 +646,6 @@ export const {
   useLazyGetApiQualificationsQuery,
   useGetApiQualificationsByIdQuery,
   useLazyGetApiQualificationsByIdQuery,
-  useGetApiTagsQuery,
-  useLazyGetApiTagsQuery,
-  useGetApiTagsByIdQuery,
-  useLazyGetApiTagsByIdQuery,
   useGetWeatherForecastQuery,
   useLazyGetWeatherForecastQuery,
 } = injectedRtkApi

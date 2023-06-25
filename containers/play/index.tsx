@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { playDrawer } from 'libs/redux/slices/navbar'
 import { useGetApiCoursesByIdQuery } from 'libs/redux/services/karnama'
 import { Box, Drawer, Button, Divider } from '@mui/material'
-import { MenuOutlined } from '@mui/icons-material/'
+import { CheckOutlined, MenuOutlined } from '@mui/icons-material/'
 import VideoJS from 'components/videoPlayer'
 import ButtonComponent from 'components/ui/Button'
 import Row from 'components/ui/Row'
@@ -90,6 +90,10 @@ function PlayComponent() {
               onClick={() => selectCourseHandler(lesson)}
             >
               <span className={styles['play--titleSection']}>
+                {lesson?.userLessonCompleteds?.length &&
+                  lesson?.userLessonCompleteds[0].finished && (
+                    <CheckOutlined color='primary' />
+                  )}{' '}
                 {lesson.title}
               </span>
               <span className={styles['play--duration']}>

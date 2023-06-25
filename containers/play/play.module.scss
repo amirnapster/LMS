@@ -61,6 +61,8 @@
   &--titleSection {
     all: unset;
     padding-inline-start: 1rem;
+    display: flex;
+    gap: 0.5rem;
   }
 
   &--duration {

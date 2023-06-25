@@ -1,3 +1,4 @@
+import { useLogMutation } from 'libs/redux/services/karnama'
 import React, { RefObject, useEffect, useMemo } from 'react'
 import videojs from 'video.js'
 import 'video.js/dist/video-js.css'
@@ -6,6 +7,8 @@ export const VideoJS = (props: any) => {
   const videoRef = React.useRef<any>(null)
   const playerRef = React.useRef<any>(null)
   const { src, id } = props
+
+  const [sendLog] = useLogMutation()
 
   const videoJsOptions = useMemo(() => {
     return {
@@ -41,7 +44,34 @@ export const VideoJS = (props: any) => {
   const handlePlayerReady = (player: any) => {
     playerRef.current = player
 
-    // You can handle player events here, for example:
+    var isPlaying = false
+
+    const localSendLog = (action: string) => {
+      console.log(player)
+      sendLog({
+        playLogDto: {
+          action: action,
+          time: +player.currentTime().toFixed('0'),
+          lessonId: +(window as any).lessonId,
+          speed: player.playbackRate(),
+        },
+      })
+    }
+
+    player.on(['waiting', 'pause'], function () {
+      isPlaying = false
+    })
+
+    player.on('playing', function () {
+      isPlaying = true
+    })
+
+    setInterval(() => {
+      if (isPlaying) {
+        localSendLog('Playing')
+      }
+    }, 10000)
+
     player.on('waiting', () => {
       videojs.log('player is waiting')
     })
@@ -49,6 +79,14 @@ export const VideoJS = (props: any) => {
     player.on('timeupdate', function () {
       var currentTime = player.currentTime()
       localStorage.setItem('currentTimeVideo-' + id, currentTime)
+    })
+
+    player.on('pause', () => {
+      localSendLog('Pause')
+    })
+
+    player.on('play', () => {
+      localSendLog('Play')
     })
 
     player.on('loadedmetadata', () => {
@@ -69,6 +107,7 @@ export const VideoJS = (props: any) => {
 
       // The Video.js player needs to be _inside_ the component el for React 18 Strict Mode.
       const videoElement = document.createElement('video-js')
+      ;(window as any).lessonId = id
 
       videoElement.classList.add('vjs-big-play-centered')
       ;(videoRef.current as HTMLDivElement).appendChild(videoElement)
@@ -99,6 +138,7 @@ export const VideoJS = (props: any) => {
       // on prop change, for example:
     } else {
       const player = playerRef.current
+      ;(window as any).lessonId = id
 
       player.autoplay(videoJsOptions.autoplay)
       player.src(videoJsOptions.sources)
