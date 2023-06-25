@@ -181,9 +181,9 @@ tspan.highcharts-text-outline {
   }
 }
 
-.vjs-text-track-display div {
-  color: red !important;
-  background-color: unset !important;
+.vjs-text-track-cue div {
+  color: yellow !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
 }
 
 @media only screen and (max-width: 600px) {
