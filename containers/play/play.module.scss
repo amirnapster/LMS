@@ -25,6 +25,18 @@
     }
   }
 
+  &__row {
+    padding: 1.5rem;
+    margin: 0 1rem 4rem 1rem;
+    border: 1px solid rgba(211, 211, 211, 0.61);
+    box-shadow: 2px 5px 8px -6px rgba(0, 0, 0, 1);
+    border-radius: 0.5rem;
+  }
+
+  &--header {
+    font-weight: bold;
+  }
+
   &--titleSection {
     all: unset;
     padding-inline-start: 1rem;
@@ -33,5 +45,17 @@
   &--duration {
     padding-inline-start: 1rem;
     font-size: map-get($font-sizes, 2);
+  }
+
+  &--drawerBtn {
+    display: none !important;
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .play {
+    &--drawerBtn {
+      display: block !important;
+    }
   }
 }

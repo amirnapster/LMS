@@ -12,6 +12,8 @@ export const VideoJS = (props: any) => {
       autoplay: true,
       controls: true,
 
+      textTrackSettings: false,
+
       plugins: {
         hotkeys: {
           volumeStep: 0.1,
