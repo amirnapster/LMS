@@ -1,16 +1,7 @@
 import { useRef } from 'react'
 // @mui
-import {
-  Box,
-  Stack,
-  Dialog,
-  Typography,
-  ListItemButton,
-  IconButton,
-} from '@mui/material'
-import Player from 'components/player'
+import { Dialog, Typography, ListItemButton, IconButton } from '@mui/material'
 import Iconify from 'components/iconify'
-import Scrollbar from 'components/scrollbar'
 import type { Lesson } from 'libs/redux/services/karnama'
 import VideoJS from 'components/videoPlayer'
 import 'videojs-hotkeys'
@@ -39,44 +30,6 @@ export default function ElearningCourseDetailsLessonsDialog({
 }: Props) {
   const playerRef = useRef(null)
 
-  const videoJsOptions = {
-    autoplay: true,
-    controls: true,
-
-    plugins: {
-      hotkeys: {
-        volumeStep: 0.1,
-        seekStep: 5,
-        enableModifiersForNumbers: false,
-      },
-
-      playbackRates: [0.5, 1, 1.5, 2],
-    },
-
-    fluid: true,
-    sources: [
-      {
-        src: selectLesson?.videoUrl as string,
-        type: selectLesson?.videoUrl?.endsWith('m3u8')
-          ? 'application/x-mpegURL'
-          : 'video/mp4',
-      },
-    ],
-  }
-
-  const handlePlayerReady = (player: any) => {
-    playerRef.current = player
-
-    // You can handle player events here, for example:
-    player.on('waiting', () => {
-      videojs.log('player is waiting')
-    })
-
-    player.on('dispose', () => {
-      videojs.log('player will dispose')
-    })
-  }
-
   return (
     <Dialog
       fullWidth
@@ -92,7 +45,7 @@ export default function ElearningCourseDetailsLessonsDialog({
         <Iconify icon='carbon:close' />
       </IconButton>
 
-      <VideoJS options={videoJsOptions} onReady={handlePlayerReady} />
+      <VideoJS src={selectLesson?.videoUrl} />
 
       {/* <Player
             controls

@@ -1,0 +1,37 @@
+.play {
+  &__lesson {
+    all: unset;
+    display: flex;
+    flex-direction: column;
+    padding-block: 1rem;
+    border-radius: 8px;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+
+    &--title {
+      font-weight: bold;
+    }
+  }
+
+  &__videoWrapper {
+    width: 90%;
+    align-self: center;
+    margin-block: 3rem;
+
+    > div {
+      width: 100% !important;
+    }
+  }
+
+  &--titleSection {
+    all: unset;
+    padding-inline-start: 1rem;
+  }
+
+  &--duration {
+    padding-inline-start: 1rem;
+    font-size: map-get($font-sizes, 2);
+  }
+}
