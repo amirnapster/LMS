@@ -11,7 +11,6 @@ import Iconify from 'components/iconify'
 import {
   GetCoursesApiResponse,
   useGetApiTagsByIdQuery,
-  useGetCoursesQuery,
 } from 'libs/redux/services/karnama'
 import NewsletterElearning from 'sections/newsletter/e-learning/NewsletterElearning'
 import ElearningFilters from 'sections/_e-learning/course/filters/ElearningFilters'
@@ -94,7 +93,9 @@ export default function CategoryComponent() {
             }}
           >
             <ElearningCourseList
-              courses={data?.courseTags?.map(y=>y.course) as GetCoursesApiResponse}
+              courses={
+                data?.courseTags?.map((y) => y.course) as GetCoursesApiResponse
+              }
               loading={loading}
             />
           </Box>

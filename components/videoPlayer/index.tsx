@@ -10,8 +10,8 @@ export const VideoJS = (props: any) => {
 
   const [sendLog] = useLogMutation()
 
-  const videoJsOptions = useMemo(() => {
-    return {
+  const videoJsOptions = useMemo(
+    () => ({
       autoplay: true,
       controls: true,
 
@@ -31,26 +31,23 @@ export const VideoJS = (props: any) => {
       sources: [
         {
           src: src as string,
-          type: src
-            ? src.endsWith('m3u8')
-              ? 'application/x-mpegURL'
-              : 'video/mp4'
-            : '',
+          type:
+            src && src.endsWith('m3u8') ? 'application/x-mpegURL' : 'video/mp4',
         },
       ],
-    }
-  }, [src])
+    }),
+    [src]
+  )
 
   const handlePlayerReady = (player: any) => {
     playerRef.current = player
 
-    var isPlaying = false
+    let isPlaying = false
 
     const localSendLog = (action: string) => {
-      console.log(player)
       sendLog({
         playLogDto: {
-          action: action,
+          action,
           time: +player.currentTime().toFixed('0'),
           lessonId: +(window as any).lessonId,
           speed: player.playbackRate(),
@@ -58,11 +55,11 @@ export const VideoJS = (props: any) => {
       })
     }
 
-    player.on(['waiting', 'pause'], function () {
+    player.on(['waiting', 'pause'], () => {
       isPlaying = false
     })
 
-    player.on('playing', function () {
+    player.on('playing', () => {
       isPlaying = true
     })
 
@@ -70,15 +67,15 @@ export const VideoJS = (props: any) => {
       if (isPlaying) {
         localSendLog('Playing')
       }
-    }, 10000)
+    }, 60000)
 
     player.on('waiting', () => {
       videojs.log('player is waiting')
     })
 
-    player.on('timeupdate', function () {
-      var currentTime = player.currentTime()
-      localStorage.setItem('currentTimeVideo-' + id, currentTime)
+    player.on('timeupdate', () => {
+      const currentTime = player.currentTime()
+      localStorage.setItem(`currentTimeVideo-${id}`, currentTime)
     })
 
     player.on('pause', () => {
