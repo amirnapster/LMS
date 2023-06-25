@@ -1,11 +1,11 @@
-import React, { RefObject, useMemo } from 'react'
+import React, { RefObject, useEffect, useMemo } from 'react'
 import videojs from 'video.js'
 import 'video.js/dist/video-js.css'
 
 export const VideoJS = (props: any) => {
   const videoRef = React.useRef<any>(null)
   const playerRef = React.useRef<any>(null)
-  const { src } = props
+  const { src, id } = props
 
   const videoJsOptions = useMemo(() => {
     return {
@@ -44,6 +44,15 @@ export const VideoJS = (props: any) => {
     // You can handle player events here, for example:
     player.on('waiting', () => {
       videojs.log('player is waiting')
+    })
+
+    player.on('timeupdate', function () {
+      var currentTime = player.currentTime()
+      localStorage.setItem('currentTimeVideo-' + id, currentTime)
+    })
+
+    player.on('loadedmetadata', () => {
+      player.currentTime(localStorage.getItem(`currentTimeVideo-${id}`))
     })
 
     player.on('dispose', () => {

@@ -124,7 +124,7 @@ function PlayComponent() {
           {list()}
         </Drawer>
         <Row className={styles['play__videoWrapper']}>
-          <VideoJS src={selectedLesson.videoUrl} />
+          <VideoJS id={selectedLesson.id} src={selectedLesson.videoUrl} />
         </Row>
 
         <Row className={styles['play__row']} direction='column' gap={2}>

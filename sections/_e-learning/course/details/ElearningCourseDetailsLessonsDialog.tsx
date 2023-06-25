@@ -45,7 +45,7 @@ export default function ElearningCourseDetailsLessonsDialog({
         <Iconify icon='carbon:close' />
       </IconButton>
 
-      <VideoJS src={selectLesson?.videoUrl} />
+      <VideoJS id={selectLesson?.id} src={selectLesson?.videoUrl} />
 
       {/* <Player
             controls
