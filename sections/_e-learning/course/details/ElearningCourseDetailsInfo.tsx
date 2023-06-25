@@ -100,7 +100,12 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
           </Stack>
         </Stack>
 
-        <Button variant='contained' size='large' color='inherit'>
+        <Button
+          variant='contained'
+          size='large'
+          color='inherit'
+          href={`/play/${details.id}/1/`}
+        >
           شروع دوره
         </Button>
       </Stack>

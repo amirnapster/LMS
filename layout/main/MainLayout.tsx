@@ -1,18 +1,15 @@
-// next
-// @mui
 import { Box } from '@mui/material'
-// config
 import { HEADER } from 'config-global'
 import Navbar from 'components/navbar'
 import Footer from 'components/footer'
 import SimpleSearch from 'containers/simpleSearch'
-
 import Authentication from 'containers/authentication'
 import Modal from 'components/ui/Modal'
 import { useDispatch, useSelector } from 'react-redux'
 import type { RootState } from 'libs/redux/store'
 import { clearAuth, setVisible } from 'libs/redux/slices/auth'
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 
 // ----------------------------------------------------------------------
 
@@ -23,6 +20,7 @@ type Props = {
 }
 
 export default function MainLayout({ children }: Props) {
+  const { asPath } = useRouter()
   const { isSearching } = useSelector((state: RootState) => state.navbar)
 
   const dispatch = useDispatch()
@@ -66,7 +64,8 @@ export default function MainLayout({ children }: Props) {
         {/* {children} */}
         {isSearching ? <SimpleSearch /> : children}
       </Box>
-      <Footer />
+
+      {!asPath.startsWith('/play') && <Footer />}
     </Box>
   )
 }
