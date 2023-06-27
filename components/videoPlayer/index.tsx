@@ -1,12 +1,12 @@
 import { useLogMutation } from 'libs/redux/services/karnama'
-import React, { RefObject, useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import videojs from 'video.js'
 import 'video.js/dist/video-js.css'
 
 export const VideoJS = (props: any) => {
-  const videoRef = React.useRef<any>(null)
-  const playerRef = React.useRef<any>(null)
-  const { src, id } = props
+  const videoRef = useRef<any>(null)
+  const playerRef = useRef<any>(null)
+  const { src, id, timeOfVideo } = props
 
   const [sendLog] = useLogMutation()
 
@@ -75,7 +75,10 @@ export const VideoJS = (props: any) => {
 
     player.on('timeupdate', () => {
       const currentTime = player.currentTime()
-      localStorage.setItem(`currentTimeVideo-${id}`, currentTime)
+      localStorage.setItem(
+        `currentTimeVideo-${(window as any).lessonIdProps}`,
+        currentTime
+      )
     })
 
     player.on('pause', () => {
@@ -87,7 +90,19 @@ export const VideoJS = (props: any) => {
     })
 
     player.on('loadedmetadata', () => {
-      player.currentTime(localStorage.getItem(`currentTimeVideo-${id}`))
+      // if (
+      //   localStorage.getItem(
+      //     `currentTimeVideo-${(window as any).lessonIdProps}`
+      //   )
+      // ) {
+      //   player.currentTime(
+      //     localStorage.getItem(
+      //       `currentTimeVideo-${(window as any).lessonIdProps}`
+      //     )
+      //   )
+      // } else {
+      player.currentTime((window as any).timeOfVideo)
+      // }
     })
 
     player.on('dispose', () => {
@@ -95,7 +110,10 @@ export const VideoJS = (props: any) => {
     })
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
+    ;(window as any).lessonIdProps = id
+    ;(window as any).timeOfVideo = timeOfVideo
+
     // Make sure Video.js player is only initialized once
     if (!playerRef.current) {
       const videoElements = document.querySelectorAll('video-js')
@@ -143,7 +161,7 @@ export const VideoJS = (props: any) => {
   }, [videoJsOptions, videoRef])
 
   // Dispose the Video.js player when the functional component unmounts
-  React.useEffect(() => {
+  useEffect(() => {
     const player = playerRef.current
 
     return () => {
