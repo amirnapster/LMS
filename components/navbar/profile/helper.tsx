@@ -20,10 +20,9 @@ import jalaliday from 'jalaliday'
 import cn from 'classnames'
 
 import type { RootState } from 'libs/redux/store'
-import { profileNavItems } from 'utils/statics/navbarStatics'
 import { useEffect, useState } from 'react'
-import styles from './navbarProfile.module.scss'
 import { Avatar } from '@mui/material'
+import styles from './navbarProfile.module.scss'
 
 dayjs.extend(jalaliday)
 

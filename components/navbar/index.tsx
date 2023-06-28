@@ -11,18 +11,18 @@ import { NavbarAvatar } from 'components/navbar/profile/helper'
 import { clearAuth, setVisible } from 'libs/redux/slices/auth'
 import { useLogoutMutation } from 'libs/redux/services/karnama'
 import { useIntl } from 'react-intl'
-import { Logo, NavItem } from './helper'
 import Container from 'components/container'
 import Row from 'components/ui/Row'
 import Col from 'components/ui/Col'
 import Button from 'components/ui/Button'
 import MyContext from 'utils/context'
 import cn from 'classnames'
-import NavbarSearch from './search'
-import NavbarProfile from './profile'
 import SvgSprite from 'assets/sprite'
 
 import type { RootState } from 'libs/redux/store'
+import NavbarProfile from './profile'
+import NavbarSearch from './search'
+import { Logo, NavItem } from './helper'
 import styles from './navbar.module.scss'
 
 const Navbar = () => {
@@ -94,7 +94,7 @@ const Navbar = () => {
 
               <Col className='d-flex' xxs={5} sm={12} md={15}>
                 <div className={styles['navbar__tab--img']}>
-                  <img src='/svg/layout/navbar-logo.svg' />
+                  <img src='/svg/layout/navbar-logo.svg' alt='' />
                 </div>
               </Col>
 

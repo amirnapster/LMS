@@ -13,10 +13,9 @@ import cn from 'classnames'
 
 import { advancedItem } from 'utils/statics/navbarStatics'
 import type { RootState } from 'libs/redux/store'
-import NavbarDropdown from '../dropdown'
-import type { NavbarSearchProps } from '../interface'
-import styles from './navbarSearch.module.scss'
 import useDeviceDetect from 'utils/hooks/useDeviceDetect'
+import styles from './navbarSearch.module.scss'
+import type { NavbarSearchProps } from '../interface'
 
 const NavbarSearch = ({ cancelSearch }: NavbarSearchProps) => {
   const dispatch = useDispatch()
