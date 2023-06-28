@@ -35,13 +35,7 @@ export default function ElearningAboutHero() {
               textAlign: { xs: 'center', md: 'left' },
             }}
           >
-            <Typography variant='h1'>Online Courses</Typography>
-
-            <Typography sx={{ mt: 3, mb: 6 }}>
-              Nunc nulla. Ut leo. Pellentesque commodo eros a enim. Nunc
-              egestas, augue at pellentesque laoreet, felis eros vehicula leo,
-              at malesuada velit leo quis pede.
-            </Typography>
+            <Typography variant='h1'>آموزش حرفه ای برای ورود به بازار کار</Typography>
 
             <Button variant='contained' size='large'>
               Browse Courses

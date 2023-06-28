@@ -16,9 +16,11 @@ import type { RootState } from 'libs/redux/store'
 import NavbarDropdown from '../dropdown'
 import type { NavbarSearchProps } from '../interface'
 import styles from './navbarSearch.module.scss'
+import useDeviceDetect from 'utils/hooks/useDeviceDetect'
 
 const NavbarSearch = ({ cancelSearch }: NavbarSearchProps) => {
   const dispatch = useDispatch()
+  const { isMobile } = useDeviceDetect()
   const intl = useIntl()
   const { isSearching, textSearch } = useSelector(
     (state: RootState) => state.navbar
@@ -45,10 +47,17 @@ const NavbarSearch = ({ cancelSearch }: NavbarSearchProps) => {
       const inputs = document.querySelectorAll('#navbar-search')
       inputs?.forEach((input) => {
         // eslint-disable-next-line
-        ;(input as HTMLInputElement).value = textSearch
+        ; (input as HTMLInputElement).value = textSearch
       })
     }
     dispatch(toggleNavbarSearch(true))
+  }
+
+  const inputRenderHandler = () => {
+    if (isMobile && isSearching) return true
+    if (isMobile && !isSearching) return false
+
+    return true
   }
 
   return (
@@ -60,17 +69,17 @@ const NavbarSearch = ({ cancelSearch }: NavbarSearchProps) => {
           />
         </Button>
       )}
-      <Input
+      {inputRenderHandler() && <Input
         id='navbar-search'
         className={cn(styles['search--input'], dynamicClassName('--active'))}
         onChange={handleAutoComplete}
         onFocus={startSearching}
         placeholder={
           isSearching
-            ? 'جستجوبراساس شناسه ملی و کدملی، نام شرکت و شخص و...'
+            ? 'جستجو'
             : intl.formatMessage({
-                id: 'navbar.search.placeholder',
-              })
+              id: 'navbar.search.placeholder',
+            })
         }
         suffix={
           <div
@@ -87,16 +96,7 @@ const NavbarSearch = ({ cancelSearch }: NavbarSearchProps) => {
             </span>
           </div>
         }
-      />
-      {accessToken && (
-        <Dropdown
-          className={styles['mobileSearch--advanced']}
-          menu={<NavItemMenu item={advancedItem} id='advanced' />}
-          id='nav-advanced'
-        >
-          <NavbarDropdown item={advancedItem} id='advanced' />
-        </Dropdown>
-      )}
+      />}
     </Row>
   )
 }

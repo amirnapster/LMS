@@ -15,7 +15,12 @@ import {
 import { Course, useGetFeaturedQuery } from 'libs/redux/services/karnama'
 
 import type { ICourseByCategoryProps } from 'types/course'
+import Faq from 'components/faq'
 
+const faqData = [
+  { question: "سوال", answer: "جواب" },
+  { question: "سوال", answer: "جواب" },
+]
 
 export default function ElearningLandingView() {
 
@@ -31,6 +36,9 @@ export default function ElearningLandingView() {
       <ElearningLandingCategories categories={_coursesByCategories as ICourseByCategoryProps[]} />
 
       <ElearningLandingFeaturedCourses data={data as Course[]} />
+
+
+      <Faq data={faqData} />
 
 
       {/* <TeamElearning members={_members.slice(0, 4)} /> */}

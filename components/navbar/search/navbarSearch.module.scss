@@ -26,6 +26,7 @@
         border: unset;
       }
     }
+
     [data-selector='suffix'] {
       inset-block-start: 30%;
     }
@@ -64,6 +65,7 @@
 
   &--icon {
     height: 100%;
+
     svg {
       fill: #808080;
     }
@@ -80,10 +82,12 @@
   &--input {
     width: 100%;
     padding: 0.75rem 0;
+
     [data-selector='suffix'] {
       display: flex;
       inset-inline-end: 0.75rem;
     }
+
     input {
       width: 100%;
       padding: 0.7rem 0.85rem;
@@ -221,6 +225,7 @@
       svg {
         fill: #000;
       }
+
       &--active {
         svg {
           fill: white;
