@@ -1,4 +1,3 @@
-// _mock
 import {
   _courses,
   _members,
@@ -7,24 +6,21 @@ import {
   _testimonials,
   _coursesByCategories,
 } from '_mock'
-//
-import TeamElearning from '../../team/e-learning'
-import NewsletterElearning from '../../newsletter/e-learning'
-import OurClientsElearning from '../../our-clients/e-learning'
-import { BlogElearningLatestPosts } from '../../blog/e-learning'
-import DownloadAppElearning from '../../download-app/e-learning'
-import TestimonialElearning from '../../testimonial/e-learning'
 import {
   ElearningLandingHero,
   ElearningLandingIntroduce,
   ElearningLandingCategories,
   ElearningLandingFeaturedCourses,
 } from '../landing'
-import { ICourseByCategoryProps } from 'types/course'
+import { Course, useGetFeaturedQuery } from 'libs/redux/services/karnama'
 
-// ----------------------------------------------------------------------
+import type { ICourseByCategoryProps } from 'types/course'
+
 
 export default function ElearningLandingView() {
+
+  const { data } = useGetFeaturedQuery()
+
   return (
     <>
       <ElearningLandingHero />
@@ -34,7 +30,7 @@ export default function ElearningLandingView() {
       {/* <ElearningLandingIntroduce /> */}
       <ElearningLandingCategories categories={_coursesByCategories as ICourseByCategoryProps[]} />
 
-      <ElearningLandingFeaturedCourses />
+      <ElearningLandingFeaturedCourses data={data as Course[]} />
 
 
       {/* <TeamElearning members={_members.slice(0, 4)} /> */}

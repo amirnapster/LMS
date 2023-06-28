@@ -3,8 +3,7 @@
 
   &__box {
     position: relative;
-    padding: 80px 48px 48px;
-    margin-bottom: 1.5rem;
+    padding: 54px 18px 25px;
     border-radius: 32px;
     background: linear-gradient(
       280.35deg,
@@ -61,7 +60,6 @@
 
     &--links {
       > :first-child {
-        padding-bottom: 1rem;
         font-size: map-get($font-sizes, 5);
         font-weight: map-get($font-weights, 600);
         color: map-get($colors, simple-white);
@@ -72,7 +70,6 @@
         display: flex;
         align-items: center;
         gap: 0.25rem;
-        font-size: map-get($font-sizes, 3);
         background-color: transparent;
       }
 
@@ -250,6 +247,11 @@
     }
   }
 
+  &--des{
+    margin-block: 1rem;
+    color: white;
+  }
+
   [data-selector='info'] {
     padding: 0 2.5rem;
   }
@@ -292,9 +294,6 @@
 @include media-breakpoint-down(lg) {
   .footer {
     &__box {
-      &--desktop {
-        display: none;
-      }
 
       &--mobile {
         display: block;

@@ -22,6 +22,7 @@ import Label from 'components/label'
 import Iconify from 'components/iconify'
 import TextMaxLine from 'components/text-max-line'
 import type { Course } from 'libs/redux/services/karnama'
+import Row from 'components/ui/Row'
 
 // ----------------------------------------------------------------------
 
@@ -38,16 +39,15 @@ export default function ElearningCourseItem({ course, vertical }: Props) {
     0
   )
 
+
   return (
     <Link href={`/courses/${course.id}`}>
       <Card
         sx={{
           display: { sm: 'flex' },
-          '&:hover': {
-            boxShadow: (theme) => theme.customShadows.z24,
-          },
+          boxShadow: "0px 0 22px  10px rgba(145, 158, 171, 0.2), 0 12px 24px -4px rgba(145, 158, 171, 0.12)",
           ...(vertical && {
-            flexDirection: 'column',
+            flexDirection: 'column'
           }),
         }}
       >
@@ -94,9 +94,7 @@ export default function ElearningCourseItem({ course, vertical }: Props) {
               alignItems='center'
               justifyContent='space-between'
             >
-              <Typography variant='overline' sx={{ color: 'primary.main' }}>
-                {course.category?.title}
-              </Typography>
+
 
               {/* <Typography variant='h4'>
               {priceSale > 0 && (
@@ -115,12 +113,13 @@ export default function ElearningCourseItem({ course, vertical }: Props) {
             </Typography> */}
             </Stack>
 
-            <Stack spacing={1}>
+
+            <Stack style={{ direction: "rtl" }} spacing={1} sx={{ margin: "0 !important" }}  >
               <TextMaxLine variant='h6' line={1}>
                 {course.titleFa}
               </TextMaxLine>
 
-              <TextMaxLine
+              {/* <TextMaxLine
                 variant='body2'
                 color='text.secondary'
                 sx={{
@@ -130,7 +129,7 @@ export default function ElearningCourseItem({ course, vertical }: Props) {
                 }}
               >
                 {course.shortDescription}
-              </TextMaxLine>
+              </TextMaxLine> */}
             </Stack>
           </Stack>
 
@@ -190,33 +189,45 @@ export default function ElearningCourseItem({ course, vertical }: Props) {
 
           <Stack
             direction='row'
+            justifyContent="space-between"
             flexWrap='wrap'
             alignItems='center'
+            style={{ direction: "rtl" }}
             sx={{
               color: 'text.disabled',
               '& > *:not(:last-child)': { mr: 2.5 },
             }}
           >
-            <Stack
-              direction='row'
-              alignItems='center'
-              sx={{ typography: 'body2' }}
-            >
-              <Iconify icon='carbon:time' sx={{ mr: 1 }} />{' '}
-              {`${((course.totalDuration as number) / 3600).toFixed(0)} ساعت`}
-            </Stack>
 
-            <Stack
-              direction='row'
-              alignItems='center'
-              sx={{ typography: 'body2' }}
-            >
-              <Iconify icon='carbon:document' sx={{ mr: 1 }} />
-              {`${lessonCount} درس`}
-            </Stack>
+            <Row gap={1} style={{ direction: "rtl", textAlign: "start" }}>
+              <Stack
+                direction='row'
+                alignItems='center'
+                sx={{
+                  typography: 'body2',
+                }}
+              >
+                <Iconify icon='carbon:time' sx={{ mr: 1 }} />{' '}
+                {`${((course.totalDuration as number) / 3600).toFixed(0)} ساعت`}
+              </Stack>
+
+              <Stack
+                direction='row'
+                alignItems='center'
+                sx={{ typography: 'body2' }}
+              >
+                <Iconify icon='carbon:document' sx={{ mr: 1 }} />
+                {`${lessonCount} درس`}
+              </Stack>
+            </Row>
+
+
+            <Typography variant='overline' sx={{ color: 'primary.main' }}>
+              {course?.category?.title}
+            </Typography>
           </Stack>
         </Stack>
       </Card>
-    </Link>
+    </Link >
   )
 }

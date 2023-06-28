@@ -25,8 +25,6 @@ export interface IFooterSocials {
 
 export interface IFooterLinks {
   contactUs: FooterItems[]
-  services: FooterItems[]
-  news: FooterItems[]
 }
 
 export interface IFooterInfo {
