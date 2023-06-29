@@ -9,18 +9,26 @@ import Logo from 'public/svg/layout/navbar-logo.svg'
 import styles from './pricing.module.scss'
 import Button from 'components/ui/Button'
 import { numberSeparator } from 'utils/helpers/global'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'libs/redux/store'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
+import { setVisible } from 'libs/redux/slices/auth'
 
 const Pricing = () => {
   const { push } = useRouter()
   const { packageType } = useSelector((state: RootState) => state.auth)
   const { data } = usePricingQuery()
   const [payment] = useLazyPaymentQuery()
+  const dispatch = useDispatch()
+  const { accessToken } = useSelector((state: RootState) => state.auth)
 
 
   const onSubmit = (duration: number) => {
+    if (!accessToken) {
+      dispatch(setVisible({ visible: true, mode: 'otp' }))
+      return
+    }
     payment({
       duration,
       package: packageType,
@@ -48,29 +56,33 @@ const Pricing = () => {
     <Row className={styles['pricing']} direction='column' align='top'>
 
       <Row className={styles['pricing--logo']}>
-        <Logo />
+        <Link href="/">
+          <Logo />
+        </Link>
       </Row>
 
       <Container className={styles['pricing--container']}>
         <span className={styles['pricing--title']}>خرید اشتراک نماتک</span>
-        <span>اشتراکی که تهیه می‌کنید برای تماشای صداتو، تی ان تی، نیوکمپ و بیش از ۸۵,۰۰۰ فیلم و سریال دیگر است.</span>
+        <span>
+          با خرید اشتراک به بیش از 200 ساعت آموزش دسترسی دارید.
+        </span>
 
         <Row direction='column' className='w-100 mt-3' gap={3}>
 
-          {data?.map(({ amount, campaign, duration }) => (
+          {data?.map(({ amount, campaign, duration, title, badge }) => (
             <Row onClick={() => onSubmit(duration as number)} className={styles['pricing__card']} justify='space-between' align='middle'>
+              {badge &&
+                <Button className={styles['pricing--badge']}>
+                  {badge}
+                </Button>}
 
-              <Button className={styles['pricing--badge']}>
-                ویژه کاربران جدید!
-              </Button>
-
-              <span>{`${((duration as number) / 30).toFixed(0)} ماهه`}</span>
+              <span>{title}</span>
               <Row align='middle' gap={2}>
 
-                {campaign && <span className={styles['pricing--discount']}> {numberSeparator((campaignHandler(campaign) as number) / 10000)} هزار تومان</span>}
+                {campaign && <span className={styles['pricing--discount']}> {numberSeparator((amount as number) / 10000)} هزار تومان</span>}
 
                 <Button btnType='secondary'>
-                  {numberSeparator((amount as number) / 10000)} هزار تومان
+                  {numberSeparator(((campaign ? campaignHandler(campaign) : amount) as number) / 10000)} هزار تومان
                 </Button>
               </Row>
             </Row>
@@ -82,7 +94,7 @@ const Pricing = () => {
           <Row>
             <Row align='middle' gap={0}>
               <CheckOutlined color='primary' />
-              <span>امکان دانلود فیلم به صورت درون برنامه‌ای، برای تماشای آفلاین و زمانی که اینترنت ندارید.
+              <span>
               </span>
             </Row>
           </Row>

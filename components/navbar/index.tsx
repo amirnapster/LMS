@@ -24,6 +24,7 @@ import NavbarProfile from './profile'
 import NavbarSearch from './search'
 import { Logo, NavItem } from './helper'
 import styles from './navbar.module.scss'
+import Link from 'next/link'
 
 const Navbar = () => {
   const dispatch = useDispatch()
@@ -93,9 +94,11 @@ const Navbar = () => {
               </Col> */}
 
               <Col className='d-flex' xxs={5} sm={12} md={15}>
-                <div className={styles['navbar__tab--img']}>
-                  <img src='/svg/layout/navbar-logo.svg' alt='' />
-                </div>
+                <Link href="/">
+                  <div className={styles['navbar__tab--img']}>
+                    <img src='/svg/layout/navbar-logo.svg' alt='' />
+                  </div>
+                </Link>
               </Col>
 
               <Button onClick={() => dispatch(toggleNavbarSearch(true))} className={styles['navbar--searchIcon']}>
@@ -149,7 +152,9 @@ const Navbar = () => {
 
             <Col xxs={24} md={4} lg={2} data-selector='logo'>
               {!isSearching ? (
+
                 <Logo src='/svg/layout/navbar-logo.svg' />
+
               ) : (
                 <Button data-selector='back' onClick={cancelSearch}>
                   <Row align='middle' justify='center'>
