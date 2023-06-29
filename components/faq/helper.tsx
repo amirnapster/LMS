@@ -13,7 +13,7 @@ const Unnecessary = ({ dataSelector }: { dataSelector: string }) => {
       data-selector={dataSelector}
       className={styles['faq__side--description']}
     >
-      <span>پاسخ سوال خود را نیافتید؟</span>
+      {/* <span>پاسخ سوال خود را نیافتید؟</span> */}
       {/* <Button btnType='link' data-selector='link' onClick={openRequestModal}>
         <span>از ما بپرسید</span>
       </Button> */}

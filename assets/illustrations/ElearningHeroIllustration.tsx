@@ -62,13 +62,13 @@ function ElearningHeroIllustration({ sx, ...other }: BoxProps) {
       }}
       {...other}
     >
-      <Box sx={{ position: 'absolute', right: 18, bottom: 28, zIndex: 8 }}>
-        <Image
-          visibleByDefault
-          disabledEffect
-          alt='teacher'
-          src='/assets/images/course/course_teacher_hero.png'
-          sx={{ width: 546, height: 650 }}
+      <Box sx={{ position: 'absolute', right:88 , bottom: 67, zIndex: 8 }}>
+        <img
+          // visibleByDefault
+          // disabledEffect
+          // alt='namatek'
+          src='/svg/pricing/support-man.png'
+          style={{ width: 317*1.3, height: 450*1.3 }}
         />
       </Box>
 

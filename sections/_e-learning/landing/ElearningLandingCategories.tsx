@@ -109,7 +109,7 @@ function CategoryItem({ category }: CategoryItemProps) {
         }}
       >
         <Row className='w-100' align='middle' gap={1}>
-          <img style={{ width: "70px" }} src="/svg/layout/navbar-logo.svg" alt="" />
+          <img style={{ width: "70px" }} src={`/image/cats/${category.id}.jpg`} alt="" />
 
           <div>
             <TextMaxLine variant='h6' line={1} gutterBottom>

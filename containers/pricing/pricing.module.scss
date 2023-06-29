@@ -8,7 +8,7 @@
         border: 1px solid lightgray;
         border-radius: 5px;
         transition: all 0.2s;
-
+        cursor: pointer;
         &:hover {
             border-color: black;
         }
@@ -20,6 +20,7 @@
     }
 
     &--container {
+        max-width: 50rem!important;
         margin-inline: 5rem;
     }
 

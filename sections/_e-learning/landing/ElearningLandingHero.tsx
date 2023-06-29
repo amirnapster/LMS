@@ -84,9 +84,9 @@ export default function ElearningLandingHero() {
                     {` حرفه‌ای `}
                   </Box>
                   <Box component='span' sx={{ color: 'text.disabled' }}>
-                    {` برای ورود `}
+                    {` برای `}
                   </Box>
-                  به بازار کار
+                  ورود به بازارکار
                 </Typography>
 
 
@@ -105,7 +105,7 @@ export default function ElearningLandingHero() {
             </Grid>
 
             {isMdUp && < Grid xs={12} md={6} lg={7}>
-              <img src="/svg/pricing/support-man.png" alt="" style={{ marginInlineStart: "auto" }} />
+            <ElearningHeroIllustration/>
             </Grid>}
           </Grid>
         </Container>

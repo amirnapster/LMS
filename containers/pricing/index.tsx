@@ -1,4 +1,6 @@
 import { Box, Container, Divider, Typography } from '@mui/material'
+import Link from 'next/link'
+import { useState } from 'react'
 import { _pricing01 } from '_mock'
 import { CampaignPrice, useLazyPaymentQuery, usePricingQuery } from 'libs/redux/services/karnama'
 import { CheckOutlined } from '@mui/icons-material'
@@ -12,8 +14,12 @@ import { numberSeparator } from 'utils/helpers/global'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'libs/redux/store'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
+
 import { setVisible } from 'libs/redux/slices/auth'
+import Authentication from 'containers/authentication'
+import Modal from 'components/ui/Modal'
+import Iconify from 'components/iconify/Iconify'
+
 
 const Pricing = () => {
   const { push } = useRouter()
@@ -22,6 +28,10 @@ const Pricing = () => {
   const [payment] = useLazyPaymentQuery()
   const dispatch = useDispatch()
   const { accessToken } = useSelector((state: RootState) => state.auth)
+  const { visible } = useSelector((state: RootState) => state.auth)
+  const [backdropDisable, setBackdropDisable] = useState(false)
+
+  const closeModal = () => dispatch(setVisible({ visible: false }))
 
 
   const onSubmit = (duration: number) => {
@@ -81,9 +91,10 @@ const Pricing = () => {
 
                 {campaign && <span className={styles['pricing--discount']}> {numberSeparator((amount as number) / 10000)} هزار تومان</span>}
 
-                <Button btnType='secondary'>
+                <Button btnType='ghost'>
                   {numberSeparator(((campaign ? campaignHandler(campaign) : amount) as number) / 10000)} هزار تومان
                 </Button>
+                <Iconify width={36} icon="carbon:chevron-left" sx={{ color: 'primary.main' }} />
               </Row>
             </Row>
           ))}
@@ -91,13 +102,6 @@ const Pricing = () => {
         </Row>
 
         <Row className='mt-3' direction='column' gap={1}>
-          <Row>
-            <Row align='middle' gap={0}>
-              <CheckOutlined color='primary' />
-              <span>
-              </span>
-            </Row>
-          </Row>
 
           <Row>
             <Row align='middle' gap={0}>
@@ -111,6 +115,13 @@ const Pricing = () => {
         <Divider sx={{ marginBlockStart: "1rem" }} />
 
       </Container >
+      <Modal
+        visible={visible}
+        onClose={closeModal}
+        backdropDisable={backdropDisable}
+      >
+        <Authentication />
+      </Modal>
     </Row>
   )
 }
