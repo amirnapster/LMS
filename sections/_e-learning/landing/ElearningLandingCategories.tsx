@@ -88,7 +88,7 @@ type CategoryItemProps = {
 
 function CategoryItem({ category }: CategoryItemProps) {
   return (
-    <Link href={`/tags/${category.id}`}>
+    <Link href={`/categories/${category.id}`}>
       <Paper
         variant='outlined'
         sx={{

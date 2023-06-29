@@ -1,5 +1,4 @@
 import { emptySplitApi as api } from './emptyApi'
-
 export const addTagTypes = [
   'Account',
   'Categories',
@@ -387,9 +386,9 @@ export type UserLessonCompleted = {
   id?: number
   userId?: number
   lessonId?: number
+  insertDate?: string
   timeOfVideo?: number
   finished?: boolean
-  insertDate?: string
   lesson?: Lesson
   user?: AspNetUser
 }
@@ -654,6 +653,8 @@ export type Pricing = {
   amount?: number
   package?: number
   campaign?: CampaignPrice
+  title?: string | null
+  badge?: string | null
 }
 export type WeatherForecast = {
   date?: string

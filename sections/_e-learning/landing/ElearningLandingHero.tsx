@@ -77,10 +77,17 @@ export default function ElearningLandingHero() {
                   textAlign: { xs: 'center', md: 'unset' },
                 }}
               >
-                <Typography variant='h1'>
-                  آموزش حرفه‌ای برای ورود به بازار کار
-                </Typography>
 
+                <Typography variant='h1'>
+                  آموزش
+                  <Box component='span' sx={{ color: 'primary.main' }}>
+                    {` حرفه‌ای `}
+                  </Box>
+                  <Box component='span' sx={{ color: 'text.disabled' }}>
+                    {` برای ورود `}
+                  </Box>
+                  به بازار کار
+                </Typography>
 
 
                 <Stack

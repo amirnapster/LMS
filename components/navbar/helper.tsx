@@ -46,7 +46,7 @@ export const NavItemMenu = ({ item, id }: NavKeyItem) => {
   const intl = useIntl()
   const { accessToken } = useSelector((state: RootState) => state.auth)
   const { isSearching } = useSelector((state: RootState) => state.navbar)
-return null;
+  return null;
   return (
     <div
       className={cn(
@@ -119,7 +119,7 @@ export const Logo = ({ className, src }: LogoProps) => {
   const { accessToken } = useSelector((state: RootState) => state.auth)
 
   return (
-    <Button className={styles['logo']} href={accessToken ? '/dashboard/' : '/'}>
+    <Button className={styles['logo']} href={'/'}>
       <img src={src} alt='لوگو نماتک' className={className} />
     </Button>
   )
