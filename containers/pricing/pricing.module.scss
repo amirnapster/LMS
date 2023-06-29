@@ -1,0 +1,55 @@
+.pricing {
+
+    &__card {
+        position: relative;
+        width: 100%;
+        background-color: rgba(211, 211, 211, 0.392);
+        padding: 1rem;
+        border: 1px solid lightgray;
+        border-radius: 5px;
+        transition: all 0.2s;
+
+        &:hover {
+            border-color: black;
+        }
+    }
+
+    &--discount {
+        text-decoration: line-through;
+        color: gray;
+    }
+
+    &--container {
+        margin-inline: 5rem;
+    }
+
+    &--badge {
+        all: unset;
+        position: absolute !important;
+        top: -15px;
+        right: 2rem;
+        color: map-get($colors, primary) !important;
+        background-color: #e4f6ec !important;
+        border-radius: 1rem;
+        font-size: 0.75rem !important;
+        padding: 0.35rem;
+        font-weight: bold;
+    }
+
+    &--title {
+        font-size: 2rem;
+        margin-block: 2rem 1rem;
+        display: block;
+        font-weight: bold;
+    }
+
+    &--logo {
+        padding: 0.5rem 1rem;
+        width: 100%;
+        background-color: rgba(211, 211, 211, 0.392);
+
+        svg {
+            width: 50px;
+        }
+    }
+}

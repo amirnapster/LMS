@@ -19,8 +19,8 @@ const Footer = () => {
       <footer className={cn(styles['footer'], isSearching ? 'd-none' : '')}>
         <FooterBox />
         <Row data-selector='info' wrap>
-          <FooterInfo />
-          <Col className={styles['footer__signs']} xxs={24} lg={12}>
+          {/* <FooterInfo /> */}
+          {/* <Col className={styles['footer__signs']} xxs={24} lg={12}>
             {footerSignItems.map(({ imgSource, link }) => (
               <Button
                 key={imgSource}
@@ -32,7 +32,7 @@ const Footer = () => {
                 <Image src={imgSource} layout='fill' alt='source' />
               </Button>
             ))}
-          </Col>
+          </Col> */}
           <Col className={styles['footer__copyrights']} span={24}>
             کلیه حقوق این وبسایت و برند نماتک، متعلق به{' '}
             <a target='_blank' href='https://namatek.com' rel='noreferrer'>

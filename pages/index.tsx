@@ -1,8 +1,6 @@
-// next
-import Layout from 'layout'
+import { ElearningLandingView } from 'sections/_e-learning/view'
 import MainLayout from 'layout/main/MainLayout'
 import Head from 'next/head'
-import { ElearningLandingView } from 'sections/_e-learning/view'
 
 // ----------------------------------------------------------------------
 

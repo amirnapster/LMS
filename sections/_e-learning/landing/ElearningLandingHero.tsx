@@ -21,8 +21,10 @@ import _mock from '_mock'
 // assets
 import ElearningHeroIllustration from 'assets/illustrations/ElearningHeroIllustration'
 // components
-import Iconify from 'components/iconify'
+import ButtonComponent from 'components/ui/Button'
 import { PlayerDialog } from 'components/player'
+import { setVisible } from 'libs/redux/slices/auth'
+import { useDispatch } from 'react-redux'
 
 // ----------------------------------------------------------------------
 
@@ -45,6 +47,7 @@ const StyledRoot = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function ElearningLandingHero() {
+  const dispatch = useDispatch()
   const isMdUp = useResponsive('up', 'md')
 
   const [openVideo, setOpenVideo] = useState(false)
@@ -62,10 +65,9 @@ export default function ElearningLandingHero() {
       <StyledRoot>
         <Container
           sx={{
-            py: 15,
+            pt: 8,
             display: { md: 'flex' },
             alignItems: { md: 'center' },
-            height: { md: `100vh` },
           }}
         >
           <Grid container spacing={3}>
@@ -75,100 +77,39 @@ export default function ElearningLandingHero() {
                   textAlign: { xs: 'center', md: 'unset' },
                 }}
               >
+
                 <Typography variant='h1'>
-                  Free
+                  آموزش
+                  <Box component='span' sx={{ color: 'primary.main' }}>
+                    {` حرفه‌ای `}
+                  </Box>
                   <Box component='span' sx={{ color: 'text.disabled' }}>
-                    {` Online `}
+                    {` برای ورود `}
                   </Box>
-                  <Box
-                    component='span'
-                    sx={{ color: 'primary.main', textDecoration: 'underline' }}
-                  >
-                    {` Courses `}
-                  </Box>
-                  From The Experts
+                  به بازار کار
                 </Typography>
 
-                <Typography sx={{ color: 'text.secondary', mt: 3, mb: 5 }}>
-                  Etiam sollicitudin, ipsum eu pulvinar rutrum, tellus ipsum
-                  laoreet sapien, quis venenatis ante odio sit amet eros.
-                </Typography>
 
                 <Stack
                   spacing={3}
                   alignItems='center'
+                  sx={{ marginBlockStart: "3rem" }}
                   direction={{ xs: 'column', md: 'row' }}
                 >
-                  <Button color='primary' size='large' variant='contained'>
-                    Ready Start
-                  </Button>
-
-                  <Stack
-                    direction='row'
-                    alignItems='center'
-                    sx={{ typography: 'h6' }}
-                  >
-                    <Fab
-                      size='medium'
-                      color='info'
-                      onClick={handleOpenVideo}
-                      sx={{ mr: 1 }}
-                    >
-                      <Iconify width={24} icon='carbon:play' />
-                    </Fab>
-                    Watch Video
-                  </Stack>
+                  <ButtonComponent btnType='primary' onClick={() => dispatch(setVisible({ visible: true }))}  >
+                    همین حالا شروع کن!
+                  </ButtonComponent>
                 </Stack>
 
-                <Divider sx={{ borderStyle: 'dashed', mt: 8, mb: 6 }} />
-
-                <Stack
-                  direction='row'
-                  spacing={{ xs: 3, sm: 10 }}
-                  justifyContent={{ xs: 'center', md: 'unset' }}
-                  sx={{ direction: 'ltr' }}
-                >
-                  {SUMMARY.map((item) => (
-                    <Stack
-                      key={item.value}
-                      spacing={0.5}
-                      sx={{ position: 'relative' }}
-                    >
-                      <Box
-                        sx={{
-                          top: 8,
-                          left: -4,
-                          width: 24,
-                          height: 24,
-                          opacity: 0.24,
-                          borderRadius: '50%',
-                          position: 'absolute',
-                          bgcolor: `${item.color}.main`,
-                        }}
-                      />
-                      <Typography variant='h3'>
-                        {fShortenNumber(item.value)}+
-                      </Typography>
-                      <Typography
-                        variant='body2'
-                        sx={{ color: 'text.secondary' }}
-                      >
-                        {item.label}
-                      </Typography>
-                    </Stack>
-                  ))}
-                </Stack>
               </Stack>
             </Grid>
 
-            {isMdUp && (
-              <Grid xs={12} md={6} lg={7}>
-                <ElearningHeroIllustration />
-              </Grid>
-            )}
+            {isMdUp && < Grid xs={12} md={6} lg={7}>
+              <img src="/svg/pricing/support-man.png" alt="" style={{ marginInlineStart: "auto" }} />
+            </Grid>}
           </Grid>
         </Container>
-      </StyledRoot>
+      </StyledRoot >
 
       <PlayerDialog
         open={openVideo}

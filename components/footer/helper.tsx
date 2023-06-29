@@ -3,7 +3,6 @@ import { useIntl } from 'react-intl'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { ExpandMore } from '@mui/icons-material'
-// import { ClickableIcon, FooterLogo, GoogleIcon } from 'assets/icons'
 import { closePanel } from 'utils/helpers/global'
 import { setVisible } from 'libs/redux/slices/auth'
 import { notify } from 'utils/notification'
@@ -16,11 +15,14 @@ import Button from 'components/ui/Button'
 import Input from 'components/ui/Input'
 import Tag from 'components/ui/Tag'
 import AuthHoc from 'components/hoc/auth'
+import Logo from 'components/logo/Logo'
+import LogoImg from 'public/svg/footer/Namatek-Logo-white.svg'
 
 import {
   footerSocialItems,
   footerItems,
   footerInfoItems,
+  footerSignItems,
 } from 'utils/statics/footerStatics'
 import type { IFooterLinks } from 'utils/statics/footerStatics/interface'
 import styles from './footer.module.scss'
@@ -29,7 +31,7 @@ const FooterLinks = () => {
   const intl = useIntl()
 
   return (
-    <Row justify='space-between' data-selector='link' wrap>
+    <Row className='h-100' align='middle' justify='center' data-selector='link' wrap>
       {Object.keys(footerItems).map((key) => (
         <Col
           key={key}
@@ -37,7 +39,7 @@ const FooterLinks = () => {
           md={key === 'services' ? 10 : 7}
           lg={8}
           xl={key === 'services' ? 10 : 7}
-          className='d-flex justify-flex-start p-1'
+          className='d-flex justify-center'
         >
           <ul className={styles['footer__box--links']}>
             {footerItems[key as keyof IFooterLinks].map(
@@ -157,25 +159,27 @@ const FooterSubscribe = () => {
 const FooterLogoComponent = () => (
   <Button href='/' btnType='ghost' className={styles['footer__box--logo']}>
     {/* <img src={FooterLogo} alt='footer-logo' /> */}
-    test
   </Button>
 )
 
 const FooterSide = () => {
   const intl = useIntl()
   return (
-    <Row wrap>
-      <Col xxs={24} md={14} lg={10} xl={23} data-selector='socials'>
+    <Row justify='center' wrap>
+      <Col className='w-100 justify-center' xxs={24} md={14} lg={10} xl={23} data-selector='socials'>
         {/* <Col xxs={24} md={12} data-selector='downloads'></Col>     */}
 
-        <Col data-selector='socials-wrapper' className='mb-1' xxs={24} md={12}>
-          <FooterSocials />
-        </Col>
-      </Col>
+        <div style={{ width: "110px" }}>
+          <LogoImg />
+        </div>
 
-      <Col xxs={24} md={14} lg={10} xl={23} data-selector='notif'>
-        <span>{intl.formatMessage({ id: 'footer.notify' })}</span>
-        <FooterSubscribe />
+        <span className={styles['footer--des']}>رسانه مهارتی نماتک به شما کمک می‌کند تا به راحتی مهارت‌های کاربردی در حوزه صنعت را بیاموزید و گامی موثر در پیشرفت صنعت کشور بردارید.
+        </span>
+
+        {/* <Col xxs={24} md={14} lg={10} xl={23} data-selector='notif'>
+          <span>{intl.formatMessage({ id: 'footer.notify' })}</span>
+          <FooterSubscribe />
+        </Col> */}
       </Col>
     </Row>
   )
@@ -258,23 +262,35 @@ export const FooterBox = () => (
     <AuthHoc shouldHaveAccess>
       <FooterLogin />
     </AuthHoc>
+
+
     <Row justify='space-between' wrap>
-      <Col xs={24} xl={9}>
-        <Row data-selector='side-wrapper' wrap>
-          <Col span={24}>
-            <FooterLogoComponent />
-          </Col>
-          <Col span={24} className={styles['footer__box--desktop']}>
-            <FooterSide />
-          </Col>
-        </Row>
-      </Col>
-      <Col xs={24} xl={13}>
-        <FooterLinks />
-      </Col>
-      <Col span={24} className={styles['footer__box--mobile']}>
+      <Col xxs={24} md={12} xl={8} className={styles['footer__box--desktop']}>
         <FooterSide />
       </Col>
+
+      <Col xxs={24} md={12} xl={8}>
+        <FooterLinks />
+      </Col>
+
+      <Col style={{ display: "flex", justifyContent: "center" }} xxs={24} md={12} xl={8}>
+        {footerSignItems.map(({ imgSource, link }) => (
+          <Button
+            key={imgSource}
+            btnType='ghost'
+            onClick={() =>
+              link && window.open(link.url, link.type, link.options)
+            }
+          >
+            {/* <Image src={imgSource} layout='fill' alt='source' /> */}
+
+            <img src={imgSource} alt="" />
+          </Button>
+        ))}
+      </Col>
+      {/* <Col span={24} className={styles['footer__box--mobile']}>
+        <FooterSide />
+      </Col> */}
     </Row>
   </div>
 )

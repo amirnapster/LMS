@@ -31,7 +31,7 @@ export default function ElearningAboutView() {
 
       <BlogElearningLatestPosts posts={_blogCoursePosts.slice(0, 4)} />
 
-      <NewsletterElearning />
+      {/* <NewsletterElearning /> */}
     </>
   )
 }

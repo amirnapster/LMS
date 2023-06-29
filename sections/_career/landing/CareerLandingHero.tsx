@@ -105,11 +105,6 @@ export default function CareerLandingHero() {
                   </Box>
                   You Deserve
                 </Typography>
-
-                <Typography sx={{ color: 'grey.500' }}>
-                  Etiam sollicitudin, ipsum eu pulvinar rutrum, tellus ipsum
-                  laoreet sapien, quis venenatis ante odio sit amet eros.
-                </Typography>
               </Stack>
 
               <StyledBar spacing={{ xs: 1, md: 0 }}>

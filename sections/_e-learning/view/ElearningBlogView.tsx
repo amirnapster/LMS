@@ -46,7 +46,7 @@ export default function ElearningBlogView() {
           </Grid>
         </Grid>
       </Container>
-      <NewsletterElearning />
+      {/* <NewsletterElearning /> */}
     </>
   )
 }

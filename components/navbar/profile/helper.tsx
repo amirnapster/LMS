@@ -20,8 +20,8 @@ import jalaliday from 'jalaliday'
 import cn from 'classnames'
 
 import type { RootState } from 'libs/redux/store'
-import { profileNavItems } from 'utils/statics/navbarStatics'
 import { useEffect, useState } from 'react'
+import { Avatar } from '@mui/material'
 import styles from './navbarProfile.module.scss'
 
 dayjs.extend(jalaliday)
@@ -91,9 +91,14 @@ export const NavbarAvatar = () => {
             isSearching ? styles['navbarProfile__avatar--searching'] : ''
           )}
         >
-          <Button ripple>
-            {/* {avatarIconByPackage()} */}
+          <Button className='h-100' ripple>
             <ExpandMore fontSize='medium' color='primary' />
+            {
+              data?.appUserInfo?.profileImage ? (
+                <img src={data?.appUserInfo?.profileImage} alt='avatar' />
+              ) : <Avatar src='' />
+
+            }
           </Button>
         </div>
       }
@@ -108,8 +113,8 @@ export const NavbarAvatar = () => {
             {
               data?.appUserInfo?.profileImage ? (
                 <img src={data?.appUserInfo?.profileImage} alt='avatar' />
-              ) : null
-              // avatarIconByPackage()
+              ) : <Avatar src='' sx={{ width: "64px", height: "64px" }} />
+
             }
           </Col>
           <Col span={24} className={styles['navbarProfile__menu--title']}>
@@ -119,8 +124,8 @@ export const NavbarAvatar = () => {
           <Col span={24} className={styles['navbarProfile__menu--remaining']}>
             اشتراک
             {packageType !== null &&
-            packageType !== undefined &&
-            packageType > 0 ? (
+              packageType !== undefined &&
+              packageType > 0 ? (
               <>
                 <span data-selector='type'>{packageTypeConverter()}</span>
                 <span data-selector='days'>{dateConverter()}</span>
@@ -132,7 +137,7 @@ export const NavbarAvatar = () => {
           </Col>
         </Row>
 
-        <Row className={styles['navbarProfile__row']} direction='column'>
+        {/* <Row className={styles['navbarProfile__row']} direction='column'>
           {Object.keys(profileNavItems).map((key) => {
             const { hasBadge, title, icon, route } = profileNavItems[key]
             return (
@@ -160,9 +165,9 @@ export const NavbarAvatar = () => {
               </Button>
             )
           })}
-        </Row>
+        </Row> */}
 
-        <Divider className={styles['navbarProfile__menu--divider']} />
+        {/* <Divider className={styles['navbarProfile__menu--divider']} /> */}
         <Button
           className={styles['navbarProfile__menu--item']}
           color='text-color-300'

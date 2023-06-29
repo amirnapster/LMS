@@ -15,104 +15,18 @@ import type {
 export const footerItems: IFooterLinks = {
   contactUs: [
     {
-      text: 'footer.withRasmio',
-      route: '',
+      text: 'دوره ها',
+      route: '/courses',
     },
     {
-      text: 'footer.aboutUs',
-      route: WEB.ABOUT_US,
+      text: 'خرید اشتراک',
+      route: '/pricing',
     },
     {
-      text: 'footer.contactUs',
-      route: WEB.CONTACT_US,
+      text: 'سایت نماتک',
+      route: "https://namatek.com",
+      target: "_blank"
     },
-    {
-      text: 'footer.magazine',
-      route: WEB.BLOG,
-    },
-    {
-      text: 'footer.jobOp',
-      route: WEB.JOB_OP,
-      target: '_blank',
-    },
-    {
-      text: 'footer.oldVersion',
-      route: WEB.OLD_WEBSITE,
-    },
-  ],
-  services: [
-    {
-      text: 'footer.services',
-      route: '',
-    },
-    {
-      text: 'footer.companiesProfiles',
-      route: WEB.FEATURE_COMPANY,
-    },
-    {
-      text: 'footer.personProfiles',
-      route: WEB.FEATURE_PERSON,
-    },
-    {
-      text: 'footer.specialProfiles',
-      tag: 'new',
-      route: WEB.ABOUT_COMPANY_MANAGEMENT,
-    },
-    {
-      text: 'footer.industryAnalyze',
-      route: WEB.FEATURE_INDUSTRY,
-    },
-
-    {
-      text: 'footer.advancedSearch',
-      route: WEB.FEATURE_ADVANCED_SEARCH,
-    },
-    {
-      text: 'footer.graphInfo',
-      route: WEB.FEATURE_GRAPH,
-    },
-    {
-      text: 'footer.commercial',
-      route: WEB.ADS,
-    },
-    {
-      text: 'footer.webApi',
-      route: WEB.ABOUT_API,
-    },
-  ],
-  news: [
-    {
-      text: 'footer.guide',
-      route: '',
-    },
-    {
-      text: 'footer.subscriptions',
-      route: WEB.PRICING,
-    },
-    {
-      text: 'footer.faq',
-      route: WEB.FAQ,
-    },
-    {
-      text: 'footer.conditions',
-      route: WEB.TERMS,
-    },
-    {
-      text: 'footer.privacy',
-      route: WEB.PRIVACY,
-    },
-    {
-      text: 'footer.disclaimer',
-      route: WEB.DISCLAIMER,
-    },
-    {
-      text: 'footer.dataSource',
-      route: WEB.SOURCES,
-    },
-    // {
-    //   text: 'footer.recommendations',
-    //   route: WEB.SOURCES,
-    // },
   ],
 }
 

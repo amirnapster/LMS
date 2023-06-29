@@ -9,7 +9,7 @@ export default function ElearningContactView() {
     <>
       <ContactElearning />
 
-      <NewsletterElearning />
+      {/* <NewsletterElearning /> */}
     </>
   );
 }

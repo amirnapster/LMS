@@ -3,6 +3,7 @@
 
   &__container {
     background-color: map-get($colors, white);
+    padding-inline: 1rem;
   }
 
   &__side {
@@ -15,7 +16,7 @@
     }
 
     &--description {
-      > span {
+      >span {
         font-size: 18px;
       }
 
@@ -53,7 +54,7 @@
         rotate: 45deg;
       }
 
-      > button {
+      >button {
         margin-bottom: 1rem;
       }
     }
@@ -67,13 +68,13 @@
         padding-block-end: 1.5rem;
       }
 
-      > button {
+      >button {
         padding: 1.5rem;
         box-sizing: border-box;
       }
 
       &[data-selector='panel-active'] {
-        > button {
+        >button {
           padding-block-end: 0;
         }
       }

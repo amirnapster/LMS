@@ -16,10 +16,12 @@ import { ElearningCourseItem } from '../course/item'
 
 // ----------------------------------------------------------------------
 
-export default function ElearningLandingFeaturedCourses() {
-  const theme = useTheme()
+interface IElearningLandingFeaturedCoursesProps {
+  data: Course[]
+}
 
-  const { data } = useGetFeaturedQuery()
+export default function ElearningLandingFeaturedCourses({ data }: IElearningLandingFeaturedCoursesProps) {
+  const theme = useTheme()
 
   const isMdUp = useResponsive('up', 'md')
 
@@ -53,7 +55,7 @@ export default function ElearningLandingFeaturedCourses() {
   return (
     <Container
       sx={{
-        pt: { xs: 5, md: 10 },
+        pt: { xs: 8 },
       }}
     >
       <Stack
@@ -64,11 +66,11 @@ export default function ElearningLandingFeaturedCourses() {
         }}
       >
         <Stack spacing={3} flexGrow={1}>
-          <Typography variant='h2'>دروس ویژه</Typography>
-          <Typography sx={{ color: 'text.secondary' }}>
+          <Typography variant='h3'>دروس مرتبط</Typography>
+          {/* <Typography sx={{ color: 'text.secondary' }}>
             Nullam accumsan lorem in dui. Praesent ac massa at ligula laoreet
             iaculis.
-          </Typography>
+          </Typography> */}
         </Stack>
 
         {isMdUp && (
@@ -113,8 +115,8 @@ export default function ElearningLandingFeaturedCourses() {
                 key={course.id}
                 sx={{
                   px: 2,
-                  pt: { xs: 8, md: 10 },
-                  pb: { xs: 10, md: 15 },
+                  pt: { xs: 5 },
+                  pb: { xs: 8 }
                 }}
               >
                 <ElearningCourseItem course={course} vertical />
