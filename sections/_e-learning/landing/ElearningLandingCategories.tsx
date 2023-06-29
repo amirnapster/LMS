@@ -13,6 +13,7 @@ import { ICourseByCategoryProps } from 'types/course'
 import Iconify from 'components/iconify'
 import TextMaxLine from 'components/text-max-line'
 import Link from 'next/link'
+import Row from 'components/ui/Row'
 
 // ----------------------------------------------------------------------
 
@@ -26,27 +27,23 @@ export default function ElearningLandingCategories({ categories }: Props) {
       sx={{
         overflow: 'hidden',
         bgcolor: 'background.neutral',
-        py: { xs: 10, md: 15 },
+        py: { xs: 15, md: 5 }
       }}
     >
       <Container>
         <Grid
           container
+          direction={"column"}
           spacing={{ xs: 8, lg: 3 }}
           justifyContent={{ lg: 'space-between' }}
         >
           <Grid
             xs={12}
-            lg={4}
             sx={{
               textAlign: { xs: 'center', lg: 'unset' },
             }}
           >
             <Typography variant='h2'>دسته شغلی</Typography>
-
-            <Typography sx={{ color: 'text.secondary', mt: 2, mb: 5 }}>
-              آموزش‌های مرتبط با هر دسته شغلی
-            </Typography>
 
             {/* <Button
               variant='contained'
@@ -58,14 +55,17 @@ export default function ElearningLandingCategories({ categories }: Props) {
             </Button> */}
           </Grid>
 
-          <Grid xs={12} lg={7}>
+          <Grid xs={12}
+          >
             <Box
               sx={{
                 gap: 3,
                 display: 'grid',
                 gridTemplateColumns: {
-                  xs: 'repeat(2, 1fr)',
+                  xs: 'repeat(1, 1fr)',
+                  sm: 'repeat(2, 1fr)',
                   md: 'repeat(3, 1fr)',
+                  lg: 'repeat(4, 1fr)',
                 },
               }}
             >
@@ -89,34 +89,39 @@ type CategoryItemProps = {
 function CategoryItem({ category }: CategoryItemProps) {
   return (
     <Link href={`/tags/${category.id}`}>
-    <Paper
-      variant='outlined'
-      sx={{
-        p: 3,
-        borderRadius: 1.5,
-        cursor: 'pointer',
-        bgcolor: 'transparent',
-        transition: (theme) =>
-          theme.transitions.create('all', {
-            duration: theme.transitions.duration.enteringScreen,
-          }),
-        '&:hover': {
-          bgcolor: 'background.paper',
-          boxShadow: (theme) => theme.customShadows.z24,
-          '& h6': {
-            color: 'primary.main',
+      <Paper
+        variant='outlined'
+        sx={{
+          p: 1,
+          cursor: 'pointer',
+          bgcolor: 'transparent',
+          transition: (theme) =>
+            theme.transitions.create('all', {
+              duration: theme.transitions.duration.enteringScreen,
+            }),
+          '&:hover': {
+            bgcolor: 'background.paper',
+            boxShadow: (theme) => theme.customShadows.z24,
+            '& h6': {
+              color: 'primary.main',
+            },
           },
-        },
-      }}
-    >
-      <TextMaxLine variant='h6' line={1} gutterBottom>
-        {category.name}
-      </TextMaxLine>
+        }}
+      >
+        <Row className='w-100' align='middle' gap={1}>
+          <img style={{ width: "70px" }} src="/svg/layout/navbar-logo.svg" alt="" />
 
-      <Typography variant='body2' sx={{ color: 'text.disabled' }}>
-        {category.students} آموزش
-      </Typography>
-    </Paper>
+          <div>
+            <TextMaxLine variant='h6' line={1} gutterBottom>
+              {category.name}
+            </TextMaxLine>
+
+            <Typography variant='body2' sx={{ color: 'text.disabled' }}>
+              {category.students} آموزش
+            </Typography>
+          </div>
+        </Row>
+      </Paper>
     </Link>
   )
 }

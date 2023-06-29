@@ -1,11 +1,10 @@
-import { useContext, useState } from 'react'
-import { CampaignFaq, PlusIcon, QuestionSvg } from 'assets/icons'
+import {  useState } from 'react'
+import {  PlusIcon, QuestionSvg } from 'assets/icons'
 import { AccordionDetails, AccordionSummary } from '@mui/material'
 import cn from 'classnames'
 import Row from 'components/ui/Row'
 import Col from 'components/ui/Col'
 import Container from 'components/container'
-import MyContext from 'utils/context'
 
 import Accordion from './muiFaq'
 import Unnecessary from './helper'
@@ -13,9 +12,8 @@ import Unnecessary from './helper'
 import type { FaqProps } from './interface'
 import styles from './faq.module.scss'
 
-const Faq = ({ title, service, className }: FaqProps) => {
+const Faq = ({ title, className, data }: FaqProps) => {
   const [expanded, setExpanded] = useState<number | null>(null)
-  const { campaign } = useContext(MyContext)
 
   const handleChange = (index: number) => {
     setExpanded((prev) => (prev !== index ? index : null))
@@ -30,25 +28,23 @@ const Faq = ({ title, service, className }: FaqProps) => {
             <Unnecessary dataSelector='desktop' />
             <div data-selector='icon'>
               <img
-                src={
-                  service === 'pricing' && campaign ? CampaignFaq : QuestionSvg
-                }
+                src={QuestionSvg}
                 alt='question'
               />
             </div>
           </div>
         </Col>
         <Col lg={16} xl={17} flex='auto'>
-          {[].map(({ answer, question }, index) => (
+          {data.map(({ answer, question }, index) => (
             <Accordion
-              key={answer}
+              key={question}
               expanded={expanded === index}
               onChange={() => handleChange(index)}
             >
               <AccordionSummary expandIcon={<PlusIcon data-selector='icon' />}>
-                <span data-selector='title'>{answer}</span>
+                <span data-selector='title'>{question}</span>
               </AccordionSummary>
-              <AccordionDetails>{question}</AccordionDetails>
+              <AccordionDetails>{answer}</AccordionDetails>
             </Accordion>
           ))}
           <Unnecessary dataSelector='mobile' />

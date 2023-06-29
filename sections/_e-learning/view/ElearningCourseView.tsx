@@ -27,9 +27,13 @@ import {
   ElearningCourseDetailsSummary,
   ElearningCourseDetailsTeachersInfo,
 } from '../course/details'
-import { useGetApiCoursesByIdQuery } from 'libs/redux/services/karnama'
+import { Course, useGetApiCoursesByIdQuery } from 'libs/redux/services/karnama'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
+import { ElearningLandingFeaturedCourses } from '../landing'
+import { useSelector } from 'react-redux'
+
+import type { RootState } from 'libs/redux/store'
 
 // ----------------------------------------------------------------------
 
@@ -39,6 +43,7 @@ export default function ElearningCourseView() {
   const { query } = useRouter()
   const isMdUp = useResponsive('up', 'md')
   const { data } = useGetApiCoursesByIdQuery({ id: Number(query.id) })
+  const { details } = useSelector((state: RootState) => state.course)
 
   const [loading, setLoading] = useState(true)
 
@@ -67,8 +72,8 @@ export default function ElearningCourseView() {
       <Container
         sx={{
           overflow: 'hidden',
-          pt: { xs: 5, md: 10 },
-          pb: { xs: 15, md: 10 },
+          pt: { xs: 5 },
+          pb: { xs: 2 },
         }}
       >
         <Grid container spacing={{ xs: 5, md: 8 }}>
@@ -137,11 +142,14 @@ export default function ElearningCourseView() {
 
       {isMdUp && <Divider />}
 
-      <ReviewElearning />
+      {/* <ReviewElearning /> */}
 
-      <ElearningCourseListSimilar courses={courseSimilar} />
+      {/* <ElearningCourseListSimilar courses={courseSimilar} /> */}
 
-      <NewsletterElearning />
+      <ElearningLandingFeaturedCourses data={details?.category?.courses as Course[]} />
+
+
+      {/* <NewsletterElearning /> */}
     </>
   )
 }

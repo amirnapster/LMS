@@ -42,7 +42,7 @@ const NavbarProfile = ({ children }: NavbarProfileProps) => {
           id='navbar-pricing'
           ripple
         >
-          <span>{intl.formatMessage({ id: 'navbar.pricing' })}</span>
+          <span>خرید اشتراک</span>
           <SvgSprite id='jet' />
         </Button>
         {!accessToken ? (

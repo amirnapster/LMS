@@ -6,8 +6,10 @@ import { fCurrency } from 'utils/helpers/formatNumber'
 import { ICourseProps } from 'types/course'
 // components
 import Iconify from 'components/iconify'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'libs/redux/store'
+import { useRouter } from 'next/router'
+import { setVisible } from 'libs/redux/slices/auth'
 
 // ----------------------------------------------------------------------
 
@@ -16,6 +18,8 @@ type Props = {
 }
 
 export default function ElearningCourseDetailsInfo({ course }: Props) {
+  const dispatch = useDispatch()
+  const { accessToken } = useSelector((state: RootState) => state.auth)
   const { price, priceSale, lessons, resources } = course
 
   const { details } = useSelector((state: RootState) => state.course)
@@ -25,8 +29,12 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
     0
   )
 
+  const handleRoute = () => {
+    if (!accessToken) dispatch(setVisible({ visible: true }))
+  }
+
   return (
-    <Card sx={{ p: 3, borderRadius: 2 }}>
+    <Card sx={{ p: 3, borderRadius: 2, boxShadow: "0px 0 22px  10px rgba(145, 158, 171, 0.2), 0 12px 24px -4px rgba(145, 158, 171, 0.12)" }}>
       <Stack spacing={3}>
         {/* <Stack direction='row' sx={{ typography: 'h3' }}>
           {priceSale > 0 && (
@@ -77,9 +85,20 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
             alignItems='center'
             sx={{ typography: 'body2' }}
           >
+            <Iconify icon='carbon:time' sx={{ mr: 1 }} />{' '}
+            {`${((details?.totalDuration as number) / 3600).toFixed(
+              0
+            )} ساعت`}
+          </Stack>
+
+          {/* <Stack
+            direction='row'
+            alignItems='center'
+            sx={{ typography: 'body2' }}
+          >
             <Iconify icon='carbon:data-accessor' sx={{ mr: 1 }} />
             دسترسی دایم به کل دوره
-          </Stack>
+          </Stack> */}
 
           <Stack
             direction='row'
@@ -90,24 +109,24 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
             قابل استفاده در کامپیوتر و موبایل
           </Stack>
 
-          <Stack
+          {/* <Stack
             direction='row'
             alignItems='center'
             sx={{ typography: 'body2' }}
           >
             <Iconify icon='carbon:certificate' sx={{ mr: 1 }} />
             مدرک پایان دوره
-          </Stack>
+          </Stack> */}
         </Stack>
 
-        <Button
+        {!accessToken && <Button
           variant='contained'
           size='large'
           color='inherit'
-          href={`/play/${details.id}/1/`}
+          onClick={handleRoute}
         >
           شروع دوره
-        </Button>
+        </Button>}
       </Stack>
     </Card>
   )

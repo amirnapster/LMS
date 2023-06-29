@@ -101,7 +101,7 @@ export default function CategoryComponent() {
         </Stack>
       </Container>
 
-      <NewsletterElearning />
+      {/* <NewsletterElearning /> */}
     </>
   )
 }

@@ -202,7 +202,7 @@ export default function ElearningPostView() {
 
       <BlogElearningLatestPosts posts={_blogCoursePosts.slice(0, 3)} />
 
-      <NewsletterElearning />
+      {/* <NewsletterElearning /> */}
 
       <Popover
         open={!!open}

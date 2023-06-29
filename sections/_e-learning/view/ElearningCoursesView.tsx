@@ -56,7 +56,7 @@ export default function ElearningCoursesView() {
         >
           <Typography variant='h2'>دوره ها</Typography>
 
-          <Button
+          {/* <Button
             color='inherit'
             variant='contained'
             startIcon={<Iconify icon='carbon:filter' width={18} />}
@@ -66,7 +66,7 @@ export default function ElearningCoursesView() {
             }}
           >
             Filters
-          </Button>
+          </Button> */}
         </Stack>
 
         <Stack direction={{ xs: 'column', md: 'row' }}>
@@ -91,7 +91,7 @@ export default function ElearningCoursesView() {
         </Stack>
       </Container>
 
-      <NewsletterElearning />
+      {/* <NewsletterElearning /> */}
     </>
   )
 }

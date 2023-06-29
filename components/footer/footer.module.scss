@@ -3,15 +3,9 @@
 
   &__box {
     position: relative;
-    padding: 80px 48px 48px;
-    margin-bottom: 1.5rem;
+    padding: 54px 18px 25px;
     border-radius: 32px;
-    background: linear-gradient(
-      280.35deg,
-      map-get($colors, primary) -3.47%,
-      map-get($colors, amethyst) 50.67%,
-      #e13019 107.81%
-    );
+    background: linear-gradient(90deg, rgba(255, 192, 0, 1) 10%, rgba(0, 141, 103, 1) 100%);
 
     &--mobile {
       display: none;
@@ -61,18 +55,17 @@
 
     &--links {
       > :first-child {
-        padding-bottom: 1rem;
         font-size: map-get($font-sizes, 5);
         font-weight: map-get($font-weights, 600);
         color: map-get($colors, simple-white);
       }
+
       button {
         width: 100%;
         padding: 0.125rem 0;
         display: flex;
         align-items: center;
         gap: 0.25rem;
-        font-size: map-get($font-sizes, 3);
         background-color: transparent;
       }
 
@@ -125,7 +118,7 @@
     }
 
     [data-selector='side-wrapper'] {
-      > * {
+      >* {
         padding: 0.75rem 0;
       }
     }
@@ -217,7 +210,7 @@
       font-size: map-get($font-sizes, 3);
     }
 
-    > a:nth-child(2) {
+    >a:nth-child(2) {
       display: inline-block;
 
       &::first-letter {
@@ -227,10 +220,11 @@
   }
 
   &__collapse {
-    > * {
+    >* {
       background-color: unset !important;
     }
-    > div {
+
+    >div {
       button {
         background-color: unset;
         color: map-get($colors, primary);
@@ -243,11 +237,17 @@
         gap: 0.5rem;
       }
     }
+
     [data-selector='panel-active'] {
-      > button {
+      >button {
         display: none;
       }
     }
+  }
+
+  &--des {
+    margin-block: 1rem;
+    color: white;
   }
 
   [data-selector='info'] {
@@ -271,7 +271,7 @@
       }
 
       &--desktop {
-        > div {
+        >div {
           flex-direction: column;
         }
       }
@@ -292,9 +292,6 @@
 @include media-breakpoint-down(lg) {
   .footer {
     &__box {
-      &--desktop {
-        display: none;
-      }
 
       &--mobile {
         display: block;
@@ -314,11 +311,12 @@
 @include media-breakpoint-only(lg) {
   .footer {
     margin: 4rem 1.5rem 2rem;
+
     &__box {
       padding: 80px 24px 24px;
 
       &--mobile {
-        > div {
+        >div {
           flex-direction: column;
         }
       }
@@ -357,7 +355,7 @@
       }
 
       [data-selector='link'] {
-        > * {
+        >* {
           &:nth-child(2) {
             order: 3;
           }

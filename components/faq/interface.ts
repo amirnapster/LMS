@@ -1,5 +1,10 @@
+interface IFaqProps{
+  answer:string
+  question:string
+}
+
 export interface FaqProps {
   title?: string
-  service: string
+  data: IFaqProps[]
   className?: string
 }

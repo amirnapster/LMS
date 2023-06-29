@@ -41,7 +41,7 @@ export default function ElearningCourseListSimilar({ courses }: Props) {
     <Box
       sx={{
         bgcolor: 'background.neutral',
-        py: { xs: 10, md: 15 },
+        py: { xs: 5 },
       }}
     >
       <Container>
@@ -53,7 +53,7 @@ export default function ElearningCourseListSimilar({ courses }: Props) {
             mb: { xs: 8, md: 10 },
           }}
         >
-          <Typography variant='h3'>دوره های مشابه</Typography>
+          <Typography variant='h3'>دوره های مرتبط</Typography>
 
           {isMdUp && viewAllBtn}
         </Stack>

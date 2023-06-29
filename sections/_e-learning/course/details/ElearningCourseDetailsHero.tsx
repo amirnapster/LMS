@@ -76,7 +76,7 @@ export default function ElearningCourseDetailsHero({ course }: Props) {
     <Box
       sx={{
         bgcolor: 'background.neutral',
-        pb: { xs: 5, md: 10 },
+        // pb: { xs: 5, md: 10 },
       }}
     >
       <Container sx={{ overflow: 'hidden' }}>
@@ -87,8 +87,8 @@ export default function ElearningCourseDetailsHero({ course }: Props) {
             { name: details.titleFa || '' },
           ]}
           sx={{
-            pt: 5,
-            mb: { xs: 5, md: 10 },
+            pt: 4,
+            mb: { xs: 3 },
           }}
         />
 
@@ -126,11 +126,11 @@ export default function ElearningCourseDetailsHero({ course }: Props) {
                   </Label>
                 )}
 
-                <Link href={`/categories/${details.categoryId}`}>
+                {/* <Link href={`/categories/${details.categoryId}`}>
                   <Typography variant='overline' sx={{ color: 'primary.main' }}>
                     {details?.category?.title}
                   </Typography>
-                </Link>
+                </Link> */}
 
                 <Typography variant='h3' component='h1'>
                   {details?.titleFa}
@@ -196,7 +196,7 @@ export default function ElearningCourseDetailsHero({ course }: Props) {
               <Divider sx={{ borderStyle: 'dashed' }} />
 
               <Stack spacing={2}>
-                <Stack
+                {/* <Stack
                   direction='row'
                   flexWrap='wrap'
                   sx={{
@@ -222,25 +222,7 @@ export default function ElearningCourseDetailsHero({ course }: Props) {
                     <Iconify icon='carbon:document' sx={{ mr: 1 }} />
                     {`${lessonCount} درس`}
                   </Stack>
-
-                  {/* <Stack
-                      direction='row'
-                      alignItems='center'
-                      sx={{ typography: 'body2' }}
-                    >
-                      <Iconify
-                        icon={
-                          (level === 'Beginner' &&
-                            'carbon:skill-level-basic') ||
-                          (level === 'Intermediate' &&
-                            'carbon:skill-level-intermediate') ||
-                          'carbon:skill-level-advanced'
-                        }
-                        sx={{ mr: 1 }}
-                      />
-                      {level}
-                    </Stack> */}
-                </Stack>
+                </Stack> */}
 
                 {/* <Stack
                     direction='row'
