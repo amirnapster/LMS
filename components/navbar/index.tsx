@@ -1,5 +1,6 @@
 import { useContext, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   ArrowForwardRounded,
@@ -24,7 +25,6 @@ import NavbarProfile from './profile'
 import NavbarSearch from './search'
 import { Logo, NavItem } from './helper'
 import styles from './navbar.module.scss'
-import Link from 'next/link'
 
 const Navbar = () => {
   const dispatch = useDispatch()

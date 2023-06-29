@@ -119,7 +119,7 @@ export const Logo = ({ className, src }: LogoProps) => {
   const { accessToken } = useSelector((state: RootState) => state.auth)
 
   return (
-    <Button className={styles['logo']} href={'/'}>
+    <Button className={styles['logo']} href='/'>
       <img src={src} alt='لوگو نماتک' className={className} />
     </Button>
   )
