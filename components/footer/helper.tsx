@@ -26,6 +26,7 @@ import {
 } from 'utils/statics/footerStatics'
 import type { IFooterLinks } from 'utils/statics/footerStatics/interface'
 import styles from './footer.module.scss'
+import { useSuggestMutation } from 'libs/redux/services/karnama'
 
 const FooterLinks = () => {
   const intl = useIntl()
@@ -186,33 +187,35 @@ const FooterSide = () => {
 }
 
 const FooterLogin = () => {
-  const dispatch = useDispatch()
-  const { handleSubmit, register } = useForm({ defaultValues: { email: '' } })
+  const { handleSubmit, register,setValue } = useForm({ defaultValues: { text: '' } })
+  const [suggest, { isLoading }] = useSuggestMutation()
 
-  const onSubmit = (value: { email?: string }) => {
-    dispatch(
-      setVisible({ visible: true, mode: 'signUp', userName: value.email })
-    )
+  const onSubmit = (value: { text?: string }) => {
+    suggest({ suggestion: { text: value.text as string } }).then
+      (() => {
+        notify({ type: 'success', message: 'با تشکر. پیشنهاد شما ثبت شد' })
+        setValue('text','')
+      })
   }
 
   return (
     <Row direction='column' gap={2} className={styles['footer__login']}>
       <Col data-selector='title'>
-        برای استفاده از امکانات نماتک، رایگان ثبت نام کنید
+        آموزش مورد نظر یا پیشنهاد شما برای پرونماتک چیست؟
       </Col>
       <div data-selector='bg' />
       <Col className={styles['footer__login--field']}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Input
             className={styles['footer__login--input']}
-            register={register('email')}
+            register={register('text')}
             data-selector='input'
             suffix={
               <Button type='submit' btnType='primary' ripple>
-                ثبت نام رایگان
+                ثبت پیشنهاد
               </Button>
             }
-            placeholder='شماره موبایل یا ایمیل'
+            placeholder='عنوان دوره'
           />
         </form>
       </Col>
@@ -259,9 +262,7 @@ export const FooterInfo = () => {
 
 export const FooterBox = () => (
   <div className={styles['footer__box']}>
-    <AuthHoc shouldHaveAccess>
-      <FooterLogin />
-    </AuthHoc>
+    <FooterLogin />
 
 
     <Row justify='space-between' wrap>

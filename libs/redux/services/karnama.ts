@@ -6,8 +6,8 @@ export const addTagTypes = [
   'Payments',
   'Pricing',
   'Qualifications',
+  'Suggestion',
   'Tags',
-  'WeatherForecast',
 ] as const
 export const injectedRtkApi = api
   .enhanceEndpoints({
@@ -43,6 +43,14 @@ export const injectedRtkApi = api
           url: `/Account/VerfySignInByOTP`,
           method: 'POST',
           body: queryArg.verfySignInByOtpCommand,
+        }),
+        invalidatesTags: ['Account'],
+      }),
+      fromInre: build.mutation<FromInreApiResponse, FromInreApiArg>({
+        query: (queryArg) => ({
+          url: `/Account/FromInre`,
+          method: 'POST',
+          body: queryArg.user,
         }),
         invalidatesTags: ['Account'],
       }),
@@ -178,6 +186,14 @@ export const injectedRtkApi = api
         query: (queryArg) => ({ url: `/api/Qualifications/${queryArg.id}` }),
         providesTags: ['Qualifications'],
       }),
+      suggest: build.mutation<SuggestApiResponse, SuggestApiArg>({
+        query: (queryArg) => ({
+          url: `/api/Suggestion/Suggest`,
+          method: 'POST',
+          body: queryArg.suggestion,
+        }),
+        invalidatesTags: ['Suggestion'],
+      }),
       getApiTags: build.query<GetApiTagsApiResponse, GetApiTagsApiArg>({
         query: () => ({ url: `/api/Tags` }),
         providesTags: ['Tags'],
@@ -188,13 +204,6 @@ export const injectedRtkApi = api
       >({
         query: (queryArg) => ({ url: `/api/Tags/${queryArg.id}` }),
         providesTags: ['Tags'],
-      }),
-      getWeatherForecast: build.query<
-        GetWeatherForecastApiResponse,
-        GetWeatherForecastApiArg
-      >({
-        query: () => ({ url: `/WeatherForecast` }),
-        providesTags: ['WeatherForecast'],
       }),
     }),
     overrideExisting: false,
@@ -213,6 +222,10 @@ export type SetInfoApiArg = {
 export type VerfySignInByOtpApiResponse = /** status 200 Success */ Token
 export type VerfySignInByOtpApiArg = {
   verfySignInByOtpCommand: VerfySignInByOtpCommand
+}
+export type FromInreApiResponse = /** status 200 Success */ Token
+export type FromInreApiArg = {
+  user: User
 }
 export type SetUserPasswordApiResponse = unknown
 export type SetUserPasswordApiArg = {
@@ -279,15 +292,16 @@ export type GetApiQualificationsByIdApiResponse =
 export type GetApiQualificationsByIdApiArg = {
   id: number
 }
+export type SuggestApiResponse = unknown
+export type SuggestApiArg = {
+  suggestion: Suggestion
+}
 export type GetApiTagsApiResponse = /** status 200 Success */ Tag[]
 export type GetApiTagsApiArg = void
 export type GetApiTagsByIdApiResponse = /** status 200 Success */ Tag
 export type GetApiTagsByIdApiArg = {
   id: number
 }
-export type GetWeatherForecastApiResponse =
-  /** status 200 Success */ WeatherForecast[]
-export type GetWeatherForecastApiArg = void
 export type SignInByOtpCommand = {
   userName?: string | null
 }
@@ -452,6 +466,8 @@ export type Course = {
   description?: string | null
   shortDescription?: string | null
   slug?: string | null
+  isPublished?: boolean
+  isFeatured?: boolean
   category?: Category
   comments?: Comment[] | null
   courseQualifications?: CourseQualification[] | null
@@ -616,6 +632,26 @@ export type VerfySignInByOtpCommand = {
   userName?: string | null
   code?: string | null
 }
+export type User = {
+  id?: number
+  userName?: string | null
+  normalizedUserName?: string | null
+  email?: string | null
+  normalizedEmail?: string | null
+  emailConfirmed?: boolean
+  passwordHash?: string | null
+  securityStamp?: string | null
+  concurrencyStamp?: string | null
+  phoneNumber?: string | null
+  phoneNumberConfirmed?: boolean
+  twoFactorEnabled?: boolean
+  lockoutEnd?: string | null
+  lockoutEnabled?: boolean
+  accessFailedCount?: number
+  fullname?: string | null
+  companyName?: string | null
+  jobTitle?: string | null
+}
 export type SetPasswordCommand = {
   newPassword: string
   confirmPassword?: string | null
@@ -656,19 +692,18 @@ export type Pricing = {
   title?: string | null
   badge?: string | null
 }
-export type WeatherForecast = {
-  date?: string
-  temperatureC?: number
-  temperatureF?: number
-  summary?: string | null
-  isAuthenticated?: boolean
-  kkk?: string | null
+export type Suggestion = {
+  id?: number
+  userId?: number | null
+  text?: string | null
+  insertDate?: string
 }
 export const {
   useSignInByOtpMutation,
   useInfoMutation,
   useSetInfoMutation,
   useVerfySignInByOtpMutation,
+  useFromInreMutation,
   useSetUserPasswordMutation,
   useSignInMutation,
   useLogoutMutation,
@@ -701,10 +736,9 @@ export const {
   useLazyGetApiQualificationsQuery,
   useGetApiQualificationsByIdQuery,
   useLazyGetApiQualificationsByIdQuery,
+  useSuggestMutation,
   useGetApiTagsQuery,
   useLazyGetApiTagsQuery,
   useGetApiTagsByIdQuery,
   useLazyGetApiTagsByIdQuery,
-  useGetWeatherForecastQuery,
-  useLazyGetWeatherForecastQuery,
 } = injectedRtkApi
