@@ -9,16 +9,15 @@ import ReviewItem from './ReviewItem'
 
 import dayjs from 'dayjs'
 import jalaliday from 'jalaliday'
+import { Comment } from 'libs/redux/services/karnama'
 
 dayjs.extend(jalaliday)
 
 // ----------------------------------------------------------------------
 
-type Props = {
-  reviews: IReviewItemProp[]
-}
 
-export default function Reviews({ reviews }: Props) {
+
+export default function Reviews() {
   const { details } = useSelector((state: RootState) => state.course)
 
   return (
@@ -29,7 +28,7 @@ export default function Reviews({ reviews }: Props) {
           text,
           insertDate,
           // name,
-          // rating,
+           rate,
           // helpful,
           // message,
           // postedAt,
@@ -43,15 +42,15 @@ export default function Reviews({ reviews }: Props) {
         return (
           <Box key={id}>
             <ReviewItem
-              name={'حسین'}
+              name={''}
               avatarUrl={''}
               postedAt={dayjs(insertDate)
                 .calendar('jalali')
                 .locale('fa')
                 .format('YYYY/MM/DD')}
               message={text as string}
-              rating={2}
-              helpful={2}
+              rating={rate}
+              // helpful={2}
             />
             {/* {hasReply &&
               replyComment.map((reply) => {

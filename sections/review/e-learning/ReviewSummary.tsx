@@ -28,5 +28,33 @@ export default function ReviewSummary({
   ratingsNumber,
   onOpenForm,
 }: Props) {
-  return <span> </span>
+  return (
+    <Paper variant='outlined' sx={{ p: 4, pr: 3, borderRadius: 2 }}>
+      <Stack spacing={3}>
+        <Stack spacing={3} direction='row' alignItems='center'>
+          <Typography variant='h1'> {ratingsNumber}</Typography>
+
+          <Stack spacing={0.5}>
+            <Rating value={ratingsNumber} readOnly precision={0.1} />
+            <Typography variant='body2' sx={{ color: 'text.secondary' }}>
+              {fShortenNumber(reviewsNumber)} دیدگاه
+            </Typography>
+          </Stack>
+        </Stack>
+
+        {/* <RadioGroup>
+          <ReviewProgress />
+        </RadioGroup> */}
+
+        <Button
+          size='large'
+          fullWidth
+          startIcon={<Iconify icon='carbon:edit' width={24} />}
+          onClick={onOpenForm}
+        >
+          دیدگاه شما
+        </Button>
+      </Stack>
+    </Paper>
+  )
 }

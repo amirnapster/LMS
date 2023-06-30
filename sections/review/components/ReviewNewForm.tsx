@@ -17,6 +17,9 @@ import {
 } from '@mui/material'
 // components
 import FormProvider, { RHFTextField } from 'components/hook-form'
+import { useCommentMutation } from 'libs/redux/services/karnama'
+import { useSelector } from 'react-redux'
+import { RootState } from 'libs/redux/store'
 
 // ----------------------------------------------------------------------
 
@@ -34,20 +37,21 @@ interface Props extends DialogProps {
 // ----------------------------------------------------------------------
 
 export default function ReviewNewForm({ onClose, ...other }: Props) {
+  const [submitComment, { isLoading }] = useCommentMutation()
+  const { details } = useSelector((state: RootState) => state.course)
+
   const defaultValues = {
     rating: null,
     review: '',
-    name: '',
-    email: '',
   }
 
   const NewReviewSchema = Yup.object().shape({
-    name: Yup.string().required('Name is required'),
+    // name: Yup.string().required('Name is required'),
     rating: Yup.mixed().required('Rating is required'),
     review: Yup.string().required('Review is required'),
-    email: Yup.string()
-      .required('Email is required')
-      .email('That is not an email'),
+    // email: Yup.string()
+    //   .required('Email is required')
+    //   .email('That is not an email'),
   })
 
   const methods = useForm<FormValuesProps>({
@@ -64,7 +68,8 @@ export default function ReviewNewForm({ onClose, ...other }: Props) {
 
   const onSubmit = async (data: FormValuesProps) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500))
+
+      submitComment( { comment:{text:data.review, rate: +(data.rating as number), courseId:details?.id}})
       reset()
       onClose()
       console.log('DATA', data)
@@ -76,13 +81,13 @@ export default function ReviewNewForm({ onClose, ...other }: Props) {
   return (
     <Dialog fullWidth maxWidth='sm' onClose={onClose} {...other}>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-        <DialogTitle sx={{ typography: 'h3', pb: 3 }}>Review</DialogTitle>
+        <DialogTitle sx={{ typography: 'h3', pb: 3 }}>دیدگاه شما</DialogTitle>
 
         <DialogContent sx={{ py: 0 }}>
           <Stack spacing={2.5}>
             <div>
               <Typography variant='subtitle2' gutterBottom>
-                Your rating:
+                امتیاز:
               </Typography>
 
               <Controller
@@ -98,26 +103,23 @@ export default function ReviewNewForm({ onClose, ...other }: Props) {
               )}
             </div>
 
-            <RHFTextField multiline rows={3} name='review' label='Review *' />
-
+            <RHFTextField multiline rows={3} name='review' label='دیدگاه شما *' />
+{/* 
             <RHFTextField name='name' label='Name *' />
 
-            <RHFTextField name='email' label='Email address *' />
+            <RHFTextField name='email' label='Email address *' /> */}
           </Stack>
         </DialogContent>
 
         <DialogActions>
-          <Button variant='outlined' onClick={onClose} color='inherit'>
-            Cancel
-          </Button>
-
+          
           <LoadingButton
             color='inherit'
             type='submit'
             variant='contained'
             loading={isSubmitting}
           >
-            Post Review
+            ثبت دیدگاه
           </LoadingButton>
         </DialogActions>
       </FormProvider>

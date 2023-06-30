@@ -9,11 +9,14 @@ import ReviewNewForm from '../components/ReviewNewForm'
 import ReviewList from './ReviewList'
 import ReviewSummary from './ReviewSummary'
 import ReviewToolbar from './ReviewToolbar'
+import { useSelector } from 'react-redux'
+import { RootState } from 'libs/redux/store'
 
 // ----------------------------------------------------------------------
 
 export default function ReviewElearning() {
   const [sort, setSort] = useState('latest')
+  const { details } = useSelector((state: RootState) => state.course)
 
   const [openForm, setOpenForm] = useState(false)
 
@@ -30,15 +33,21 @@ export default function ReviewElearning() {
 
         <Grid container spacing={8} direction='row-reverse'>
           <Grid xs={12} md={5} lg={4}>
-            <ReviewSummary
-              ratingsNumber={4.1}
-              reviewsNumber={123456}
-              onOpenForm={() => setOpenForm(true)}
-            />
+            {details.comments && details.comments.length ?
+              <ReviewSummary
+                ratingsNumber={4.7 }
+                reviewsNumber={details.comments?.length}
+                onOpenForm={() => setOpenForm(true)}
+              />:
+              <ReviewSummary
+                ratingsNumber={5}
+                reviewsNumber={1}
+                onOpenForm={() => setOpenForm(true)}
+              />}
           </Grid>
 
           <Grid xs={12} md={7} lg={8}>
-            <ReviewList reviews={_reviews} />
+            <ReviewList />
           </Grid>
         </Grid>
       </Container>

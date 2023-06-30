@@ -2,6 +2,7 @@ import { emptySplitApi as api } from './emptyApi'
 export const addTagTypes = [
   'Account',
   'Categories',
+  'Comment',
   'Courses',
   'Payments',
   'Pricing',
@@ -112,6 +113,14 @@ export const injectedRtkApi = api
       >({
         query: (queryArg) => ({ url: `/api/Categories/${queryArg.id}` }),
         providesTags: ['Categories'],
+      }),
+      comment: build.mutation<CommentApiResponse, CommentApiArg>({
+        query: (queryArg) => ({
+          url: `/api/Comment/Comment`,
+          method: 'POST',
+          body: queryArg.comment,
+        }),
+        invalidatesTags: ['Comment'],
       }),
       getCourses: build.query<GetCoursesApiResponse, GetCoursesApiArg>({
         query: () => ({ url: `/api/Courses/GetCourses` }),
@@ -250,6 +259,10 @@ export type GetApiCategoriesApiArg = void
 export type GetApiCategoriesByIdApiResponse = /** status 200 Success */ Category
 export type GetApiCategoriesByIdApiArg = {
   id: number
+}
+export type CommentApiResponse = unknown
+export type CommentApiArg = {
+  comment: Comment
 }
 export type GetCoursesApiResponse = /** status 200 Success */ Course[]
 export type GetCoursesApiArg = void
@@ -433,6 +446,7 @@ export type Comment = {
   insertDate?: string
   approved?: boolean
   replyId?: number | null
+  rate?: number
   course?: Course
   lesson?: Lesson
 }
@@ -713,6 +727,7 @@ export const {
   useLazyGetApiCategoriesQuery,
   useGetApiCategoriesByIdQuery,
   useLazyGetApiCategoriesByIdQuery,
+  useCommentMutation,
   useGetCoursesQuery,
   useLazyGetCoursesQuery,
   useGetFeaturedQuery,
