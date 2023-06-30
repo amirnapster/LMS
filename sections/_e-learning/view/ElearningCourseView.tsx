@@ -42,12 +42,14 @@ const _mockCourse = _courses[0]
 export default function ElearningCourseView() {
   const { query } = useRouter()
   const isMdUp = useResponsive('up', 'md')
-  const { data } = useGetApiCoursesByIdQuery({ id: Number(query.id) })
+  const { accessToken } = useSelector((state: RootState) => state.auth)
+  const { data, refetch } = useGetApiCoursesByIdQuery({ id: Number(query.id) })
   const { details } = useSelector((state: RootState) => state.course)
 
   const [loading, setLoading] = useState(true)
-
-  const courseSimilar = _courses.slice(-3)
+  useEffect(() => {
+  refetch()
+  }, [accessToken])
 
   useEffect(() => {
     const fakeLoading = async () => {

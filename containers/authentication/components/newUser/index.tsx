@@ -23,8 +23,15 @@ const NewUserModal = () => {
       <span className={styles['newUser--subTitle']}>
         به نماتک خوش آمدید؛ اکنون می‌توانید از امکانات نماتک استفاده نمایید.
       </span>
-
       <Button
+        className='w-100'
+        btnType='primary'
+        onClick={() => dispatch(setVisible({ visible: false }))}
+        size='large'
+      >
+        بستن
+      </Button>
+      {/* <Button
         className={styles['newUser--completed']}
         btnType='primary'
         href='/dashboard/profile/'
@@ -49,7 +56,7 @@ const NewUserModal = () => {
             ورود به نماتک
           </Button>
         </Col>
-      </Row>
+      </Row> */}
     </Row>
   )
 }

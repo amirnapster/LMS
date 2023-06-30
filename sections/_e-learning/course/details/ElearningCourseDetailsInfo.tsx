@@ -119,7 +119,7 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
           </Stack> */}
         </Stack>
 
-        {!accessToken && <Button
+        {accessToken && <Button
           variant='contained'
           size='large'
           color='inherit'

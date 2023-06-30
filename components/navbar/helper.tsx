@@ -84,6 +84,7 @@ export const NavbarTab = () => {
   const { accessToken } = useSelector((state: RootState) => state.auth)
 
   const checkToken = () => {
+    return []
     if (!accessToken) return omit(navItemsData, ['industry'])
     return { industry: navItemsData['industry'] }
   }
