@@ -43,7 +43,7 @@ export default function ElearningLandingCategories({ categories }: Props) {
               textAlign: { xs: 'center', lg: 'unset' },
             }}
           >
-            <Typography variant='h2'>دسته شغلی</Typography>
+            <Typography variant='h2'>موضوعات آموزشی</Typography>
 
             {/* <Button
               variant='contained'
