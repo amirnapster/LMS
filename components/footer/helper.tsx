@@ -7,6 +7,7 @@ import { closePanel } from 'utils/helpers/global'
 import { setVisible } from 'libs/redux/slices/auth'
 import { notify } from 'utils/notification'
 import { useAddToNewsletterMutation } from 'libs/redux/services/auth'
+import { useSuggestMutation } from 'libs/redux/services/karnama'
 import Row from 'components/ui/Row'
 import Col from 'components/ui/Col'
 import Collapse from 'components/ui/Collapse'
@@ -26,7 +27,7 @@ import {
 } from 'utils/statics/footerStatics'
 import type { IFooterLinks } from 'utils/statics/footerStatics/interface'
 import styles from './footer.module.scss'
-import { useSuggestMutation } from 'libs/redux/services/karnama'
+
 
 const FooterLinks = () => {
   const intl = useIntl()
