@@ -33,7 +33,7 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
   const handleRoute = () => {
     if (!accessToken) dispatch(setVisible({ visible: true }))
     else
-      push(`/play/{details?.id}/1/`)
+      push(`/play/${details?.id}/1/`)
   }
 
   return (
