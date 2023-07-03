@@ -23,8 +23,8 @@ import cn from 'classnames'
 import type { RootState } from 'libs/redux/store'
 import { useEffect, useState } from 'react'
 import { Avatar } from '@mui/material'
-import styles from './navbarProfile.module.scss'
 import { profileNavItems } from 'utils/statics/navbarStatics'
+import styles from './navbarProfile.module.scss'
 
 dayjs.extend(jalaliday)
 
