@@ -195,12 +195,6 @@ export const profileNavItems: ProfileNavItemsType = {
     icon: <LayoutIcon viewBox='0 0 24 24 ' />,
     route: '/dashboard/',
   },
-  notification: {
-    title: 'پیام ها و اعلانات',
-    icon: <MessageIcon viewBox='0 0 24 24 ' />,
-    hasBadge: true,
-    route: '/dashboard/notification/',
-  },
   profile: {
     title: 'اطلاعات حساب کاربری',
     icon: <PersonSvgIcon viewBox='0 0 24 24 ' />,

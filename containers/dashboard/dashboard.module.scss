@@ -1,0 +1,7 @@
+.dashboard {
+  width: 100%;
+
+  [data-selector='badge'] {
+    font-size: map-get($font-sizes, 2);
+  }
+}

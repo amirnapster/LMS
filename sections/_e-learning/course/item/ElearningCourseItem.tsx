@@ -1,30 +1,21 @@
-// next
-import NextLink from 'next/link'
-// @mui
+import { useRef } from 'react'
+import { useRouter } from 'next/router'
 import {
-  Divider,
   Stack,
   Card,
   Typography,
   Box,
   Link,
-  Avatar,
+  LinearProgress,
+  linearProgressClasses,
 } from '@mui/material'
-// routes
-import { paths } from 'routes/paths'
-// utils
-import { fCurrency, fShortenNumber } from 'utils/helpers/formatNumber'
-// types
-import { ICourseProps } from 'types/course'
-// components
 import Image from 'components/image'
-import Label from 'components/label'
 import Iconify from 'components/iconify'
 import TextMaxLine from 'components/text-max-line'
-import type { Course } from 'libs/redux/services/karnama'
 import Row from 'components/ui/Row'
 
-// ----------------------------------------------------------------------
+import type { Course } from 'libs/redux/services/karnama'
+import { styled } from '@mui/material/styles'
 
 type Props = {
   course: Course
@@ -32,22 +23,41 @@ type Props = {
 }
 
 export default function ElearningCourseItem({ course, vertical }: Props) {
-  const { category, description } = course
-
+  const countRef = useRef<number>(0)
+  const { asPath } = useRouter()
   const lessonCount = course?.sections?.reduce(
     (acc, section) => (section?.lessons?.length ?? 0) + acc,
     0
   )
 
+  const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
+    height: 7,
+    borderRadius: 2,
+    [`&.${linearProgressClasses.colorPrimary}`]: {
+      backgroundColor:
+        theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
+    },
+    [`& .${linearProgressClasses.bar}`]: {
+      borderRadius: 5,
+      backgroundColor: theme.palette.mode === 'light' ? '#1a90ff' : '#308fe8',
+    },
+  }))
+
+  course?.sections?.map((section) => {
+    section?.lessons?.map((lesson) => {
+      countRef.current = countRef.current + (lesson?.duation as number)
+    })
+  })
 
   return (
     <Link href={`/courses/${course.id}`}>
       <Card
         sx={{
           display: { sm: 'flex' },
-          boxShadow: "0px 0 22px  10px rgba(145, 158, 171, 0.2), 0 12px 24px -4px rgba(145, 158, 171, 0.12)",
+          boxShadow:
+            '0px 0 22px  10px rgba(145, 158, 171, 0.2), 0 12px 24px -4px rgba(145, 158, 171, 0.12)',
           ...(vertical && {
-            flexDirection: 'column'
+            flexDirection: 'column',
           }),
         }}
       >
@@ -94,8 +104,6 @@ export default function ElearningCourseItem({ course, vertical }: Props) {
               alignItems='center'
               justifyContent='space-between'
             >
-
-
               {/* <Typography variant='h4'>
               {priceSale > 0 && (
                 <Box
@@ -113,11 +121,30 @@ export default function ElearningCourseItem({ course, vertical }: Props) {
             </Typography> */}
             </Stack>
 
-
-            <Stack style={{ direction: "rtl" }} spacing={1} sx={{ margin: "0 !important" }}  >
+            <Stack
+              style={{ direction: 'rtl' }}
+              spacing={1}
+              sx={{ margin: '0 !important' }}
+            >
               <TextMaxLine variant='h6' line={1}>
                 {course.titleFa}
               </TextMaxLine>
+
+              {asPath === '/dashboard/' && (
+                <>
+                  <Row className='w-100' justify='space-between'>
+                    <span data-selector='badge'>0%</span>
+                    <span data-selector='badge'>100%</span>
+                  </Row>
+                  <BorderLinearProgress
+                    variant='determinate'
+                    value={
+                      (course?.totalDuration as number) /
+                      (100 * countRef.current)
+                    }
+                  />
+                </>
+              )}
 
               {/* <TextMaxLine
                 variant='body2'
@@ -189,17 +216,16 @@ export default function ElearningCourseItem({ course, vertical }: Props) {
 
           <Stack
             direction='row'
-            justifyContent="space-between"
+            justifyContent='space-between'
             flexWrap='wrap'
             alignItems='center'
-            style={{ direction: "rtl" }}
+            style={{ direction: 'rtl' }}
             sx={{
               color: 'text.disabled',
               '& > *:not(:last-child)': { mr: 2.5 },
             }}
           >
-
-            <Row gap={1} style={{ direction: "rtl", textAlign: "start" }}>
+            <Row gap={1} style={{ direction: 'rtl', textAlign: 'start' }}>
               <Stack
                 direction='row'
                 alignItems='center'
@@ -221,13 +247,12 @@ export default function ElearningCourseItem({ course, vertical }: Props) {
               </Stack>
             </Row>
 
-
             <Typography variant='overline' sx={{ color: 'primary.main' }}>
               {course?.category?.title}
             </Typography>
           </Stack>
         </Stack>
       </Card>
-    </Link >
+    </Link>
   )
 }

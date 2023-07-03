@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useLogoutMutation } from 'libs/redux/services/auth'
 import { clearAuth } from 'libs/redux/slices/auth'
 import { ExpandMore } from '@mui/icons-material'
+import { useInfoMutation } from 'libs/redux/services/karnama'
 // import {
 //   ExitIcon,
 //   PricingPlanFree,
@@ -23,10 +24,12 @@ import type { RootState } from 'libs/redux/store'
 import { useEffect, useState } from 'react'
 import { Avatar } from '@mui/material'
 import styles from './navbarProfile.module.scss'
+import { profileNavItems } from 'utils/statics/navbarStatics'
 
 dayjs.extend(jalaliday)
 
 export const NavbarAvatar = () => {
+  const [getInfo, { data: dataInfo }] = useInfoMutation()
   const dispatch = useDispatch()
   const { replace } = useRouter()
   const { accessToken, packageType } = useSelector(
@@ -61,13 +64,14 @@ export const NavbarAvatar = () => {
       case 13:
         return 'سازمانی'
       default:
-        return 'رایگان'
+        return 'ویژه'
     }
   }
 
   const dateConverter = () =>
     (
-      (new Date(data?.newPremium?.until).getTime() - new Date().getTime()) /
+      (new Date(dataInfo?.premium?.untilDate as string).getTime() -
+        new Date().getTime()) /
       (1000 * 60 * 60 * 24)
     ).toFixed(0)
 
@@ -79,6 +83,10 @@ export const NavbarAvatar = () => {
         replace('/')
       })
   }
+
+  useEffect(() => {
+    getInfo()
+  }, [])
 
   return accessToken ? (
     <Dropdown
@@ -93,12 +101,11 @@ export const NavbarAvatar = () => {
         >
           <Button className='h-100' ripple>
             <ExpandMore fontSize='medium' color='primary' />
-            {
-              data?.appUserInfo?.profileImage ? (
-                <img src={data?.appUserInfo?.profileImage} alt='avatar' />
-              ) : <Avatar src='' />
-
-            }
+            {data?.appUserInfo?.profileImage ? (
+              <img src={data?.appUserInfo?.profileImage} alt='avatar' />
+            ) : (
+              <Avatar src='' />
+            )}
           </Button>
         </div>
       }
@@ -110,12 +117,11 @@ export const NavbarAvatar = () => {
           className={styles['navbarProfile__menu__header']}
         >
           <Col className={styles['navbarProfile__menu--avatar']}>
-            {
-              data?.appUserInfo?.profileImage ? (
-                <img src={data?.appUserInfo?.profileImage} alt='avatar' />
-              ) : <Avatar src='' sx={{ width: "64px", height: "64px" }} />
-
-            }
+            {data?.appUserInfo?.profileImage ? (
+              <img src={data?.appUserInfo?.profileImage} alt='avatar' />
+            ) : (
+              <Avatar src='' sx={{ width: '64px', height: '64px' }} />
+            )}
           </Col>
           <Col span={24} className={styles['navbarProfile__menu--title']}>
             {data?.appUserInfo?.userNameOnSite ??
@@ -123,21 +129,20 @@ export const NavbarAvatar = () => {
           </Col>
           <Col span={24} className={styles['navbarProfile__menu--remaining']}>
             اشتراک
-            {packageType !== null &&
-              packageType !== undefined &&
-              packageType > 0 ? (
+            {packageType !== null && packageType !== undefined && (
               <>
                 <span data-selector='type'>{packageTypeConverter()}</span>
                 <span data-selector='days'>{dateConverter()}</span>
                 روز مانده
               </>
-            ) : (
-              <span data-selector='free'>رایگان</span>
             )}
+            {/* : (
+               <span data-selector='free'>رایگان</span>
+             )} */}
           </Col>
         </Row>
 
-        {/* <Row className={styles['navbarProfile__row']} direction='column'>
+        <Row className={styles['navbarProfile__row']} direction='column'>
           {Object.keys(profileNavItems).map((key) => {
             const { hasBadge, title, icon, route } = profileNavItems[key]
             return (
@@ -165,9 +170,9 @@ export const NavbarAvatar = () => {
               </Button>
             )
           })}
-        </Row> */}
+        </Row>
 
-        {/* <Divider className={styles['navbarProfile__menu--divider']} /> */}
+        <Divider className={styles['navbarProfile__menu--divider']} />
         <Button
           className={styles['navbarProfile__menu--item']}
           color='text-color-300'
