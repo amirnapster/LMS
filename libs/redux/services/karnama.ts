@@ -378,6 +378,14 @@ export type Category = {
   courses?: Course[] | null
   qualifications?: Qualification[] | null
 }
+export type ContentProvider = {
+  id?: number
+  title?: string | null
+  bio?: string | null
+  avatar?: string | null
+  link?: string | null
+  courses?: Course[] | null
+}
 export type SectionQuestion = {
   id?: number
   title?: string | null
@@ -478,6 +486,21 @@ export type CourseTag = {
   course?: Course
   tag?: Tag
 }
+export type Teacher = {
+  id?: number
+  title?: string | null
+  profession?: string | null
+  bio?: string | null
+  avatar?: string | null
+  courseTeachers?: CourseTeacher[] | null
+}
+export type CourseTeacher = {
+  id?: number
+  courseId?: number
+  teacherId?: number
+  course?: Course
+  teacher?: Teacher
+}
 export type Enroll = {
   id?: number
   userId?: number
@@ -498,10 +521,13 @@ export type Course = {
   slug?: string | null
   isPublished?: boolean
   isFeatured?: boolean
+  providerId?: number
   category?: Category
+  provider?: ContentProvider
   comments?: Comment[] | null
   courseQualifications?: CourseQualification[] | null
   courseTags?: CourseTag[] | null
+  courseTeachers?: CourseTeacher[] | null
   enrolls?: Enroll[] | null
   exams?: Exam[] | null
   sections?: Section[] | null
@@ -607,13 +633,13 @@ export type AspNetUser = {
   phoneNumber?: string | null
   phoneNumberConfirmed?: boolean
   twoFactorEnabled?: boolean
-  joinDate?: string
   lockoutEnd?: string | null
   lockoutEnabled?: boolean
   accessFailedCount?: number
   fullname?: string | null
   companyName?: string | null
   jobTitle?: string | null
+  joinDate?: string
   aspNetUserClaims?: AspNetUserClaim[] | null
   aspNetUserLogins?: AspNetUserLogin[] | null
   aspNetUserTokens?: AspNetUserToken[] | null

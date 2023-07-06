@@ -27,7 +27,7 @@ import {
   ElearningCourseDetailsSummary,
   ElearningCourseDetailsTeachersInfo,
 } from '../course/details'
-import { Course, useGetApiCoursesByIdQuery } from 'libs/redux/services/karnama'
+import { Course, CourseTeacher, useGetApiCoursesByIdQuery } from 'libs/redux/services/karnama'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { ElearningLandingFeaturedCourses } from '../landing'
@@ -48,7 +48,7 @@ export default function ElearningCourseView() {
 
   const [loading, setLoading] = useState(true)
   useEffect(() => {
-  refetch()
+    refetch()
   }, [accessToken])
 
   useEffect(() => {
@@ -117,14 +117,11 @@ export default function ElearningCourseView() {
               </Stack>
             </Stack> */}
 
-            {/* <Divider sx={{ my: 5 }} /> */}
 
-            <ElearningCourseDetailsTeachersInfo
-              teachers={_mockCourse.teachers}
-            />
           </Grid>
 
           <Grid xs={12} md={5} lg={4}>
+            
             <Stack spacing={5}>
               {isMdUp && <ElearningCourseDetailsInfo course={_mockCourse} />}
 
@@ -140,6 +137,12 @@ export default function ElearningCourseView() {
             </Stack>
           </Grid>
         </Grid>
+        {<Divider sx={{ my: 5 }} />}
+
+            <ElearningCourseDetailsTeachersInfo
+              teachers={data?.courseTeachers as CourseTeacher[]} 
+              provider={data?.provider}
+            />
       </Container>
 
       {isMdUp && <Divider />}
