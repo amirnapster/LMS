@@ -1,3 +1,4 @@
+import { CategoryCount } from 'libs/redux/services/karnama';
 import _mock from '../_mock';
 
 // ----------------------------------------------------------------------
@@ -60,19 +61,14 @@ export const _courses = [...Array(12)].map((_, index) => ({
 
 // ----------------------------------------------------------------------
 
-const CATEGORY_NAMES = [
-  { id: 1,title:'توسعه فردی'},
- { id: 2,title:'فناوری اطلاعات'},
- { id: 3,title:'فروش و بازاریابی'},
- { id: 4,title:'مالی و اداری'},
- { id: 5,title:'مدیریتی'},
- { id: 6,title:'فنی و مهندسی'},
- { id: 7,title:'هنر و رسانه'},
- { id: 8,title:'سلامت'},
+export const CATEGORY_NAMES:CategoryCount[] = [
+  { id: 1,title:'توسعه فردی',count:16},
+ { id: 2,title:'فناوری اطلاعات',count:18},
+ { id: 3,title:'فروش و بازاریابی',count:9},
+ { id: 4,title:'مالی و اداری',count:6},
+ { id: 5,title:'مدیریتی',count:6},
+ { id: 6,title:'فنی و مهندسی',count:7},
+ { id: 7,title:'هنر و رسانه',count:2},
+ { id: 8,title:'سلامت',count:2},
 ] 
-
-export const _coursesByCategories = [...Array(8)].map((_, index) => ({
-  id: CATEGORY_NAMES[index].id,
-  name: CATEGORY_NAMES[index].title,
-  students: 101 + index,
-}));
+ 

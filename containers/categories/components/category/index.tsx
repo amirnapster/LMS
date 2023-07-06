@@ -66,7 +66,7 @@ export default function CategoryComponent() {
         >
           <Typography variant='h2'>{data?.title}</Typography>
 
-          <Button
+          {/* <Button
             color='inherit'
             variant='contained'
             startIcon={<Iconify icon='carbon:filter' width={18} />}
@@ -76,8 +76,8 @@ export default function CategoryComponent() {
             }}
           >
             Filters
-          </Button>
-        </Stack>
+          </Button>*/}
+        </Stack> 
 
         <Stack direction={{ xs: 'column', md: 'row' }}>
           {/* <ElearningFilters

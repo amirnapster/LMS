@@ -29,7 +29,6 @@ import styles from './navbarProfile.module.scss'
 dayjs.extend(jalaliday)
 
 export const NavbarAvatar = () => {
-  const [getInfo, { data: dataInfo }] = useInfoMutation()
   const dispatch = useDispatch()
   const { replace } = useRouter()
   const { accessToken, packageType } = useSelector(
@@ -37,10 +36,11 @@ export const NavbarAvatar = () => {
   )
   const { isSearching } = useSelector((state: RootState) => state.navbar)
   const [logoutUser] = useLogoutMutation()
-  const [data, setDate] = useState<any>(null)
-  // useEffect(() => {
-  //   getUserInfo().then((res) => setDate(res))
-  // }, [])
+  const [getInfo, { data }] = useInfoMutation()
+
+  useEffect(() => {
+    getInfo()
+  }, [])
 
   // const avatarIconByPackage = () => {
   //   switch (packageType) {
@@ -70,7 +70,7 @@ export const NavbarAvatar = () => {
 
   const dateConverter = () =>
     (
-      (new Date(dataInfo?.premium?.untilDate as string).getTime() -
+      (new Date(data?.premium?.untilDate as string).getTime() -
         new Date().getTime()) /
       (1000 * 60 * 60 * 24)
     ).toFixed(0)
@@ -101,11 +101,8 @@ export const NavbarAvatar = () => {
         >
           <Button className='h-100' ripple>
             <ExpandMore fontSize='medium' color='primary' />
-            {data?.appUserInfo?.profileImage ? (
-              <img src={data?.appUserInfo?.profileImage} alt='avatar' />
-            ) : (
               <Avatar src='' />
-            )}
+            
           </Button>
         </div>
       }
@@ -117,15 +114,14 @@ export const NavbarAvatar = () => {
           className={styles['navbarProfile__menu__header']}
         >
           <Col className={styles['navbarProfile__menu--avatar']}>
-            {data?.appUserInfo?.profileImage ? (
-              <img src={data?.appUserInfo?.profileImage} alt='avatar' />
-            ) : (
               <Avatar src='' sx={{ width: '64px', height: '64px' }} />
-            )}
+            
           </Col>
           <Col span={24} className={styles['navbarProfile__menu--title']}>
-            {data?.appUserInfo?.userNameOnSite ??
-              data?.appUserInfo?.phoneNumber}
+            {data?.fullname}
+          </Col>
+          <Col span={24} className={styles['navbarProfile__menu--title']}>
+            {data?.username}
           </Col>
           <Col span={24} className={styles['navbarProfile__menu--remaining']}>
             اشتراک

@@ -13,6 +13,7 @@ import Iconify from 'components/iconify'
 import type { Course } from 'libs/redux/services/karnama'
 import type { RootState } from 'libs/redux/store'
 import styles from './simpleSearch.module.scss'
+import { durationToString } from 'utils/helpers/formatTime'
 
 const SearchResultContent = () => {
   const { textSearch } = useSelector((state: RootState) => state.navbar)
@@ -207,9 +208,7 @@ const SearchResultContent = () => {
                     sx={{ typography: 'body2' }}
                   >
                     <Iconify icon='carbon:time' sx={{ mr: 1 }} />{' '}
-                    {`${((course.totalDuration as number) / 3600).toFixed(
-                      0
-                    )} ساعت`}
+                    {durationToString(course.totalDuration as number)}
                   </Stack>
 
                   <Stack

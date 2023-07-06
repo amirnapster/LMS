@@ -1,5 +1,6 @@
 .play {
   position: fixed;
+  width:100%;
   height: calc(100vh - 80px);
 
   &__lesson {
@@ -14,6 +15,8 @@
     }
 
     &--title {
+      color:white;
+      margin-bottom: 1rem;
       font-weight: bold;
     }
 
@@ -23,12 +26,12 @@
   }
 
   &__videoWrapper {
-    width: 90%;
+    width: 100%;
     align-self: center;
-    margin-block: 3rem;
+    margin-bottom: 3rem;
 
     > div {
-      width: 100% !important;
+    width: 100% !important;
     }
   }
 
@@ -50,22 +53,25 @@
 
   &--content {
     width: 100%;
-    margin-block: 1rem;
+    margin-block: 0rem;
     overflow: auto;
   }
 
   &--header {
     font-weight: bold;
+
   }
 
   &--titleSection {
     all: unset;
     padding-inline-start: 1rem;
     display: flex;
+    color:white;
     gap: 0.5rem;
   }
 
   &--duration {
+    color: rgba(255,255,255, 0.7);
     padding-inline-start: 1rem;
     font-size: map-get($font-sizes, 2);
   }

@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'libs/redux/store'
 import { useRouter } from 'next/router'
 import { setVisible } from 'libs/redux/slices/auth'
+import { durationToString } from 'utils/helpers/formatTime'
 
 // ----------------------------------------------------------------------
 
@@ -89,9 +90,7 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
             sx={{ typography: 'body2' }}
           >
             <Iconify icon='carbon:time' sx={{ mr: 1 }} />{' '}
-            {`${((details?.totalDuration as number) / 3600).toFixed(
-              0
-            )} ساعت`}
+            {durationToString(details?.totalDuration as number)}
           </Stack>
 
           {/* <Stack

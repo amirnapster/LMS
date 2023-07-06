@@ -16,6 +16,7 @@ import Row from 'components/ui/Row'
 
 import type { Course } from 'libs/redux/services/karnama'
 import { styled } from '@mui/material/styles'
+import { durationToString } from 'utils/helpers/formatTime'
 
 type Props = {
   course: Course
@@ -43,6 +44,13 @@ export default function ElearningCourseItem({ course, vertical }: Props) {
     },
   }))
 
+  let duration=0;
+  for(let i=0;i<course?.sections?.length;i++)
+  {
+    for(let j=0;j<course?.sections[i].lessons?.length;j++)
+    duration+=course?.sections[i].lessons[j].duation
+
+  }
   course?.sections?.map((section) => {
     section?.lessons?.map((lesson) => {
       countRef.current = countRef.current + (lesson?.duation as number)
@@ -133,14 +141,13 @@ export default function ElearningCourseItem({ course, vertical }: Props) {
               {asPath === '/dashboard/' && (
                 <>
                   <Row className='w-100' justify='space-between'>
-                    <span data-selector='badge'>0%</span>
-                    <span data-selector='badge'>100%</span>
+                    <span data-selector='badge'></span>
+                    <span data-selector='badge' style={{color:"#1a90ff",fontWeight:"bold"}}>{(100*duration / (course?.totalDuration as number)).toFixed(0)}%</span>
                   </Row>
                   <BorderLinearProgress
-                    variant='determinate'
+                    variant='determinate' 
                     value={
-                      (course?.totalDuration as number) /
-                      (100 * countRef.current)
+                       100*duration / (course?.totalDuration as number)
                     }
                   />
                 </>
@@ -234,17 +241,18 @@ export default function ElearningCourseItem({ course, vertical }: Props) {
                 }}
               >
                 <Iconify icon='carbon:time' sx={{ mr: 1 }} />{' '}
-                {`${((course.totalDuration as number) / 3600).toFixed(0)} ساعت`}
+                {`${((course.totalDuration as number < 3600 ? 3600 : course.totalDuration as number) / 3600).toFixed(0)} ساعت`}
               </Stack>
-
-              <Stack
-                direction='row'
-                alignItems='center'
-                sx={{ typography: 'body2' }}
-              >
-                <Iconify icon='carbon:document' sx={{ mr: 1 }} />
-                {`${lessonCount} درس`}
-              </Stack>
+              {lessonCount ?
+                <Stack
+                  direction='row'
+                  alignItems='center'
+                  sx={{ typography: 'body2' }}
+                >
+                  <Iconify icon='carbon:document' sx={{ mr: 1 }} />
+                  {`${lessonCount} درس`}
+                </Stack>
+                : null}
             </Row>
 
             <Typography variant='overline' sx={{ color: 'primary.main' }}>

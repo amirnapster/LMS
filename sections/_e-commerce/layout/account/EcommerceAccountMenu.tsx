@@ -93,6 +93,9 @@ export default function EcommerceAccountMenu({ open, onClose }: Props) {
           <TextMaxLine variant='subtitle1' line={1}>
             {data?.fullname}
           </TextMaxLine>
+          <TextMaxLine variant='subtitle1' line={1}>
+            {data?.username}
+          </TextMaxLine>
           {/* <TextMaxLine
             variant='body2'
             line={1}

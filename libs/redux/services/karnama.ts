@@ -107,6 +107,13 @@ export const injectedRtkApi = api
         query: () => ({ url: `/api/Categories` }),
         providesTags: ['Categories'],
       }),
+      getApiCategoriesCounts: build.query<
+        GetApiCategoriesCountsApiResponse,
+        GetApiCategoriesCountsApiArg
+      >({
+        query: () => ({ url: `/api/Categories/Counts` }),
+        providesTags: ['Categories'],
+      }),
       getApiCategoriesById: build.query<
         GetApiCategoriesByIdApiResponse,
         GetApiCategoriesByIdApiArg
@@ -260,6 +267,9 @@ export type ResetPasswordApiArg = {
 }
 export type GetApiCategoriesApiResponse = /** status 200 Success */ Category[]
 export type GetApiCategoriesApiArg = void
+export type GetApiCategoriesCountsApiResponse =
+  /** status 200 Success */ CategoryCount[]
+export type GetApiCategoriesCountsApiArg = void
 export type GetApiCategoriesByIdApiResponse = /** status 200 Success */ Category
 export type GetApiCategoriesByIdApiArg = {
   id: number
@@ -597,6 +607,7 @@ export type AspNetUser = {
   phoneNumber?: string | null
   phoneNumberConfirmed?: boolean
   twoFactorEnabled?: boolean
+  joinDate?: string
   lockoutEnd?: string | null
   lockoutEnabled?: boolean
   accessFailedCount?: number
@@ -629,6 +640,7 @@ export type UserInfo = {
   premium?: Premium
   companyName?: string | null
   jobTitle?: string | null
+  username?: string | null
 }
 export type ApiError = {
   message?: string | null
@@ -671,6 +683,7 @@ export type User = {
   fullname?: string | null
   companyName?: string | null
   jobTitle?: string | null
+  joinDate?: string
 }
 export type SetPasswordCommand = {
   newPassword: string
@@ -688,6 +701,11 @@ export type ResetPasswordForm = {
   code?: string | null
   userName?: string | null
   newPassword?: string | null
+}
+export type CategoryCount = {
+  id?: number
+  title?: string | null
+  count?: number
 }
 export type PlayLogDto = {
   action?: string | null
@@ -731,6 +749,8 @@ export const {
   useResetPasswordMutation,
   useGetApiCategoriesQuery,
   useLazyGetApiCategoriesQuery,
+  useGetApiCategoriesCountsQuery,
+  useLazyGetApiCategoriesCountsQuery,
   useGetApiCategoriesByIdQuery,
   useLazyGetApiCategoriesByIdQuery,
   useCommentMutation,

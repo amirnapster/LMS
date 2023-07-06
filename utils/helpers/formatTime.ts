@@ -27,3 +27,6 @@ export function fToNow(date: InputValue) {
       })
     : '';
 }
+export function durationToString(a :number){
+  return `${(a / 3600).toFixed(0)} ساعت ${((a/60)%60).toFixed(0)} دقیقه`
+}

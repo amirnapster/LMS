@@ -4,7 +4,7 @@ import {
   _blogCoursePosts,
   _brandsColor,
   _testimonials,
-  _coursesByCategories,
+  CATEGORY_NAMES,
 } from '_mock'
 import {
   ElearningLandingHero,
@@ -39,7 +39,7 @@ export default function ElearningLandingView() {
       {/* <OurClientsElearning brands={_brandsColor} /> */}
 
       {/* <ElearningLandingIntroduce /> */}
-      <ElearningLandingCategories categories={_coursesByCategories as ICourseByCategoryProps[]} />
+      <ElearningLandingCategories categories={CATEGORY_NAMES} />
 
       <ElearningLandingFeaturedCourses data={data as Course[]} />
 

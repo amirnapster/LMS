@@ -14,14 +14,26 @@ import Iconify from 'components/iconify'
 import TextMaxLine from 'components/text-max-line'
 import Link from 'next/link'
 import Row from 'components/ui/Row'
+import { CategoryCount, useGetApiCategoriesCountsQuery } from 'libs/redux/services/karnama'
+import { useEffect, useState } from 'react'
 
 // ----------------------------------------------------------------------
 
 type Props = {
-  categories: ICourseByCategoryProps[]
+  categories: CategoryCount[]
 }
 
 export default function ElearningLandingCategories({ categories }: Props) {
+  const [cats ,setCats]=useState(categories)
+  
+  const { data }= useGetApiCategoriesCountsQuery()
+  
+  useEffect(() => {
+    if(data){
+      setCats(data)
+    }
+    }, [data])
+  
   return (
     <Box
       sx={{
@@ -69,7 +81,7 @@ export default function ElearningLandingCategories({ categories }: Props) {
                 },
               }}
             >
-              {categories.map((category) => (
+              {cats.map((category) => (
                 <CategoryItem key={category.id} category={category} />
               ))}
             </Box>
@@ -83,10 +95,12 @@ export default function ElearningLandingCategories({ categories }: Props) {
 // ----------------------------------------------------------------------
 
 type CategoryItemProps = {
-  category: ICourseByCategoryProps
+  category: CategoryCount
 }
 
 function CategoryItem({ category }: CategoryItemProps) {
+  if(category.title=="لینکدین")
+  return null
   return (
     <Link href={`/categories/${category.id}`}>
       <Paper
@@ -113,11 +127,11 @@ function CategoryItem({ category }: CategoryItemProps) {
 
           <div>
             <TextMaxLine variant='h6' line={1} gutterBottom>
-              {category.name}
+              {category.title}
             </TextMaxLine>
 
             <Typography variant='body2' sx={{ color: 'text.disabled' }}>
-              {category.students} آموزش
+              {category.count} آموزش
             </Typography>
           </div>
         </Row>

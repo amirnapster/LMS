@@ -24,7 +24,9 @@ import ElearningHeroIllustration from 'assets/illustrations/ElearningHeroIllustr
 import ButtonComponent from 'components/ui/Button'
 import { PlayerDialog } from 'components/player'
 import { setVisible } from 'libs/redux/slices/auth'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
+import { RootState } from 'libs/redux/store'
 
 // ----------------------------------------------------------------------
 
@@ -49,8 +51,15 @@ const StyledRoot = styled('div')(({ theme }) => ({
 export default function ElearningLandingHero() {
   const dispatch = useDispatch()
   const isMdUp = useResponsive('up', 'md')
-
+  const { accessToken } = useSelector((state: RootState) => state.auth)
+  const { push } = useRouter()
   const [openVideo, setOpenVideo] = useState(false)
+  const doItNow = () => {
+    if (accessToken)
+      push('/courses/')
+    else
+      dispatch(setVisible({ visible: true }))
+  }
 
   const handleOpenVideo = () => {
     setOpenVideo(true)
@@ -96,7 +105,7 @@ export default function ElearningLandingHero() {
                   sx={{ marginBlockStart: "3rem" }}
                   direction={{ xs: 'column', md: 'row' }}
                 >
-                  <ButtonComponent btnType='primary' onClick={() => dispatch(setVisible({ visible: true }))}  >
+                  <ButtonComponent btnType='primary' onClick={doItNow}  >
                     همین حالا شروع کن!
                   </ButtonComponent>
                 </Stack>
@@ -105,7 +114,7 @@ export default function ElearningLandingHero() {
             </Grid>
 
             {isMdUp && < Grid xs={12} md={6} lg={7}>
-            <ElearningHeroIllustration/>
+              <ElearningHeroIllustration />
             </Grid>}
           </Grid>
         </Container>

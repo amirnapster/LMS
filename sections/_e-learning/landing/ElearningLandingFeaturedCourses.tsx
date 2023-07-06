@@ -66,7 +66,7 @@ export default function ElearningLandingFeaturedCourses({ data }: IElearningLand
         }}
       >
         <Stack spacing={3} flexGrow={1}>
-          <Typography variant='h3'>دروس مرتبط</Typography>
+          <Typography variant='h3'>دروس ویژه</Typography>
           {/* <Typography sx={{ color: 'text.secondary' }}>
             Nullam accumsan lorem in dui. Praesent ac massa at ligula laoreet
             iaculis.

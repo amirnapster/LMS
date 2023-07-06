@@ -13,6 +13,7 @@ import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from 'libs/redux/store'
 import { useRouter } from 'next/router'
+import { notify } from 'utils/notification'
 
 function EcommerceAccountPersonalView() {
   const [getInfo, { data: dataInfo }] = useInfoMutation()
@@ -45,6 +46,7 @@ function EcommerceAccountPersonalView() {
 
   const onSubmit = async (data: typeof defaultValues) => {
     setInfo({ setInfoModel: data })
+    notify({ type: 'success', message: "اطلاعات شما با موفقیت ذخیره شد" })
   }
 
   useEffect(() => {

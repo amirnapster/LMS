@@ -73,11 +73,13 @@ function PlayComponent() {
     <Box
       sx={{ width: 350 }}
       role='presentation'
+      style={{ backgroundColor: "#3a3a3a" }}
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
       {sectionsData?.map((section, index) => (
-        <Row className='mx-1 my-1' direction='column' justify='space-between'>
+        <Row className='mx-1 my-1' direction='column' justify='space-between'
+        style={{borderBottom:"1px solid rgba(255,255,255,.35)"}}>
           <span className={styles['play__lesson--title']}>{section.title}</span>
 
           {section?.lessons?.map((lesson) => (
@@ -85,7 +87,7 @@ function PlayComponent() {
               className={cn(
                 styles['play__lesson'],
                 lesson.id === selectedLesson.id &&
-                  styles['play__lesson--active']
+                styles['play__lesson--active']
               )}
               onClick={() => selectCourseHandler(lesson)}
             >
@@ -102,7 +104,6 @@ function PlayComponent() {
             </ButtonComponent>
           ))}
 
-          {sectionsData.length - 1 !== index && <Divider />}
         </Row>
       ))}
     </Box>
@@ -122,19 +123,28 @@ function PlayComponent() {
         </Button>
         <Drawer
           anchor='left'
+          PaperProps={{
+            sx: {
+              backgroundColor: "#3a3a3a"
+            }
+          }}
+
           open={playDrawerStatus}
           onClose={toggleDrawer(false)}
         >
           {list()}
         </Drawer>
-        <Row className={styles['play__videoWrapper']}>
-          <VideoJS
-            id={selectedLesson.id}
-            timeOfVideo={selectedLesson?.userLessonCompleteds?.[0]?.timeOfVideo}
-            src={selectedLesson.videoUrl}
-          />
-        </Row>
-
+        <div style={{ width: "100%", backgroundColor: "black", height: "600px" }}>
+          <div style={{ height: "600px", width: "1066px", margin: "0 auto" }}>
+            <Row className={styles['play__videoWrapper']}>
+              <VideoJS
+                id={selectedLesson.id}
+                timeOfVideo={selectedLesson?.userLessonCompleteds?.[0]?.timeOfVideo}
+                src={selectedLesson.videoUrl}
+              />
+            </Row>
+          </div>
+        </div>
         <Row className={styles['play__row']} direction='column' gap={2}>
           <h1>{data?.titleFa}</h1>
           <h2>{selectedLesson.title}</h2>
