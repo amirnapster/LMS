@@ -63,6 +63,7 @@ const ResetPassword = ({ username, changeMode }: Props) => {
         register={register('userName', validation.LOGIN_EMAIL_USERNAME)}
         label={intl.formatMessage({ id: 'username' })}
         autoComplete='username'
+        type='tel'
         placeholder={intl.formatMessage({ id: 'username.placeholder' })}
         error={errors.userName}
         readOnly

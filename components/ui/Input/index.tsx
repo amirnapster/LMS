@@ -34,6 +34,7 @@ const InputInner = <TFieldValues extends { value: string; name: string }>(
     clearInput,
     onBlur,
     onFocus,
+    maxLength,
     ...restProps
   } = props
 
@@ -59,7 +60,7 @@ const InputInner = <TFieldValues extends { value: string; name: string }>(
       )}
       <div className={cn(styles['input__wrapper'], fieldStatus())}>
         {prefix && <div data-selector='prefix'>{prefix}</div>}
-        <input
+        <input 
           ref={ref}
           {...(field ? { ...field } : { ...register })}
           type={type}
@@ -70,6 +71,7 @@ const InputInner = <TFieldValues extends { value: string; name: string }>(
           readOnly={readOnly}
           onFocus={onFocus}
           onBlur={onBlur}
+          maxLength={maxLength}
           {...restProps}
         />
         {clearInput && field?.value && !(suffix || prefix) && (

@@ -12,11 +12,12 @@ export interface InputProps<TFieldValues>
   placeholder?: string
   prefix?: ReactNode
   suffix?: ReactNode
-  type?: 'text' | 'number' | 'password'
+  type?: 'text' | 'number' | 'password' | 'tel'
   error?: FieldError
   readOnly?: boolean
   defaultValue?: string | number
   required?: boolean
+  maxLength?: number
   clearInput?: (name?: string) => void
   onFocus?: () => void
   onBlur?: () => void

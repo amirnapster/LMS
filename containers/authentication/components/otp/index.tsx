@@ -12,6 +12,7 @@ import type {
 } from 'containers/authentication/interface'
 import { ConfirmOtp } from './helper'
 import styles from './otp.module.scss'
+import { notify } from 'utils/notification'
 
 const Otp = ({ changeMode }: AuthCallBackProps) => {
   const [signInByOTP, { isLoading }] = useSignInByOtpMutation()
@@ -26,6 +27,10 @@ const Otp = ({ changeMode }: AuthCallBackProps) => {
   } = useForm({ defaultValues: { userName: '' } })
 
   const onSubmit = (value: ValueType) => {
+    if(value?.userName.startsWith("09")===false || value?.userName.length < 11)
+    {
+      notify({type:'warn',message:'شماره موبایل صحیح نیست'})
+    }
     signInByOTP({ signInByOtpCommand: value })
       .unwrap()
       .then(() => {
@@ -46,10 +51,12 @@ const Otp = ({ changeMode }: AuthCallBackProps) => {
       <form onSubmit={handleSubmit(onSubmit)} className={styles['otp__form']}>
         <Input
           autoComplete='username'
+          type='tel'
           register={register('userName', validation.LOGIN_EMAIL_USERNAME)}
           error={errors.userName}
           placeholder='شماره موبایل'
           data-selector='input'
+          maxLength={11}
         />
 
         {/* <Row className={styles['otp__policy']} justify='center'>

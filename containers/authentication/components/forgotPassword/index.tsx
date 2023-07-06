@@ -64,6 +64,7 @@ const ForgotPassword = ({ changeMode }: AuthCallBackProps) => {
         className={styles['forgot__form']}
       >
         <Input
+        type='tel'
           autoComplete='username'
           register={register('userName', validation.LOGIN_EMAIL_USERNAME)}
           error={errors.userName}

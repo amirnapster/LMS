@@ -65,6 +65,7 @@ export const AuthForm = ({
         rules={validation.LOGIN_EMAIL_USERNAME}
         render={({ field }) => (
           <Input
+            type='tel'
             field={field}
             autoComplete='username'
             placeholder={intl.formatMessage({ id: 'username.placeholder' })}
