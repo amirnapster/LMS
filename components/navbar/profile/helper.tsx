@@ -157,11 +157,7 @@ export const NavbarAvatar = () => {
                     {icon}
                     <span>{title}</span>
                   </Col>
-                  {hasBadge && !!data?.newPremium?.events?.length && (
-                    <Col data-selector='badge' span={3}>
-                      data?.newPremium?.events?.length
-                    </Col>
-                  )}
+                 
                 </Row>
               </Button>
             )

@@ -44,13 +44,18 @@ export default function ElearningCourseItem({ course, vertical }: Props) {
     },
   }))
 
-  let duration=0;
-  for(let i=0;i<course?.sections?.length;i++)
-  {
-    for(let j=0;j<course?.sections[i].lessons?.length;j++)
-    duration+=course?.sections[i].lessons[j].duation
+  let duration = 0;
+  if (course?.sections)
+    for (let i = 0; i < course.sections.length; i++) {
+      const section = course.sections[i]
+      if (section?.lessons)
+        for (let j = 0; j < section.lessons.length; j++) {
+          const lesson = section.lessons[j]
+          if (lesson)
+            duration += lesson.duation??0
+        }
 
-  }
+    }
   course?.sections?.map((section) => {
     section?.lessons?.map((lesson) => {
       countRef.current = countRef.current + (lesson?.duation as number)
@@ -142,12 +147,12 @@ export default function ElearningCourseItem({ course, vertical }: Props) {
                 <>
                   <Row className='w-100' justify='space-between'>
                     <span data-selector='badge'></span>
-                    <span data-selector='badge' style={{color:"#1a90ff",fontWeight:"bold"}}>{(100*duration / (course?.totalDuration as number)).toFixed(0)}%</span>
+                    <span data-selector='badge' style={{ color: "#1a90ff", fontWeight: "bold" }}>{(100 * duration / (course?.totalDuration as number)).toFixed(0)}%</span>
                   </Row>
                   <BorderLinearProgress
-                    variant='determinate' 
+                    variant='determinate'
                     value={
-                       100*duration / (course?.totalDuration as number)
+                      100 * duration / (course?.totalDuration as number)
                     }
                   />
                 </>
