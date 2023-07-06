@@ -1,6 +1,4 @@
-// next
 import NextLink from 'next/link'
-// @mui
 import { alpha } from '@mui/material/styles'
 import {
   Link,
@@ -12,46 +10,31 @@ import {
   ListItemText,
   ListItemButton,
 } from '@mui/material'
-// hooks
 import useResponsive from 'utils/hooks/useResponsive'
 import useActiveLink from 'utils/hooks/useActiveLink'
-// config
 import { NAV } from 'config-global'
-// routes
 import { paths } from 'routes/paths'
-// _mock
+import { useDispatch } from 'react-redux'
+import { clearAuth } from 'libs/redux/slices/auth'
 import _mock from '_mock'
-// components
 import Iconify from 'components/iconify'
 import TextMaxLine from 'components/text-max-line'
+import { useInfoMutation } from 'libs/redux/services/karnama'
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 // ----------------------------------------------------------------------
 
 const navigations = [
   {
-    title: 'Personal Info',
-    path: paths.eCommerce.account.personal,
-    icon: <Iconify icon='carbon:user' />,
+    title: 'داشبورد',
+    path: '/dashboard/',
+    icon: <Iconify icon='carbon:dashboard' />,
   },
   {
-    title: 'Wishlist',
-    path: paths.eCommerce.account.wishlist,
-    icon: <Iconify icon='carbon:favorite' />,
-  },
-  {
-    title: 'Vouchers',
-    path: paths.eCommerce.account.vouchers,
-    icon: <Iconify icon='carbon:cut-out' />,
-  },
-  {
-    title: 'Orders',
-    path: paths.eCommerce.account.orders,
-    icon: <Iconify icon='carbon:document' />,
-  },
-  {
-    title: 'Payment',
-    path: paths.eCommerce.account.payment,
-    icon: <Iconify icon='carbon:purchase' />,
+    title: 'پروفایل',
+    path: '/dashboard/profile/',
+    icon: <Iconify icon='ph:user' />,
   },
 ]
 
@@ -64,6 +47,12 @@ type Props = {
 
 export default function EcommerceAccountMenu({ open, onClose }: Props) {
   const isMdUp = useResponsive('up', 'md')
+  const dispatch = useDispatch()
+  const [getInfo, { data }] = useInfoMutation()
+
+  useEffect(() => {
+    getInfo()
+  }, [])
 
   const renderContent = (
     <Stack
@@ -79,9 +68,14 @@ export default function EcommerceAccountMenu({ open, onClose }: Props) {
       }}
     >
       <Stack spacing={2} sx={{ p: 3, pb: 2 }}>
-        <Stack spacing={2} direction='row' alignItems='center'>
-          <Avatar src={_mock.image.avatar(0)} sx={{ width: 64, height: 64 }} />
-          <Stack
+        <Stack
+          spacing={2}
+          direction='row'
+          alignItems='center'
+          justifyContent='center'
+        >
+          <Avatar src='' sx={{ width: 64, height: 64 }} />
+          {/* <Stack
             direction='row'
             alignItems='center'
             sx={{
@@ -91,21 +85,21 @@ export default function EcommerceAccountMenu({ open, onClose }: Props) {
             }}
           >
             <Iconify icon='carbon:edit' sx={{ mr: 1 }} />
-            Change photo
-          </Stack>
+            تغییر عکس
+          </Stack> */}
         </Stack>
 
-        <Stack spacing={0.5}>
+        <Stack alignItems='center' spacing={0.5}>
           <TextMaxLine variant='subtitle1' line={1}>
-            Jayvion Simon
+            {data?.fullname}
           </TextMaxLine>
-          <TextMaxLine
+          {/* <TextMaxLine
             variant='body2'
             line={1}
             sx={{ color: 'text.secondary' }}
           >
             nannie_abernathy70@yahoo.com
-          </TextMaxLine>
+          </TextMaxLine> */}
         </Stack>
       </Stack>
 
@@ -126,12 +120,13 @@ export default function EcommerceAccountMenu({ open, onClose }: Props) {
             height: 44,
             borderRadius: 1,
           }}
+          onClick={() => dispatch(clearAuth())}
         >
           <ListItemIcon>
             <Iconify icon='carbon:logout' />
           </ListItemIcon>
           <ListItemText
-            primary='Logout'
+            primary='خروج'
             primaryTypographyProps={{
               typography: 'body2',
             }}
@@ -174,14 +169,14 @@ type MenuItemProps = {
 }
 
 function MenuItem({ item }: MenuItemProps) {
-  const { active } = useActiveLink(item.path)
+  const { asPath } = useRouter()
 
   return (
     <Link
       component={NextLink}
       key={item.title}
       href={item.path}
-      color={active ? 'primary' : 'inherit'}
+      color={asPath === item.path ? 'primary' : 'inherit'}
       underline='none'
     >
       <ListItemButton
@@ -196,7 +191,7 @@ function MenuItem({ item }: MenuItemProps) {
           primary={item.title}
           primaryTypographyProps={{
             typography: 'body2',
-            ...(active && {
+            ...(asPath === item.path && {
               typography: 'subtitle2',
             }),
           }}

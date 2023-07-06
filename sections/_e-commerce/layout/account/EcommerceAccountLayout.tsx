@@ -1,17 +1,9 @@
 import { useState } from 'react'
-// @mui
 import { Container, Stack, Typography, Button, Box } from '@mui/material'
-// hooks
-import useResponsive from 'utils/hooks/useResponsive'
-// config
 import { NAV } from 'config-global'
-// components
+import useResponsive from 'utils/hooks/useResponsive'
 import Iconify from 'components/iconify'
-//
-import EcommerceHeader from '../header'
 import EcommerceAccountMenu from './EcommerceAccountMenu'
-
-// ----------------------------------------------------------------------
 
 type Props = {
   children: React.ReactNode
@@ -32,13 +24,11 @@ export default function EcommerceAccountLayout({ children }: Props) {
 
   return (
     <>
-      <EcommerceHeader />
+      {/* <Container sx={{ my: 5 }}>
+        <Typography variant='h3'>حساب کاربری</Typography>
+      </Container> */}
 
-      {isMdUp ? (
-        <Container sx={{ my: 5 }}>
-          <Typography variant='h3'>Account</Typography>
-        </Container>
-      ) : (
+      {!isMdUp && (
         <Box
           sx={{
             py: 2,
@@ -47,19 +37,20 @@ export default function EcommerceAccountLayout({ children }: Props) {
           }}
         >
           <Container>
-            <Button
-              size='small'
-              color='inherit'
-              startIcon={<Iconify icon='carbon:menu' />}
-              onClick={handleMenuOpen}
-            >
-              Account
+            <Button size='small' color='inherit' onClick={handleMenuOpen}>
+              <Iconify icon='carbon:menu' />
             </Button>
           </Container>
         </Box>
       )}
 
-      <Container>
+      <Container
+        sx={{
+          mt: {
+            xs: 5,
+          },
+        }}
+      >
         <Stack
           direction={{
             md: 'row',

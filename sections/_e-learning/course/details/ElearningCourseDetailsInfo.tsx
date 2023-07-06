@@ -19,6 +19,7 @@ type Props = {
 
 export default function ElearningCourseDetailsInfo({ course }: Props) {
   const dispatch = useDispatch()
+  const { push } = useRouter()
   const { accessToken } = useSelector((state: RootState) => state.auth)
   const { price, priceSale, lessons, resources } = course
 
@@ -31,6 +32,8 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
 
   const handleRoute = () => {
     if (!accessToken) dispatch(setVisible({ visible: true }))
+    else
+      push(`/play/${details?.id}/1/`)
   }
 
   return (
@@ -119,14 +122,14 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
           </Stack> */}
         </Stack>
 
-        {accessToken && <Button
+        <Button
           variant='contained'
           size='large'
           color='inherit'
           onClick={handleRoute}
         >
           شروع دوره
-        </Button>}
+        </Button>
       </Stack>
     </Card>
   )

@@ -152,6 +152,10 @@ export const injectedRtkApi = api
         }),
         invalidatesTags: ['Courses'],
       }),
+      my: build.query<MyApiResponse, MyApiArg>({
+        query: () => ({ url: `/api/Courses/My` }),
+        providesTags: ['Courses'],
+      }),
       getApiCoursesById: build.query<
         GetApiCoursesByIdApiResponse,
         GetApiCoursesByIdApiArg
@@ -280,6 +284,8 @@ export type LogApiResponse = unknown
 export type LogApiArg = {
   playLogDto: PlayLogDto
 }
+export type MyApiResponse = /** status 200 Success */ Course[]
+export type MyApiArg = void
 export type GetApiCoursesByIdApiResponse = /** status 200 Success */ Course
 export type GetApiCoursesByIdApiArg = {
   id: number
@@ -737,6 +743,8 @@ export const {
   useByCategoryQuery,
   useLazyByCategoryQuery,
   useLogMutation,
+  useMyQuery,
+  useLazyMyQuery,
   useGetApiCoursesByIdQuery,
   useLazyGetApiCoursesByIdQuery,
   useMyPaymentsQuery,

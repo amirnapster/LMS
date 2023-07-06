@@ -15,23 +15,19 @@ type Props = {
 }
 
 export default function ElearningCourseList({ courses, loading }: Props) {
-  // const { details } = useSelector((state: RootState) => state.courses)
-
-  console.log(courses)
-
   return (
     <>
       <Box
-          sx={{
-            gap: 4,
-            display: 'grid',
-            gridTemplateColumns: {
-              xs: 'repeat(1, 1fr)',
-              sm: 'repeat(2, 1fr)',
-              md: 'repeat(3, 1fr)',
-            },
-          }}
-        >
+        sx={{
+          gap: 4,
+          display: 'grid',
+          gridTemplateColumns: {
+            xs: 'repeat(1, 1fr)',
+            sm: 'repeat(2, 1fr)',
+            md: 'repeat(3, 1fr)',
+          },
+        }}
+      >
         {(loading ? [...Array(9)] : courses)?.map((course) =>
           course ? (
             <ElearningCourseItem key={course?.id} course={course} vertical />

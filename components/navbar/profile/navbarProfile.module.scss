@@ -18,7 +18,7 @@
   }
 
   &__row {
-    margin-block: 0.5rem;
+    margin-top: 0.5rem;
   }
 
   &__subscription {
@@ -54,7 +54,7 @@
     }
 
     &--searching {
-      >button {
+      > button {
         svg {
           path {
             fill: map-get($colors, simple-white);
@@ -63,7 +63,7 @@
       }
     }
 
-    >button {
+    > button {
       background-color: unset;
       display: flex;
       align-items: center;
@@ -139,6 +139,7 @@
         font-size: map-get($font-sizes, 3);
         color: #00ab66;
         margin: 0 0.25rem;
+        display: flex;
       }
 
       span[data-selector='free'] {
@@ -201,7 +202,7 @@
       margin-inline: -0.25rem;
     }
 
-    >button {
+    > button {
       margin-block: 0;
       margin-inline: -0.25rem;
       border-radius: 0 0 0.5rem 0.5rem;

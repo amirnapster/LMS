@@ -1,64 +1,35 @@
 import * as Yup from 'yup'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useState } from 'react'
-// @mui
 import { LoadingButton } from '@mui/lab'
-import { DatePicker } from '@mui/x-date-pickers'
-import {
-  Box,
-  Typography,
-  Stack,
-  IconButton,
-  InputAdornment,
-} from '@mui/material'
-// assets
-import { countries } from 'assets/data'
-// components
-import Iconify from 'components/iconify'
-import FormProvider, { RHFTextField, RHFSelect } from 'components/hook-form'
-//
+import { Box, Typography } from '@mui/material'
+import FormProvider, { RHFTextField } from 'components/hook-form'
 import { EcommerceAccountLayout } from '../layout'
+import {
+  useInfoMutation,
+  useSetInfoMutation,
+} from 'libs/redux/services/karnama'
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { RootState } from 'libs/redux/store'
+import { useRouter } from 'next/router'
 
-// ----------------------------------------------------------------------
-
-const GENDER_OPTIONS = ['Male', 'Female', 'Other']
-
-// ----------------------------------------------------------------------
-
-export default function EcommerceAccountPersonalView() {
-  const [showPassword, setShowPassword] = useState(false)
-
-  const handleShowPassword = () => {
-    setShowPassword(!showPassword)
-  }
+function EcommerceAccountPersonalView() {
+  const [getInfo, { data: dataInfo }] = useInfoMutation()
+  const [setInfo, { isLoading }] = useSetInfoMutation()
+  const { push } = useRouter()
+  const { accessToken } = useSelector((state: RootState) => state.auth)
 
   const EcommerceAccountPersonalSchema = Yup.object().shape({
-    firstName: Yup.string().required('First name is required'),
-    lastName: Yup.string().required('Last name is required'),
-    emailAddress: Yup.string().required('Email address is required'),
-    phoneNumber: Yup.string().required('Phone number is required'),
-    birthday: Yup.string().required('Birthday is required'),
-    gender: Yup.string().required('Gender is required'),
-    streetAddress: Yup.string().required('Street address is required'),
-    city: Yup.string().required('City is required'),
-    zipCode: Yup.string().required('Zip code is required'),
+    fullname: Yup.string().required('نام و نام خانوادگی الزامیست.'),
+    companyName: Yup.string().required('نام شرکت الزامیست.'),
+    jobTitle: Yup.string().required('عنوان شغلی الزامیست.'),
   })
 
   const defaultValues = {
-    firstName: 'Jayvion',
-    lastName: 'Simon',
-    emailAddress: 'nannie_abernathy70@yahoo.com',
-    phoneNumber: '365-374-4961',
-    birthday: null,
-    gender: 'Male',
-    streetAddress: '',
-    zipCode: '',
-    city: '',
-    country: 'United States',
-    oldPassword: '',
-    newPassword: '',
-    confirmNewPassword: '',
+    fullname: '',
+    companyName: '',
+    jobTitle: '',
   }
 
   const methods = useForm<typeof defaultValues>({
@@ -67,150 +38,67 @@ export default function EcommerceAccountPersonalView() {
   })
 
   const {
-    reset,
     handleSubmit,
+    setValue,
     formState: { isSubmitting },
   } = methods
 
   const onSubmit = async (data: typeof defaultValues) => {
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 500))
-      reset()
-      console.log('DATA', data)
-    } catch (error) {
-      console.error(error)
-    }
+    setInfo({ setInfoModel: data })
   }
+
+  useEffect(() => {
+    if (dataInfo) {
+      setValue('fullname', dataInfo?.fullname as string)
+      setValue('companyName', dataInfo.companyName as string)
+      setValue('jobTitle', dataInfo.jobTitle as string)
+    }
+  }, [dataInfo])
+
+  useEffect(() => {
+    getInfo()
+  }, [])
+
+  useEffect(() => {
+    if (!accessToken) {
+      push('/')
+      return
+    }
+  }, [accessToken])
 
   return (
     <EcommerceAccountLayout>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-        <Typography variant='h5' sx={{ mb: 3 }}>
-          Personal
-        </Typography>
+        {/* <Typography variant='h5' sx={{ mb: 3 }}>
+          شخصی
+        </Typography> */}
 
         <Box
           rowGap={2.5}
           columnGap={2}
           display='grid'
-          gridTemplateColumns={{ xs: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
+          gridTemplateColumns={{ xs: 'repeat(1, 1fr)' }}
         >
-          <RHFTextField name='firstName' label='First Name' />
+          <RHFTextField name='fullname' label='نام و نام خانوادگی' />
 
-          <RHFTextField name='lastName' label='Last Name' />
+          <RHFTextField name='companyName' label='عنوان شغلی' />
 
-          <RHFTextField name='emailAddress' label='Email Address' />
-
-          <RHFTextField name='phoneNumber' label='Phone Number' />
-
-          <Controller
-            name='birthday'
-            render={({ field, fieldState: { error } }) => (
-              <DatePicker
-                label='Birthday'
-                slotProps={{
-                  textField: {
-                    helperText: error?.message,
-                    error: !!error?.message,
-                  },
-                }}
-                {...field}
-                value={field.value}
-              />
-            )}
-          />
-
-          <RHFSelect native name='gender' label='Gender'>
-            {GENDER_OPTIONS.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </RHFSelect>
-
-          <RHFTextField name='streetAddress' label='Street Address' />
-
-          <RHFTextField name='zipCode' label='Zip Code' />
-
-          <RHFTextField name='city' label='City' />
-
-          <RHFSelect native name='country' label='Country'>
-            <option value='' />
-            {countries.map((country) => (
-              <option key={country.code} value={country.label}>
-                {country.label}
-              </option>
-            ))}
-          </RHFSelect>
+          <RHFTextField name='jobTitle' label='نام شرکت' />
         </Box>
-
-        <Stack spacing={3} sx={{ my: 5 }}>
-          <Typography variant='h5'> Change Password </Typography>
-
-          <Stack spacing={2.5}>
-            <RHFTextField
-              name='oldPassword'
-              label='Old Password'
-              type={showPassword ? 'text' : 'password'}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position='end'>
-                    <IconButton onClick={handleShowPassword} edge='end'>
-                      <Iconify
-                        icon={showPassword ? 'carbon:view' : 'carbon:view-off'}
-                      />
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-
-            <RHFTextField
-              name='newPassword'
-              label='New Password'
-              type={showPassword ? 'text' : 'password'}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position='end'>
-                    <IconButton onClick={handleShowPassword} edge='end'>
-                      <Iconify
-                        icon={showPassword ? 'carbon:view' : 'carbon:view-off'}
-                      />
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-
-            <RHFTextField
-              name='confirmNewPassword'
-              label='Confirm New Password'
-              type={showPassword ? 'text' : 'password'}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position='end'>
-                    <IconButton onClick={handleShowPassword} edge='end'>
-                      <Iconify
-                        icon={showPassword ? 'carbon:view' : 'carbon:view-off'}
-                      />
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </Stack>
-        </Stack>
 
         <LoadingButton
           color='inherit'
           size='large'
           type='submit'
           variant='contained'
-          loading={isSubmitting}
+          loading={isLoading}
+          sx={{ marginBlockStart: '3rem', width: '100%' }}
         >
-          Save Changes
+          ذخیره
         </LoadingButton>
       </FormProvider>
     </EcommerceAccountLayout>
   )
 }
+
+export default EcommerceAccountPersonalView
