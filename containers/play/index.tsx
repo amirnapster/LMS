@@ -134,8 +134,8 @@ function PlayComponent() {
         >
           {list()}
         </Drawer>
-        <div style={{ width: "100%", backgroundColor: "black", height: "600px" }}>
-          <div style={{ height: "600px", width: "1066px", margin: "0 auto" }}>
+        <div  className={styles['play__videoWrapperWrapperWrapper']} >
+          <div  className={styles['play__videoWrapperWrapper']} >
             <Row className={styles['play__videoWrapper']}>
               <VideoJS
                 id={selectedLesson.id}

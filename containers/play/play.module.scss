@@ -34,7 +34,16 @@
     width: 100% !important;
     }
   }
-
+  &__videoWrapperWrapper {
+    height: 600px;
+     width: 1066px;
+      margin: 0 auto;
+  }
+  &__videoWrapperWrapperWrapper {
+    width:100%;
+    background-color: black;
+     height: 600px;
+  }
   &__desktopDrawer {
     width: 450px;
     overflow: auto;
@@ -92,5 +101,13 @@
     &__desktopDrawer {
       display: none;
     }
+    &__videoWrapperWrapper {
+      height: auto;
+       width: auto;
+    }   &__videoWrapperWrapperWrapper {
+      height: 0;
+       width: 100%;
+    }
   }
+  
 }
