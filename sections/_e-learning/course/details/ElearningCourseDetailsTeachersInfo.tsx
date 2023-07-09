@@ -5,7 +5,11 @@ import { fShortenNumber } from 'utils/helpers/formatNumber'
 import { ICourseTeacherProp } from 'types/course'
 // components
 import Iconify from 'components/iconify'
-import { ContentProvider, CourseTeacher, Teacher } from 'libs/redux/services/karnama'
+import {
+  ContentProvider,
+  CourseTeacher,
+  Teacher,
+} from 'libs/redux/services/karnama'
 
 // ----------------------------------------------------------------------
 
@@ -16,7 +20,7 @@ type Props = {
 
 export default function ElearningCourseDetailsTeachersInfo({
   teachers = [],
-  provider
+  provider,
 }: Props) {
   return (
     <>
@@ -34,10 +38,9 @@ export default function ElearningCourseDetailsTeachersInfo({
           },
         }}
       >
-
         <ProviderItem provider={provider as ContentProvider} />
       </Box>
-      <Typography variant='h4' sx={{ mb: 5,mt:6 }}>
+      <Typography variant='h4' sx={{ mb: 5, mt: 6 }}>
         مدرس دوره
       </Typography>
 
@@ -51,8 +54,11 @@ export default function ElearningCourseDetailsTeachersInfo({
           },
         }}
       >
-        {teachers.map((teacher) => (
-          <TeacherItem key={teacher.id} teacher={teacher.teacher as Teacher} />
+        {teachers?.map((teacher) => (
+          <TeacherItem
+            key={teacher?.id}
+            teacher={teacher?.teacher as Teacher}
+          />
         ))}
       </Box>
     </>
@@ -65,20 +71,22 @@ type ContentProviderProps = {
 }
 
 function ProviderItem({ provider }: ContentProviderProps) {
-  const { title, avatar, link, bio } = provider
-
   return (
     <Paper variant='outlined' sx={{ p: 3, borderRadius: 2 }}>
       <Stack direction='row' spacing={3} flexWrap='wrap'>
-        <Avatar src={avatar as string} sx={{ width: 72, height: 72 }} />
+        <Avatar
+          src={provider?.avatar as string}
+          sx={{ width: 72, height: 72 }}
+        />
 
         <Stack spacing={1} flexGrow={1}>
           <Stack spacing={0.5}>
-            <Typography variant='h6'>{title}</Typography>
+            <Typography variant='h6'>{provider?.title}</Typography>
             <Typography variant='body2' sx={{ color: 'text.secondary' }}>
-              <Link href={link as string} target="_blank">سایت</Link>
+              <Link href={provider?.link as string} target='_blank'>
+                سایت
+              </Link>
             </Typography>
-
           </Stack>
 
           {/* <Stack spacing={0.5} direction='row' alignItems='center'>
@@ -116,37 +124,39 @@ function ProviderItem({ provider }: ContentProviderProps) {
               {courses}
             </Box>
             Lessons 
-          </Stack>*/}
+          </Stack> */}
         </Stack>
-
       </Stack>
-      <Typography variant='body2' style={{ marginTop: "1rem" }} sx={{ color: 'text.secondary' }}>
-        {bio}
+      <Typography
+        variant='body2'
+        style={{ marginTop: '1rem' }}
+        sx={{ color: 'text.secondary' }}
+      >
+        {provider?.bio}
       </Typography>
     </Paper>
   )
 }
-
 
 type TeacherItemProps = {
   teacher: Teacher
 }
 
 function TeacherItem({ teacher }: TeacherItemProps) {
-  const { title, avatar, profession, bio } = teacher
-
   return (
     <Paper variant='outlined' sx={{ p: 3, borderRadius: 2 }}>
       <Stack direction='row' spacing={3} flexWrap='wrap'>
-        <Avatar src={avatar as string} sx={{ width: 72, height: 72 }} />
+        <Avatar
+          src={teacher?.avatar as string}
+          sx={{ width: 72, height: 72 }}
+        />
 
         <Stack spacing={1} flexGrow={1}>
           <Stack spacing={0.5}>
-            <Typography variant='h6'>{title}</Typography>
+            <Typography variant='h6'>{teacher?.title}</Typography>
             <Typography variant='body2' sx={{ color: 'text.secondary' }}>
-              {profession}
+              {teacher?.profession}
             </Typography>
-
           </Stack>
 
           {/* <Stack spacing={0.5} direction='row' alignItems='center'>
@@ -184,12 +194,15 @@ function TeacherItem({ teacher }: TeacherItemProps) {
               {courses}
             </Box>
             Lessons 
-          </Stack>*/}
+          </Stack> */}
         </Stack>
-
       </Stack>
-      <Typography variant='body2' style={{ marginTop: "1rem" }} sx={{ color: 'text.secondary' }}>
-        {bio}
+      <Typography
+        variant='body2'
+        style={{ marginTop: '1rem' }}
+        sx={{ color: 'text.secondary' }}
+      >
+        {teacher?.bio}
       </Typography>
     </Paper>
   )
