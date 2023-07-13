@@ -5,11 +5,21 @@ import ContactSupport from 'components/contactSupport'
 import Button from 'components/ui/Button'
 import Modal from 'components/ui/Modal'
 import Row from 'components/ui/Row'
+import dayjs from 'dayjs'
+import jalaliday from 'jalaliday'
 
-import type { ReceiptProps } from 'containers/receipt/interface'
+
+import { Payment } from 'libs/redux/services/karnama'
 import styles from '../../receipt.module.scss'
+import { numberSeparator } from 'utils/helpers/global'
 
-const ReceiptFailed = ({ receiptData }: ReceiptProps) => {
+dayjs.extend(jalaliday)
+
+
+interface IReceiptSuccessProps {
+  receiptData: Payment
+}
+const ReceiptFailed = ({ receiptData }: IReceiptSuccessProps) => {
   const [visible, setVisible] = useState(false)
 
   const toggleModal = () => setVisible((prev) => !prev)
@@ -26,6 +36,23 @@ const ReceiptFailed = ({ receiptData }: ReceiptProps) => {
       >
         <FailedReceiptSvg />
         <span className={styles['receipt__failed--title']}>پرداخت ناموفق</span>
+        <div className={styles['receipt__success--tracking']}>
+          <span>مبلغ</span>
+          <span>{`${numberSeparator(receiptData.amount)} ریال`}</span>
+        </div>
+        <div className={styles['receipt__success--date']}>
+          <span>تاریخ:</span>
+          <span>
+            {dayjs(receiptData?.insertDate)
+              .calendar('jalali')
+              .locale('fa')
+              .format('YYYY/MM/DD')}
+          </span>
+        </div>
+        <div className={styles['receipt__success--tracking']}>
+          <span>کد پیگیری:</span><br/>
+          <span>{receiptData.token}</span>
+        </div>
         <span className={styles['receipt__failed--description']}>
           ﭼﻨﺎﻧﭽﻪ ﻣﺒﻠﻐﯽ از ﺣﺴﺎب ﺷﻤﺎ ﮐﺴﺮ ﺷﺪه ﺑﺎﺷﺪ ﺗﺎ 72 ﺳﺎﻋﺖ آﯾﻨﺪه ﺑﺮﮔﺸﺖ داده
           ﻣﯿﺸﻮد

@@ -22,13 +22,14 @@ const Receipt = () => {
       height='460px'
       className='mt-3'
     >
-      <div className={styles['receipt']}>
-        {receiptData?.paid ? (
-          <ReceiptSuccess receiptData={receiptData} />
-        ) : (
-          <ReceiptFailed receiptData={null} />
-        )}
-      </div>
+      {receiptData ? (
+        <div className={styles['receipt']}>
+          {receiptData.paid ? (
+            <ReceiptSuccess receiptData={receiptData} />
+          ) : (
+            <ReceiptFailed receiptData={receiptData} />
+          )}
+        </div>) : <div>loading</div>}
     </SkeletonComponent>
   )
 }
