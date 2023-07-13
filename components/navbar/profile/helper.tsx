@@ -36,8 +36,10 @@ export const NavbarAvatar = () => {
   )
   const { isSearching } = useSelector((state: RootState) => state.navbar)
   const [logoutUser] = useLogoutMutation()
-  const [getInfo, { data }] = useInfoMutation()
-
+  const [getInfo, { data,error }] = useInfoMutation()
+  useEffect(() => {
+    console.log(error)
+  }, [error])
   useEffect(() => {
     getInfo()
   }, [])

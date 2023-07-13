@@ -4,6 +4,7 @@ export const addTagTypes = [
   'Categories',
   'Comment',
   'Courses',
+  'Gift',
   'Payments',
   'Pricing',
   'Qualifications',
@@ -64,6 +65,13 @@ export const injectedRtkApi = api
           method: 'POST',
           body: queryArg.setPasswordCommand,
         }),
+        invalidatesTags: ['Account'],
+      }),
+      getMentorshipUsers: build.mutation<
+        GetMentorshipUsersApiResponse,
+        GetMentorshipUsersApiArg
+      >({
+        query: () => ({ url: `/Account/GetMentorshipUsers`, method: 'POST' }),
         invalidatesTags: ['Account'],
       }),
       signIn: build.mutation<SignInApiResponse, SignInApiArg>({
@@ -163,12 +171,26 @@ export const injectedRtkApi = api
         query: () => ({ url: `/api/Courses/My` }),
         providesTags: ['Courses'],
       }),
+      others: build.query<OthersApiResponse, OthersApiArg>({
+        query: (queryArg) => ({
+          url: `/api/Courses/Others`,
+          params: { id: queryArg.id },
+        }),
+        providesTags: ['Courses'],
+      }),
       getApiCoursesById: build.query<
         GetApiCoursesByIdApiResponse,
         GetApiCoursesByIdApiArg
       >({
         query: (queryArg) => ({ url: `/api/Courses/${queryArg.id}` }),
         providesTags: ['Courses'],
+      }),
+      getGift: build.query<GetGiftApiResponse, GetGiftApiArg>({
+        query: (queryArg) => ({
+          url: `/api/Gift/GetGift`,
+          params: { code: queryArg.code },
+        }),
+        providesTags: ['Gift'],
       }),
       myPayments: build.query<MyPaymentsApiResponse, MyPaymentsApiArg>({
         query: () => ({ url: `/api/Payments/MyPayments` }),
@@ -251,6 +273,9 @@ export type SetUserPasswordApiResponse = unknown
 export type SetUserPasswordApiArg = {
   setPasswordCommand: SetPasswordCommand
 }
+export type GetMentorshipUsersApiResponse =
+  /** status 200 Success */ MentorUserLog[]
+export type GetMentorshipUsersApiArg = void
 export type SignInApiResponse = /** status 200 Success */ Token
 export type SignInApiArg = {
   userSignInForm: UserSignInForm
@@ -296,9 +321,17 @@ export type LogApiArg = {
 }
 export type MyApiResponse = /** status 200 Success */ Course[]
 export type MyApiArg = void
+export type OthersApiResponse = /** status 200 Success */ Course[]
+export type OthersApiArg = {
+  id?: number
+}
 export type GetApiCoursesByIdApiResponse = /** status 200 Success */ Course
 export type GetApiCoursesByIdApiArg = {
   id: number
+}
+export type GetGiftApiResponse = unknown
+export type GetGiftApiArg = {
+  code?: string
 }
 export type MyPaymentsApiResponse = /** status 200 Success */ Payment[]
 export type MyPaymentsApiArg = void
@@ -410,6 +443,7 @@ export type Section = {
   weekNumber?: number
   description?: string | null
   priority?: number
+  isPublished?: boolean | null
   course?: Course
   lessons?: Lesson[] | null
   sectionQuestions?: SectionQuestion[] | null
@@ -578,6 +612,20 @@ export type Exam = {
   examQuestions?: ExamQuestion[] | null
   userAnswers?: UserAnswer[] | null
 }
+export type Gift = {
+  id?: number
+  title?: string | null
+  duration?: number
+  giftUsages?: GiftUsage[] | null
+}
+export type GiftUsage = {
+  id?: number
+  userId?: number
+  giftId?: number
+  insertDate?: string
+  gift?: Gift
+  user?: AspNetUser
+}
 export type Payment = {
   id?: number
   userId?: number
@@ -591,6 +639,14 @@ export type Payment = {
   duration?: number
   card?: string | null
   insertDate?: string | null
+  user?: AspNetUser
+}
+export type UserMentor = {
+  id?: number
+  mentorId?: number
+  userId?: number
+  description?: string | null
+  mentor?: AspNetUser
   user?: AspNetUser
 }
 export type UserVerification = {
@@ -644,11 +700,14 @@ export type AspNetUser = {
   aspNetUserLogins?: AspNetUserLogin[] | null
   aspNetUserTokens?: AspNetUserToken[] | null
   exams?: Exam[] | null
+  giftUsages?: GiftUsage[] | null
   payments?: Payment[] | null
   playLogs?: PlayLog[] | null
   premia?: Premium[] | null
   userAnswers?: UserAnswer[] | null
   userLessonCompleteds?: UserLessonCompleted[] | null
+  userMentorMentors?: UserMentor[] | null
+  userMentorUsers?: UserMentor[] | null
   userVerifications?: UserVerification[] | null
   roles?: AspNetRole[] | null
 }
@@ -716,6 +775,13 @@ export type SetPasswordCommand = {
   confirmPassword?: string | null
   userName: string
 }
+export type MentorUserLog = {
+  mentorId?: number
+  userId?: number
+  fullname?: string | null
+  username?: string | null
+  totalView?: number | null
+}
 export type UserSignInForm = {
   userName?: string | null
   password?: string | null
@@ -769,6 +835,7 @@ export const {
   useVerfySignInByOtpMutation,
   useFromInreMutation,
   useSetUserPasswordMutation,
+  useGetMentorshipUsersMutation,
   useSignInMutation,
   useLogoutMutation,
   useForgetPasswordMutation,
@@ -791,8 +858,12 @@ export const {
   useLogMutation,
   useMyQuery,
   useLazyMyQuery,
+  useOthersQuery,
+  useLazyOthersQuery,
   useGetApiCoursesByIdQuery,
   useLazyGetApiCoursesByIdQuery,
+  useGetGiftQuery,
+  useLazyGetGiftQuery,
   useMyPaymentsQuery,
   useLazyMyPaymentsQuery,
   useReceiptQuery,

@@ -35,6 +35,10 @@ const navigations = [
     title: 'پروفایل',
     path: '/dashboard/profile/',
     icon: <Iconify icon='ph:user' />,
+  },{
+    title: 'کد تخفیف',
+    path: '/dashboard/gift/',
+    icon: <Iconify icon='ph:user' />,
   },
 ]
 

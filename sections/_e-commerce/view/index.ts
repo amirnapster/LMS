@@ -12,3 +12,4 @@ export { default as EcommerceAccountWishlistView } from './EcommerceAccountWishl
 export { default as EcommerceAccountVouchersView } from './EcommerceAccountVouchersView';
 export { default as EcommerceAccountOrdersView } from './EcommerceAccountOrdersView';
 export { default as EcommerceAccountPaymentView } from './EcommerceAccountPaymentView';
+export {default as EcommerceAccountGiftView} from './EcommerceAccountGiftView';
