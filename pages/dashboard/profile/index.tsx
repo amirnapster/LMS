@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import MainLayout from 'layout/main'
+import MainLayout from 'layout/main/MainLayout'
 import { EcommerceAccountPersonalView } from 'sections/_e-commerce/view'
 
 DashboardProfilePage.getLayout = (page: React.ReactElement) => (

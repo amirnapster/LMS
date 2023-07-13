@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import MainLayout from 'layout/main'
+import MainLayout from 'layout/main/MainLayout'
 import { EcommerceAccountLayout } from 'sections/_e-commerce/layout'
 import DashboardComponent from 'containers/dashboard'
 
