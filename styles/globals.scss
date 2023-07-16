@@ -105,10 +105,12 @@ tspan.highcharts-text-outline {
 .MuiToolbar-regular {
   min-height: 0 !important;
 }
+
 /*  just for industry yellow terms searched */
 .yellow {
   background: yellow;
 }
+
 .OrganizeLine svg {
   margin-bottom: -6px;
   margin-inline-start: 3px;
@@ -136,6 +138,34 @@ tspan.highcharts-text-outline {
   transition-duration: 1s;
 }
 
+[data-selector='campaign-wrapper'] {
+  position: fixed;
+  top: 0;
+  z-index: 2000;
+  width: 100%;
+  display: flex;
+  background-color: #f7941c;
+  justify-content: center;
+  align-items: center;
+  height: 57px;
+
+  button {
+    margin: 1rem;
+    color: #f7941c !important;
+    background-color: white !important;
+
+    border-color: white;
+
+    div {
+      background-image: url('/svg/campaign/campaign.gif');
+      background-color: #00985b;
+      background-repeat: no-repeat;
+      background-position: center;
+      height: 64px;
+    }
+  }
+}
+
 .container {
   contain: paint;
   //   @include media-breakpoint-only(sm) {
@@ -158,28 +188,7 @@ tspan.highcharts-text-outline {
   //     box-sizing: border-box;
   //   }
 
-  [data-selector='campaign-wrapper'] {
-    position: sticky;
-    top: 0;
-    z-index: 2000;
-    width: 100%;
-    display: flex;
-    background-color: #2b2d42;
 
-    button {
-      width: 100%;
-      border-radius: unset;
-      padding: unset;
-
-      div {
-        background-image: url('/svg/campaign/campaign.gif');
-        background-color: #00985b;
-        background-repeat: no-repeat;
-        background-position: center;
-        height: 64px;
-      }
-    }
-  }
 }
 
 .vjs-text-track-cue div {
@@ -248,12 +257,13 @@ tspan.highcharts-text-outline {
     ul {
       gap: 1.5rem;
       padding-bottom: 6rem;
+
       li {
         flex: 0 0 240px;
         max-width: 240px;
         min-width: 240px !important;
 
-        > * {
+        >* {
           height: 90%;
         }
       }
@@ -267,12 +277,13 @@ tspan.highcharts-text-outline {
       ul {
         gap: 1rem;
         padding-bottom: 5rem;
+
         li {
           flex: 0 0 180px;
           max-width: 180px;
           min-width: 180px !important;
 
-          > * {
+          >* {
             height: 90%;
           }
         }

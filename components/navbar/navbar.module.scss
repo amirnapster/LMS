@@ -389,7 +389,7 @@
   }
 
   &--campaign {
-    top: 64px;
+    top: 57px;
   }
 
   &--item {
@@ -695,13 +695,13 @@
 
 @include media-breakpoint-only(md) {
   .navbar--campaign {
-    top: 40px;
+    top: 57px;
   }
 }
 
 @include media-breakpoint-down(sm) {
   .navbar--campaign {
-    top: 48px;
+    top: 57px;
   }
 }
 

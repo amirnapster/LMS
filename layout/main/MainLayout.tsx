@@ -8,8 +8,10 @@ import Modal from 'components/ui/Modal'
 import { useDispatch, useSelector } from 'react-redux'
 import type { RootState } from 'libs/redux/store'
 import { clearAuth, setVisible } from 'libs/redux/slices/auth'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useRouter } from 'next/router'
+import MyContext from 'utils/context'
+import Button from 'components/ui/Button'
 
 // ----------------------------------------------------------------------
 
@@ -22,6 +24,7 @@ type Props = {
 export default function MainLayout({ children }: Props) {
   const { asPath } = useRouter()
   const { isSearching } = useSelector((state: RootState) => state.navbar)
+  const { campaign } = useContext(MyContext)
 
   const dispatch = useDispatch()
   const { visible } = useSelector((state: RootState) => state.auth)
@@ -45,6 +48,13 @@ export default function MainLayout({ children }: Props) {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: 1 }}>
+      {campaign && (
+        <div data-selector='campaign-wrapper'>
+          <Button href='https://inre.ir/register/step1?utm_source=ProNamatek&utm_medium=Banner&utm_campaign=lastweek' target='_blank' btnType='secondary'>
+          نماتک، مجری آموزشی آزمون استخدامی
+          </Button>
+        </div>
+      )}
       <Navbar />
       <Modal
         visible={visible}
@@ -58,6 +68,7 @@ export default function MainLayout({ children }: Props) {
         component='main'
         sx={{
           flexGrow: 1,
+          paddingTop:"57px"
         }}
       >
         {/* <Spacing /> */}

@@ -27,13 +27,7 @@ const Layout = ({ children, className }: LayoutProps) => {
 
       {/* <div className='container'> */}
       {/* در کمپین بعدی فاصله ها در دسکتاپ و موبایل در صفحه شرکت و ... چک شود و از فلگ هم استفده شود */}
-      {campaign && (
-        <div data-selector='campaign-wrapper'>
-          <Button href='/pricing'>
-            <div />
-          </Button>
-        </div>
-      )}
+
 
       {/* در کمپین بعدی عکس عوض شود و با فلگ چک شود */}
       {/* <CampaignModal /> */}
