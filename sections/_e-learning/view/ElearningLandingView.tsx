@@ -14,7 +14,6 @@ import {
 } from '../landing'
 import { Course, useGetFeaturedQuery } from 'libs/redux/services/karnama'
 
-import type { ICourseByCategoryProps } from 'types/course'
 import Faq from 'components/faq'
 
 const faqData = [

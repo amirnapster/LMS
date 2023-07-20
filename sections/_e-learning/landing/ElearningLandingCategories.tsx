@@ -3,14 +3,9 @@ import {
   Typography,
   Container,
   Paper,
-  Button,
   Box,
   Unstable_Grid2 as Grid,
 } from '@mui/material'
-// types
-import { ICourseByCategoryProps } from 'types/course'
-// components
-import Iconify from 'components/iconify'
 import TextMaxLine from 'components/text-max-line'
 import Link from 'next/link'
 import Row from 'components/ui/Row'
@@ -39,7 +34,8 @@ export default function ElearningLandingCategories({ categories }: Props) {
       sx={{
         overflow: 'hidden',
         bgcolor: 'background.neutral',
-        py: { xs: 15, md: 5 }
+        pt:{ xs: 15, md: 5 },
+        pb: 5
       }}
     >
       <Container>
