@@ -1,11 +1,14 @@
 import { useLogMutation } from 'libs/redux/services/karnama'
+import { RootState } from 'libs/redux/store'
 import { useEffect, useMemo, useRef } from 'react'
+import { useSelector } from 'react-redux'
 import videojs from 'video.js'
 import 'video.js/dist/video-js.css'
 
 export const VideoJS = (props: any) => {
   const videoRef = useRef<any>(null)
   const playerRef = useRef<any>(null)
+  const { accessToken } = useSelector((state: RootState) => state.auth)
   const { src, id, timeOfVideo } = props
 
   const [sendLog] = useLogMutation()
@@ -45,14 +48,16 @@ export const VideoJS = (props: any) => {
     let isPlaying = false
 
     const localSendLog = (action: string) => {
-      sendLog({
-        playLogDto: {
-          action,
-          time: +player.currentTime().toFixed('0'),
-          lessonId: +(window as any).lessonId,
-          speed: player.playbackRate(),
-        },
-      })
+      if (accessToken) {
+        sendLog({
+          playLogDto: {
+            action,
+            time: +player.currentTime().toFixed('0'),
+            lessonId: +(window as any).lessonId,
+            speed: player.playbackRate(),
+          },
+        })
+      }
     }
 
     player.on(['waiting', 'pause'], () => {
