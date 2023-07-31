@@ -71,7 +71,6 @@ function PlayComponent() {
     <Box
       sx={{ width: 350 }}
       role='presentation'
-      style={{ backgroundColor: '#3a3a3a' }}
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
