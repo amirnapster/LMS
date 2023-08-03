@@ -45,8 +45,6 @@ function PlayComponent() {
     })
   }
 
-  console.log({ course: data, lesson: selectedLesson })
-
   useEffect(() => {
     if (data) findLessonHandler()
   }, [data, query])
@@ -73,13 +71,16 @@ function PlayComponent() {
     <Box
       sx={{ width: 350 }}
       role='presentation'
-      style={{ backgroundColor: "#3a3a3a" }}
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
       {sectionsData?.map((section, index) => (
-        <Row className='mx-1 my-1' direction='column' justify='space-between'
-        style={{borderBottom:"1px solid rgba(255,255,255,.35)"}}>
+        <Row
+          className='mx-1 my-1'
+          direction='column'
+          justify='space-between'
+          style={{ borderBottom: '1px solid rgba(255,255,255,.35)' }}
+        >
           <span className={styles['play__lesson--title']}>{section.title}</span>
 
           {section?.lessons?.map((lesson) => (
@@ -87,7 +88,7 @@ function PlayComponent() {
               className={cn(
                 styles['play__lesson'],
                 lesson.id === selectedLesson.id &&
-                styles['play__lesson--active']
+                  styles['play__lesson--active']
               )}
               onClick={() => selectCourseHandler(lesson)}
             >
@@ -103,7 +104,6 @@ function PlayComponent() {
               </span>
             </ButtonComponent>
           ))}
-
         </Row>
       ))}
     </Box>
@@ -125,21 +125,22 @@ function PlayComponent() {
           anchor='left'
           PaperProps={{
             sx: {
-              backgroundColor: "#3a3a3a"
-            }
+              backgroundColor: '#3a3a3a',
+            },
           }}
-
           open={playDrawerStatus}
           onClose={toggleDrawer(false)}
         >
           {list()}
         </Drawer>
-        <div  className={styles['play__videoWrapperWrapperWrapper']} >
-          <div  className={styles['play__videoWrapperWrapper']} >
+        <div className={styles['play__videoWrapperWrapperWrapper']}>
+          <div className={styles['play__videoWrapperWrapper']}>
             <Row className={styles['play__videoWrapper']}>
               <VideoJS
                 id={selectedLesson.id}
-                timeOfVideo={selectedLesson?.userLessonCompleteds?.[0]?.timeOfVideo}
+                timeOfVideo={
+                  selectedLesson?.userLessonCompleteds?.[0]?.timeOfVideo
+                }
                 src={selectedLesson.videoUrl}
               />
             </Row>
