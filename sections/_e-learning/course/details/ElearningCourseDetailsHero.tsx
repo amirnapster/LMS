@@ -87,8 +87,7 @@ export default function ElearningCourseDetailsHero({ course }: Props) {
             { name: details.titleFa || '' },
           ]}
           sx={{
-            pt: 4,
-            mb: { xs: 3 },
+            mb: { xs: 6 },
           }}
         />
 

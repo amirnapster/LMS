@@ -14,7 +14,7 @@ export default function Breadcrumbs(theme: Theme) {
           display: 'inline-flex',
           margin: theme.spacing(0.25, 0),
           '& > *': {
-            ...theme.typography.body2,
+           fontSize:"1rem"
           },
         },
       },

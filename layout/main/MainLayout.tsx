@@ -68,7 +68,7 @@ export default function MainLayout({ children }: Props) {
         component='main'
         sx={{
           flexGrow: 1,
-          paddingTop:"57px"
+          paddingTop:"34px"
         }}
       >
         {/* <Spacing /> */}

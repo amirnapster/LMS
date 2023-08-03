@@ -21,10 +21,16 @@ import { ElearningCourseList } from '../course/list'
 export default function ElearningCoursesView() {
   const [mobileOpen, setMobileOpen] = useState(false)
 
-  const { data } = useGetCoursesQuery()
+  const { data ,error} = useGetCoursesQuery()
 
   const [loading, setLoading] = useState(true)
 
+
+  useEffect(() => {
+    console.log("errpr",error)
+    //if(error?.name==403)
+    //console.log("403")
+  },[error])
   useEffect(() => {
     const fakeLoading = async () => {
       await new Promise((resolve) => {
