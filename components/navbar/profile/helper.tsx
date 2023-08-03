@@ -31,12 +31,12 @@ dayjs.extend(jalaliday)
 export const NavbarAvatar = () => {
   const dispatch = useDispatch()
   const { replace } = useRouter()
-  const { accessToken, packageType } = useSelector(
+  const { accessToken } = useSelector(
     (state: RootState) => state.auth
   )
   const { isSearching } = useSelector((state: RootState) => state.navbar)
   const [logoutUser] = useLogoutMutation()
-  const [getInfo, { data,error }] = useInfoMutation()
+  const [getInfo, { data, error }] = useInfoMutation()
   useEffect(() => {
     console.log(error)
   }, [error])
@@ -56,15 +56,11 @@ export const NavbarAvatar = () => {
   //       return <PricingPlanFree viewbox='0 0 40 40' />
   //   }
   // }
-
+  const packageType = data?.premium?.package
   const packageTypeConverter = () => {
     switch (packageType) {
-      case 11:
-        return 'شخصی'
-      case 12:
-        return 'شرکتی'
-      case 13:
-        return 'سازمانی'
+      case 0:
+        return 'ویژه'
       default:
         return 'ویژه'
     }
@@ -103,8 +99,8 @@ export const NavbarAvatar = () => {
         >
           <Button className='h-100' ripple>
             <ExpandMore fontSize='medium' color='primary' />
-              <Avatar src='' />
-            
+            <Avatar src='' />
+
           </Button>
         </div>
       }
@@ -116,8 +112,8 @@ export const NavbarAvatar = () => {
           className={styles['navbarProfile__menu__header']}
         >
           <Col className={styles['navbarProfile__menu--avatar']}>
-              <Avatar src='' sx={{ width: '64px', height: '64px' }} />
-            
+            <Avatar src='' sx={{ width: '64px', height: '64px' }} />
+
           </Col>
           <Col span={24} className={styles['navbarProfile__menu--title']}>
             {data?.fullname}
@@ -127,16 +123,16 @@ export const NavbarAvatar = () => {
           </Col>
           <Col span={24} className={styles['navbarProfile__menu--remaining']}>
             اشتراک
-            {packageType !== null && packageType !== undefined && (
+            {packageType !== null && packageType !== undefined ? (
               <>
                 <span data-selector='type'>{packageTypeConverter()}</span>
                 <span data-selector='days'>{dateConverter()}</span>
                 روز مانده
               </>
-            )}
-            {/* : (
-               <span data-selector='free'>رایگان</span>
-             )} */}
+            ) :
+              (
+                <span data-selector='free'>رایگان</span>
+              )}
           </Col>
         </Row>
 
@@ -159,7 +155,7 @@ export const NavbarAvatar = () => {
                     {icon}
                     <span>{title}</span>
                   </Col>
-                 
+
                 </Row>
               </Button>
             )
