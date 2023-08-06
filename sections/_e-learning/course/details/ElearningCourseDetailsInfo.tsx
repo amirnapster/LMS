@@ -1,5 +1,5 @@
 // @mui
-import { Stack, Typography, Card, Box, Button } from '@mui/material'
+import { Stack, Typography, Card, Box } from '@mui/material'
 // utils
 import { fCurrency } from 'utils/helpers/formatNumber'
 // types
@@ -11,6 +11,7 @@ import { RootState } from 'libs/redux/store'
 import { useRouter } from 'next/router'
 import { setVisible } from 'libs/redux/slices/auth'
 import { durationToString } from 'utils/helpers/formatTime'
+import Button from 'components/ui/Button'
 
 // ----------------------------------------------------------------------
 
@@ -122,9 +123,8 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
         </Stack>
 
         <Button
-          variant='contained'
+          btnType='primary'
           size='large'
-          color='inherit'
           onClick={handleRoute}
         >
           شروع دوره
