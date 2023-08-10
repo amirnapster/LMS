@@ -67,12 +67,16 @@ export const VideoJS = (props: any) => {
     player.on('playing', () => {
       isPlaying = true
     })
-
+    let secondCounter = 0
     setInterval(() => {
       if (isPlaying) {
-        localSendLog('Playing')
+        secondCounter++
+        if (secondCounter >= 60) {
+          secondCounter = 0
+          localSendLog('Playing')
+        }
       }
-    }, 60000)
+    }, 1000)
 
     player.on('waiting', () => {
       videojs.log('player is waiting')
@@ -116,8 +120,8 @@ export const VideoJS = (props: any) => {
   }
 
   useEffect(() => {
-    ;(window as any).lessonIdProps = id
-    ;(window as any).timeOfVideo = timeOfVideo
+    ; (window as any).lessonIdProps = id
+      ; (window as any).timeOfVideo = timeOfVideo
 
     // Make sure Video.js player is only initialized once
     if (!playerRef.current) {
@@ -127,10 +131,10 @@ export const VideoJS = (props: any) => {
 
       // The Video.js player needs to be _inside_ the component el for React 18 Strict Mode.
       const videoElement = document.createElement('video-js')
-      ;(window as any).lessonId = id
+        ; (window as any).lessonId = id
 
       videoElement.classList.add('vjs-big-play-centered')
-      ;(videoRef.current as HTMLDivElement).appendChild(videoElement)
+        ; (videoRef.current as HTMLDivElement).appendChild(videoElement)
 
       const player = videojs(videoElement, videoJsOptions, () => {
         videojs.log('player is ready')
@@ -158,7 +162,7 @@ export const VideoJS = (props: any) => {
       // on prop change, for example:
     } else {
       const player = playerRef.current
-      ;(window as any).lessonId = id
+        ; (window as any).lessonId = id
 
       player.autoplay(videoJsOptions.autoplay)
       player.src(videoJsOptions.sources)
