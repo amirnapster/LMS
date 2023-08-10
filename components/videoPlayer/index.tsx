@@ -70,7 +70,7 @@ export const VideoJS = (props: any) => {
     let secondCounter = 0
     setInterval(() => {
       if (isPlaying) {
-        secondCounter++
+        secondCounter += 1
         if (secondCounter >= 60) {
           secondCounter = 0
           localSendLog('Playing')
