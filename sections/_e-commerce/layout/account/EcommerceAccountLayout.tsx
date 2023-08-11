@@ -65,7 +65,6 @@ export default function EcommerceAccountLayout({ children }: Props) {
             sx={{
               flexGrow: 1,
               px: { md: 6,xs:2 },
-              
               width: { md: `calc(100% - ${NAV.W_DRAWER}px)` },
             }}
           >

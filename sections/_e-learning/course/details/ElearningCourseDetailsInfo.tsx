@@ -122,13 +122,13 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
           </Stack> */}
         </Stack>
 
-        <Button
+        {/* <Button
           btnType='primary'
           size='large'
           onClick={handleRoute}
         >
           شروع دوره
-        </Button>
+        </Button> */}
       </Stack>
     </Card>
   )

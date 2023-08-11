@@ -140,26 +140,63 @@ export const injectedRtkApi = api
         }),
         invalidatesTags: ['Comment'],
       }),
+      companySegments: build.query<
+        CompanySegmentsApiResponse,
+        CompanySegmentsApiArg
+      >({
+        query: () => ({ url: `/api/Company/CompanySegments` }),
+        providesTags: ['Company'],
+      }),
+      companyAdminCredits: build.query<
+        CompanyAdminCreditsApiResponse,
+        CompanyAdminCreditsApiArg
+      >({
+        query: (queryArg) => ({
+          url: `/api/Company/CompanyAdminCredits`,
+          params: { id: queryArg.id },
+        }),
+        providesTags: ['Company'],
+      }),
+      addCompanyAdminCredit: build.mutation<
+        AddCompanyAdminCreditApiResponse,
+        AddCompanyAdminCreditApiArg
+      >({
+        query: (queryArg) => ({
+          url: `/api/Company/AddCompanyAdminCredit`,
+          method: 'POST',
+          params: {
+            id: queryArg.id,
+            courseId: queryArg.courseId,
+            credit: queryArg.credit,
+          },
+        }),
+        invalidatesTags: ['Company'],
+      }),
+      companyUser: build.query<CompanyUserApiResponse, CompanyUserApiArg>({
+        query: (queryArg) => ({
+          url: `/api/Company/CompanyUser`,
+          params: { id: queryArg.id },
+        }),
+        providesTags: ['Company'],
+      }),
+      setUserSegmentValue: build.mutation<
+        SetUserSegmentValueApiResponse,
+        SetUserSegmentValueApiArg
+      >({
+        query: (queryArg) => ({
+          url: `/api/Company/SetUserSegmentValue`,
+          method: 'POST',
+          params: {
+            id: queryArg.id,
+            segmentId: queryArg.segmentId,
+            segmentValueId: queryArg.segmentValueId,
+          },
+        }),
+        invalidatesTags: ['Company'],
+      }),
       companyUsers: build.query<CompanyUsersApiResponse, CompanyUsersApiArg>({
         query: () => ({ url: `/api/Company/CompanyUsers` }),
         providesTags: ['Company'],
-      }),
-      getApiCompany: build.query<GetApiCompanyApiResponse, GetApiCompanyApiArg>(
-        {
-          query: () => ({ url: `/api/Company` }),
-          providesTags: ['Company'],
-        }
-      ),
-      postApiCompany: build.mutation<
-        PostApiCompanyApiResponse,
-        PostApiCompanyApiArg
-      >({
-        query: (queryArg) => ({
-          url: `/api/Company`,
-          method: 'POST',
-          params: { id: queryArg.id, active: queryArg.active },
-        }),
-        invalidatesTags: ['Company'],
       }),
       setActivation: build.mutation<
         SetActivationApiResponse,
@@ -201,6 +238,13 @@ export const injectedRtkApi = api
           body: queryArg.playLogDto,
         }),
         invalidatesTags: ['Courses'],
+      }),
+      superPremiumCourses: build.query<
+        SuperPremiumCoursesApiResponse,
+        SuperPremiumCoursesApiArg
+      >({
+        query: () => ({ url: `/api/Courses/SuperPremiumCourses` }),
+        providesTags: ['Courses'],
       }),
       my: build.query<MyApiResponse, MyApiArg>({
         query: () => ({ url: `/api/Courses/My` }),
@@ -364,17 +408,34 @@ export type CommentApiResponse = unknown
 export type CommentApiArg = {
   commentDto: CommentDto
 }
+export type CompanySegmentsApiResponse =
+  /** status 200 Success */ CompanyUserDto[]
+export type CompanySegmentsApiArg = void
+export type CompanyAdminCreditsApiResponse =
+  /** status 200 Success */ CompanyUserDto[]
+export type CompanyAdminCreditsApiArg = {
+  id?: number
+}
+export type AddCompanyAdminCreditApiResponse =
+  /** status 200 Success */ CompanyUserDto[]
+export type AddCompanyAdminCreditApiArg = {
+  id?: number
+  courseId?: number
+  credit?: number
+}
+export type CompanyUserApiResponse = /** status 200 Success */ CompanyUser
+export type CompanyUserApiArg = {
+  id?: number
+}
+export type SetUserSegmentValueApiResponse =
+  /** status 200 Success */ CompanyUserDto[]
+export type SetUserSegmentValueApiArg = {
+  id?: number
+  segmentId?: number
+  segmentValueId?: number
+}
 export type CompanyUsersApiResponse = /** status 200 Success */ CompanyUserDto[]
 export type CompanyUsersApiArg = void
-export type GetApiCompanyApiResponse =
-  /** status 200 Success */ CompanyUserDto[]
-export type GetApiCompanyApiArg = void
-export type PostApiCompanyApiResponse =
-  /** status 200 Success */ CompanyUserDto[]
-export type PostApiCompanyApiArg = {
-  id?: number
-  active?: boolean
-}
 export type SetActivationApiResponse =
   /** status 200 Success */ CompanyUserDto[]
 export type SetActivationApiArg = {
@@ -397,6 +458,8 @@ export type LogApiResponse = unknown
 export type LogApiArg = {
   playLogDto: PlayLogDto
 }
+export type SuperPremiumCoursesApiResponse = /** status 200 Success */ Course[]
+export type SuperPremiumCoursesApiArg = void
 export type MyApiResponse = /** status 200 Success */ Course[]
 export type MyApiArg = void
 export type OthersApiResponse = /** status 200 Success */ Course[]
@@ -514,6 +577,7 @@ export type CompanyUserSegment = {
   id?: number
   userId?: number
   segmentValueId?: number
+  segmentId?: number
   segmentValue?: CompanySegmentValue
   user?: AspNetUser
 }
@@ -784,6 +848,16 @@ export type Exam = {
   examQuestions?: ExamQuestion[] | null
   userAnswers?: UserAnswer[] | null
 }
+export type UserMentorCredit = {
+  id?: number
+  mentorId?: number
+  userId?: number
+  courseId?: number
+  usedCredit?: number
+  totalCredit?: number
+  insertDate?: string
+  course?: Course
+}
 export type Course = {
   id?: number
   title?: string | null
@@ -809,6 +883,7 @@ export type Course = {
   enrolls?: Enroll[] | null
   exams?: Exam[] | null
   sections?: Section[] | null
+  userMentorCredits?: UserMentorCredit[] | null
 }
 export type CompanyAdminCredit = {
   id?: number
@@ -1129,11 +1204,16 @@ export const {
   useGetApiCategoriesByIdQuery,
   useLazyGetApiCategoriesByIdQuery,
   useCommentMutation,
+  useCompanySegmentsQuery,
+  useLazyCompanySegmentsQuery,
+  useCompanyAdminCreditsQuery,
+  useLazyCompanyAdminCreditsQuery,
+  useAddCompanyAdminCreditMutation,
+  useCompanyUserQuery,
+  useLazyCompanyUserQuery,
+  useSetUserSegmentValueMutation,
   useCompanyUsersQuery,
   useLazyCompanyUsersQuery,
-  useGetApiCompanyQuery,
-  useLazyGetApiCompanyQuery,
-  usePostApiCompanyMutation,
   useSetActivationMutation,
   useGetCoursesQuery,
   useLazyGetCoursesQuery,
@@ -1144,6 +1224,8 @@ export const {
   useByCategoryQuery,
   useLazyByCategoryQuery,
   useLogMutation,
+  useSuperPremiumCoursesQuery,
+  useLazySuperPremiumCoursesQuery,
   useMyQuery,
   useLazyMyQuery,
   useOthersQuery,
