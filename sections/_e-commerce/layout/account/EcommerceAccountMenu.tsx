@@ -35,10 +35,16 @@ const navigations = [
     title: 'پروفایل',
     path: '/dashboard/profile/',
     icon: <Iconify icon='ph:user' />,
-  },{
+  }, {
     title: 'کد تخفیف',
     path: '/dashboard/gift/',
     icon: <Iconify icon='ph:user' />,
+  },
+  {
+    title: 'لیست کارکنان',
+    path: '/dashboard/company/users/',
+    icon: <Iconify icon='pepicons-print:people' />,
+    forCompanyAdmin: true
   },
 ]
 
@@ -113,9 +119,11 @@ export default function EcommerceAccountMenu({ open, onClose }: Props) {
       <Divider sx={{ borderStyle: 'dashed' }} />
 
       <Stack sx={{ my: 1, px: 2 }}>
-        {navigations.map((item) => (
-          <MenuItem key={item.title} item={item} />
-        ))}
+        {navigations.map((item) => {
+          return (!item.forCompanyAdmin || data?.isCompanyAdmin) &&
+            <MenuItem key={item.title} item={item} />
+        }
+        )}
       </Stack>
 
       <Divider sx={{ borderStyle: 'dashed' }} />

@@ -1048,6 +1048,7 @@ export type UserInfo = {
   totalCredit?: number | null
   usedCredit?: number | null
   parentUser?: UserMentor
+  isCompanyAdmin?: boolean
 }
 export type ApiError = {
   message?: string | null

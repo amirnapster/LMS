@@ -14,6 +14,7 @@ import Button from 'components/ui/Button'
 import dayjs from 'dayjs'
 import jalaliday from 'jalaliday'
 import Iconify from 'components/iconify/Iconify';
+import Link from 'next/link';
 
 dayjs.extend(jalaliday)
 
@@ -31,7 +32,11 @@ function EcommerceAccountCompanyUsers() {
   };
 
   const columns: GridColDef[] = [
-    { field: "fullname", headerName: "نام", flex: 1, minWidth: 140 },
+    { field: "fullname", headerName: "نام", flex: 1, minWidth: 140 ,
+  renderCell:(params:any)=>{
+    return <Link target='_blank' href={`/dashboard/company/users/${params.row.id}`}>{params.row.fullname}</Link>
+  }
+  },
     { field: "username", headerName: "موبایل", flex: 1, minWidth: 110 },
     {
       field: "insertDate", headerName: "تاریخ", flex: 1, minWidth: 110,
@@ -96,7 +101,6 @@ function EcommerceAccountCompanyUsers() {
           rowHeight={50}
           columns={columns}
           rows={data || []}
-          onRowClick={(event)=>{openInNewTab(`/dashboard/company/users/${event.id}`)}}
           disableColumnFilter
           unstable_headerFilters
           slots={{
