@@ -26,6 +26,10 @@ function EcommerceAccountCompanyUsers() {
   const [setActivation, { isLoading }] = useSetActivationMutation()
 
   const { accessToken } = useSelector((state: RootState) => state.auth)
+  const openInNewTab = (url:string) => {
+    window.open(url, '_blank', );
+  };
+
   const columns: GridColDef[] = [
     { field: "fullname", headerName: "نام", flex: 1, minWidth: 140 },
     { field: "username", headerName: "موبایل", flex: 1, minWidth: 110 },
@@ -92,6 +96,7 @@ function EcommerceAccountCompanyUsers() {
           rowHeight={50}
           columns={columns}
           rows={data || []}
+          onRowClick={(event)=>{openInNewTab(`/dashboard/company/users/${event.id}`)}}
           disableColumnFilter
           unstable_headerFilters
           slots={{

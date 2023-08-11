@@ -148,7 +148,7 @@ function EcommerceAccountCompanyUserDetail() {
           width={24}
           marginRight={0.5} />
         {data?.user?.fullname}  ( {data && segments?.map((segment:CompanySegment) => `${segment.title}: ${
-          segment.companySegmentValues.find(s=>s.id==segmentValues[segment.id])?.title} `)})
+          segment?.companySegmentValues?.find(s=>s.id==segmentValues[segment.id as number])?.title} `)})
       </Typography>
       <Paper variant='outlined' elevation={12} style={{ padding: 8, }}>
         <Stack direction="row" spacing={2}>
