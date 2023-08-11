@@ -69,7 +69,7 @@ export default function ReviewNewForm({ onClose, ...other }: Props) {
   const onSubmit = async (data: FormValuesProps) => {
     try {
 
-      submitComment( { comment:{text:data.review, rate: +(data.rating as number), courseId:details?.id}})
+      submitComment( { commentDto:{text:data.review, rate: +(data.rating as number), courseId:details?.id}})
       reset()
       onClose()
       console.log('DATA', data)
