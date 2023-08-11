@@ -39,7 +39,7 @@ export const notify = ({ type = '', message = '', config }: Props) => {
   const options = {
     autoClose: 3000,
     newestOnTop: false,
-    rtl: false,
+    rtl: true,
     pauseOnFocusLoss: false,
     draggable: true,
     hideProgressBar: true,

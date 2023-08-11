@@ -71,15 +71,14 @@ function EcommerceAccountPersonalView() {
   return (
     <EcommerceAccountLayout>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-        {/* <Typography variant='h5' sx={{ mb: 3 }}>
-          شخصی
-        </Typography> */}
-
+      <Typography variant='h5' sx={{ mb: 3 }}>
+          اطلاعات فردی
+        </Typography>
         <Box
           rowGap={2.5}
           columnGap={2}
           display='grid'
-          gridTemplateColumns={{ xs: 'repeat(1, 1fr)' }}
+          gridTemplateColumns={{ xs: 'repeat(3, 1fr)' }}
         >
           <RHFTextField name='fullname' label='نام و نام خانوادگی' />
 
@@ -94,9 +93,9 @@ function EcommerceAccountPersonalView() {
           type='submit'
           variant='contained'
           loading={isLoading}
-          sx={{ marginBlockStart: '3rem', width: '100%' }}
+          sx={{ marginBlockStart: '3rem' }}
         >
-          ذخیره
+          اعمال تغییرات
         </LoadingButton>
       </FormProvider>
     </EcommerceAccountLayout>

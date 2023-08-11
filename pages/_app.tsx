@@ -91,7 +91,7 @@ const MyApp = ({
                     {getLayout(<Component {...pageProps} />)}
                   </MotionLazyContainer>
                 </MyContext.Provider>
-                <ToastContainer enableMultiContainer limit={1} />
+                <ToastContainer enableMultiContainer   />
               </PersistGate>
             </ThemeSettings>
           </CustomTheme>

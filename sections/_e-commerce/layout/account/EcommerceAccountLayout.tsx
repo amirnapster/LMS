@@ -44,13 +44,7 @@ export default function EcommerceAccountLayout({ children }: Props) {
         </Box>
       )}
 
-      <Container
-        sx={{
-          mt: {
-            xs: 5,
-          },
-        }}
-      >
+      
         <Stack
           direction={{
             md: 'row',
@@ -70,14 +64,15 @@ export default function EcommerceAccountLayout({ children }: Props) {
           <Box
             sx={{
               flexGrow: 1,
-              pl: { md: 8 },
+              px: { md: 6,xs:2 },
+              
               width: { md: `calc(100% - ${NAV.W_DRAWER}px)` },
             }}
           >
             {children}
           </Box>
         </Stack>
-      </Container>
+      
     </>
   )
 }

@@ -3,8 +3,10 @@ export const addTagTypes = [
   'Account',
   'Categories',
   'Comment',
+  'Company',
   'Courses',
   'Gift',
+  'Mentor',
   'Payments',
   'Pricing',
   'Qualifications',
@@ -67,11 +69,12 @@ export const injectedRtkApi = api
         }),
         invalidatesTags: ['Account'],
       }),
-      getMentorshipUsers: build.mutation<
-        GetMentorshipUsersApiResponse,
-        GetMentorshipUsersApiArg
-      >({
-        query: () => ({ url: `/Account/GetMentorshipUsers`, method: 'POST' }),
+      addSubUser: build.mutation<AddSubUserApiResponse, AddSubUserApiArg>({
+        query: (queryArg) => ({
+          url: `/Account/AddSubUser`,
+          method: 'POST',
+          body: queryArg.addSubUserForm,
+        }),
         invalidatesTags: ['Account'],
       }),
       signIn: build.mutation<SignInApiResponse, SignInApiArg>({
@@ -133,9 +136,41 @@ export const injectedRtkApi = api
         query: (queryArg) => ({
           url: `/api/Comment/Comment`,
           method: 'POST',
-          body: queryArg.comment,
+          body: queryArg.commentDto,
         }),
         invalidatesTags: ['Comment'],
+      }),
+      companyUsers: build.query<CompanyUsersApiResponse, CompanyUsersApiArg>({
+        query: () => ({ url: `/api/Company/CompanyUsers` }),
+        providesTags: ['Company'],
+      }),
+      getApiCompany: build.query<GetApiCompanyApiResponse, GetApiCompanyApiArg>(
+        {
+          query: () => ({ url: `/api/Company` }),
+          providesTags: ['Company'],
+        }
+      ),
+      postApiCompany: build.mutation<
+        PostApiCompanyApiResponse,
+        PostApiCompanyApiArg
+      >({
+        query: (queryArg) => ({
+          url: `/api/Company`,
+          method: 'POST',
+          params: { id: queryArg.id, active: queryArg.active },
+        }),
+        invalidatesTags: ['Company'],
+      }),
+      setActivation: build.mutation<
+        SetActivationApiResponse,
+        SetActivationApiArg
+      >({
+        query: (queryArg) => ({
+          url: `/api/Company/SetActivation`,
+          method: 'POST',
+          params: { id: queryArg.id, active: queryArg.active },
+        }),
+        invalidatesTags: ['Company'],
       }),
       getCourses: build.query<GetCoursesApiResponse, GetCoursesApiArg>({
         query: () => ({ url: `/api/Courses/GetCourses` }),
@@ -191,6 +226,31 @@ export const injectedRtkApi = api
           params: { code: queryArg.code },
         }),
         providesTags: ['Gift'],
+      }),
+      getSubUsersCredit: build.query<
+        GetSubUsersCreditApiResponse,
+        GetSubUsersCreditApiArg
+      >({
+        query: () => ({ url: `/Mentor/GetSubUsersCredit` }),
+        providesTags: ['Mentor'],
+      }),
+      addSubUsersCredit: build.mutation<
+        AddSubUsersCreditApiResponse,
+        AddSubUsersCreditApiArg
+      >({
+        query: (queryArg) => ({
+          url: `/Mentor/AddSubUsersCredit`,
+          method: 'POST',
+          body: queryArg.addCompanyAdminCreditDto,
+        }),
+        invalidatesTags: ['Mentor'],
+      }),
+      getMentorshipUserLogs: build.mutation<
+        GetMentorshipUserLogsApiResponse,
+        GetMentorshipUserLogsApiArg
+      >({
+        query: () => ({ url: `/Mentor/GetMentorshipUserLogs`, method: 'POST' }),
+        invalidatesTags: ['Mentor'],
       }),
       myPayments: build.query<MyPaymentsApiResponse, MyPaymentsApiArg>({
         query: () => ({ url: `/api/Payments/MyPayments` }),
@@ -273,9 +333,10 @@ export type SetUserPasswordApiResponse = unknown
 export type SetUserPasswordApiArg = {
   setPasswordCommand: SetPasswordCommand
 }
-export type GetMentorshipUsersApiResponse =
-  /** status 200 Success */ MentorUserLog[]
-export type GetMentorshipUsersApiArg = void
+export type AddSubUserApiResponse = unknown
+export type AddSubUserApiArg = {
+  addSubUserForm: AddSubUserForm
+}
 export type SignInApiResponse = /** status 200 Success */ Token
 export type SignInApiArg = {
   userSignInForm: UserSignInForm
@@ -301,7 +362,24 @@ export type GetApiCategoriesByIdApiArg = {
 }
 export type CommentApiResponse = unknown
 export type CommentApiArg = {
-  comment: Comment
+  commentDto: CommentDto
+}
+export type CompanyUsersApiResponse = /** status 200 Success */ CompanyUserDto[]
+export type CompanyUsersApiArg = void
+export type GetApiCompanyApiResponse =
+  /** status 200 Success */ CompanyUserDto[]
+export type GetApiCompanyApiArg = void
+export type PostApiCompanyApiResponse =
+  /** status 200 Success */ CompanyUserDto[]
+export type PostApiCompanyApiArg = {
+  id?: number
+  active?: boolean
+}
+export type SetActivationApiResponse =
+  /** status 200 Success */ CompanyUserDto[]
+export type SetActivationApiArg = {
+  id?: number
+  active?: boolean
 }
 export type GetCoursesApiResponse = /** status 200 Success */ Course[]
 export type GetCoursesApiArg = void
@@ -333,6 +411,17 @@ export type GetGiftApiResponse = unknown
 export type GetGiftApiArg = {
   code?: string
 }
+export type GetSubUsersCreditApiResponse =
+  /** status 200 Success */ CompanyAdminCreditDto[]
+export type GetSubUsersCreditApiArg = void
+export type AddSubUsersCreditApiResponse =
+  /** status 200 Success */ CompanyAdminCredit
+export type AddSubUsersCreditApiArg = {
+  addCompanyAdminCreditDto: AddCompanyAdminCreditDto
+}
+export type GetMentorshipUserLogsApiResponse =
+  /** status 200 Success */ MentorUserLog[]
+export type GetMentorshipUserLogsApiArg = void
 export type MyPaymentsApiResponse = /** status 200 Success */ Payment[]
 export type MyPaymentsApiArg = void
 export type ReceiptApiResponse = /** status 200 Success */ Payment
@@ -388,6 +477,84 @@ export type AspNetUserToken = {
   value?: string | null
   user?: AspNetUser
 }
+export type CompanyAdmin = {
+  id?: number
+  companyId?: number
+  adminId?: number
+  insertDate?: string
+  isActive?: boolean | null
+  admin?: AspNetUser
+  company?: Company
+}
+export type CompanyCredit = {
+  id?: number
+  companyId?: number
+  usedCredit?: number
+  totalCredit?: number
+  totalPrice?: number
+  insertDate?: string
+  company?: Company
+}
+export type CompanyIpRange = {
+  id?: number
+  ipFrom?: number
+  ipTo?: number
+  companyId?: number
+  insertDate?: string
+  company?: Company
+}
+export type CompanySegment = {
+  id?: number
+  companyId?: number
+  title?: string | null
+  company?: Company
+  companySegmentValues?: CompanySegmentValue[] | null
+}
+export type CompanyUserSegment = {
+  id?: number
+  userId?: number
+  segmentValueId?: number
+  segmentValue?: CompanySegmentValue
+  user?: AspNetUser
+}
+export type CompanySegmentValue = {
+  id?: number
+  companySegmentId?: number
+  title?: string | null
+  companySegment?: CompanySegment
+  companyMentorAccesses?: CompanyMentorAccess[] | null
+  companyUserSegments?: CompanyUserSegment[] | null
+}
+export type CompanyMentorAccess = {
+  id?: number
+  companyId?: number
+  mentorId?: number
+  segmentValueId?: number
+  company?: Company
+  mentor?: AspNetUser
+  segmentValue?: CompanySegmentValue
+}
+export type CompanyUser = {
+  id?: number
+  companyId?: number
+  userId?: number
+  isActive?: boolean
+  insertDate?: string
+  company?: Company
+  user?: AspNetUser
+}
+export type Company = {
+  id?: number
+  title?: string | null
+  insertDate?: string
+  companyAdminCredits?: CompanyAdminCredit[] | null
+  companyAdmins?: CompanyAdmin[] | null
+  companyCredits?: CompanyCredit[] | null
+  companyIpRanges?: CompanyIpRange[] | null
+  companyMentorAccesses?: CompanyMentorAccess[] | null
+  companySegments?: CompanySegment[] | null
+  companyUsers?: CompanyUser[] | null
+}
 export type CourseQualification = {
   id?: number
   courseId?: number
@@ -396,14 +563,42 @@ export type CourseQualification = {
   course?: Course
   qualitfication?: Qualification
 }
+export type QualificationAdmin = {
+  id?: number
+  adminId?: string | null
+  qualificationId?: number
+  qualification?: Qualification
+}
+export type Question = {
+  id?: number
+  question1?: string | null
+  answer1?: string | null
+  answer2?: string | null
+  answer3?: string | null
+  answer4?: string | null
+  difficulty?: number | null
+  adminDesc?: string | null
+  revesionOf?: number | null
+  isPublished?: boolean
+  insertDate?: string
+  qualificationId?: number
+  inreYear?: number | null
+  authorId?: string | null
+  correctAnswer?: number
+  updateDate?: string | null
+  qualification?: Qualification
+}
 export type Qualification = {
   id?: number
   title?: string | null
   categoryId?: number
   titleEn?: string | null
   description?: string | null
+  bookletCode?: string | null
   category?: Category
   courseQualifications?: CourseQualification[] | null
+  qualificationAdmins?: QualificationAdmin[] | null
+  questions?: Question[] | null
 }
 export type Category = {
   id?: number
@@ -543,29 +738,6 @@ export type Enroll = {
   progress?: number
   course?: Course
 }
-export type Course = {
-  id?: number
-  title?: string | null
-  titleFa?: string | null
-  totalDuration?: number | null
-  imageUrl?: string | null
-  categoryId?: number
-  description?: string | null
-  shortDescription?: string | null
-  slug?: string | null
-  isPublished?: boolean
-  isFeatured?: boolean
-  providerId?: number
-  category?: Category
-  provider?: ContentProvider
-  comments?: Comment[] | null
-  courseQualifications?: CourseQualification[] | null
-  courseTags?: CourseTag[] | null
-  courseTeachers?: CourseTeacher[] | null
-  enrolls?: Enroll[] | null
-  exams?: Exam[] | null
-  sections?: Section[] | null
-}
 export type UserAnswer = {
   id?: number
   userId?: number
@@ -612,6 +784,46 @@ export type Exam = {
   examQuestions?: ExamQuestion[] | null
   userAnswers?: UserAnswer[] | null
 }
+export type Course = {
+  id?: number
+  title?: string | null
+  titleFa?: string | null
+  totalDuration?: number | null
+  imageUrl?: string | null
+  categoryId?: number
+  description?: string | null
+  shortDescription?: string | null
+  slug?: string | null
+  isPublished?: boolean
+  isFeatured?: boolean
+  providerId?: number
+  priority?: number | null
+  superPremium?: boolean
+  category?: Category
+  provider?: ContentProvider
+  comments?: Comment[] | null
+  companyAdminCredits?: CompanyAdminCredit[] | null
+  courseQualifications?: CourseQualification[] | null
+  courseTags?: CourseTag[] | null
+  courseTeachers?: CourseTeacher[] | null
+  enrolls?: Enroll[] | null
+  exams?: Exam[] | null
+  sections?: Section[] | null
+}
+export type CompanyAdminCredit = {
+  id?: number
+  adminId?: number
+  userId?: number
+  courseId?: number
+  totalCredit?: number
+  usedCredit?: number
+  insertDate?: string
+  companyId?: number
+  admin?: AspNetUser
+  company?: Company
+  course?: Course
+  user?: AspNetUser
+}
 export type Gift = {
   id?: number
   title?: string | null
@@ -639,6 +851,24 @@ export type Payment = {
   duration?: number
   card?: string | null
   insertDate?: string | null
+  user?: AspNetUser
+}
+export type Session = {
+  id?: number
+  userId?: number
+  token?: string | null
+  insertDate?: string
+  expireDate?: string
+  isActive?: boolean
+  userAgent?: string | null
+  ip?: number | null
+  user?: AspNetUser
+}
+export type Suggestion = {
+  id?: number
+  userId?: number | null
+  text?: string | null
+  insertDate?: string
   user?: AspNetUser
 }
 export type UserMentor = {
@@ -699,11 +929,19 @@ export type AspNetUser = {
   aspNetUserClaims?: AspNetUserClaim[] | null
   aspNetUserLogins?: AspNetUserLogin[] | null
   aspNetUserTokens?: AspNetUserToken[] | null
+  companyAdminCreditAdmins?: CompanyAdminCredit[] | null
+  companyAdminCreditUsers?: CompanyAdminCredit[] | null
+  companyAdmins?: CompanyAdmin[] | null
+  companyMentorAccesses?: CompanyMentorAccess[] | null
+  companyUserSegments?: CompanyUserSegment[] | null
+  companyUsers?: CompanyUser[] | null
   exams?: Exam[] | null
   giftUsages?: GiftUsage[] | null
   payments?: Payment[] | null
   playLogs?: PlayLog[] | null
   premia?: Premium[] | null
+  sessions?: Session[] | null
+  suggestions?: Suggestion[] | null
   userAnswers?: UserAnswer[] | null
   userLessonCompleteds?: UserLessonCompleted[] | null
   userMentorMentors?: UserMentor[] | null
@@ -719,13 +957,22 @@ export type Premium = {
   untilDate?: string
   user?: AspNetUser
 }
+export type SubUser = {
+  id?: number
+  username?: string | null
+}
 export type UserInfo = {
   id?: number
+  isMentor?: boolean
   fullname?: string | null
   premium?: Premium
   companyName?: string | null
   jobTitle?: string | null
   username?: string | null
+  subUsers?: SubUser[] | null
+  totalCredit?: number | null
+  usedCredit?: number | null
+  parentUser?: UserMentor
 }
 export type ApiError = {
   message?: string | null
@@ -744,6 +991,11 @@ export type Token = {
   isNewUser?: boolean
   completedProfile?: boolean
   packageType?: number
+}
+export type SessionDto = {
+  id?: number
+  userAgent?: string | null
+  insertDate?: string
 }
 export type VerfySignInByOtpCommand = {
   userName?: string | null
@@ -775,12 +1027,8 @@ export type SetPasswordCommand = {
   confirmPassword?: string | null
   userName: string
 }
-export type MentorUserLog = {
-  mentorId?: number
-  userId?: number
-  fullname?: string | null
-  username?: string | null
-  totalView?: number | null
+export type AddSubUserForm = {
+  userName?: string | null
 }
 export type UserSignInForm = {
   userName?: string | null
@@ -799,11 +1047,51 @@ export type CategoryCount = {
   title?: string | null
   count?: number
 }
+export type CommentDto = {
+  text?: string | null
+  courseId?: number
+  lessonId?: number | null
+  rate?: number
+}
+export type CompanyUserDto = {
+  id?: number
+  isActive?: boolean
+  userId?: number
+  username?: string | null
+  fullname?: string | null
+  col1?: string | null
+  colName1?: string | null
+  colName2?: string | null
+  col2?: string | null
+  insertDate?: string
+}
 export type PlayLogDto = {
   action?: string | null
   lessonId?: number
   time?: number
   speed?: number
+}
+export type CompanyAdminCreditDto = {
+  id?: number
+  adminId?: number
+  userId?: number
+  courseId?: number
+  usedCredit?: number
+  totalCredit?: number
+  subUser?: SubUser
+  course?: Course
+}
+export type AddCompanyAdminCreditDto = {
+  userId?: number
+  courseId?: number
+  totalCredit?: number
+}
+export type MentorUserLog = {
+  mentorId?: number
+  userId?: number
+  fullname?: string | null
+  username?: string | null
+  totalView?: number | null
 }
 export type CampaignPrice = {
   id?: number
@@ -822,12 +1110,6 @@ export type Pricing = {
   title?: string | null
   badge?: string | null
 }
-export type Suggestion = {
-  id?: number
-  userId?: number | null
-  text?: string | null
-  insertDate?: string
-}
 export const {
   useSignInByOtpMutation,
   useInfoMutation,
@@ -835,7 +1117,7 @@ export const {
   useVerfySignInByOtpMutation,
   useFromInreMutation,
   useSetUserPasswordMutation,
-  useGetMentorshipUsersMutation,
+  useAddSubUserMutation,
   useSignInMutation,
   useLogoutMutation,
   useForgetPasswordMutation,
@@ -847,6 +1129,12 @@ export const {
   useGetApiCategoriesByIdQuery,
   useLazyGetApiCategoriesByIdQuery,
   useCommentMutation,
+  useCompanyUsersQuery,
+  useLazyCompanyUsersQuery,
+  useGetApiCompanyQuery,
+  useLazyGetApiCompanyQuery,
+  usePostApiCompanyMutation,
+  useSetActivationMutation,
   useGetCoursesQuery,
   useLazyGetCoursesQuery,
   useGetFeaturedQuery,
@@ -864,6 +1152,10 @@ export const {
   useLazyGetApiCoursesByIdQuery,
   useGetGiftQuery,
   useLazyGetGiftQuery,
+  useGetSubUsersCreditQuery,
+  useLazyGetSubUsersCreditQuery,
+  useAddSubUsersCreditMutation,
+  useGetMentorshipUserLogsMutation,
   useMyPaymentsQuery,
   useLazyMyPaymentsQuery,
   useReceiptQuery,
