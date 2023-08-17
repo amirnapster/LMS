@@ -1,41 +1,16 @@
-import { toast } from 'react-toastify'
+import { toast } from 'react-hot-toast'
 import type { ReactElement } from 'react'
-
-type ToastPosition =
-  | 'top-right'
-  | 'top-center'
-  | 'top-left'
-  | 'bottom-right'
-  | 'bottom-center'
-  | 'bottom-left'
+ 
 type TypeProps = 'warn' | 'success' | 'error' | 'info' | ''
 type DraggableDirection = 'x' | 'y'
 
-export interface OptionProps {
-  autoClose?: number | false
-  newestOnTop?: boolean
-  rtl?: boolean
-  pauseOnFocusLoss?: boolean
-  draggable?: boolean
-  hideProgressBar?: boolean
-  pauseOnHover?: boolean
-  position?: ToastPosition
-  onOpen?: () => void
-  onClose?: () => void
-  draggableDirection?: DraggableDirection
-  delay?: number
-  className?: string
-  bodyClassName?: string
-  containerId?: string
-}
+ 
 
 interface Props {
   type?: TypeProps
-  message?: string | ReactElement
-  config?: OptionProps
-}
+  message?: string | ReactElement}
 
-export const notify = ({ type = '', message = '', config }: Props) => {
+export const notify = ({ type = '', message = '' }: Props) => {
   const options = {
     autoClose: 3000,
     newestOnTop: false,
@@ -43,27 +18,25 @@ export const notify = ({ type = '', message = '', config }: Props) => {
     pauseOnFocusLoss: false,
     draggable: true,
     hideProgressBar: true,
-    position: toast.POSITION.BOTTOM_CENTER,
     pauseOnHover: true,
     className: 'notification',
     bodyClassName: '',
   }
-  const newOptions = { ...options, ...config }
 
   switch (type) {
     case 'error':
-      return toast.error(message || 'عملیات ناموفق بوده است', newOptions)
+      return toast.error(message || 'عملیات ناموفق بوده است', options)
     case 'info':
-      return toast.info(message || 'عملیاتی رخ داده است', newOptions)
+      return toast(message || 'عملیاتی رخ داده است', options)
     case 'warn':
-      return toast.warn(
+      return toast.error(
         message || 'در انجام عملیات مشکلی رخ داده است',
-        newOptions
+        options
       )
     default:
       return toast.success(
         message || 'عملیات با موفقیت انجام شده است',
-        newOptions
+        options
       )
   }
 }

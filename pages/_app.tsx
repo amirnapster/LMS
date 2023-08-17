@@ -7,7 +7,7 @@ import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { store, persistor } from 'libs/redux/store'
 import { IntlProvider } from 'react-intl'
-import { ToastContainer } from 'react-toastify'
+import { Toaster } from 'react-hot-toast'
 import { gtm } from 'utils/helpers/tagManager'
 import { changeBodyDir, setTheme } from 'utils/helpers/global'
 import type { AppContext } from 'next/app'
@@ -91,7 +91,7 @@ const MyApp = ({
                     {getLayout(<Component {...pageProps} />)}
                   </MotionLazyContainer>
                 </MyContext.Provider>
-                <ToastContainer enableMultiContainer   />
+                <Toaster position='top-center'/>
               </PersistGate>
             </ThemeSettings>
           </CustomTheme>
