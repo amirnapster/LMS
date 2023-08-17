@@ -10,12 +10,14 @@ import SvgSprite from 'assets/sprite'
 
 import type { RootState } from 'libs/redux/store'
 import styles from './navbarProfile.module.scss'
+import type { UserInfo } from 'libs/redux/services/karnama'
 
 interface NavbarProfileProps {
   children?: JSX.Element
+  data: UserInfo| undefined
 }
 
-const NavbarProfile = ({ children }: NavbarProfileProps) => {
+const NavbarProfile = (  { children ,data}: NavbarProfileProps) => {
   const dispatch = useDispatch()
   const intl = useIntl()
   const { accessToken } = useSelector((state: RootState) => state.auth)
@@ -33,18 +35,32 @@ const NavbarProfile = ({ children }: NavbarProfileProps) => {
       className={styles['navbarProfile']}
     >
       <>
-        <Button
-          className={styles['navbarProfile__subscription']}
-          btnType='primary'
-          bgColor='white-gold-gradient'
-          color='black'
-          href='/pricing'
-          id='navbar-pricing'
-          ripple
-        >
-          <span>خرید اشتراک</span>
-          <SvgSprite id='jet' />
-        </Button>
+
+        {data?.isInCompany == false ?
+          <Button
+            className={styles['navbar__subscription']}
+            btnType='primary'
+            bgColor='white-gold-gradient'
+            color='black'
+            href='/pricing'
+            id='navbar-pricing'
+            ripple
+          >
+            <span>خرید اشتراک</span>
+            <SvgSprite id='jet' />
+          </Button> :
+          <Button
+            className={styles['navbar__subscription']}
+            btnType='primary'
+            bgColor='white-blue-gradient'
+            color='white'
+            href='/courses'
+            id='navbar-courses'
+            ripple
+          >
+            <span>همه آموزش‌ها</span>
+          </Button>
+        }
         {!accessToken ? (
           <Button
             className={styles['navbarProfile__login']}

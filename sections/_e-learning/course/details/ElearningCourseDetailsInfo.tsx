@@ -12,6 +12,10 @@ import { useRouter } from 'next/router'
 import { setVisible } from 'libs/redux/slices/auth'
 import { durationToString } from 'utils/helpers/formatTime'
 import Button from 'components/ui/Button'
+import { useInfoMutation, useRequestCreditMutation } from 'libs/redux/services/karnama'
+import { useEffect } from 'react'
+import { notify } from 'utils/notification'
+import { toast } from 'react-hot-toast'
 
 // ----------------------------------------------------------------------
 
@@ -23,15 +27,29 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
   const dispatch = useDispatch()
   const { push } = useRouter()
   const { accessToken } = useSelector((state: RootState) => state.auth)
-  const { price, priceSale, lessons, resources } = course
+  const [requestCredit] = useRequestCreditMutation()
 
   const { details } = useSelector((state: RootState) => state.course)
+  const [getInfo, { data }] = useInfoMutation()
 
+  useEffect(() => {
+    getInfo()
+  }, [])
   const lessonCount = details?.sections?.reduce(
     (acc, section) => (section?.lessons?.length ?? 0) + acc,
     0
   )
 
+  const handleRequestAccessToCourse = () => {
+    const promise = requestCredit({ courseId: details?.id as number }).unwrap()
+    toast.promise(promise,
+      {
+        loading: "در حال ارسال درخواست...",
+        success: `درخواست فعالسازی با موفقیت ثبت شد`,
+        error: (err: any) =>
+          err?.data?.message ?? "خطا در درخواست اعتبار"
+      })
+  }
   const handleRoute = () => {
     if (!accessToken) dispatch(setVisible({ visible: true }))
     else
@@ -59,8 +77,18 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
         </Stack> */}
 
         <Stack spacing={2}>
-          <Typography>این درس شامل موارد زیر است:</Typography>
-
+          <Typography>مشخصات این دوره:</Typography>
+          <Stack
+            direction='row'
+            alignItems='center'
+            sx={{ typography: 'body2' }}
+          >
+            <Iconify icon='ant-design:number-outlined' sx={{ mr: 1 }} />
+            شناسه دوره
+            <Box component='strong' sx={{ mr: 0.5, ml: 0.5 }}>
+              {details?.id}
+            </Box>
+          </Stack>
           <Stack
             direction='row'
             alignItems='center'
@@ -122,6 +150,15 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
           </Stack> */}
         </Stack>
 
+        {details?.superPremium && data?.isInCompany && data?.credits && !data.credits.find(t => t.courseId == details.id) &&
+          <Button
+            btnType='primary'
+            size='large'
+            onClick={handleRequestAccessToCourse}
+          >
+            درخواست فعال سازی آموزش
+          </Button>
+        }
         {/* <Button
           btnType='primary'
           size='large'

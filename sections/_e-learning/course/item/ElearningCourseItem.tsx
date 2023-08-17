@@ -56,6 +56,7 @@ export default function ElearningCourseItem({ course, vertical }: Props) {
         }
 
     }
+    console.log("duration",duration,course.totalDuration)
   course?.sections?.map((section) => {
     section?.lessons?.map((lesson) => {
       countRef.current = countRef.current + (lesson?.duation as number)
@@ -143,7 +144,7 @@ export default function ElearningCourseItem({ course, vertical }: Props) {
                 {course.titleFa}
               </TextMaxLine>
 
-              {asPath === '/dashboard/' && (
+              {asPath.startsWith('/dashboard/') && (
                 <>
                   <Row className='w-100' justify='space-between'>
                     <span data-selector='badge'></span>

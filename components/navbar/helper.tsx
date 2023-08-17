@@ -14,11 +14,14 @@ import type { RootState } from 'libs/redux/store'
 import NavbarDropdown from './dropdown'
 import type { LogoProps, NavKeyItem } from './interface'
 import styles from './navbar.module.scss'
+import { useInfoMutation } from 'libs/redux/services/karnama'
+import { useEffect } from 'react'
 
 export const NavItem = () => {
   const intl = useIntl()
   const { accessToken } = useSelector((state: RootState) => state.auth)
   const { isSearching } = useSelector((state: RootState) => state.navbar)
+
 
   return (
     <div className={styles['navbar__items']}>
@@ -118,6 +121,11 @@ export const NavbarTab = () => {
 
 export const Logo = ({ className, src }: LogoProps) => {
   const { accessToken } = useSelector((state: RootState) => state.auth)
+ const [getInfo, { data }] = useInfoMutation()
+
+  useEffect(() => {
+    getInfo()
+  }, [])
 
   return (
     <Button className={styles['logo']} href='/'>

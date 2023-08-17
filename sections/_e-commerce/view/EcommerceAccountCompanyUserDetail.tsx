@@ -9,10 +9,13 @@ import {
   CompanySegmentValue,
   SetUserSegmentValueApiArg,
   useAddCompanyAdminCreditMutation,
+  useChangeCreditMutation,
   useCompanyAdminCreditsQuery,
   useCompanySegmentsQuery,
   useCompanyUserQuery,
+  useOthersQuery,
   useSetActivationMutation,
+  useSetCreditActivationMutation,
   useSuperPremiumCoursesQuery,
 } from 'libs/redux/services/karnama'
 import { useSelector } from 'react-redux'
@@ -28,6 +31,11 @@ import * as Yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import FormProvider, { RHFTextField } from 'components/hook-form';
+import Row from 'components/ui/Row';
+import Col from 'components/ui/Col';
+import { ElearningCourseItem } from 'sections/_e-learning/course/item';
+import Input from 'components/ui/Input';
+import { toast } from 'react-hot-toast';
 
 dayjs.extend(jalaliday)
 
@@ -40,35 +48,82 @@ function EcommerceAccountCompanyUserDetail() {
   const { data, refetch } = useCompanyUserQuery({ id: Number(query.id) })
   const { data: segments, isLoading: usersLoading } = useCompanySegmentsQuery()
   const { data: courses, isLoading: coursesLoading } = useSuperPremiumCoursesQuery()
+  const { data: userCourses, isLoading: userCoursesLoading } = useOthersQuery({ id: Number(query.id) })
   const { data: credits, isLoading: creditsLoading } = useCompanyAdminCreditsQuery({ id: Number(query.id) })
+  const [changeCredit] = useChangeCreditMutation()
+  const [setActivation, { isLoading }] = useSetCreditActivationMutation()
   const [setSegmentValuesApi, { isLoading: updatingSegmentValuesLoading }] = useSetUserSegmentValueMutation()
   const [courseId, setCoruseId] = useState<Number>(0)
   const [addCompanyAdminCredit, { isLoading: addingCompanyAdminCredit }] = useAddCompanyAdminCreditMutation()
-  console.log(credits, "credits")
+
+  const handleChangeCredit=(id:number,credit:number)=>{
+   const promise= changeCredit({id,credit:credit*60}).unwrap()
+   toast.promise(promise,
+    {
+      loading:"در حال تغییر...",
+      success:`اعتبار دوره به ${credit} ساعت تغییر یافت`,
+      error:"خطا در تغییر اعتبار",
+    })
+  }
   const columns: GridColDef[] = [
-    {
-      field: "fullname", headerName: "نام", flex: 1, minWidth: 140,
-      renderCell: (params: any) => params.row.user.fullname
-    },
-    {
-      field: "username", headerName: "موبایل", flex: 1, minWidth: 110,
-      renderCell: (params: any) => params.row.user.userName
-    },
+    // {
+    //   field: "fullname", headerName: "نام", flex: 1, minWidth: 140,
+    //   renderCell: (params: any) => params.row.user.fullname
+    // },
+    // {
+    //   field: "username", headerName: "موبایل", flex: 1, minWidth: 110,
+    //   renderCell: (params: any) => params.row.user.userName
+    // },
+  
     {
       field: "course", headerName: "آموزش", flex: 1, minWidth: 110,
       renderCell: (params: any) => params.row.course.titleFa
-    },
-    {
-      field: "usedCredit", headerName: "اعتبار استفاده شده", flex: 1, minWidth: 110,
-      renderCell: (params: any) => `${(params.row.usedCredit / 60).toFixed()} از ${(params.row.totalCredit / 60).toFixed()}`
-    },
-    {
+    }, {
       field: "insertDate", headerName: "تاریخ", flex: 1, minWidth: 110,
       renderCell: (params: any) => {
         return dayjs(params.row.insertDate)
           .calendar('jalali')
           .locale('fa')
           .format('YYYY/MM/DD')
+      }
+    },
+    {
+      field: "usedCredit", headerName: "میزان مشاهده", flex: 1, minWidth: 110,
+      renderCell: (params: any) => `${(params.row.usedCredit / 60).toFixed()}`
+    },
+    {
+      field: "totalCredit", headerName: "اعتبار", flex: 1, minWidth: 110,
+      renderCell: (params: any) => <Input  onBlurCapture={(e:any)=>handleChangeCredit(params.row.id,e.target.value)} defaultValue={params.row.totalCredit / 60} />
+    },
+    {
+      field: "isActive", headerName: "وضعیت", flex: 1, maxWidth:80,
+      renderCell: (params: any) => {
+        if (params.value === true)
+          return '✅'
+        else if (params.value === false)
+          return '❌'
+        return '🟦'
+    }},
+    {
+      field: "action",
+      width: 250,
+      headerName: "فعال‌سازی",
+      renderCell: (params: any) => {
+        const clickHandler = (e: any, active: boolean) => {
+          e.stopPropagation(); // don't select this row after clicking
+          if (active)
+            setActivation({ id: params.row.id, active: active }).unwrap().then(() => {
+              notify({ type: 'success', message: 'اعتبار با موفقیت فعال شد' })
+            })
+          else
+            setActivation({ id: params.row.id, active: active }).unwrap().then(() => {
+              notify({ type: 'success', message: 'اعتبار  با موفقیت غیر فعال شد' })
+            })
+
+        };
+
+        return <><Button btnType='primary' className="ml-1" disabled={params.row.isActive === true} onClick={(e: any) => clickHandler(e, true)}>فعال</Button>
+          <Button btnType='secondary' disabled={params.row.isActive === false} onClick={(e: any) => clickHandler(e, false)}> غیرفعال </Button></>;
       }
     },
   ];
@@ -104,6 +159,10 @@ function EcommerceAccountCompanyUserDetail() {
   } = methods
   const onSubmit = async (formData: FormValuesProps) => {
     try {
+      if (!formData.credit) {
+        notify({ type: 'warn', message: 'مدت اعتبار را بر حسب ساعت وارد کنید' })
+        return
+      }
       console.log(formData)
       formData.courseId = courseId as number
       addCompanyAdminCredit(formData).unwrap().then(() => { reset() }).catch((res) => {
@@ -147,16 +206,16 @@ function EcommerceAccountCompanyUserDetail() {
           icon={'pepicons-print:people'}
           width={24}
           marginRight={0.5} />
-        {data?.user?.fullname}  ( {data && segments?.map((segment:CompanySegment) => `${segment.title}: ${
-          segment?.companySegmentValues?.find(s=>s.id==segmentValues[segment.id as number])?.title} `)})
+        {data?.user?.fullname} {data?.user?.userName} ({data && segments?.map((segment: CompanySegment) => `${segment.title}: ${segment?.companySegmentValues?.find(s => s.id == segmentValues[segment.id as number])?.title} `)})
       </Typography>
+      <h4 className='mb-1 mt-3'>گروه‌بندی سازمانی</h4>
       <Paper variant='outlined' elevation={12} style={{ padding: 8, }}>
         <Stack direction="row" spacing={2}>
 
-          {data && segments?.map((segment:CompanySegment) =>
+          {data && segments?.map((segment: CompanySegment) =>
             <div key={segment.id}>
               <span>{segment.title}: </span>
-              
+
               <Select
                 // value={segmentValues[segment.id as number]}
                 onChange={(event) => {
@@ -167,7 +226,7 @@ function EcommerceAccountCompanyUserDetail() {
                 }}
 
               >
-                {segment.companySegmentValues?.map((segmentValue:CompanySegmentValue) => (
+                {segment.companySegmentValues?.map((segmentValue: CompanySegmentValue) => (
                   <MenuItem key={segmentValue.id} value={segmentValue.id}>
                     {segmentValue.title}
                   </MenuItem>
@@ -178,7 +237,8 @@ function EcommerceAccountCompanyUserDetail() {
           <Button btnType='primary' onClick={UpdateSegmentValues} >اعمال تغییرات</Button>
         </Stack>
       </Paper>
-        <Paper variant='outlined' elevation={12} style={{ padding: 8}} sx={{my:3}}>
+      <h4 className='mb-1 mt-3'>تخصیص اعتبار</h4>
+      <Paper variant='outlined' elevation={12} style={{ padding: 8 }} sx={{ my: 3 }}>
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
 
           <Stack direction="row" spacing={2}>
@@ -205,8 +265,9 @@ function EcommerceAccountCompanyUserDetail() {
             />
             <Button btnType='primary' type='submit' onClick={AddCreditHandler} style={{ width: 200 }}>اختصاص اعتبار</Button>
           </Stack>
-          </FormProvider>
-        </Paper>
+        </FormProvider>
+      </Paper>
+      <h4 className='mb-1 mt-3'>اعتبار تخصیص یافته</h4>
       <Paper variant='outlined'>
         <DataGridPro
 
@@ -226,16 +287,25 @@ function EcommerceAccountCompanyUserDetail() {
           rowHeight={50}
           columns={columns}
           rows={credits || []}
-          disableColumnFilter
-          unstable_headerFilters
           slots={{
-            headerFilterMenu: null,
             loadingOverlay: LinearProgress,
 
           }}
         />
       </Paper>
-
+      <h4 className='mb-1 mt-3'>گزارش مشاهده</h4>
+      <Row
+        // className={styles['dashboard']}
+        justify='center'
+        gutter={[16, 16]}
+        wrap
+      >
+        {userCourses?.map((course) => (
+          <Col xxs={24} sm={6}>
+            <ElearningCourseItem course={course} vertical />
+          </Col>
+        ))}
+      </Row>
     </EcommerceAccountLayout >
   )
 }

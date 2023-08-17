@@ -10,7 +10,7 @@ import {
 import { toggleTransition, toggleNavbarSearch } from 'libs/redux/slices/navbar'
 import { NavbarAvatar } from 'components/navbar/profile/helper'
 import { clearAuth, setVisible } from 'libs/redux/slices/auth'
-import { useLogoutMutation } from 'libs/redux/services/karnama'
+import { useInfoMutation, useLogoutMutation } from 'libs/redux/services/karnama'
 import { useIntl } from 'react-intl'
 import Container from 'components/container'
 import Row from 'components/ui/Row'
@@ -26,17 +26,25 @@ import NavbarSearch from './search'
 import { Logo, NavItem } from './helper'
 import styles from './navbar.module.scss'
 
+
 const Navbar = () => {
   const dispatch = useDispatch()
   const { campaign } = useContext(MyContext)
   const { replace, asPath } = useRouter()
   const { accessToken } = useSelector((state: RootState) => state.auth)
   const { isSearching } = useSelector((state: RootState) => state.navbar)
+  const [getInfo, { data, error }] = useInfoMutation()
+
   const [logoutUser] = useLogoutMutation()
   const intl = useIntl()
   const toggleDrawerHandler = () => dispatch(toggleTransition(true))
 
   const cancelFocus = () => dispatch(toggleNavbarSearch(false))
+
+  useEffect(() => {
+    getInfo()
+  }, [])
+
 
   const cancelSearch = () => {
     cancelFocus()
@@ -96,7 +104,7 @@ const Navbar = () => {
               <Col className='d-flex' xxs={5} sm={12} md={15}>
                 <Link href="/">
                   <div className={styles['navbar__tab--img']}>
-                    <img src='/svg/layout/navbar-logo.svg' alt='' />
+                    <img src={data?.logo || '/svg/layout/navbar-logo.svg'} alt='' />
                   </div>
                 </Link>
               </Col>
@@ -105,18 +113,31 @@ const Navbar = () => {
                 <SearchOutlined />
               </Button>
 
-              <Button
-                className={styles['navbar__subscription']}
-                btnType='primary'
-                bgColor='white-gold-gradient'
-                color='black'
-                href='/pricing'
-                id='navbar-pricing'
-                ripple
-              >
-                <span>خرید اشتراک</span>
-                <SvgSprite id='jet' />
-              </Button>
+              {data?.isInCompany == false ?
+                <Button
+                  className={styles['navbar__subscription']}
+                  btnType='primary'
+                  bgColor='white-gold-gradient'
+                  color='black'
+                  href='/pricing'
+                  id='navbar-pricing'
+                  ripple
+                >
+                  <span>خرید اشتراک</span>
+                  <SvgSprite id='jet' />
+                </Button> :
+                <Button
+                  className={styles['navbar__subscription']}
+                  btnType='primary'
+                  bgColor='white-blue-gradient'
+                  color='white'
+                  href='/courses'
+                  id='navbar-courses'
+                  ripple
+                >
+                  <span>همه آموزش‌ها</span>
+                </Button>
+              }
 
               <Col className='position-relative'>
                 {accessToken ? (
@@ -153,7 +174,7 @@ const Navbar = () => {
             <Col xxs={24} md={4} lg={2} data-selector='logo'>
               {!isSearching ? (
 
-                <Logo src='/svg/layout/navbar-logo.svg' />
+                <Logo src={data?.logo || '/svg/layout/navbar-logo.svg'} />
 
               ) : (
                 <Button data-selector='back' onClick={cancelSearch}>
@@ -200,7 +221,7 @@ const Navbar = () => {
               className='justify-flex-end'
               data-selector='nav-profile'
             >
-              <NavbarProfile>
+              <NavbarProfile data={data}>
                 <NavbarAvatar />
               </NavbarProfile>
             </Col>

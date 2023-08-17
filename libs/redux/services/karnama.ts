@@ -140,6 +140,16 @@ export const injectedRtkApi = api
         }),
         invalidatesTags: ['Comment'],
       }),
+      changeCredit: build.mutation<ChangeCreditApiResponse, ChangeCreditApiArg>(
+        {
+          query: (queryArg) => ({
+            url: `/api/Company/ChangeCredit`,
+            method: 'POST',
+            params: { id: queryArg.id, credit: queryArg.credit },
+          }),
+          invalidatesTags: ['Company'],
+        }
+      ),
       companySegments: build.query<
         CompanySegmentsApiResponse,
         CompanySegmentsApiArg
@@ -169,6 +179,17 @@ export const injectedRtkApi = api
             courseId: queryArg.courseId,
             credit: queryArg.credit,
           },
+        }),
+        invalidatesTags: ['Company'],
+      }),
+      requestCredit: build.mutation<
+        RequestCreditApiResponse,
+        RequestCreditApiArg
+      >({
+        query: (queryArg) => ({
+          url: `/api/Company/RequestCredit`,
+          method: 'POST',
+          params: { courseId: queryArg.courseId },
         }),
         invalidatesTags: ['Company'],
       }),
@@ -204,6 +225,17 @@ export const injectedRtkApi = api
       >({
         query: (queryArg) => ({
           url: `/api/Company/SetActivation`,
+          method: 'POST',
+          params: { id: queryArg.id, active: queryArg.active },
+        }),
+        invalidatesTags: ['Company'],
+      }),
+      setCreditActivation: build.mutation<
+        SetCreditActivationApiResponse,
+        SetCreditActivationApiArg
+      >({
+        query: (queryArg) => ({
+          url: `/api/Company/SetCreditActivation`,
           method: 'POST',
           params: { id: queryArg.id, active: queryArg.active },
         }),
@@ -408,6 +440,11 @@ export type CommentApiResponse = unknown
 export type CommentApiArg = {
   commentDto: CommentDto
 }
+export type ChangeCreditApiResponse = unknown
+export type ChangeCreditApiArg = {
+  id?: number
+  credit?: number
+}
 export type CompanySegmentsApiResponse =
   /** status 200 Success */ CompanyUserDto[]
 export type CompanySegmentsApiArg = void
@@ -422,6 +459,10 @@ export type AddCompanyAdminCreditApiArg = {
   id?: number
   courseId?: number
   credit?: number
+}
+export type RequestCreditApiResponse = unknown
+export type RequestCreditApiArg = {
+  courseId?: number
 }
 export type CompanyUserApiResponse = /** status 200 Success */ CompanyUser
 export type CompanyUserApiArg = {
@@ -439,6 +480,11 @@ export type CompanyUsersApiArg = void
 export type SetActivationApiResponse =
   /** status 200 Success */ CompanyUserDto[]
 export type SetActivationApiArg = {
+  id?: number
+  active?: boolean
+}
+export type SetCreditActivationApiResponse = unknown
+export type SetCreditActivationApiArg = {
   id?: number
   active?: boolean
 }
@@ -611,6 +657,7 @@ export type Company = {
   id?: number
   title?: string | null
   insertDate?: string
+  logo?: string | null
   companyAdminCredits?: CompanyAdminCredit[] | null
   companyAdmins?: CompanyAdmin[] | null
   companyCredits?: CompanyCredit[] | null
@@ -887,13 +934,14 @@ export type Course = {
 }
 export type CompanyAdminCredit = {
   id?: number
-  adminId?: number
+  adminId?: number | null
   userId?: number
   courseId?: number
   totalCredit?: number
   usedCredit?: number
   insertDate?: string
   companyId?: number
+  isActive?: boolean | null
   admin?: AspNetUser
   company?: Company
   course?: Course
@@ -1049,6 +1097,9 @@ export type UserInfo = {
   usedCredit?: number | null
   parentUser?: UserMentor
   isCompanyAdmin?: boolean
+  logo?: string | null
+  isInCompany?: boolean
+  credits?: CompanyAdminCredit[] | null
 }
 export type ApiError = {
   message?: string | null
@@ -1205,17 +1256,20 @@ export const {
   useGetApiCategoriesByIdQuery,
   useLazyGetApiCategoriesByIdQuery,
   useCommentMutation,
+  useChangeCreditMutation,
   useCompanySegmentsQuery,
   useLazyCompanySegmentsQuery,
   useCompanyAdminCreditsQuery,
   useLazyCompanyAdminCreditsQuery,
   useAddCompanyAdminCreditMutation,
+  useRequestCreditMutation,
   useCompanyUserQuery,
   useLazyCompanyUserQuery,
   useSetUserSegmentValueMutation,
   useCompanyUsersQuery,
   useLazyCompanyUsersQuery,
   useSetActivationMutation,
+  useSetCreditActivationMutation,
   useGetCoursesQuery,
   useLazyGetCoursesQuery,
   useGetFeaturedQuery,
