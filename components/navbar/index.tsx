@@ -113,7 +113,7 @@ const Navbar = () => {
                 <SearchOutlined />
               </Button>
 
-              {data?.isInCompany == false ?
+              {data?.isInCompany === false ?
                 <Button
                   className={styles['navbar__subscription']}
                   btnType='primary'

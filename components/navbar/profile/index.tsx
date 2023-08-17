@@ -7,10 +7,10 @@ import { LoginOutlined } from '@mui/icons-material'
 import Row from 'components/ui/Row'
 import Button from 'components/ui/Button'
 import SvgSprite from 'assets/sprite'
-
 import type { RootState } from 'libs/redux/store'
-import styles from './navbarProfile.module.scss'
 import type { UserInfo } from 'libs/redux/services/karnama'
+
+import styles from './navbarProfile.module.scss'
 
 interface NavbarProfileProps {
   children?: JSX.Element
@@ -36,7 +36,7 @@ const NavbarProfile = (  { children ,data}: NavbarProfileProps) => {
     >
       <>
 
-        {data?.isInCompany == false ?
+        {data?.isInCompany === false ?
           <Button
             className={styles['navbar__subscription']}
             btnType='primary'

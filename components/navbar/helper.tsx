@@ -11,11 +11,12 @@ import cn from 'classnames'
 import { navItemsData } from 'utils/statics/navbarStatics'
 import type { NavItemsType } from 'utils/statics/navbarStatics/interface'
 import type { RootState } from 'libs/redux/store'
+import { useInfoMutation } from 'libs/redux/services/karnama'
+import { useEffect } from 'react'
 import NavbarDropdown from './dropdown'
 import type { LogoProps, NavKeyItem } from './interface'
 import styles from './navbar.module.scss'
-import { useInfoMutation } from 'libs/redux/services/karnama'
-import { useEffect } from 'react'
+
 
 export const NavItem = () => {
   const intl = useIntl()

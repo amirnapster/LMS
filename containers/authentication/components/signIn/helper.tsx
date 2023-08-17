@@ -18,8 +18,7 @@ export const onLogin = (res: Token) => {
   const { packageType } = res
 
   notify({
-    message: 'ورود با موفقیت انجام شد.',
-    config: { autoClose: 3000 },
+    message: 'ورود با موفقیت انجام شد.'
   })
 
   store.dispatch(setUserAuth(res))
