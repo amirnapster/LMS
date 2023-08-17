@@ -1,5 +1,5 @@
 
-import { LinearProgress, Typography, Paper, Select, MenuItem, Stack } from '@mui/material'
+import { LinearProgress, Typography, Paper, Select, MenuItem, Stack, Autocomplete, TextField, OutlinedInput, InputLabel } from '@mui/material'
 import { DataGridPro, LicenseInfo, GridColDef } from '@mui/x-data-grid-pro';
 import { useRouter } from 'next/router';
 
@@ -56,14 +56,14 @@ function EcommerceAccountCompanyUserDetail() {
   const [courseId, setCoruseId] = useState<Number>(0)
   const [addCompanyAdminCredit, { isLoading: addingCompanyAdminCredit }] = useAddCompanyAdminCreditMutation()
 
-  const handleChangeCredit=(id:number,credit:number)=>{
-   const promise= changeCredit({id,credit:credit*60}).unwrap()
-   toast.promise(promise,
-    {
-      loading:"در حال تغییر...",
-      success:`اعتبار دوره به ${credit} ساعت تغییر یافت`,
-      error:"خطا در تغییر اعتبار",
-    })
+  const handleChangeCredit = (id: number, credit: number) => {
+    const promise = changeCredit({ id, credit: credit * 60 }).unwrap()
+    toast.promise(promise,
+      {
+        loading: "در حال تغییر...",
+        success: `اعتبار دوره به ${credit} ساعت تغییر یافت`,
+        error: "خطا در تغییر اعتبار",
+      })
   }
   const columns: GridColDef[] = [
     // {
@@ -74,7 +74,7 @@ function EcommerceAccountCompanyUserDetail() {
     //   field: "username", headerName: "موبایل", flex: 1, minWidth: 110,
     //   renderCell: (params: any) => params.row.user.userName
     // },
-  
+
     {
       field: "course", headerName: "آموزش", flex: 1, minWidth: 110,
       renderCell: (params: any) => params.row.course.titleFa
@@ -93,17 +93,18 @@ function EcommerceAccountCompanyUserDetail() {
     },
     {
       field: "totalCredit", headerName: "اعتبار", flex: 1, minWidth: 110,
-      renderCell: (params: any) => <Input  onBlurCapture={(e:any)=>handleChangeCredit(params.row.id,e.target.value)} defaultValue={params.row.totalCredit / 60} />
+      renderCell: (params: any) => <Input onBlurCapture={(e: any) => handleChangeCredit(params.row.id, e.target.value)} defaultValue={params.row.totalCredit / 60} />
     },
     {
-      field: "isActive", headerName: "وضعیت", flex: 1, maxWidth:80,
+      field: "isActive", headerName: "وضعیت", flex: 1, maxWidth: 80,
       renderCell: (params: any) => {
         if (params.value === true)
           return '✅'
         else if (params.value === false)
           return '❌'
         return '🟦'
-    }},
+      }
+    },
     {
       field: "action",
       width: 250,
@@ -163,6 +164,10 @@ function EcommerceAccountCompanyUserDetail() {
         notify({ type: 'warn', message: 'مدت اعتبار را بر حسب ساعت وارد کنید' })
         return
       }
+      if (!courseId) {
+        notify({ type: 'warn', message: 'دوره را انتخاب کنید' })
+        return
+      }
       console.log(formData)
       formData.courseId = courseId as number
       addCompanyAdminCredit(formData).unwrap().then(() => { reset() }).catch((res) => {
@@ -198,25 +203,33 @@ function EcommerceAccountCompanyUserDetail() {
     }
 
   }
+  const autoCompleteOptions =
+    courses ?
+      courses.map((course) => { return { label: `${course.titleFa} (${course.id})`, id: course.id } }) : []
   return (
     <EcommerceAccountLayout>
 
-      <Typography variant='h5' sx={{ mb: 3, }}>
-        <Iconify
+      <Typography variant='h2' sx={{ mb: 3, }}>
+  
+        {data?.user?.fullname} {data?.user?.userName} ({data && segments?.map((segment: CompanySegment) => ` ${segment.title}: ${segment?.companySegmentValues?.find(s => s.id == segmentValues[segment.id as number])?.title} `)})
+      </Typography>
+      <h3 className='mb-1 mt-3'><Iconify
           icon={'pepicons-print:people'}
           width={24}
           marginRight={0.5} />
-        {data?.user?.fullname} {data?.user?.userName} ({data && segments?.map((segment: CompanySegment) => `${segment.title}: ${segment?.companySegmentValues?.find(s => s.id == segmentValues[segment.id as number])?.title} `)})
-      </Typography>
-      <h4 className='mb-1 mt-3'>گروه‌بندی سازمانی</h4>
+          گروه‌بندی سازمانی</h3>
       <Paper variant='outlined' elevation={12} style={{ padding: 8, }}>
         <Stack direction="row" spacing={2}>
 
           {data && segments?.map((segment: CompanySegment) =>
             <div key={segment.id}>
-              <span>{segment.title}: </span>
+
+              <InputLabel id={`label-${segment.id}`}>{segment.title}</InputLabel>
 
               <Select
+                labelId={`label-${segment.id}`}
+                defaultValue={segmentValues[segment.id as number]}
+                sx={{ width: 300 }}
                 // value={segmentValues[segment.id as number]}
                 onChange={(event) => {
                   const { target: { value }, } = event
@@ -234,40 +247,51 @@ function EcommerceAccountCompanyUserDetail() {
               </Select>
             </div>
           )}
-          <Button btnType='primary' onClick={UpdateSegmentValues} >اعمال تغییرات</Button>
+          <div style={{ alignSelf: 'flex-end' }}>
+            <Button btnType='primary' onClick={UpdateSegmentValues} style={{ width: 150, marginBottom: "0.5rem" }} >ثبت</Button>
+          </div>
         </Stack>
       </Paper>
-      <h4 className='mb-1 mt-3'>تخصیص اعتبار</h4>
-      <Paper variant='outlined' elevation={12} style={{ padding: 8 }} sx={{ my: 3 }}>
+      <h3 className='mb-1 mt-3'><Iconify
+          icon={'material-symbols:credit-card-outline'}
+          width={24}
+          marginRight={0.5} />
+          تخصیص اعتبار</h3>
+       <Paper variant='outlined' elevation={12} style={{ padding: 8 }} sx={{ my: 3 }}>
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
 
-          <Stack direction="row" spacing={2}>
-            <span style={{ width: 300 }}>اختصاص اعتبار: </span>
-            <Select name="courseId"
-              style={{ width: 300 }}
-              onChange={(event) => {
-                const { target: { value }, } = event
-                if (value && segmentValues)
-                  setCoruseId(Number(value))
-              }}
+          <Stack direction="row" spacing={2} alignContent={'flex-start'}>
 
-            >
-              {courses?.map((course) => (
-                <MenuItem key={course.id} value={course.id}>
-                  {course.titleFa}
-                </MenuItem>
-              ))}
-            </Select>
+            <Autocomplete
+              renderInput={(params) => <TextField {...params} label="نام دوره" />}
+
+              style={{ width: 300 }}
+              onChange={(event: any, value: unknown) => {
+                console.log(value)
+                if (value && segmentValues)
+                  setCoruseId(Number((value as any).id))
+              }}
+              options={autoCompleteOptions}
+            />
+
             <RHFTextField
+              style={{ width: 300 }}
               name='credit'
               type='number'
               label='مدت اعتبار (ساعت)'
             />
-            <Button btnType='primary' type='submit' onClick={AddCreditHandler} style={{ width: 200 }}>اختصاص اعتبار</Button>
+            <div style={{ alignSelf: 'flex-end' }}>
+              <Button btnType='primary' type='submit' onClick={AddCreditHandler} style={{ width: 150, marginBottom: "0.5rem" }} >ثبت</Button>
+            </div>
           </Stack>
         </FormProvider>
       </Paper>
-      <h4 className='mb-1 mt-3'>اعتبار تخصیص یافته</h4>
+
+      <h3 className='mb-1 mt-3'><Iconify
+          icon={'gg:list'}
+          width={24}
+          marginRight={0.5} />
+          اعتبار تخصیص یافته</h3>
       <Paper variant='outlined'>
         <DataGridPro
 
@@ -293,8 +317,12 @@ function EcommerceAccountCompanyUserDetail() {
           }}
         />
       </Paper>
-      <h4 className='mb-1 mt-3'>گزارش مشاهده</h4>
-      <Row
+      <h3 className='mb-1 mt-3'><Iconify
+          icon={'cil:chart'}
+          width={24}
+          marginRight={0.5} />
+          گزارش مشاهده</h3>
+       <Row
         // className={styles['dashboard']}
         justify='center'
         gutter={[16, 16]}

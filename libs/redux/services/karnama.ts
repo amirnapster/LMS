@@ -140,16 +140,6 @@ export const injectedRtkApi = api
         }),
         invalidatesTags: ['Comment'],
       }),
-      changeCredit: build.mutation<ChangeCreditApiResponse, ChangeCreditApiArg>(
-        {
-          query: (queryArg) => ({
-            url: `/api/Company/ChangeCredit`,
-            method: 'POST',
-            params: { id: queryArg.id, credit: queryArg.credit },
-          }),
-          invalidatesTags: ['Company'],
-        }
-      ),
       companySegments: build.query<
         CompanySegmentsApiResponse,
         CompanySegmentsApiArg
@@ -241,6 +231,16 @@ export const injectedRtkApi = api
         }),
         invalidatesTags: ['Company'],
       }),
+      changeCredit: build.mutation<ChangeCreditApiResponse, ChangeCreditApiArg>(
+        {
+          query: (queryArg) => ({
+            url: `/api/Company/ChangeCredit`,
+            method: 'POST',
+            params: { id: queryArg.id, credit: queryArg.credit },
+          }),
+          invalidatesTags: ['Company'],
+        }
+      ),
       getCourses: build.query<GetCoursesApiResponse, GetCoursesApiArg>({
         query: () => ({ url: `/api/Courses/GetCourses` }),
         providesTags: ['Courses'],
@@ -440,11 +440,6 @@ export type CommentApiResponse = unknown
 export type CommentApiArg = {
   commentDto: CommentDto
 }
-export type ChangeCreditApiResponse = unknown
-export type ChangeCreditApiArg = {
-  id?: number
-  credit?: number
-}
 export type CompanySegmentsApiResponse =
   /** status 200 Success */ CompanyUserDto[]
 export type CompanySegmentsApiArg = void
@@ -487,6 +482,11 @@ export type SetCreditActivationApiResponse = unknown
 export type SetCreditActivationApiArg = {
   id?: number
   active?: boolean
+}
+export type ChangeCreditApiResponse = unknown
+export type ChangeCreditApiArg = {
+  id?: number
+  credit?: number
 }
 export type GetCoursesApiResponse = /** status 200 Success */ Course[]
 export type GetCoursesApiArg = void
@@ -1191,6 +1191,7 @@ export type CompanyUserDto = {
   colName2?: string | null
   col2?: string | null
   insertDate?: string
+  usedCredit?: number
 }
 export type PlayLogDto = {
   action?: string | null
@@ -1256,7 +1257,6 @@ export const {
   useGetApiCategoriesByIdQuery,
   useLazyGetApiCategoriesByIdQuery,
   useCommentMutation,
-  useChangeCreditMutation,
   useCompanySegmentsQuery,
   useLazyCompanySegmentsQuery,
   useCompanyAdminCreditsQuery,
@@ -1270,6 +1270,7 @@ export const {
   useLazyCompanyUsersQuery,
   useSetActivationMutation,
   useSetCreditActivationMutation,
+  useChangeCreditMutation,
   useGetCoursesQuery,
   useLazyGetCoursesQuery,
   useGetFeaturedQuery,

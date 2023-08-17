@@ -23,8 +23,8 @@ function EcommerceAccountPersonalView() {
 
   const EcommerceAccountPersonalSchema = Yup.object().shape({
     fullname: Yup.string().required('نام و نام خانوادگی الزامیست.'),
-    companyName: Yup.string().required('نام شرکت الزامیست.'),
-    jobTitle: Yup.string().required('عنوان شغلی الزامیست.'),
+    companyName: Yup.string(),
+    jobTitle: Yup.string(),
   })
 
   const defaultValues = {

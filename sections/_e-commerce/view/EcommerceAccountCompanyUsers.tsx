@@ -15,6 +15,7 @@ import dayjs from 'dayjs'
 import jalaliday from 'jalaliday'
 import Iconify from 'components/iconify/Iconify';
 import Link from 'next/link';
+import { durationToString } from 'utils/helpers/formatTime';
 
 dayjs.extend(jalaliday)
 
@@ -27,17 +28,28 @@ function EcommerceAccountCompanyUsers() {
   const [setActivation, { isLoading }] = useSetActivationMutation()
 
   const { accessToken } = useSelector((state: RootState) => state.auth)
-  const openInNewTab = (url:string) => {
-    window.open(url, '_blank', );
+  const openInNewTab = (url: string) => {
+    window.open(url, '_blank',);
   };
 
   const columns: GridColDef[] = [
-    { field: "fullname", headerName: "نام", flex: 1, minWidth: 140 ,
-  renderCell:(params:any)=>{
-    return <Link target='_blank' href={`/dashboard/company/users/${params.row.id}`}>{params.row.fullname}</Link>
-  }
+    {
+      field: "fullname", headerName: "نام", flex: 1, minWidth: 140,
+      renderCell: (params: any) => {
+        return <Link target='_blank' href={`/dashboard/company/users/${params.row.id}`}>{params.row.fullname ? params.row.fullname : "NoName"}</Link>
+      }
+    },
+    {
+      field: "usedCredit", headerName: "میزان مشاهده", flex: 1,
+      renderCell: (params: any) => <span>{durationToString(params.value)} </span>
+       
+      
+    },
+    { field: "username", headerName: "موبایل", flex: 1, minWidth: 110 ,
+    renderCell: (params: any) => {
+      return <Link target='_blank' href={`/dashboard/company/users/${params.row.id}`}>{params.value}</Link>
+    }
   },
-    { field: "username", headerName: "موبایل", flex: 1, minWidth: 110 },
     {
       field: "insertDate", headerName: "تاریخ", flex: 1, minWidth: 110,
       renderCell: (params: any) => {
@@ -94,7 +106,7 @@ function EcommerceAccountCompanyUsers() {
             sorting: {
               sortModel: [{ field: 'insertDate', sort: 'desc' }],
             },
-        
+
           }}
           pagination
           pageSizeOptions={[10]}
