@@ -52,11 +52,10 @@ export default function ElearningCourseItem({ course, vertical }: Props) {
         for (let j = 0; j < section.lessons.length; j++) {
           const lesson = section.lessons[j]
           if (lesson)
-            duration += lesson.duation??0
+            duration += lesson.duation ?? 0
         }
 
     }
-    console.log("duration",duration,course.totalDuration)
   course?.sections?.map((section) => {
     section?.lessons?.map((lesson) => {
       countRef.current = countRef.current + (lesson?.duation as number)
