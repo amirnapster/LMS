@@ -120,14 +120,11 @@ export const NavbarTab = () => {
   )
 }
 
-export const Logo = ({ className, src }: LogoProps) => {
+export const Logo = ({ className, src }: LogoProps) =>
+  <Button className={styles['logo']} href='/'>
+    <img src={src} alt='لوگو نماتک' className={className} />
+  </Button>
 
-  return (
-    <Button className={styles['logo']} href='/'>
-      <img src={src} alt='لوگو نماتک' className={className} />
-    </Button>
-  )
-}
 
 Logo.defaultProps = {
   className: '',
