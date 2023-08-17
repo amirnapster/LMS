@@ -21,7 +21,7 @@ dayjs.extend(jalaliday)
 function EcommerceAccountCompanyUsers() {
 
   LicenseInfo.setLicenseKey(
-    "f5993f18c3d54fd37b1df54757440af5T1JERVI6MjAwMjIsRVhQSVJZPTE2NDE3MTI0NTQwMDAsS0VZVkVSU0lPTj0x"
+    "63cdcff003c86a961f1b47b5703dd5e0Tz0wLEU9MjUzNDA0ODY0MDAwMDAwLFM9cHJlbWl1bSxMTT1zdWJzY3JpcHRpb24sS1Y9Mg=="
   );
   const { data, isLoading: usersLoading } = useCompanyUsersQuery()
   const [setActivation, { isLoading }] = useSetActivationMutation()
