@@ -121,12 +121,6 @@ export const NavbarTab = () => {
 }
 
 export const Logo = ({ className, src }: LogoProps) => {
-  const { accessToken } = useSelector((state: RootState) => state.auth)
- const [getInfo, { data }] = useInfoMutation()
-
-  useEffect(() => {
-    getInfo()
-  }, [])
 
   return (
     <Button className={styles['logo']} href='/'>
