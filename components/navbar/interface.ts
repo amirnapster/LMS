@@ -6,6 +6,7 @@ import type {
 export interface LogoProps {
   className?: string
   src: string
+  title?: string
   shouldUpdate?: boolean
 }
 

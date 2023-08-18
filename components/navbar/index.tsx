@@ -172,10 +172,10 @@ const Navbar = () => {
         <Col span={24} data-selector='desktop'>
           <nav className='w-100 h-100 justify-space-between'>
 
-            <Col xxs={24} md={4} lg={2} data-selector='logo'>
+            <Col xxs={24} md={10} lg={8} data-selector='logo' style={{ color: data?.inCompanyPrimaryColor ?? '#008d67' }}>
               {!isSearching ? (
 
-                <Logo src={data?.logo || '/svg/layout/navbar-logo.svg'} />
+                <Logo src={data?.logo || '/svg/layout/navbar-logo.svg'} title={data?.inCompanyTitle} />
 
               ) : (
                 <Button data-selector='back' onClick={cancelSearch}>
@@ -190,7 +190,7 @@ const Navbar = () => {
 
 
 
-            <Col className={styles['navbar--searchWrapper']} xxs={24} md={16}>
+            <Col className={styles['navbar--searchWrapper']} xxs={24} md={10}>
               <Row align='middle' className="w-100 h-100" >
                 <Col
                   xxs={24}

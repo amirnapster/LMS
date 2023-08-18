@@ -658,6 +658,8 @@ export type Company = {
   title?: string | null
   insertDate?: string
   logo?: string | null
+  primaryColor?: string | null
+  secondaryColor?: string | null
   companyAdminCredits?: CompanyAdminCredit[] | null
   companyAdmins?: CompanyAdmin[] | null
   companyCredits?: CompanyCredit[] | null
@@ -1100,6 +1102,9 @@ export type UserInfo = {
   logo?: string | null
   isInCompany?: boolean
   credits?: CompanyAdminCredit[] | null
+  inCompanyTitle?: string | null
+  inCompanyPrimaryColor?: string | null
+  inCompanySecondaryColor?: string | null
 }
 export type ApiError = {
   message?: string | null
