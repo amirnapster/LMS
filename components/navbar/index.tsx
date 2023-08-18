@@ -42,8 +42,9 @@ const Navbar = () => {
   const cancelFocus = () => dispatch(toggleNavbarSearch(false))
 
   useEffect(() => {
-    getInfo()
-  }, [])
+    if (accessToken)
+      getInfo()
+  }, [accessToken])
 
 
   const cancelSearch = () => {

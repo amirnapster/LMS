@@ -41,8 +41,9 @@ export const NavbarAvatar = () => {
     console.log(error)
   }, [error])
   useEffect(() => {
-    getInfo()
-  }, [])
+    if (accessToken)
+      getInfo()
+  }, [accessToken])
 
   // const avatarIconByPackage = () => {
   //   switch (packageType) {
@@ -83,8 +84,9 @@ export const NavbarAvatar = () => {
   }
 
   useEffect(() => {
-    getInfo()
-  }, [])
+    if (accessToken)
+      getInfo()
+  }, [accessToken])
 
   return accessToken ? (
     <Dropdown
