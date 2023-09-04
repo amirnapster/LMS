@@ -14,10 +14,10 @@ import styles from './navbarProfile.module.scss'
 
 interface NavbarProfileProps {
   children?: JSX.Element
-  data: UserInfo| undefined
+  data: UserInfo | undefined
 }
 
-const NavbarProfile = (  { children ,data}: NavbarProfileProps) => {
+const NavbarProfile = ({ children, data }: NavbarProfileProps) => {
   const dispatch = useDispatch()
   const intl = useIntl()
   const { accessToken } = useSelector((state: RootState) => state.auth)
@@ -35,10 +35,9 @@ const NavbarProfile = (  { children ,data}: NavbarProfileProps) => {
       className={styles['navbarProfile']}
     >
       <>
-
-        {data?.isInCompany === false ?
+        {data?.isInCompany === false ? (
           <Button
-            className={styles['navbar__subscription']}
+            className={styles['navbarProfile__subscription']}
             btnType='primary'
             bgColor='white-gold-gradient'
             color='black'
@@ -48,9 +47,10 @@ const NavbarProfile = (  { children ,data}: NavbarProfileProps) => {
           >
             <span>خرید اشتراک</span>
             <SvgSprite id='jet' />
-          </Button> :
+          </Button>
+        ) : (
           <Button
-            className={styles['navbar__subscription']}
+            className={styles['navbarProfile__subscription']}
             btnType='primary'
             bgColor='white-blue-gradient'
             color='white'
@@ -60,7 +60,7 @@ const NavbarProfile = (  { children ,data}: NavbarProfileProps) => {
           >
             <span>همه آموزش‌ها</span>
           </Button>
-        }
+        )}
         {!accessToken ? (
           <Button
             className={styles['navbarProfile__login']}

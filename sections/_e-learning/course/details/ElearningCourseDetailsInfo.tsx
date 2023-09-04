@@ -12,9 +12,11 @@ import { useRouter } from 'next/router'
 import { setVisible } from 'libs/redux/slices/auth'
 import { durationToString } from 'utils/helpers/formatTime'
 import Button from 'components/ui/Button'
-import { useInfoMutation, useRequestCreditMutation } from 'libs/redux/services/karnama'
+import {
+  useInfoMutation,
+  useRequestCreditMutation,
+} from 'libs/redux/services/karnama'
 import { useEffect } from 'react'
-import { notify } from 'utils/notification'
 import { toast } from 'react-hot-toast'
 
 // ----------------------------------------------------------------------
@@ -33,7 +35,7 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
   const [getInfo, { data }] = useInfoMutation()
 
   useEffect(() => {
-    getInfo()
+    if (accessToken) getInfo()
   }, [])
   const lessonCount = details?.sections?.reduce(
     (acc, section) => (section?.lessons?.length ?? 0) + acc,
@@ -42,22 +44,26 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
 
   const handleRequestAccessToCourse = () => {
     const promise = requestCredit({ courseId: details?.id as number }).unwrap()
-    toast.promise(promise,
-      {
-        loading: "در حال ارسال درخواست...",
-        success: `درخواست فعالسازی با موفقیت ثبت شد`,
-        error: (err: any) =>
-          err?.data?.message ?? "خطا در درخواست اعتبار"
-      })
+    toast.promise(promise, {
+      loading: 'در حال ارسال درخواست...',
+      success: `درخواست فعالسازی با موفقیت ثبت شد`,
+      error: (err: any) => err?.data?.message ?? 'خطا در درخواست اعتبار',
+    })
   }
   const handleRoute = () => {
     if (!accessToken) dispatch(setVisible({ visible: true }))
-    else
-      push(`/play/${details?.id}/1/`)
+    else push(`/play/${details?.id}/1/`)
   }
 
   return (
-    <Card sx={{ p: 3, borderRadius: 2, boxShadow: "0px 0 22px  10px rgba(145, 158, 171, 0.2), 0 12px 24px -4px rgba(145, 158, 171, 0.12)" }}>
+    <Card
+      sx={{
+        p: 3,
+        borderRadius: 2,
+        boxShadow:
+          '0px 0 22px  10px rgba(145, 158, 171, 0.2), 0 12px 24px -4px rgba(145, 158, 171, 0.12)',
+      }}
+    >
       <Stack spacing={3}>
         {/* <Stack direction='row' sx={{ typography: 'h3' }}>
           {priceSale > 0 && (
@@ -150,15 +156,18 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
           </Stack> */}
         </Stack>
 
-        {details?.superPremium && data?.isInCompany && data?.credits && !data.credits.find(t => t.courseId == details.id) &&
-          <Button
-            btnType='primary'
-            size='large'
-            onClick={handleRequestAccessToCourse}
-          >
-            درخواست فعال سازی آموزش
-          </Button>
-        }
+        {details?.superPremium &&
+          data?.isInCompany &&
+          data?.credits &&
+          !data.credits.find((t) => t.courseId == details.id) && (
+            <Button
+              btnType='primary'
+              size='large'
+              onClick={handleRequestAccessToCourse}
+            >
+              درخواست فعال سازی آموزش
+            </Button>
+          )}
         {/* <Button
           btnType='primary'
           size='large'

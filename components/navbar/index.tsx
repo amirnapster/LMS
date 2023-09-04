@@ -26,7 +26,6 @@ import NavbarSearch from './search'
 import { Logo, NavItem } from './helper'
 import styles from './navbar.module.scss'
 
-
 const Navbar = () => {
   const dispatch = useDispatch()
   const { campaign } = useContext(MyContext)
@@ -42,17 +41,15 @@ const Navbar = () => {
   const cancelFocus = () => dispatch(toggleNavbarSearch(false))
 
   useEffect(() => {
-    if (accessToken)
-      getInfo()
+    if (accessToken) getInfo()
   }, [accessToken])
-
 
   const cancelSearch = () => {
     cancelFocus()
     const inputs = document.querySelectorAll('#navbar-search')
     inputs?.forEach((input) => {
       // eslint-disable-next-line
-      ; (input as HTMLInputElement).value = ''
+      ;(input as HTMLInputElement).value = ''
     })
   }
 
@@ -103,18 +100,24 @@ const Navbar = () => {
               </Col> */}
 
               <Col className='d-flex' xxs={5} sm={12} md={15}>
-                <Link href="/">
+                <Link href='/'>
                   <div className={styles['navbar__tab--img']}>
-                    <img src={data?.logo || '/svg/layout/navbar-logo.svg'} alt='' />
+                    <img
+                      src={data?.logo || '/svg/layout/navbar-logo.svg'}
+                      alt=''
+                    />
                   </div>
                 </Link>
               </Col>
 
-              <Button onClick={() => dispatch(toggleNavbarSearch(true))} className={styles['navbar--searchIcon']}>
+              <Button
+                onClick={() => dispatch(toggleNavbarSearch(true))}
+                className={styles['navbar--searchIcon']}
+              >
                 <SearchOutlined />
               </Button>
 
-              {data?.isInCompany === false ?
+              {data?.isInCompany === false ? (
                 <Button
                   className={styles['navbar__subscription']}
                   btnType='primary'
@@ -126,7 +129,8 @@ const Navbar = () => {
                 >
                   <span>خرید اشتراک</span>
                   <SvgSprite id='jet' />
-                </Button> :
+                </Button>
+              ) : (
                 <Button
                   className={styles['navbar__subscription']}
                   btnType='primary'
@@ -138,7 +142,7 @@ const Navbar = () => {
                 >
                   <span>همه آموزش‌ها</span>
                 </Button>
-              }
+              )}
 
               <Col className='position-relative'>
                 {accessToken ? (
@@ -165,18 +169,23 @@ const Navbar = () => {
         >
           <NavbarSearch cancelSearch={cancelSearch} />
         </Col>
-
       </Col>
 
       <Container>
         <Col span={24} data-selector='desktop'>
           <nav className='w-100 h-100 justify-space-between'>
-
-            <Col xxs={24} md={10} lg={8} data-selector='logo' style={{ color: data?.inCompanyPrimaryColor ?? '#008d67' }}>
+            <Col
+              xxs={24}
+              md={10}
+              lg={8}
+              data-selector='logo'
+              style={{ color: data?.inCompanyPrimaryColor ?? '#008d67' }}
+            >
               {!isSearching ? (
-
-                <Logo src={data?.logo || '/svg/layout/navbar-logo.svg'} title={data?.inCompanyTitle} />
-
+                <Logo
+                  src={data?.logo || '/svg/layout/navbar-logo.svg'}
+                  title={data?.inCompanyTitle}
+                />
               ) : (
                 <Button data-selector='back' onClick={cancelSearch}>
                   <Row align='middle' justify='center'>
@@ -187,11 +196,8 @@ const Navbar = () => {
               )}
             </Col>
 
-
-
-
             <Col className={styles['navbar--searchWrapper']} xxs={24} md={10}>
-              <Row align='middle' className="w-100 h-100" >
+              <Row align='middle' className='w-100 h-100'>
                 <Col
                   xxs={24}
                   md={isSearching ? 22 : 18}
@@ -215,8 +221,6 @@ const Navbar = () => {
               </Row>
             </Col>
 
-
-
             <Col
               flex='auto'
               className='justify-flex-end'
@@ -226,13 +230,10 @@ const Navbar = () => {
                 <NavbarAvatar />
               </NavbarProfile>
             </Col>
-
-
-
           </nav>
         </Col>
-      </Container >
-    </Row >
+      </Container>
+    </Row>
   )
 }
 

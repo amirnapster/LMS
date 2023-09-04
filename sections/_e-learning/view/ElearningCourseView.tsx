@@ -1,12 +1,9 @@
 import { useState, useEffect } from 'react'
 // @mui
-import { alpha } from '@mui/material/styles'
 import {
   Stack,
-  Button,
   Divider,
   Container,
-  Typography,
   Unstable_Grid2 as Grid,
 } from '@mui/material'
 // hooks
@@ -14,20 +11,23 @@ import useResponsive from 'utils/hooks/useResponsive'
 // _mock
 import _mock, { _socials, _courses } from '_mock'
 // components
-import Iconify from 'components/iconify'
 import LoadingScreen from 'components/loading-screen'
 //
-import Advertisement from '../../advertisement'
-import NewsletterElearning from '../../newsletter/e-learning'
+// import Advertisement from '../../advertisement'
+// import NewsletterElearning from '../../newsletter/e-learning'
 import ReviewElearning from '../../review/e-learning'
-import { ElearningCourseListSimilar } from '../course/list'
+// import { ElearningCourseListSimilar } from '../course/list'
 import {
   ElearningCourseDetailsInfo,
   ElearningCourseDetailsHero,
   ElearningCourseDetailsSummary,
   ElearningCourseDetailsTeachersInfo,
 } from '../course/details'
-import { Course, CourseTeacher, useGetApiCoursesByIdQuery } from 'libs/redux/services/karnama'
+import {
+  Course,
+  CourseTeacher,
+  useGetApiCoursesByIdQuery,
+} from 'libs/redux/services/karnama'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { ElearningLandingFeaturedCourses } from '../landing'
@@ -43,23 +43,16 @@ export default function ElearningCourseView() {
   const { query } = useRouter()
   const isMdUp = useResponsive('up', 'md')
   const { accessToken } = useSelector((state: RootState) => state.auth)
-  const { data, refetch } = useGetApiCoursesByIdQuery({ id: Number(query.id) })
+  const { data, refetch, isLoading } = useGetApiCoursesByIdQuery({
+    id: Number(query.id),
+  })
   const { details } = useSelector((state: RootState) => state.course)
 
-  const [loading, setLoading] = useState(true)
   useEffect(() => {
     refetch()
   }, [accessToken])
 
-  useEffect(() => {
-    const fakeLoading = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 500))
-      setLoading(false)
-    }
-    fakeLoading()
-  }, [])
-
-  if (loading) {
+  if (isLoading) {
     return <LoadingScreen />
   }
 
@@ -116,12 +109,9 @@ export default function ElearningCourseView() {
                 ))}
               </Stack>
             </Stack> */}
-
-
           </Grid>
 
           <Grid xs={12} md={5} lg={4}>
-            
             <Stack spacing={5}>
               {isMdUp && <ElearningCourseDetailsInfo course={_mockCourse} />}
 
@@ -139,10 +129,10 @@ export default function ElearningCourseView() {
         </Grid>
         {<Divider sx={{ my: 5 }} />}
 
-            <ElearningCourseDetailsTeachersInfo
-              teachers={data?.courseTeachers as CourseTeacher[]} 
-              provider={data?.provider}
-            />
+        <ElearningCourseDetailsTeachersInfo
+          teachers={data?.courseTeachers as CourseTeacher[]}
+          provider={data?.provider}
+        />
       </Container>
 
       {isMdUp && <Divider />}
@@ -151,8 +141,9 @@ export default function ElearningCourseView() {
 
       {/* <ElearningCourseListSimilar courses={courseSimilar} /> */}
 
-      <ElearningLandingFeaturedCourses data={details?.category?.courses as Course[]} />
-
+      <ElearningLandingFeaturedCourses
+        data={details?.category?.courses as Course[]}
+      />
 
       {/* <NewsletterElearning /> */}
     </>
