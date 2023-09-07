@@ -49,7 +49,7 @@ const Navbar = () => {
     const inputs = document.querySelectorAll('#navbar-search')
     inputs?.forEach((input) => {
       // eslint-disable-next-line
-      ;(input as HTMLInputElement).value = ''
+      ; (input as HTMLInputElement).value = ''
     })
   }
 
@@ -117,20 +117,7 @@ const Navbar = () => {
                 <SearchOutlined />
               </Button>
 
-              {data?.isInCompany === false ? (
-                <Button
-                  className={styles['navbar__subscription']}
-                  btnType='primary'
-                  bgColor='white-gold-gradient'
-                  color='black'
-                  href='/pricing'
-                  id='navbar-pricing'
-                  ripple
-                >
-                  <span>خرید اشتراک</span>
-                  <SvgSprite id='jet' />
-                </Button>
-              ) : (
+              {data?.isInCompany ? (
                 <Button
                   className={styles['navbar__subscription']}
                   btnType='primary'
@@ -142,6 +129,18 @@ const Navbar = () => {
                 >
                   <span>همه آموزش‌ها</span>
                 </Button>
+              ) : (<Button
+                className={styles['navbar__subscription']}
+                btnType='primary'
+                bgColor='white-gold-gradient'
+                color='black'
+                href='/pricing'
+                id='navbar-pricing'
+                ripple
+              >
+                <span>خرید اشتراک</span>
+                <SvgSprite id='jet' />
+              </Button>
               )}
 
               <Col className='position-relative'>

@@ -35,20 +35,7 @@ const NavbarProfile = ({ children, data }: NavbarProfileProps) => {
       className={styles['navbarProfile']}
     >
       <>
-        {data?.isInCompany === false ? (
-          <Button
-            className={styles['navbarProfile__subscription']}
-            btnType='primary'
-            bgColor='white-gold-gradient'
-            color='black'
-            href='/pricing'
-            id='navbar-pricing'
-            ripple
-          >
-            <span>خرید اشتراک</span>
-            <SvgSprite id='jet' />
-          </Button>
-        ) : (
+        {data?.isInCompany ? (
           <Button
             className={styles['navbarProfile__subscription']}
             btnType='primary'
@@ -60,6 +47,18 @@ const NavbarProfile = ({ children, data }: NavbarProfileProps) => {
           >
             <span>همه آموزش‌ها</span>
           </Button>
+        ) : (<Button
+          className={styles['navbarProfile__subscription']}
+          btnType='primary'
+          bgColor='white-gold-gradient'
+          color='black'
+          href='/pricing'
+          id='navbar-pricing'
+          ripple
+        >
+          <span>خرید اشتراک</span>
+          <SvgSprite id='jet' />
+        </Button>
         )}
         {!accessToken ? (
           <Button
