@@ -32,10 +32,10 @@ const Drawer = ({ children, className }: DrawerProps) => {
     if (drawerStatus) {
       // @ts-ignore
       document.addEventListener('mousedown', clickOutside)
-      document.body.classList.add('stop-scrolling')
+      //document.body.classList.add('stop-scrolling')
       container?.classList.add('blur-bg')
     } else {
-      document.body.classList.remove('stop-scrolling')
+      //document.body.classList.remove('stop-scrolling')
       container?.classList.remove('blur-bg')
     }
     return () => {

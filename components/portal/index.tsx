@@ -12,15 +12,15 @@ const Portal = ({ children, visible, root }: ModalProps) => {
   useEffect(() => {
     ref.current = document.querySelector(`#${root}`)
     if (visible && (root === 'modal-root' || root === 'dropdown-root')) {
-      document.body.classList.add('stop-scrolling')
-      if (!isMobile) document.body.classList.add('scrollbar-width')
+     // document.body.classList.add('stop-scrolling')
+     // if (!isMobile) document.body.classList.add('scrollbar-width')
     } else if (
       (root === 'modal-root' ||
         root === 'drawer-root' ||
         root === 'dropdown-root') &&
       !visible
     ) {
-      document.body.classList.remove('stop-scrolling', 'scrollbar-width')
+     // document.body.classList.remove('stop-scrolling', 'scrollbar-width')
     }
   }, [visible])
 

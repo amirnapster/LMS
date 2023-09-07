@@ -210,9 +210,9 @@ function EcommerceAccountCompanyUserDetail() {
   return (
     <EcommerceAccountLayout>
 
-      <Typography variant='h2' sx={{ mb: 3, }}>
+      <Typography variant='h3' sx={{ mb: 3, }}>
 
-        {data?.user?.fullname} {data?.user?.userName} ({data && segments?.map((segment: CompanySegment) => ` ${segment.title}: ${segment?.companySegmentValues?.find(s => s.id == segmentValues[segment.id as number])?.title} `)})
+        {data?.user?.fullname} {data?.user?.userName} ({data && segments?.map((segment: CompanySegment) => ` ${segment.title}: ${segment?.companySegmentValues?.find(s => s.id == segmentValues[segment.id as number])?.title || '-'} `)})
       </Typography>
       <h3 className='mb-1 mt-3'><Iconify
         icon={'pepicons-print:people'}

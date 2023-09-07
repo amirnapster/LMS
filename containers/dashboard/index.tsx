@@ -27,9 +27,9 @@ const DashboardComponent = () => {
       wrap
     >
       {courses?.map((course) => (
-        <Col  xxs={24} sm={6}> 
+        <span style={{width:"320px",marginInlineEnd:"1rem",marginBlockEnd:"1rem"}}> 
           <ElearningCourseItem course={course} vertical />
-        </Col>
+        </span>
       ))}
     </Row>
   )
