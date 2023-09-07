@@ -184,7 +184,7 @@ const Navbar = () => {
               {!isSearching ? (
                 <Logo
                   src={data?.logo || '/svg/layout/navbar-logo.svg'}
-                  title={data?.inCompanyTitle}
+                  title={data?.inCompanyTitle as string}
                 />
               ) : (
                 <Button data-selector='back' onClick={cancelSearch}>
