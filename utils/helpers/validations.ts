@@ -2,7 +2,7 @@ export const regex = {
   device: /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i,
   email:
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-  phoneNumber: /^(\+98|0)?9\d{9}$/im,
+  phoneNumber: /^09\d{9}$/im,
   // fullname: /^.+ .+$/,
   fullname: /^[a-zA-Zآ-ی]+(([',. -][a-zA-Zآ-ی ])?[a-zA-Zآ-ی]*)*$/g,
   otpCode: /^[0-9]{6}$/g,

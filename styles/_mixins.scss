@@ -80,7 +80,7 @@
 
 // field's error
 @mixin fieldsError() {
-  color: map-get($colors, secondary);
+  color: map-get($colors, error);
   font-size: 0.75rem;
   padding-inline-start: 1rem;
   margin-block-start: 0.25rem;

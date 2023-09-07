@@ -30,6 +30,7 @@ const Otp = ({ changeMode }: AuthCallBackProps) => {
     if(value?.userName.startsWith("09")===false || value?.userName.length < 11)
     {
       notify({type:'warn',message:'شماره موبایل صحیح نیست'})
+      return
     }
     signInByOTP({ signInByOtpCommand: value })
       .unwrap()
