@@ -1,9 +1,10 @@
 
-import { LinearProgress, Typography, Paper, Badge, Chip } from '@mui/material'
+import { LinearProgress, Typography, Paper, Badge, Chip, Stack, Autocomplete } from '@mui/material'
 import { DataGridPro, LicenseInfo, GridColDef } from '@mui/x-data-grid-pro';
 
 import { EcommerceAccountLayout } from '../layout'
 import {
+  useAddCompanyUserAsyncMutation,
   useCompanyUsersQuery,
   useSetActivationMutation,
 } from 'libs/redux/services/karnama'
@@ -16,6 +17,11 @@ import jalaliday from 'jalaliday'
 import Iconify from 'components/iconify/Iconify';
 import Link from 'next/link';
 import { durationToString } from 'utils/helpers/formatTime';
+import { useForm, Controller } from 'react-hook-form'
+import FormProvider, { RHFTextField } from 'components/hook-form';
+import * as Yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup';
+import { regex } from 'utils/helpers/validations';
 
 dayjs.extend(jalaliday)
 
@@ -26,18 +32,14 @@ function EcommerceAccountCompanyUsers() {
   );
   const { data, isLoading: usersLoading } = useCompanyUsersQuery()
   const [setActivation, { isLoading }] = useSetActivationMutation()
-
-  const { accessToken } = useSelector((state: RootState) => state.auth)
-  const openInNewTab = (url: string) => {
-    window.open(url, '_blank',);
-  };
+  const [addCompanyUser, { }] = useAddCompanyUserAsyncMutation()
 
   const columns: GridColDef[] = [
     {
       field: "fullname", headerName: "نام", flex: 1, minWidth: 140,
       renderCell: (params: any) => {
 
-        return   <Link target='_blank' href={`/dashboard/company/users/${params.row.id}`}>{params.row.fullname ? params.row.fullname : "NoName"} {params.row.pendingCount>0 && <Chip color="primary" label={params.row.pendingCount} />} </Link>
+        return <Link target='_blank' href={`/dashboard/company/users/${params.row.id}`}>{params.row.fullname ? params.row.fullname : "NoName"} {params.row.pendingCount > 0 && <Chip color="primary" label={params.row.pendingCount} />} </Link>
       }
     },
     {
@@ -87,9 +89,83 @@ function EcommerceAccountCompanyUsers() {
   ];
 
 
+  type FormValuesProps = {
+    name: string
+    mobile: string
+  }
+
+  const defaultValues = {
+    name: '',
+    mobile: '',
+  }
+
+  const NewReviewSchema = Yup.object().shape({
+    name: Yup.string().required('نام و نام خانوادگی اجباری است').min(5, 'نام و نام خانوادگی صحیح نیست')
+      .matches(/^.+\s.+$/, "هم نام و هم نام خانوادگی را وارد کنید"),
+    mobile: Yup.string()
+      .required('شماره موبایل اجباری است')
+      .matches(regex.phoneNumber, "شماره موبایل صحیح نیست")
+  })
+
+  const methods = useForm<FormValuesProps>({
+    resolver: yupResolver(NewReviewSchema),
+    defaultValues,
+  })
+
+  const {
+    reset,
+    control,
+    handleSubmit,
+    setValue,
+    formState: { errors, isSubmitting },
+  } = methods
+  const onSubmit = async (formData: FormValuesProps) => {
+    try {
+      addCompanyUser(formData).unwrap().then(() => {
+        notify({ type: 'success', message: 'کاربر با موفقیت اضافه شد' })
+        reset()
+      }).catch((res) => {
+        notify({ type: 'warn', message: res?.data?.message })
+
+      })
+
+
+    } catch (error) {
+      console.error(error)
+    }
+  }
   return (
     <EcommerceAccountLayout>
+      <h3 className='mb-1 mt-3'><Iconify
+        icon={'pepicons-print:people'}
+        width={24}
+        marginRight={0.5} />
+        افزودن کاربر جدید</h3>
+      <Paper variant='outlined' elevation={12} style={{ padding: 8 }} sx={{ my: 3 }}>
+        <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
 
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignContent={'flex-start'} flexWrap="wrap">
+
+
+            <RHFTextField
+              style={{ width: 300 }}
+              name='mobile'
+              type='number'
+              label='شماره موبایل'
+
+            />
+            <RHFTextField
+              style={{ width: 300 }}
+              name='name'
+              type='text'
+              label='نام و نام خانوادگی'
+            />
+            <div style={{ alignSelf: 'flex-end' }}>
+              <Button btnType='primary' type='submit' style={{ width: 150, marginBottom: "0.5rem" }} >ثبت</Button>
+            </div>
+          </Stack>
+        </FormProvider>
+      </Paper>
       <Typography variant='h5' sx={{ mb: 3, }}>
         <Iconify
           icon={'pepicons-print:people'}
@@ -98,6 +174,7 @@ function EcommerceAccountCompanyUsers() {
         لیست کارکنان
       </Typography>
       <Paper variant='outlined'>
+
         <DataGridPro
           loading={isLoading || usersLoading}
           getRowClassName={(params: any) => `rowActive--${params.row.isActive}`}

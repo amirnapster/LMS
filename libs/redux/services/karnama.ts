@@ -147,6 +147,17 @@ export const injectedRtkApi = api
         query: () => ({ url: `/api/Company/CompanySegments` }),
         providesTags: ['Company'],
       }),
+      addCompanyUserAsync: build.mutation<
+        AddCompanyUserAsyncApiResponse,
+        AddCompanyUserAsyncApiArg
+      >({
+        query: (queryArg) => ({
+          url: `/api/Company/AddCompanyUser`,
+          method: 'POST',
+          params: { name: queryArg.name, mobile: queryArg.mobile },
+        }),
+        invalidatesTags: ['Company'],
+      }),
       companyAdminCredits: build.query<
         CompanyAdminCreditsApiResponse,
         CompanyAdminCreditsApiArg
@@ -443,6 +454,11 @@ export type CommentApiArg = {
 export type CompanySegmentsApiResponse =
   /** status 200 Success */ CompanyUserDto[]
 export type CompanySegmentsApiArg = void
+export type AddCompanyUserAsyncApiResponse = unknown
+export type AddCompanyUserAsyncApiArg = {
+  name?: string
+  mobile?: string
+}
 export type CompanyAdminCreditsApiResponse =
   /** status 200 Success */ CompanyUserDto[]
 export type CompanyAdminCreditsApiArg = {
@@ -1266,6 +1282,7 @@ export const {
   useCommentMutation,
   useCompanySegmentsQuery,
   useLazyCompanySegmentsQuery,
+  useAddCompanyUserAsyncMutation,
   useCompanyAdminCreditsQuery,
   useLazyCompanyAdminCreditsQuery,
   useAddCompanyAdminCreditMutation,
