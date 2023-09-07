@@ -156,6 +156,7 @@ function EcommerceAccountCompanyUserDetail() {
     reset,
     control,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
   } = methods
   const onSubmit = async (formData: FormValuesProps) => {
@@ -205,21 +206,21 @@ function EcommerceAccountCompanyUserDetail() {
   }
   const autoCompleteOptions =
     courses ?
-      courses.map((course) => { return { label: `${course.titleFa} (${course.id})`, id: course.id } }) : []
+      courses.map((course) => { return { label: `${course.titleFa} (${course.id})`, id: course.id, totalDuration: course.totalDuration } }) : []
   return (
     <EcommerceAccountLayout>
 
       <Typography variant='h2' sx={{ mb: 3, }}>
-  
+
         {data?.user?.fullname} {data?.user?.userName} ({data && segments?.map((segment: CompanySegment) => ` ${segment.title}: ${segment?.companySegmentValues?.find(s => s.id == segmentValues[segment.id as number])?.title} `)})
       </Typography>
       <h3 className='mb-1 mt-3'><Iconify
-          icon={'pepicons-print:people'}
-          width={24}
-          marginRight={0.5} />
-          گروه‌بندی سازمانی</h3>
+        icon={'pepicons-print:people'}
+        width={24}
+        marginRight={0.5} />
+        گروه‌بندی سازمانی</h3>
       <Paper variant='outlined' elevation={12} style={{ padding: 8, }}>
-        <Stack direction="row" spacing={2}>
+        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignContent={'flex-start'}  flexWrap="wrap">
 
           {data && segments?.map((segment: CompanySegment) =>
             <div key={segment.id}>
@@ -253,14 +254,14 @@ function EcommerceAccountCompanyUserDetail() {
         </Stack>
       </Paper>
       <h3 className='mb-1 mt-3'><Iconify
-          icon={'material-symbols:credit-card-outline'}
-          width={24}
-          marginRight={0.5} />
-          تخصیص اعتبار</h3>
-       <Paper variant='outlined' elevation={12} style={{ padding: 8 }} sx={{ my: 3 }}>
+        icon={'material-symbols:credit-card-outline'}
+        width={24}
+        marginRight={0.5} />
+        تخصیص اعتبار</h3>
+      <Paper variant='outlined' elevation={12} style={{ padding: 8 }} sx={{ my: 3 }}>
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
 
-          <Stack direction="row" spacing={2} alignContent={'flex-start'}>
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignContent={'flex-start'} flexWrap="wrap">
 
             <Autocomplete
               renderInput={(params) => <TextField {...params} label="نام دوره" />}
@@ -268,8 +269,10 @@ function EcommerceAccountCompanyUserDetail() {
               style={{ width: 300 }}
               onChange={(event: any, value: unknown) => {
                 console.log(value)
-                if (value && segmentValues)
+                if (value) {
                   setCoruseId(Number((value as any).id))
+                  setValue('credit', Math.floor(Number((value as any).totalDuration / 3600)) + 1)
+                }
               }}
               options={autoCompleteOptions}
             />
@@ -288,41 +291,42 @@ function EcommerceAccountCompanyUserDetail() {
       </Paper>
 
       <h3 className='mb-1 mt-3'><Iconify
-          icon={'gg:list'}
-          width={24}
-          marginRight={0.5} />
-          اعتبار تخصیص یافته</h3>
+        icon={'gg:list'}
+        width={24}
+        marginRight={0.5} />
+        اعتبار تخصیص یافته</h3>
       <Paper variant='outlined'>
-        <DataGridPro
+        {credits &&
+          <DataGridPro
 
-          getRowClassName={(params: any) => `rowActive--${params.row.isActive}`}
-          initialState={{
-            pagination: {
-              paginationModel: { pageSize: 10, page: 0 },
-            },
-            sorting: {
-              sortModel: [{ field: 'insertDate', sort: 'desc' }],
-            },
+            getRowClassName={(params: any) => `rowActive--${params.row.isActive}`}
+            initialState={{
+              pagination: {
+                paginationModel: { pageSize: 10, page: 0 },
+              },
+              sorting: {
+                sortModel: [{ field: 'insertDate', sort: 'desc' }],
+              },
 
-          }}
-          pagination
-          loading={creditsLoading}
-          pageSizeOptions={[10]}
-          rowHeight={50}
-          columns={columns}
-          rows={credits || []}
-          slots={{
-            loadingOverlay: LinearProgress,
+            }}
+            pagination
+            loading={creditsLoading}
+            pageSizeOptions={[10]}
+            rowHeight={50}
+            columns={columns}
+            rows={credits || []}
+            slots={{
+              loadingOverlay: LinearProgress,
 
-          }}
-        />
+            }}
+          />}
       </Paper>
       <h3 className='mb-1 mt-3'><Iconify
-          icon={'cil:chart'}
-          width={24}
-          marginRight={0.5} />
-          گزارش مشاهده</h3>
-       <Row
+        icon={'cil:chart'}
+        width={24}
+        marginRight={0.5} />
+        گزارش مشاهده</h3>
+      <Row
         // className={styles['dashboard']}
         justify='center'
         gutter={[16, 16]}

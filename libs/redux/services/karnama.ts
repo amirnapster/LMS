@@ -1197,6 +1197,8 @@ export type CompanyUserDto = {
   col2?: string | null
   insertDate?: string
   usedCredit?: number
+  courseCount?: number
+  pendingCount?: number
 }
 export type PlayLogDto = {
   action?: string | null

@@ -1,5 +1,5 @@
 
-import { LinearProgress, Typography, Paper } from '@mui/material'
+import { LinearProgress, Typography, Paper, Badge, Chip } from '@mui/material'
 import { DataGridPro, LicenseInfo, GridColDef } from '@mui/x-data-grid-pro';
 
 import { EcommerceAccountLayout } from '../layout'
@@ -36,20 +36,22 @@ function EcommerceAccountCompanyUsers() {
     {
       field: "fullname", headerName: "نام", flex: 1, minWidth: 140,
       renderCell: (params: any) => {
-        return <Link target='_blank' href={`/dashboard/company/users/${params.row.id}`}>{params.row.fullname ? params.row.fullname : "NoName"}</Link>
+
+        return   <Link target='_blank' href={`/dashboard/company/users/${params.row.id}`}>{params.row.fullname ? params.row.fullname : "NoName"} {params.row.pendingCount>0 && <Chip color="primary" label={params.row.pendingCount} />} </Link>
       }
     },
     {
       field: "usedCredit", headerName: "میزان مشاهده", flex: 1,
-      renderCell: (params: any) => <span>{durationToString(params.value)} </span>
-       
-      
+      renderCell: (params: any) => <span>{durationToString(params.value)} ({params.row.pendingCount}) </span>
+
+
     },
-    { field: "username", headerName: "موبایل", flex: 1, minWidth: 110 ,
-    renderCell: (params: any) => {
-      return <Link target='_blank' href={`/dashboard/company/users/${params.row.id}`}>{params.value}</Link>
-    }
-  },
+    {
+      field: "username", headerName: "موبایل", flex: 1, minWidth: 110,
+      renderCell: (params: any) => {
+        return <Link target='_blank' href={`/dashboard/company/users/${params.row.id}`}>{params.value}</Link>
+      }
+    },
     {
       field: "insertDate", headerName: "تاریخ", flex: 1, minWidth: 110,
       renderCell: (params: any) => {
@@ -101,11 +103,11 @@ function EcommerceAccountCompanyUsers() {
           getRowClassName={(params: any) => `rowActive--${params.row.isActive}`}
           initialState={{
             pagination: {
-              paginationModel: { pageSize: 10, page: 0 },
+              paginationModel: { pageSize: 100, page: 0 },
             },
-            sorting: {
-              sortModel: [{ field: 'insertDate', sort: 'desc' }],
-            },
+            // sorting: {
+            //   sortModel: [{ field: 'pendingCount', sort: 'desc' }],
+            // },
 
           }}
           pagination
