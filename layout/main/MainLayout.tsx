@@ -67,8 +67,7 @@ export default function MainLayout({ children }: Props) {
       <Box
         component='main'
         sx={{
-          flexGrow: 1,
-          paddingTop:"34px"
+          flexGrow: 1
         }}
       >
         {/* <Spacing /> */}
