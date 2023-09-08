@@ -76,6 +76,7 @@ export default function ElearningCourseDetailsHero({ course }: Props) {
     <Box
       sx={{
         bgcolor: 'background.neutral',
+        mt:3
         // pb: { xs: 5, md: 10 },
       }}
     >
