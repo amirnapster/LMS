@@ -13,5 +13,6 @@ export { default as EcommerceAccountVouchersView } from './EcommerceAccountVouch
 export { default as EcommerceAccountOrdersView } from './EcommerceAccountOrdersView';
 export { default as EcommerceAccountPaymentView } from './EcommerceAccountPaymentView';
 export {default as EcommerceAccountGiftView} from './EcommerceAccountGiftView';
+export {default as EcommerceAccountUGQView} from './EcommerceAccountUGQView';
 export {default as EcommerceAccountCompanyUsers} from './EcommerceAccountCompanyUsers';
 export {default as EcommerceAccountCompanyUserDetail} from './EcommerceAccountCompanyUserDetail';

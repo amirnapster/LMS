@@ -12,6 +12,7 @@ export const addTagTypes = [
   'Qualifications',
   'Suggestion',
   'Tags',
+  'UGQ',
 ] as const
 export const injectedRtkApi = api
   .enhanceEndpoints({
@@ -394,6 +395,14 @@ export const injectedRtkApi = api
         query: (queryArg) => ({ url: `/api/Tags/${queryArg.id}` }),
         providesTags: ['Tags'],
       }),
+      createUgq: build.mutation<CreateUgqApiResponse, CreateUgqApiArg>({
+        query: (queryArg) => ({
+          url: `/api/UGQ/CreateUGQ`,
+          method: 'POST',
+          body: queryArg.ugq,
+        }),
+        invalidatesTags: ['UGQ'],
+      }),
     }),
     overrideExisting: false,
   })
@@ -578,6 +587,10 @@ export type GetApiTagsByIdApiResponse = /** status 200 Success */ Tag
 export type GetApiTagsByIdApiArg = {
   id: number
 }
+export type CreateUgqApiResponse = unknown
+export type CreateUgqApiArg = {
+  ugq: Ugq
+}
 export type SignInByOtpCommand = {
   userName?: string | null
 }
@@ -724,6 +737,7 @@ export type Qualification = {
   titleEn?: string | null
   description?: string | null
   bookletCode?: string | null
+  isLtr?: boolean
   category?: Category
   courseQualifications?: CourseQualification[] | null
   qualificationAdmins?: QualificationAdmin[] | null
@@ -791,6 +805,21 @@ export type PlayLog = {
   lesson?: Lesson
   user?: AspNetUser
 }
+export type Ugq = {
+  id?: number
+  userId?: number
+  question?: string | null
+  answer1?: string | null
+  answer2?: string | null
+  answer3?: string | null
+  answer4?: string | null
+  adminDesc?: string | null
+  isConfirmed?: boolean
+  insertDate?: string
+  lessonId?: number
+  timeOfVideo?: number
+  lesson?: Lesson
+}
 export type UserLessonCompleted = {
   id?: number
   userId?: number
@@ -817,6 +846,7 @@ export type Lesson = {
   attachments?: Attachment[] | null
   comments?: Comment[] | null
   playLogs?: PlayLog[] | null
+  ugqs?: Ugq[] | null
   userLessonCompleteds?: UserLessonCompleted[] | null
 }
 export type Comment = {
@@ -1335,4 +1365,5 @@ export const {
   useLazyGetApiTagsQuery,
   useGetApiTagsByIdQuery,
   useLazyGetApiTagsByIdQuery,
+  useCreateUgqMutation,
 } = injectedRtkApi

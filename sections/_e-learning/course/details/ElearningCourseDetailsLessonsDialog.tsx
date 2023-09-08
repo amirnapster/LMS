@@ -6,6 +6,7 @@ import type { Lesson } from 'libs/redux/services/karnama'
 import VideoJS from 'components/videoPlayer'
 import 'videojs-hotkeys'
 import videojs from 'video.js'
+import Button from 'components/ui/Button'
 
 // ----------------------------------------------------------------------
 
@@ -29,7 +30,10 @@ export default function ElearningCourseDetailsLessonsDialog({
   onSelectVideo,
 }: Props) {
   const playerRef = useRef(null)
-
+const handleNewUGQ=()=>{
+  const url=`/dashboard/UGQ/${selectLesson?.id}?tov=${localStorage.getItem(`currentTimeVideo-${selectLesson?.id}`)}`
+  window.open(url, "_blank", "noreferrer");
+}
   return (
     <Dialog
       fullWidth
@@ -57,6 +61,9 @@ export default function ElearningCourseDetailsLessonsDialog({
             playing={selected}
             onEnded={onVideoEnded}
           /> */}
+          <div style={{position:'fixed',top:"87%",left:"50%",transform:"translateX(-50%)"}}>
+          <Button btnType='primary' onClick={handleNewUGQ} >طرح سوال</Button>
+          </div>
     </Dialog>
   )
 }
