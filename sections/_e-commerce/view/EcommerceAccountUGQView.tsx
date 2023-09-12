@@ -52,7 +52,7 @@ function UGQView() {
 
   const onSubmit = async (params: typeof defaultValues) => {
     params.lessonId = Number(query.id)
-    params.timeOfVideo = Number(query.tov)
+    params.timeOfVideo = Math.floor(Number(query.tov))
     console.log(params)
     createUgq({ ugq: params}).unwrap().then((res) => {
         notify({ type: 'success', message: 'سوال شما با موفقیت ثبت شد' })
