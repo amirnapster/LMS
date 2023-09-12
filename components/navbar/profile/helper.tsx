@@ -1,9 +1,8 @@
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
-import { useLogoutMutation } from 'libs/redux/services/auth'
 import { clearAuth } from 'libs/redux/slices/auth'
 import { ExpandMore } from '@mui/icons-material'
-import { useInfoMutation } from 'libs/redux/services/karnama'
+import { useInfoMutation, useLogoutMutation } from 'libs/redux/services/karnama'
 // import {
 //   ExitIcon,
 //   PricingPlanFree,
@@ -75,7 +74,7 @@ export const NavbarAvatar = () => {
     ).toFixed(0)
 
   const logout = () => {
-    logoutUser(null)
+    logoutUser()
       .unwrap()
       .then(() => {
         dispatch(clearAuth())
