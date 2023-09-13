@@ -20,8 +20,8 @@ import { notify } from 'utils/notification'
 
 function UGQView() {
   const [createUgq, { isLoading }] = useCreateUgqMutation()
-  
-  const { query,push } = useRouter()
+
+  const { query, push } = useRouter()
   const { accessToken } = useSelector((state: RootState) => state.auth)
 
   const EcommerceAccountPersonalSchema = Yup.object().shape({
@@ -34,8 +34,8 @@ function UGQView() {
     answer2: '',
     answer3: '',
     answer4: '',
-    timeOfVideo:0,
-    lessonId:0
+    timeOfVideo: 0,
+    lessonId: 0
   }
 
   const methods = useForm<typeof defaultValues>({
@@ -54,13 +54,13 @@ function UGQView() {
     params.lessonId = Number(query.id)
     params.timeOfVideo = Math.floor(Number(query.tov))
     console.log(params)
-    createUgq({ ugq: params}).unwrap().then((res) => {
-        notify({ type: 'success', message: 'سوال شما با موفقیت ثبت شد' })
-        reset()
-      }).catch(()=>{
-        notify({ type: 'warn', message: 'خطا در ثبت سوال' })
+    createUgq({ createUgqModel: params }).unwrap().then((res) => {
+      notify({ type: 'success', message: 'سوال شما با موفقیت ثبت شد' })
+      reset()
+    }).catch(() => {
+      notify({ type: 'warn', message: 'خطا در ثبت سوال' })
 
-      })
+    })
   }
 
 
@@ -77,7 +77,7 @@ function UGQView() {
         <Typography variant='h5' sx={{ mb: 3 }}>
           طراحی سوال جدید
         </Typography>
-<p>با طرح سوال از آموزش‌های نماتک، به ما در ایجاد بانک سوالات با کیفیت کمک کنید.</p>
+        <p>با طرح سوال از آموزش‌های نماتک، به ما در ایجاد بانک سوالات با کیفیت کمک کنید.</p>
 
         <Box
           rowGap={2.5}
