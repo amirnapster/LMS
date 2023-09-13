@@ -4,16 +4,18 @@ import { useSelector } from 'react-redux'
 import { Typography } from '@mui/material'
 import ElearningCourseDetailsLessonItem from './ElearningCourseDetailsLessonItem'
 import ElearningCourseDetailsLessonsDialog from './ElearningCourseDetailsLessonsDialog'
-import type { Lesson, Section } from 'libs/redux/services/karnama'
+import type { Lesson, Section, UserLessonViewMinute } from 'libs/redux/services/karnama'
 import type { RootState } from 'libs/redux/store'
 
 // ----------------------------------------------------------------------
 
 type Props = {
   section: Section
+  graph: UserLessonViewMinute[]
+  canPlay: boolean
 }
 
-export default function ElearningCourseDetailsLessonList({ section }: Props) {
+export default function ElearningCourseDetailsLessonList({ section,graph ,canPlay}: Props) {
   const [selectLesson, setSelectLesson] = useState<Lesson | null>(null)
   const { details } = useSelector((state: RootState) => state.course)
 
@@ -64,6 +66,8 @@ export default function ElearningCourseDetailsLessonList({ section }: Props) {
           expanded={expanded === String(lesson.id)}
           onExpanded={handleExpanded(String(lesson.id))}
           onOpen={() => handleOpen(lesson)}
+          graph={graph.filter(t=>t.lessonId===lesson.id)}
+          canPlay={canPlay}
         />
       ))}
 

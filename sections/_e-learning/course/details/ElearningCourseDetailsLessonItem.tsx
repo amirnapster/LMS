@@ -7,13 +7,9 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from '@mui/material'
-// types
-import { ICourseLessonProp } from 'types/course'
 // components
 import Iconify from 'components/iconify'
-import type { Lesson } from 'libs/redux/services/karnama'
-import { useSelector } from 'react-redux'
-import { RootState } from 'libs/redux/store'
+import type { Lesson, UserLessonViewMinute } from 'libs/redux/services/karnama'
 
 // ----------------------------------------------------------------------
 
@@ -35,6 +31,7 @@ const StyledAccordionSummary = styled(AccordionSummary)(({ theme }) => ({
     margin: theme.spacing(2, 0),
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(1),
+    flexWrap: 'wrap',
     '&.Mui-expanded': { margin: theme.spacing(2, 0) },
   },
 }))
@@ -45,6 +42,8 @@ type LessonItemProps = {
   lesson: Lesson
   expanded: boolean
   selected: boolean
+  canPlay: boolean
+  graph: UserLessonViewMinute[]
   onOpen: VoidFunction
   onExpanded: (event: React.SyntheticEvent, isExpanded: boolean) => void
 }
@@ -55,22 +54,28 @@ export default function ElearningCourseDetailsLessonItem({
   selected,
   onExpanded,
   onOpen,
+  graph,
+  canPlay,
 }: LessonItemProps) {
   const { title, description } = lesson
 
   const handleOpen = () => {
-    if (lesson.isFree || lesson.isOpen) {
-      onOpen()
-    }
+    if (canPlay)
+      if (lesson.isFree || lesson.isOpen) {
+        onOpen()
+      }
   }
-
+  console.log(graph)
+  const getLast = () => {
+    return graph?.find(t => t?.minute as number + 1 > (lesson.duation as number) / 60)
+  }
   const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play'
-
+  const isLocked = !lesson.isFree && !lesson.isOpen && canPlay
   return (
     <Box onClick={handleOpen} sx={{ position: 'relative' }}>
       <Iconify
         width={24}
-        icon={!lesson.isFree && !lesson.isOpen ? 'carbon:locked' : playIcon}
+        icon={isLocked ? 'carbon:locked' : playIcon}
         sx={{
           mr: 2,
           top: 18,
@@ -81,7 +86,7 @@ export default function ElearningCourseDetailsLessonItem({
           ...(selected && {
             color: 'primary.main',
           }),
-          ...((!lesson.isFree && !lesson.isOpen) && {
+          ...((isLocked) && {
             color: 'text.disabled',
           }),
         }}
@@ -89,8 +94,7 @@ export default function ElearningCourseDetailsLessonItem({
 
       <StyledAccordion
         expanded={expanded}
-        // onChange={onExpanded}
-        disabled={!lesson.isFree && !lesson.isOpen}
+        disabled={isLocked}
       >
         <StyledAccordionSummary>
           <Typography
@@ -107,7 +111,9 @@ export default function ElearningCourseDetailsLessonItem({
           </Typography>
 
           <Typography variant='body2' sx={{ mr: 2 }}>
-          {`${((lesson.duation as number) / 60).toFixed(0)} دقیقه`}
+            {`${((lesson.duation as number) / 60).toFixed(0)} دقیقه`}
+            {/* {graph.length > 0 &&
+              ((graph.length * 100 / ((lesson.duation as number) / 60)).toFixed())} */}
           </Typography>
 
           <Iconify
@@ -119,9 +125,16 @@ export default function ElearningCourseDetailsLessonItem({
             }}
             sx={{
               color: 'text.secondary',
-              ...(!lesson.isFree && { color: 'text.disabled' }),
+              ...(isLocked && { color: 'text.disabled' }),
             }}
-          />
+          /><br />
+          <div style={{ flexBasis: "100%" }}>
+            {graph.map(({ minute, quantity }) => <span className={`graphPixel graphPixel-${Math.min(4, quantity as number)}`} style={{ right: `${(minute as number) * 6000 / (lesson?.duation as number)}%`, width: `${6000 / (lesson?.duation as number)}%` }}></span>)}
+            {getLast() &&
+              <span className={`graphPixel graphPixel-${Math.min(4, getLast()?.minute as number)}`} style={{ left: 0, width: `${6000 / (lesson?.duation as number)}%` }}></span>}
+            <span className={`graphPixel `} style={{ left: 0, width: `100%`, borderInline: "1px solid black" }}></span>
+
+          </div>
         </StyledAccordionSummary>
 
         <AccordionDetails sx={{ p: 2 }}>

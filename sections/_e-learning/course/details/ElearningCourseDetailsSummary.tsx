@@ -9,21 +9,23 @@ import Iconify from 'components/iconify'
 //
 import ElearningCourseDetailsLessonList from './ElearningCourseDetailsLessonList'
 import type { RootState } from 'libs/redux/store'
+import { UserLessonViewMinute } from 'libs/redux/services/karnama'
 
 // ----------------------------------------------------------------------
 
 type Props = {
   course: ICourseProps
+  graph: UserLessonViewMinute[]
 }
 
-export default function ElearningCourseDetailsSummary({ course }: Props) {
+export default function ElearningCourseDetailsSummary({ course, graph }: Props) {
   const { skills, learnList } = course
   const { details } = useSelector((state: RootState) => state.course)
 
   return (
     <Stack spacing={5}>
       {details?.sections?.map((section) => (
-        <ElearningCourseDetailsLessonList section={section} />
+        <ElearningCourseDetailsLessonList section={section} graph={graph} canPlay={true} />
       ))}
 
       {/* --  Learn -- */}

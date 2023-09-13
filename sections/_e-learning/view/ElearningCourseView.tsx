@@ -27,6 +27,7 @@ import {
   Course,
   CourseTeacher,
   useGetApiCoursesByIdQuery,
+  useLazyGetApiCoursesByIdGraphQuery,
 } from 'libs/redux/services/karnama'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
@@ -34,6 +35,7 @@ import { ElearningLandingFeaturedCourses } from '../landing'
 import { useSelector } from 'react-redux'
 
 import type { RootState } from 'libs/redux/store'
+import type { UserLessonViewMinute } from 'libs/redux/services/karnama'
 
 // ----------------------------------------------------------------------
 
@@ -46,10 +48,16 @@ export default function ElearningCourseView() {
   const { data, refetch, isLoading } = useGetApiCoursesByIdQuery({
     id: Number(query.id),
   })
+  const [getGraph] = useLazyGetApiCoursesByIdGraphQuery()
+  const [graph, setGraph] = useState<UserLessonViewMinute[]>([])
   const { details } = useSelector((state: RootState) => state.course)
 
   useEffect(() => {
     refetch()
+    if (accessToken)
+      getGraph({ id: Number(query.id) }).unwrap().then((t) => {
+        setGraph(t)
+      })
   }, [accessToken])
 
   if (isLoading) {
@@ -79,7 +87,7 @@ export default function ElearningCourseView() {
           )}
 
           <Grid xs={12} md={7} lg={8}>
-            <ElearningCourseDetailsSummary course={_mockCourse} />
+            <ElearningCourseDetailsSummary course={_mockCourse} graph={graph}/>
 
             {/* <Stack direction='row' flexWrap='wrap' sx={{ mt: 5 }}>
               <Typography variant='subtitle2' sx={{ mt: 0.75, mr: 1.5 }}>

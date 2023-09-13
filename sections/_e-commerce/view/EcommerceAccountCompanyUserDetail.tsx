@@ -1,5 +1,5 @@
 
-import { LinearProgress, Typography, Paper, Select, MenuItem, Stack, Autocomplete, TextField, OutlinedInput, InputLabel } from '@mui/material'
+import { LinearProgress, Typography, Paper, Select, MenuItem, Stack, Autocomplete, TextField, OutlinedInput, InputLabel, CircularProgress } from '@mui/material'
 import { DataGridPro, LicenseInfo, GridColDef } from '@mui/x-data-grid-pro';
 import { useRouter } from 'next/router';
 
@@ -7,12 +7,16 @@ import { EcommerceAccountLayout } from '../layout'
 import {
   CompanySegment,
   CompanySegmentValue,
+  Course,
   SetUserSegmentValueApiArg,
+  UserLessonViewMinute,
   useAddCompanyAdminCreditMutation,
   useChangeCreditMutation,
   useCompanyAdminCreditsQuery,
   useCompanySegmentsQuery,
   useCompanyUserQuery,
+  useLazyGetApiCoursesByIdGraphQuery,
+  useLazyGetApiCoursesByIdQuery,
   useOthersQuery,
   useSetActivationMutation,
   useSetCreditActivationMutation,
@@ -25,7 +29,7 @@ import Button from 'components/ui/Button'
 import dayjs from 'dayjs'
 import jalaliday from 'jalaliday'
 import Iconify from 'components/iconify/Iconify';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSetUserSegmentValueMutation } from 'libs/redux/services/karnama';
 import * as Yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
@@ -36,6 +40,7 @@ import Col from 'components/ui/Col';
 import { ElearningCourseItem } from 'sections/_e-learning/course/item';
 import Input from 'components/ui/Input';
 import { toast } from 'react-hot-toast';
+import ElearningCourseDetailsLessonList from 'sections/_e-learning/course/details/ElearningCourseDetailsLessonList';
 
 dayjs.extend(jalaliday)
 
@@ -55,7 +60,20 @@ function EcommerceAccountCompanyUserDetail() {
   const [setSegmentValuesApi, { isLoading: updatingSegmentValuesLoading }] = useSetUserSegmentValueMutation()
   const [courseId, setCoruseId] = useState<Number>(0)
   const [addCompanyAdminCredit, { isLoading: addingCompanyAdminCredit }] = useAddCompanyAdminCreditMutation()
+  const [getCourse, { isLoading: courseLoading }] = useLazyGetApiCoursesByIdQuery()
+  const [getGraph, { isLoading: graphLoading }] = useLazyGetApiCoursesByIdGraphQuery()
+  const [graph, setGraph] = useState<UserLessonViewMinute[]>([])
+  const [course, setCourse] = useState<Course | null>(null)
 
+  const getUserGraph = (cuid: number, courseId: number) => {
+    getGraph({ id: courseId, cuid }).unwrap().then((t) => {
+      setGraph(t)
+      console.log(t)
+    })
+    getCourse({ id: courseId }).unwrap().then((t) => {
+      setCourse(t)
+    })
+  }
   const handleChangeCredit = (id: number, credit: number) => {
     const promise = changeCredit({ id, credit: credit * 60 }).unwrap()
     toast.promise(promise,
@@ -124,7 +142,24 @@ function EcommerceAccountCompanyUserDetail() {
         };
 
         return <><Button btnType='primary' className="ml-1" disabled={params.row.isActive === true} onClick={(e: any) => clickHandler(e, true)}>فعال</Button>
-          <Button btnType='secondary' disabled={params.row.isActive === false} onClick={(e: any) => clickHandler(e, false)}> غیرفعال </Button></>;
+          <Button btnType='secondary' disabled={params.row.isActive === false} onClick={(e: any) => clickHandler(e, false)}> غیرفعال </Button>
+          {graphLoading || courseLoading ?
+            <CircularProgress
+              sx={{
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                m: 'auto',
+                position: 'absolute',
+              }}
+            /> : null}
+          <Button title="نمایش گزارش استفاده"
+            disabled={graphLoading || courseLoading || params.row.isActive === false}
+            btnType='primary' className="mr-1" onClick={(e: any) => getUserGraph(params.row.id, params.row.courseId)}><Iconify
+              icon={'cil:chart'}
+              width={24} /></Button></>
+
       }
     },
   ];
@@ -195,6 +230,11 @@ function EcommerceAccountCompanyUserDetail() {
 
 
   }, [data, segments])
+  const graphMemo = useMemo(() => {
+    return course?.sections?.map((section) => (
+      <ElearningCourseDetailsLessonList section={section} graph={graph} canPlay={false} />
+    ))
+  }, [course, graph])
   const AddCreditHandler = () => {
   }
   const UpdateSegmentValues = () => {
@@ -220,7 +260,7 @@ function EcommerceAccountCompanyUserDetail() {
         marginRight={0.5} />
         گروه‌بندی سازمانی</h3>
       <Paper variant='outlined' elevation={12} style={{ padding: 8, }}>
-        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignContent={'flex-start'}  flexWrap="wrap">
+        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignContent={'flex-start'} flexWrap="wrap">
 
           {data && segments?.map((segment: CompanySegment) =>
             <div key={segment.id}>
@@ -320,6 +360,16 @@ function EcommerceAccountCompanyUserDetail() {
 
             }}
           />}
+      </Paper>
+      <h3 className='mb-1 mt-3'><Iconify
+        icon={'cil:chart'}
+        width={24}
+        marginRight={0.5} />
+        گزارش استفاده کاربر</h3>
+      <Paper variant='outlined' className="p-2 mt-2" style={{ backgroundColor: 'inherit' }}>
+
+        {graphMemo}
+
       </Paper>
       <h3 className='mb-1 mt-3'><Iconify
         icon={'cil:chart'}

@@ -67,6 +67,31 @@ a {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+.graphPixel {
+  position: absolute;
+  top: 45px;
+  z-index: -2;
+  height: 12px;
+  display: inline-block;
+  
+
+  &-1 {
+    background-color: #ffe89a;
+  }
+
+  &-2 {
+    background-color: #f5c00a;
+  }
+
+  &-3 {
+    background-color: #f5ab0a;
+  }
+  &-4 {
+    background-color: #f5890a;
+  }
+}
+
+
 .blur-bg {
   filter: blur(3px);
   pointer-events: none;
@@ -195,10 +220,11 @@ tspan.highcharts-text-outline {
   color: yellow !important;
   background-color: rgba(0, 0, 0, 0.5) !important;
 }
-.rowActive--false
-{
+
+.rowActive--false {
   background-color: #ffe7e7;
 }
+
 @media only screen and (max-width: 600px) {
   .MuiGrid-spacing-xs-2 {
     margin: 0 !important;

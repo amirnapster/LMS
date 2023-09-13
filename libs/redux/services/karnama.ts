@@ -301,6 +301,16 @@ export const injectedRtkApi = api
         }),
         providesTags: ['Courses'],
       }),
+      getApiCoursesByIdGraph: build.query<
+        GetApiCoursesByIdGraphApiResponse,
+        GetApiCoursesByIdGraphApiArg
+      >({
+        query: (queryArg) => ({
+          url: `/api/Courses/${queryArg.id}/Graph`,
+          params: { cuid: queryArg.cuid },
+        }),
+        providesTags: ['Courses'],
+      }),
       getApiCoursesById: build.query<
         GetApiCoursesByIdApiResponse,
         GetApiCoursesByIdApiArg
@@ -399,7 +409,7 @@ export const injectedRtkApi = api
         query: (queryArg) => ({
           url: `/api/UGQ/CreateUGQ`,
           method: 'POST',
-          body: queryArg.ugq,
+          body: queryArg.createUgqModel,
         }),
         invalidatesTags: ['UGQ'],
       }),
@@ -537,6 +547,12 @@ export type OthersApiResponse = /** status 200 Success */ Course[]
 export type OthersApiArg = {
   id?: number
 }
+export type GetApiCoursesByIdGraphApiResponse =
+  /** status 200 Success */ UserLessonViewMinute[]
+export type GetApiCoursesByIdGraphApiArg = {
+  id: number
+  cuid?: number
+}
 export type GetApiCoursesByIdApiResponse = /** status 200 Success */ Course
 export type GetApiCoursesByIdApiArg = {
   id: number
@@ -589,7 +605,7 @@ export type GetApiTagsByIdApiArg = {
 }
 export type CreateUgqApiResponse = unknown
 export type CreateUgqApiArg = {
-  ugq: Ugq
+  createUgqModel: CreateUgqModel
 }
 export type SignInByOtpCommand = {
   userName?: string | null
@@ -1252,6 +1268,13 @@ export type PlayLogDto = {
   time?: number
   speed?: number
 }
+export type UserLessonViewMinute = {
+  userId?: number
+  courseId?: number
+  lessonId?: number
+  minute?: number | null
+  quantity?: number
+}
 export type CompanyAdminCreditDto = {
   id?: number
   adminId?: number
@@ -1290,6 +1313,15 @@ export type Pricing = {
   campaign?: CampaignPrice
   title?: string | null
   badge?: string | null
+}
+export type CreateUgqModel = {
+  question?: string | null
+  answer1?: string | null
+  answer2?: string | null
+  answer3?: string | null
+  answer4?: string | null
+  lessonId?: number
+  timeOfVideo?: number
 }
 export const {
   useSignInByOtpMutation,
@@ -1340,6 +1372,8 @@ export const {
   useLazyMyQuery,
   useOthersQuery,
   useLazyOthersQuery,
+  useGetApiCoursesByIdGraphQuery,
+  useLazyGetApiCoursesByIdGraphQuery,
   useGetApiCoursesByIdQuery,
   useLazyGetApiCoursesByIdQuery,
   useGetGiftQuery,
