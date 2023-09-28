@@ -365,7 +365,7 @@ function EcommerceAccountCompanyUserDetail() {
         icon={'cil:chart'}
         width={24}
         marginRight={0.5} />
-        گزارش استفاده کاربر</h3>
+        گراف مشاهده {data?.user?.fullname} از بسته {course?.titleFa}</h3>
       <Paper variant='outlined' className="p-2 mt-2" style={{ backgroundColor: 'inherit' }}>
 
         {graphMemo}

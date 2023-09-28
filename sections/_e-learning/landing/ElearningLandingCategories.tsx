@@ -95,7 +95,7 @@ type CategoryItemProps = {
 }
 
 function CategoryItem({ category }: CategoryItemProps) {
-  if(category.title=="لینکدین")
+  if(category.title=="لینکدین" || category.title=='نماتک')
   return null
   return (
     <Link href={`/categories/${category.id}`}>
