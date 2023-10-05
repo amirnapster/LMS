@@ -44,7 +44,7 @@ function EcommerceAccountCompanyUsers() {
     },
     {
       field: "usedCredit", headerName: "میزان مشاهده", flex: 1,
-      renderCell: (params: any) => <span>{durationToString(params.value)} ({params.row.courseCount}) </span>
+      renderCell: (params: any) => <span>{durationToString(params.value * 60)} ({params.row.courseCount}) </span>
 
 
     },

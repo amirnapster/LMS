@@ -108,7 +108,7 @@ function EcommerceAccountCompanyUserDetail() {
     },
     {
       field: "usedCredit", headerName: "میزان مشاهده", flex: 1, minWidth: 110,
-      renderCell: (params: any) => durationToString(params.value)
+      renderCell: (params: any) => durationToString(params.value * 60)
     },
     {
       field: "totalCredit", headerName: "اعتبار", flex: 1, minWidth: 110,
