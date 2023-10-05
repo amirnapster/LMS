@@ -41,6 +41,7 @@ import { ElearningCourseItem } from 'sections/_e-learning/course/item';
 import Input from 'components/ui/Input';
 import { toast } from 'react-hot-toast';
 import ElearningCourseDetailsLessonList from 'sections/_e-learning/course/details/ElearningCourseDetailsLessonList';
+import { durationToString } from 'utils/helpers/formatTime';
 
 dayjs.extend(jalaliday)
 
@@ -107,7 +108,7 @@ function EcommerceAccountCompanyUserDetail() {
     },
     {
       field: "usedCredit", headerName: "میزان مشاهده", flex: 1, minWidth: 110,
-      renderCell: (params: any) => `${(params.row.usedCredit / 60).toFixed()}`
+      renderCell: (params: any) => durationToString(params.value)
     },
     {
       field: "totalCredit", headerName: "اعتبار", flex: 1, minWidth: 110,
