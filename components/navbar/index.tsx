@@ -43,6 +43,12 @@ const Navbar = () => {
   useEffect(() => {
     if (accessToken) getInfo()
   }, [accessToken])
+  
+  useEffect(() => {
+    if ((data?.isInCompany || data?.isCompanyAdmin) && asPath === '/')
+      replace('/dashboard/')
+  }, [data, asPath])
+
 
   const cancelSearch = () => {
     cancelFocus()
