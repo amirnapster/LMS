@@ -7,6 +7,8 @@ import VideoJS from 'components/videoPlayer'
 import 'videojs-hotkeys'
 import videojs from 'video.js'
 import Button from 'components/ui/Button'
+import { useSelector } from 'react-redux'
+import { RootState } from 'libs/redux/store'
 
 // ----------------------------------------------------------------------
 
@@ -31,6 +33,8 @@ export default function ElearningCourseDetailsLessonsDialog({
 }: Props) {
   const playerRef = useRef(null)
   const [showNewUGQ, setShowNewUGQ] = useState(true)
+  const { accessToken } = useSelector((state: RootState) => state.auth)
+
   const handleNewUGQ = () => {
     const url = `/dashboard/UGQ/${selectLesson?.id}?tov=${localStorage.getItem(`currentTimeVideo-${selectLesson?.id}`)}`
     window.open(url, "_blank", "noreferrer");
@@ -63,7 +67,7 @@ export default function ElearningCourseDetailsLessonsDialog({
             playing={selected}
             onEnded={onVideoEnded}
           /> */}
-      {showNewUGQ &&
+      {accessToken && showNewUGQ &&
         <div style={{ position: 'fixed', top: "87%", left: "50%", transform: "translateX(-50%)" }}>
           <Button btnType='primary' onClick={handleNewUGQ} >طرح سوال</Button>
         </div>}
