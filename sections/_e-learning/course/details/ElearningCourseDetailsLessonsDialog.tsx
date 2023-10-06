@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 // @mui
 import { Dialog, Typography, ListItemButton, IconButton } from '@mui/material'
 import Iconify from 'components/iconify'
@@ -30,10 +30,11 @@ export default function ElearningCourseDetailsLessonsDialog({
   onSelectVideo,
 }: Props) {
   const playerRef = useRef(null)
-const handleNewUGQ=()=>{
-  const url=`/dashboard/UGQ/${selectLesson?.id}?tov=${localStorage.getItem(`currentTimeVideo-${selectLesson?.id}`)}`
-  window.open(url, "_blank", "noreferrer");
-}
+  const [showNewUGQ, setShowNewUGQ] = useState(true)
+  const handleNewUGQ = () => {
+    const url = `/dashboard/UGQ/${selectLesson?.id}?tov=${localStorage.getItem(`currentTimeVideo-${selectLesson?.id}`)}`
+    window.open(url, "_blank", "noreferrer");
+  }
   return (
     <Dialog
       fullWidth
@@ -53,6 +54,7 @@ const handleNewUGQ=()=>{
         id={selectLesson?.id}
         timeOfVideo={selectLesson?.userLessonCompleteds?.[0]?.timeOfVideo}
         src={selectLesson?.videoUrl}
+        setShowNewUGQ={setShowNewUGQ}
       />
 
       {/* <Player
@@ -61,9 +63,10 @@ const handleNewUGQ=()=>{
             playing={selected}
             onEnded={onVideoEnded}
           /> */}
-          <div style={{position:'fixed',top:"87%",left:"50%",transform:"translateX(-50%)"}}>
+      {showNewUGQ &&
+        <div style={{ position: 'fixed', top: "87%", left: "50%", transform: "translateX(-50%)" }}>
           <Button btnType='primary' onClick={handleNewUGQ} >طرح سوال</Button>
-          </div>
+        </div>}
     </Dialog>
   )
 }
@@ -98,8 +101,8 @@ function LessonItem({ lesson, selected, onSelectVideo }: LessonItemProps) {
           }),
           ...(!lesson.isFree &&
             !lesson.isOpen && {
-              color: 'text.disabled',
-            }),
+            color: 'text.disabled',
+          }),
         }}
       />
 

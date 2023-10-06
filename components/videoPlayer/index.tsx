@@ -9,7 +9,7 @@ export const VideoJS = (props: any) => {
   const videoRef = useRef<any>(null)
   const playerRef = useRef<any>(null)
   const { accessToken } = useSelector((state: RootState) => state.auth)
-  const { src, id, timeOfVideo } = props
+  const { src, id, timeOfVideo,setShowNewUGQ } = props
 
   const [sendLog] = useLogMutation()
 
@@ -62,10 +62,12 @@ export const VideoJS = (props: any) => {
 
     player.on(['waiting', 'pause'], () => {
       isPlaying = false
+      setShowNewUGQ(true)
     })
 
     player.on('playing', () => {
       isPlaying = true
+      setShowNewUGQ(false)
     })
     let secondCounter = 0
     setInterval(() => {
