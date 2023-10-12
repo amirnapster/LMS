@@ -27,9 +27,8 @@ const Otp = ({ changeMode }: AuthCallBackProps) => {
   } = useForm({ defaultValues: { userName: '' } })
 
   const onSubmit = (value: ValueType) => {
-    if(value?.userName.startsWith("09")===false || value?.userName.length < 11)
-    {
-      notify({type:'warn',message:'شماره موبایل صحیح نیست'})
+    if ((value?.userName.startsWith("09") === false && value?.userName.startsWith("01") === false) || value?.userName.length < 11) {
+      notify({ type: 'warn', message: 'شماره موبایل صحیح نیست' })
       return
     }
     signInByOTP({ signInByOtpCommand: value })
@@ -45,8 +44,8 @@ const Otp = ({ changeMode }: AuthCallBackProps) => {
       <span className={styles['otp--title']}>ورود / ثبت نام</span>
 
       <span className={styles['otp--subTitle']}>
-        برای دسترسی رایگان به ویدئوهای آموزشی،<br/>
-         شماره موبایل خود را وارد کنید
+        برای دسترسی رایگان به ویدئوهای آموزشی،<br />
+        شماره موبایل خود را وارد کنید
       </span>
 
       <form onSubmit={handleSubmit(onSubmit)} className={styles['otp__form']}>
@@ -80,7 +79,7 @@ const Otp = ({ changeMode }: AuthCallBackProps) => {
         >
           تایید
         </Button>
-{/* 
+        {/* 
         <Button
           onClick={() => changeMode('signIn')}
           btnType='ghost'
