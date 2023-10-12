@@ -1278,6 +1278,7 @@ export type UserLessonViewMinute = {
   lessonId?: number
   minute?: number | null
   quantity?: number | null
+  speed?: number | null
 }
 export type CompanyAdminCreditDto = {
   id?: number

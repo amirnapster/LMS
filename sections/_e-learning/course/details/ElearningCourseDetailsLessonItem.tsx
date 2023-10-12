@@ -129,9 +129,9 @@ export default function ElearningCourseDetailsLessonItem({
             }}
           /><br />
           <div style={{ flexBasis: "100%" }}>
-            {graph.map(({ minute, quantity }) =>
+            {graph.map(({ minute, quantity, speed }) =>
               (minute as number + 1) * 60 < (lesson.duation as number) &&
-              (<span className={`graphPixel graphPixel-${Math.min(4, quantity as number)}`} style={{ right: `${(minute as number) * 6000 / (lesson?.duation as number)}%`, width: `${6000 / (lesson?.duation as number)}%` }}></span>))}
+              (<span className={`graphPixel graphPixel-${Math.min(4, quantity as number)}`} style={{ right: `${(minute  as number)*(speed as number) * 600 / (lesson?.duation as number)}%`, width: `${6000 / (lesson?.duation as number)}%` }}></span>))}
             {getLast() &&
               <span className={`graphPixel graphPixel-${Math.min(4, getLast()?.minute as number)}`} style={{ left: 0, width: `${6000 / (lesson?.duation as number)}%` }}></span>}
             <span className={`graphPixel `} style={{ left: 0, width: `100%`, borderInline: "1px solid black" }}></span>
