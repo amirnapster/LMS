@@ -744,6 +744,7 @@ export type Question = {
   authorId?: string | null
   correctAnswer?: number
   updateDate?: string | null
+  staticNumber?: number | null
   qualification?: Qualification
 }
 export type Qualification = {
@@ -798,6 +799,7 @@ export type Section = {
   description?: string | null
   priority?: number
   isPublished?: boolean | null
+  filesLink?: string | null
   course?: Course
   lessons?: Lesson[] | null
   sectionQuestions?: SectionQuestion[] | null
@@ -858,6 +860,7 @@ export type Lesson = {
   isFree?: boolean
   isOpen?: boolean
   hasSubtitle?: boolean | null
+  filesLink?: string | null
   section?: Section
   attachments?: Attachment[] | null
   comments?: Comment[] | null
@@ -984,6 +987,7 @@ export type Course = {
   providerId?: number
   priority?: number | null
   superPremium?: boolean
+  filesLink?: string | null
   category?: Category
   provider?: ContentProvider
   comments?: Comment[] | null
@@ -1273,7 +1277,7 @@ export type UserLessonViewMinute = {
   courseId?: number
   lessonId?: number
   minute?: number | null
-  quantity?: number
+  quantity?: number | null
 }
 export type CompanyAdminCreditDto = {
   id?: number

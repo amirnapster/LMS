@@ -50,6 +50,19 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
       error: (err: any) => err?.data?.message ?? 'خطا در درخواست اعتبار',
     })
   }
+  const canAccessFiles = () => {
+    if (!details || !data || !details.filesLink)
+      return false
+
+    if (details.superPremium)
+      return ((data.isInCompany &&
+        data.credits &&
+        data.credits.find((t) => t.courseId == details.id)) ||
+        data.premium?.package === 1)
+    else if (data.premium?.package === 0)
+      return true
+    return false
+  }
   const handleRoute = () => {
     if (!accessToken) dispatch(setVisible({ visible: true }))
     else push(`/play/${details?.id}/1/`)
@@ -168,6 +181,17 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
               درخواست فعال سازی آموزش
             </Button>
           )}
+        {canAccessFiles() && (
+          <Button
+            btnType='primary'
+            size='large'
+            href={details?.filesLink as string}
+            target='_blank'
+          >
+            دانلود فایل‌‌های دوره
+          </Button>
+        )}
+
         {/* <Button
           btnType='primary'
           size='large'
