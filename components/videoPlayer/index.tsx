@@ -9,7 +9,7 @@ export const VideoJS = (props: any) => {
   const videoRef = useRef<any>(null)
   const playerRef = useRef<any>(null)
   const { accessToken } = useSelector((state: RootState) => state.auth)
-  const { src, id, timeOfVideo,setShowNewUGQ } = props
+  const { src, id, timeOfVideo, setShowNewUGQ } = props
 
   const [sendLog] = useLogMutation()
 
@@ -72,7 +72,7 @@ export const VideoJS = (props: any) => {
     let secondCounter = 0
     setInterval(() => {
       if (isPlaying) {
-        secondCounter += 1
+        secondCounter += player.playbackRate()
         if (secondCounter >= 60) {
           secondCounter = 0
           localSendLog('Playing')
