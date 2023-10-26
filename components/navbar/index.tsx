@@ -43,7 +43,7 @@ const Navbar = () => {
   useEffect(() => {
     if (accessToken) getInfo()
   }, [accessToken])
-  
+
   useEffect(() => {
     if ((data?.isInCompany || data?.isCompanyAdmin) && asPath === '/')
       replace('/dashboard/')
@@ -123,19 +123,19 @@ const Navbar = () => {
                 <SearchOutlined />
               </Button>
 
-              {data?.isInCompany ? (
-                <Button
-                  className={styles['navbar__subscription']}
-                  btnType='primary'
-                  bgColor='white-blue-gradient'
-                  color='white'
-                  href='/courses'
-                  id='navbar-courses'
-                  ripple
-                >
-                  <span>همه آموزش‌ها</span>
-                </Button>
-              ) : (<Button
+              {/* {data?.isInCompany ? ( */}
+              <Button
+                className={styles['navbar__subscription']}
+                btnType='primary'
+                bgColor='white-blue-gradient'
+                color='white'
+                href='/courses'
+                id='navbar-courses'
+                ripple
+              >
+                <span>همه آموزش‌ها</span>
+              </Button>
+              {/* ) : (<Button
                 className={styles['navbar__subscription']}
                 btnType='primary'
                 bgColor='white-gold-gradient'
@@ -147,7 +147,7 @@ const Navbar = () => {
                 <span>خرید اشتراک</span>
                 <SvgSprite id='jet' />
               </Button>
-              )}
+              )} */}
 
               <Col className='position-relative'>
                 {accessToken ? (

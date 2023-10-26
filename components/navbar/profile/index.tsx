@@ -35,19 +35,19 @@ const NavbarProfile = ({ children, data }: NavbarProfileProps) => {
       className={styles['navbarProfile']}
     >
       <>
-        {data?.isInCompany ? (
-          <Button
-            className={styles['navbarProfile__subscription']}
-            btnType='primary'
-            bgColor='white-blue-gradient'
-            color='white'
-            href='/courses'
-            id='navbar-courses'
-            ripple
-          >
-            <span>همه آموزش‌ها</span>
-          </Button>
-        ) : (<Button
+        {/* {data?.isInCompany ? ( */}
+        <Button
+          className={styles['navbarProfile__subscription']}
+          btnType='primary'
+          bgColor='white-blue-gradient'
+          color='white'
+          href='/courses'
+          id='navbar-courses'
+          ripple
+        >
+          <span>همه آموزش‌ها</span>
+        </Button>
+        {/* ) : (<Button
           className={styles['navbarProfile__subscription']}
           btnType='primary'
           bgColor='white-gold-gradient'
@@ -59,7 +59,7 @@ const NavbarProfile = ({ children, data }: NavbarProfileProps) => {
           <span>خرید اشتراک</span>
           <SvgSprite id='jet' />
         </Button>
-        )}
+        )} */}
         {!accessToken ? (
           <Button
             className={styles['navbarProfile__login']}
