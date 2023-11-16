@@ -1,4 +1,5 @@
 {
+  "lang":"fa-IR",
   "rasmio": "رسمــیو",
   "company": "شرکت",
   "corporate": "شرکتی",
@@ -10,6 +11,8 @@
   "services": "خدمات ما",
   "blog": "مجله",
   "exit": "خروج",
+  "save": "اعمال تغییرات",
+  "premium": "ویژه",
   "industries": "صنایع",
   "product": "محصول",
   "products": "محصولات",
@@ -235,6 +238,8 @@
   "navbar.ads": "تبلیغات در نماتک",
   "navbar.profile.feed": "فید",
   "navbar.profile.dashboard": "داشبورد",
+  "navbar.profile.profile": "پروفایل",
+  "navbar.profile.gift": "کد تخفیف",
   "navbar.profile.list.management": "مدیریت لیست",
   "navbar.profile.logout": "خروج‌ از حساب کاربری",
   "navbar.edit.company": "ویرایش اطلاعات شرکت خود",
@@ -300,5 +305,27 @@
   "footer.subscribe": "اشتراک",
   "footer.about.rasmio.title": "نماتک، آموزش صحیح",
   "footer.about.rasmio": "رسانه مهارتی نماتک به شما کمک می‌کند تا به راحتی مهارت‌های کاربردی در حوزه صنعت را بیاموزید و گامی موثر در پیشرفت صنعت کشور بردارید.",
-  "footer.copyrights": "کلیه حقوق این وبسایت و برند نماتک، متعلق به شرکت پیشگامان رسمی پردازش دانا است."
+  "footer.copyrights": "کلیه حقوق این وبسایت و برند نماتک، متعلق به شرکت پیشگامان رسمی پردازش دانا است.",
+
+  "course.teacher":"مدرس دوره",
+  "course.reviews":"نظرات",
+  "course.devices":"قابل استفاده در کامپیوتر و موبایل",
+  "course.details":"مشخصات این دوره",
+  "course.id":"شناسه دوره",
+  "course.sections":"بخش",
+  "course.lessons":"درس",
+  "hour":"ساعت",
+  "days.remaining":"روز مانده",
+  "subscription":"اشتراک",
+  "minutes":"دقیقه",
+  "your.review":"دیدگاه شما",
+  "save.review":"ثبت دیدگاه",
+  "review":"دیدگاه",
+  "reviews":"دیدگاه",
+  "score":"امتیاز",
+
+  "personal.info":"اطلاعات فردی",
+  "personal.info.name":"نام و نام خانوادگی",
+  "personal.info.job":"عنوان شغلی",
+  "personal.info.company":"نام شرکت"
 }

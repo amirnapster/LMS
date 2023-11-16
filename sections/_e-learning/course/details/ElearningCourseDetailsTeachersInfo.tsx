@@ -10,6 +10,7 @@ import {
   CourseTeacher,
   Teacher,
 } from 'libs/redux/services/karnama'
+import { useIntl } from 'react-intl'
 
 // ----------------------------------------------------------------------
 
@@ -22,26 +23,30 @@ export default function ElearningCourseDetailsTeachersInfo({
   teachers = [],
   provider,
 }: Props) {
+  const intl = useIntl()
   return (
     <>
-      <Typography variant='h4' sx={{ mb: 5 }}>
-        سازنده
-      </Typography>
+      {intl.formatMessage({ id: 'lang' }) == 'fa-IR' &&
+        <>
+          <Typography variant='h4' sx={{ mb: 5 }}>
+            سازنده
+          </Typography>
 
-      <Box
-        sx={{
-          display: 'grid',
-          gap: { xs: 3, md: 4 },
-          gridTemplateColumns: {
-            xs: 'repeat(1, 1fr)',
-            lg: 'repeat(1, 1fr)',
-          },
-        }}
-      >
-        <ProviderItem provider={provider as ContentProvider} />
-      </Box>
+          <Box
+            sx={{
+              display: 'grid',
+              gap: { xs: 3, md: 4 },
+              gridTemplateColumns: {
+                xs: 'repeat(1, 1fr)',
+                lg: 'repeat(1, 1fr)',
+              },
+            }}
+          >
+            <ProviderItem provider={provider as ContentProvider} />
+          </Box>
+        </>}
       <Typography variant='h4' sx={{ mb: 5, mt: 6 }}>
-        مدرس دوره
+        {intl.formatMessage({ id: 'course.teacher' })}
       </Typography>
 
       <Box
@@ -71,6 +76,7 @@ type ContentProviderProps = {
 }
 
 function ProviderItem({ provider }: ContentProviderProps) {
+  const intl = useIntl()
   return (
     <Paper variant='outlined' sx={{ p: 3, borderRadius: 2 }}>
       <Stack direction='row' spacing={3} flexWrap='wrap'>
@@ -84,7 +90,7 @@ function ProviderItem({ provider }: ContentProviderProps) {
             <Typography variant='h6'>{provider?.title}</Typography>
             <Typography variant='body2' sx={{ color: 'text.secondary' }}>
               <Link href={provider?.link as string} target='_blank'>
-                سایت
+              {intl.formatMessage({ id: 'site' })}
               </Link>
             </Typography>
           </Stack>

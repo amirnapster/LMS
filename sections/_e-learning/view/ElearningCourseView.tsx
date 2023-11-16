@@ -36,6 +36,7 @@ import { useSelector } from 'react-redux'
 
 import type { RootState } from 'libs/redux/store'
 import type { UserLessonViewMinute } from 'libs/redux/services/karnama'
+import { useIntl } from 'react-intl'
 
 // ----------------------------------------------------------------------
 
@@ -43,10 +44,11 @@ const _mockCourse = _courses[0]
 
 export default function ElearningCourseView() {
   const { query } = useRouter()
+  const intl = useIntl()
   const isMdUp = useResponsive('up', 'md')
   const { accessToken } = useSelector((state: RootState) => state.auth)
   const { data, refetch, isLoading } = useGetApiCoursesByIdQuery({
-    id: Number(query.id),
+    id: Number(query.id ?? 1144),
   })
   const [getGraph] = useLazyGetApiCoursesByIdGraphQuery()
   const [graph, setGraph] = useState<UserLessonViewMinute[]>([])
@@ -55,7 +57,7 @@ export default function ElearningCourseView() {
   useEffect(() => {
     refetch()
     if (accessToken)
-      getGraph({ id: Number(query.id) }).unwrap().then((t) => {
+      getGraph({ id: Number(query.id ?? 1144) }).unwrap().then((t) => {
         setGraph(t)
       })
   }, [accessToken])
@@ -67,7 +69,11 @@ export default function ElearningCourseView() {
   return (
     <>
       <Head>
-        <title>دوره {data?.titleFa} - نماتک</title>
+        {intl.formatMessage({ id: 'lang' }) == 'fa-IR' ?
+          <title>دوره {data?.titleFa} - نماتک</title>
+          :
+          <title>Course {data?.title} - INSTART</title>
+        }
       </Head>
 
       <ElearningCourseDetailsHero course={_mockCourse} />
@@ -87,7 +93,7 @@ export default function ElearningCourseView() {
           )}
 
           <Grid xs={12} md={7} lg={8}>
-            <ElearningCourseDetailsSummary course={_mockCourse} graph={graph}/>
+            <ElearningCourseDetailsSummary course={_mockCourse} graph={graph} />
 
             {/* <Stack direction='row' flexWrap='wrap' sx={{ mt: 5 }}>
               <Typography variant='subtitle2' sx={{ mt: 0.75, mr: 1.5 }}>

@@ -124,17 +124,19 @@ const Navbar = () => {
               </Button>
 
               {/* {data?.isInCompany ? ( */}
-              <Button
-                className={styles['navbar__subscription']}
-                btnType='primary'
-                bgColor='white-blue-gradient'
-                color='white'
-                href='/courses'
-                id='navbar-courses'
-                ripple
-              >
-                <span>همه آموزش‌ها</span>
-              </Button>
+              {intl.formatMessage({ id: 'lang' }) == 'fa-IR' &&
+                <Button
+                  className={styles['navbar__subscription']}
+                  btnType='primary'
+                  bgColor='white-blue-gradient'
+                  color='white'
+                  href='/courses'
+                  id='navbar-courses'
+                  ripple
+                >
+                  <span>همه آموزش‌ها</span>
+                </Button>
+              }
               {/* ) : (<Button
                 className={styles['navbar__subscription']}
                 btnType='primary'
@@ -195,7 +197,7 @@ const Navbar = () => {
                 <Button data-selector='back' onClick={cancelSearch}>
                   <Row align='middle' justify='center'>
                     <ArrowForwardRounded className='svg-icon' />
-                    <span> برگشت</span>
+                    <span> {intl.formatMessage({ id: 'back' })}</span>
                   </Row>
                 </Button>
               )}

@@ -20,6 +20,7 @@ import FormProvider, { RHFTextField } from 'components/hook-form'
 import { useCommentMutation } from 'libs/redux/services/karnama'
 import { useSelector } from 'react-redux'
 import { RootState } from 'libs/redux/store'
+import { useIntl } from 'react-intl'
 
 // ----------------------------------------------------------------------
 
@@ -39,6 +40,7 @@ interface Props extends DialogProps {
 export default function ReviewNewForm({ onClose, ...other }: Props) {
   const [submitComment, { isLoading }] = useCommentMutation()
   const { details } = useSelector((state: RootState) => state.course)
+  const intl = useIntl()
 
   const defaultValues = {
     rating: null,
@@ -69,7 +71,7 @@ export default function ReviewNewForm({ onClose, ...other }: Props) {
   const onSubmit = async (data: FormValuesProps) => {
     try {
 
-      submitComment( { commentDto:{text:data.review, rate: +(data.rating as number), courseId:details?.id}})
+      submitComment({ commentDto: { text: data.review, rate: +(data.rating as number), courseId: details?.id } })
       reset()
       onClose()
       console.log('DATA', data)
@@ -81,13 +83,13 @@ export default function ReviewNewForm({ onClose, ...other }: Props) {
   return (
     <Dialog fullWidth maxWidth='sm' onClose={onClose} {...other}>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-        <DialogTitle sx={{ typography: 'h3', pb: 3 }}>دیدگاه شما</DialogTitle>
+        <DialogTitle sx={{ typography: 'h3', pb: 3 }}>{intl.formatMessage({ id: 'your.review' })}</DialogTitle>
 
         <DialogContent sx={{ py: 0 }}>
           <Stack spacing={2.5}>
             <div>
               <Typography variant='subtitle2' gutterBottom>
-                امتیاز:
+                {intl.formatMessage({ id: 'score' })}:
               </Typography>
 
               <Controller
@@ -103,8 +105,8 @@ export default function ReviewNewForm({ onClose, ...other }: Props) {
               )}
             </div>
 
-            <RHFTextField multiline rows={3} name='review' label='دیدگاه شما *' />
-{/* 
+            <RHFTextField multiline rows={3} name='review' label={`${intl.formatMessage({ id: 'your.review' })} *`} />
+            {/* 
             <RHFTextField name='name' label='Name *' />
 
             <RHFTextField name='email' label='Email address *' /> */}
@@ -112,14 +114,14 @@ export default function ReviewNewForm({ onClose, ...other }: Props) {
         </DialogContent>
 
         <DialogActions>
-          
+
           <LoadingButton
             color='inherit'
             type='submit'
             variant='contained'
             loading={isSubmitting}
           >
-            ثبت دیدگاه
+            {intl.formatMessage({id:'save.review'})}
           </LoadingButton>
         </DialogActions>
       </FormProvider>

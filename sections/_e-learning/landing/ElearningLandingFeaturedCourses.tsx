@@ -13,6 +13,7 @@ import Row from 'components/ui/Row'
 import Col from 'components/ui/Col'
 import { Course, useGetFeaturedQuery } from 'libs/redux/services/karnama'
 import { ElearningCourseItem } from '../course/item'
+import { useIntl } from 'react-intl'
 
 // ----------------------------------------------------------------------
 
@@ -21,6 +22,9 @@ interface IElearningLandingFeaturedCoursesProps {
 }
 
 export default function ElearningLandingFeaturedCourses({ data }: IElearningLandingFeaturedCoursesProps) {
+  const intl = useIntl()
+  if (intl.formatMessage({ id: 'lang' }) != 'fa-IR')
+    return null
   const theme = useTheme()
 
   const isMdUp = useResponsive('up', 'md')

@@ -22,21 +22,22 @@ import TextMaxLine from 'components/text-max-line'
 import { useInfoMutation } from 'libs/redux/services/karnama'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useIntl } from 'react-intl'
 
 // ----------------------------------------------------------------------
 
 const navigations = [
   {
-    title: 'داشبورد',
+    title: 'navbar.profile.dashboard',
     path: '/dashboard/',
     icon: <Iconify icon='carbon:dashboard' />,
   },
   {
-    title: 'پروفایل',
+    title: 'navbar.profile.profile',
     path: '/dashboard/profile/',
     icon: <Iconify icon='ph:user' />,
   }, {
-    title: 'کد تخفیف',
+    title: 'navbar.profile.gift',
     path: '/dashboard/gift/',
     icon: <Iconify icon='ph:user' />,
   },
@@ -56,6 +57,7 @@ type Props = {
 }
 
 export default function EcommerceAccountMenu({ open, onClose }: Props) {
+  const intl = useIntl()
   const isMdUp = useResponsive('up', 'md')
   const dispatch = useDispatch()
   const [getInfo, { data }] = useInfoMutation()
@@ -141,7 +143,7 @@ export default function EcommerceAccountMenu({ open, onClose }: Props) {
             <Iconify icon='carbon:logout' />
           </ListItemIcon>
           <ListItemText
-            primary='خروج'
+            primary={intl.formatMessage({id:'navbar.profile.logout'})}
             primaryTypographyProps={{
               typography: 'body2',
             }}
@@ -185,7 +187,7 @@ type MenuItemProps = {
 
 function MenuItem({ item }: MenuItemProps) {
   const { asPath } = useRouter()
-
+  const intl = useIntl()
   return (
     <Link
       component={NextLink}
@@ -203,7 +205,7 @@ function MenuItem({ item }: MenuItemProps) {
       >
         <ListItemIcon>{item.icon}</ListItemIcon>
         <ListItemText
-          primary={item.title}
+          primary={intl.formatMessage({ id: item.title }) == item.title ? item.title : intl.formatMessage({ id: item.title })}
           primaryTypographyProps={{
             typography: 'body2',
             ...(asPath === item.path && {

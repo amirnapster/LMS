@@ -18,6 +18,7 @@ import {
 } from 'libs/redux/services/karnama'
 import { useEffect } from 'react'
 import { toast } from 'react-hot-toast'
+import { useIntl } from 'react-intl'
 
 // ----------------------------------------------------------------------
 
@@ -28,6 +29,7 @@ type Props = {
 export default function ElearningCourseDetailsInfo({ course }: Props) {
   const dispatch = useDispatch()
   const { push } = useRouter()
+  const intl = useIntl()
   const { accessToken } = useSelector((state: RootState) => state.auth)
   const [requestCredit] = useRequestCreditMutation()
 
@@ -96,14 +98,14 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
         </Stack> */}
 
         <Stack spacing={2}>
-          <Typography>مشخصات این دوره:</Typography>
+          <Typography>{intl.formatMessage({id:'course.details'})}:</Typography>
           <Stack
             direction='row'
             alignItems='center'
             sx={{ typography: 'body2' }}
           >
-            <Iconify icon='ant-design:number-outlined' sx={{ mr: 1 }} />
-            شناسه دوره
+            <Iconify icon='ant-design:number-outlined' sx={{ mx: 1 }} />
+            {intl.formatMessage({id:'course.id'})}
             <Box component='strong' sx={{ mr: 0.5, ml: 0.5 }}>
               {details?.id}
             </Box>
@@ -113,11 +115,11 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
             alignItems='center'
             sx={{ typography: 'body2' }}
           >
-            <Iconify icon='carbon:document' sx={{ mr: 1 }} />
+            <Iconify icon='carbon:document' sx={{ mx: 1 }} />
             <Box component='strong' sx={{ mr: 0.5 }}>
               {details?.sections?.length}
             </Box>
-            بخش
+            {intl.formatMessage({id:'course.sections'})}
           </Stack>
 
           <Stack
@@ -125,11 +127,11 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
             alignItems='center'
             sx={{ typography: 'body2' }}
           >
-            <Iconify icon='carbon:document-download' sx={{ mr: 1 }} />
+            <Iconify icon='carbon:document-download' sx={{ mx: 1 }} />
             <Box component='strong' sx={{ mr: 0.5 }}>
               {lessonCount}
             </Box>
-            درس
+            {intl.formatMessage({id:'course.lessons'})}
           </Stack>
 
           <Stack
@@ -137,8 +139,8 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
             alignItems='center'
             sx={{ typography: 'body2' }}
           >
-            <Iconify icon='carbon:time' sx={{ mr: 1 }} />{' '}
-            {durationToString(details?.totalDuration as number)}
+            <Iconify icon='carbon:time' sx={{ mx: 1 }} />{' '}
+            {durationToString(details?.totalDuration as number,intl.formatMessage({id:'hour'}),intl.formatMessage({id:'minute'}))}
           </Stack>
 
           {/* <Stack
@@ -155,8 +157,9 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
             alignItems='center'
             sx={{ typography: 'body2' }}
           >
-            <Iconify icon='carbon:devices' sx={{ mr: 1 }} />
-            قابل استفاده در کامپیوتر و موبایل
+            <Iconify icon='carbon:devices' sx={{ mx: 1 }} />
+            {intl.formatMessage({id:'course.devices'})}
+            
           </Stack>
 
           {/* <Stack

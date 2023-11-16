@@ -118,13 +118,16 @@ export const NavbarTab = () => {
   )
 }
 
-export const Logo = ({ className, src,title }: LogoProps) =>
-  <Button className={styles['logo']} href='/'>
-    <img src={src} alt='لوگو نماتک' className={className} />
-  {title??'نماتک'}
-    
-  </Button>
+export const Logo = ({ className, src, title }: LogoProps) => {
+  const intl = useIntl()
+  return (
+    <Button className={styles['logo']} href='/'>
+      <img src={src} alt='Logo' className={className} />
+      {title ?? intl.formatMessage({ id: 'rasmio' })}
 
+    </Button>
+  )
+}
 Logo.defaultProps = {
   className: '',
 }

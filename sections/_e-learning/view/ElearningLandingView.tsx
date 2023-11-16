@@ -15,6 +15,8 @@ import {
 import { Course, useGetFeaturedQuery } from 'libs/redux/services/karnama'
 
 import Faq from 'components/faq'
+import { useIntl } from 'react-intl'
+import ElearningCourseView from './ElearningCourseView'
 
 const faqData = [
   { question: "نماتک پرو چیست؟", answer: "نماتک پرو یک پلتفرم آموزشی آنلاین و خدمت جدیدی از مجموعه نماتک است که آموزش‌های ویدئویی را با استادان معروف و برجسته در زمینه‌های مختلف مانند توسعه فردی، فناوری اطلاعات، مدیریت، فنی مهندسی و غیره ارائه می‌دهد." },
@@ -28,7 +30,9 @@ const faqData = [
 ]
 
 export default function ElearningLandingView() {
-
+  const intl = useIntl()
+  if (intl.formatMessage({ id: 'lang' }) == 'en-US')
+    return (<ElearningCourseView />)
   const { data } = useGetFeaturedQuery()
 
   return (

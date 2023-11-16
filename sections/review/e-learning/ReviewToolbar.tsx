@@ -7,6 +7,7 @@ import {
   FormControl,
   SelectChangeEvent,
 } from '@mui/material'
+import { useIntl } from 'react-intl'
 
 // ----------------------------------------------------------------------
 
@@ -39,10 +40,11 @@ type Props = {
 }
 
 export default function ReviewToolbar({ sort, onChangeSort }: Props) {
+  const intl = useIntl()
   return (
     <Stack spacing={5} alignItems='center' direction='row' sx={{ mb: 5 }}>
       <Typography variant='h4' sx={{ width: 1 }}>
-        نظرات
+      {intl.formatMessage({ id: 'course.reviews' })}
       </Typography>
 
       {/* <Stack direction='row' spacing={2} alignItems='center' flexShrink={0}>

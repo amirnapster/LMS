@@ -24,11 +24,13 @@ import { useEffect, useState } from 'react'
 import { Avatar } from '@mui/material'
 import { profileNavItems } from 'utils/statics/navbarStatics'
 import styles from './navbarProfile.module.scss'
+import { useIntl } from 'react-intl'
 
 dayjs.extend(jalaliday)
 
 export const NavbarAvatar = () => {
   const dispatch = useDispatch()
+  const intl = useIntl()
   const { replace } = useRouter()
   const { accessToken } = useSelector(
     (state: RootState) => state.auth
@@ -60,9 +62,9 @@ export const NavbarAvatar = () => {
   const packageTypeConverter = () => {
     switch (packageType) {
       case 0:
-        return 'ویژه'
+        return intl.formatMessage({id:'premium'})
       default:
-        return 'ویژه'
+        return intl.formatMessage({id:'premium'})
     }
   }
 
@@ -123,16 +125,16 @@ export const NavbarAvatar = () => {
             {data?.username}
           </Col>
           <Col span={24} className={styles['navbarProfile__menu--remaining']}>
-            اشتراک
+          {intl.formatMessage({id:'subscription'})}
             {packageType !== null && packageType !== undefined ? (
               <>
                 <span data-selector='type'>{packageTypeConverter()}</span>
                 <span data-selector='days'>{dateConverter()}</span>
-                روز مانده
+                {intl.formatMessage({id:'days.remaining'})}
               </>
             ) :
               (
-                <span data-selector='free'>رایگان</span>
+                <span data-selector='free'>{intl.formatMessage({id:'free'})}</span>
               )}
           </Col>
         </Row>
@@ -154,7 +156,7 @@ export const NavbarAvatar = () => {
                     span={18}
                   >
                     {icon}
-                    <span>{title}</span>
+                    <span>{intl.formatMessage({id:title})}</span>
                   </Col>
 
                 </Row>
@@ -174,7 +176,7 @@ export const NavbarAvatar = () => {
               {/* <ExitIcon viewBox='0 0 24 24 ' /> */}
             </Col>
             <Col data-selector='exitTitle' span={19}>
-              خروج
+            {intl.formatMessage({id:'navbar.profile.logout'})}
             </Col>
           </Row>
         </Button>

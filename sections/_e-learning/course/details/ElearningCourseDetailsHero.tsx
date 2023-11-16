@@ -28,6 +28,7 @@ import type { Course } from 'libs/redux/services/karnama'
 import { useSelector } from 'react-redux'
 import { RootState } from 'libs/redux/store'
 import Markdown from 'markdown-to-jsx'
+import { useIntl } from 'react-intl'
 
 // ----------------------------------------------------------------------
 
@@ -62,7 +63,7 @@ export default function ElearningCourseDetailsHero({ course }: Props) {
     students,
     teachers = [],
   } = course
-
+  const intl = useIntl()
   const { details } = useSelector((state: RootState) => state.course)
 
   const lessonCount = details?.sections?.reduce(
@@ -76,21 +77,23 @@ export default function ElearningCourseDetailsHero({ course }: Props) {
     <Box
       sx={{
         bgcolor: 'background.neutral',
-        mt:3
+        mt: 3
         // pb: { xs: 5, md: 10 },
       }}
     >
       <Container sx={{ overflow: 'hidden' }}>
-        <CustomBreadcrumbs
-          links={[
-            { name: 'خانه', href: '/' },
-            { name: 'دوره ها', href: '/courses' },
-            { name: details.titleFa || '' },
-          ]}
-          sx={{
-            mb: { xs: 6 },
-          }}
-        />
+        {intl.formatMessage({ id: 'lang' }) == 'fa-IR' &&
+
+          <CustomBreadcrumbs
+            links={[
+              { name: 'خانه', href: '/' },
+              { name: 'دوره ها', href: '/courses' },
+              { name: details.titleFa || '' },
+            ]}
+            sx={{
+              mb: { xs: 6 },
+            }}
+          />}
 
         <Grid container spacing={{ xs: 5, md: 10 }} direction='row-reverse'>
           <Grid xs={12} md={5}>

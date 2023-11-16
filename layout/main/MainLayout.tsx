@@ -1,4 +1,5 @@
 import { Box } from '@mui/material'
+import { useIntl } from 'react-intl'
 import { HEADER } from 'config-global'
 import Navbar from 'components/navbar'
 import Footer from 'components/footer'
@@ -23,6 +24,8 @@ type Props = {
 
 export default function MainLayout({ children }: Props) {
   const { asPath } = useRouter()
+  const intl = useIntl()
+
   const { isSearching } = useSelector((state: RootState) => state.navbar)
   const { campaign } = useContext(MyContext)
 
@@ -75,7 +78,7 @@ export default function MainLayout({ children }: Props) {
         {isSearching ? <SimpleSearch /> : children}
       </Box>
 
-      {!asPath.startsWith('/play') && <Footer />}
+      {!asPath.startsWith('/play')  && <Footer />}
     </Box>
   )
 }

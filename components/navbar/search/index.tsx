@@ -53,6 +53,7 @@ const NavbarSearch = ({ cancelSearch }: NavbarSearchProps) => {
   }
 
   const inputRenderHandler = () => {
+    if (intl.formatMessage({ id: 'lang' }) != 'fa-IR') return false
     if (isMobile && isSearching) return true
     if (isMobile && !isSearching) return false
 

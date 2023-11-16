@@ -36,17 +36,19 @@ const NavbarProfile = ({ children, data }: NavbarProfileProps) => {
     >
       <>
         {/* {data?.isInCompany ? ( */}
-        <Button
-          className={styles['navbarProfile__subscription']}
-          btnType='primary'
-          bgColor='white-blue-gradient'
-          color='white'
-          href='/courses'
-          id='navbar-courses'
-          ripple
-        >
-          <span>همه آموزش‌ها</span>
-        </Button>
+        {intl.formatMessage({ id: 'lang' }) == 'fa-IR' &&
+
+          <Button
+            className={styles['navbarProfile__subscription']}
+            btnType='primary'
+            bgColor='white-blue-gradient'
+            color='white'
+            href='/courses'
+            id='navbar-courses'
+            ripple
+          >
+            <span>همه آموزش‌ها</span>
+          </Button>}
         {/* ) : (<Button
           className={styles['navbarProfile__subscription']}
           btnType='primary'

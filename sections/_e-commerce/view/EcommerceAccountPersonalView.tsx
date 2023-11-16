@@ -14,12 +14,14 @@ import { useSelector } from 'react-redux'
 import { RootState } from 'libs/redux/store'
 import { useRouter } from 'next/router'
 import { notify } from 'utils/notification'
+import { useIntl } from 'react-intl'
 
 function EcommerceAccountPersonalView() {
   const [getInfo, { data: dataInfo }] = useInfoMutation()
   const [setInfo, { isLoading }] = useSetInfoMutation()
   const { push } = useRouter()
   const { accessToken } = useSelector((state: RootState) => state.auth)
+const intl = useIntl()
 
   const EcommerceAccountPersonalSchema = Yup.object().shape({
     fullname: Yup.string().required('نام و نام خانوادگی الزامیست.'),
@@ -72,7 +74,7 @@ function EcommerceAccountPersonalView() {
     <EcommerceAccountLayout>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Typography variant='h5' sx={{ mb: 3 }}>
-          اطلاعات فردی
+      {intl.formatMessage({id:'personal.info'})}
         </Typography>
         <Box
           rowGap={2.5}
@@ -80,11 +82,11 @@ function EcommerceAccountPersonalView() {
           display='grid'
           gridTemplateColumns={{ xs: 'repeat(3, 1fr)' }}
         >
-          <RHFTextField name='fullname' label='نام و نام خانوادگی' />
+          <RHFTextField name='fullname' label={intl.formatMessage({id:'personal.info.name'})} />
 
-          <RHFTextField name='companyName' label='عنوان شغلی' />
+          <RHFTextField name='companyName' label={intl.formatMessage({id:'personal.info.job'})} />
 
-          <RHFTextField name='jobTitle' label='نام شرکت' />
+          <RHFTextField name='jobTitle' label={intl.formatMessage({id:'personal.info.company'})} />
         </Box>
 
         <LoadingButton
@@ -95,7 +97,7 @@ function EcommerceAccountPersonalView() {
           loading={isLoading}
           sx={{ marginBlockStart: '3rem' }}
         >
-          اعمال تغییرات
+          {intl.formatMessage({id:'save'})}
         </LoadingButton>
       </FormProvider>
     </EcommerceAccountLayout>
