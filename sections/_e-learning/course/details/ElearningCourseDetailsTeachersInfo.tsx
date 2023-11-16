@@ -26,7 +26,7 @@ export default function ElearningCourseDetailsTeachersInfo({
   const intl = useIntl()
   return (
     <>
-      {intl.formatMessage({ id: 'lang' }) == 'fa-IR' &&
+      {intl.formatMessage({ id: 'lang' }) === 'fa-IR' &&
         <>
           <Typography variant='h4' sx={{ mb: 5 }}>
             سازنده

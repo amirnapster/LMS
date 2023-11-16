@@ -14,10 +14,11 @@ import type { Course } from 'libs/redux/services/karnama'
 import type { RootState } from 'libs/redux/store'
 import styles from './simpleSearch.module.scss'
 import { durationToString } from 'utils/helpers/formatTime'
+import { useIntl } from 'react-intl'
 
 const SearchResultContent = () => {
   const { textSearch } = useSelector((state: RootState) => state.navbar)
-
+  const intl = useIntl()
   const { data: searchCourseData } = useSearchCourseQuery(
     { term: textSearch },
     { skip: !textSearch }
@@ -128,11 +129,11 @@ const SearchResultContent = () => {
                     <TextMaxLine
                       variant='body2'
                       color='text.secondary'
-                      // sx={{
-                      //   ...(vertical && {
-                      //     display: { sm: 'none' },
-                      //   }),
-                      // }}
+                    // sx={{
+                    //   ...(vertical && {
+                    //     display: { sm: 'none' },
+                    //   }),
+                    // }}
                     >
                       {course.shortDescription}
                     </TextMaxLine>
@@ -208,7 +209,7 @@ const SearchResultContent = () => {
                     sx={{ typography: 'body2' }}
                   >
                     <Iconify icon='carbon:time' sx={{ mr: 1 }} />{' '}
-                    {durationToString(course.totalDuration as number)}
+                    {durationToString(course.totalDuration as number, intl.formatMessage({ id: 'hour' }), intl.formatMessage({ id: 'minute' }))}
                   </Stack>
 
                   <Stack

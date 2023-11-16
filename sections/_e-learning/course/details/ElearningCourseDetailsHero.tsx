@@ -82,7 +82,7 @@ export default function ElearningCourseDetailsHero({ course }: Props) {
       }}
     >
       <Container sx={{ overflow: 'hidden' }}>
-        {intl.formatMessage({ id: 'lang' }) == 'fa-IR' &&
+        {intl.formatMessage({ id: 'lang' }) === 'fa-IR' &&
 
           <CustomBreadcrumbs
             links={[

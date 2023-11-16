@@ -69,7 +69,7 @@ export default function ElearningCourseView() {
   return (
     <>
       <Head>
-        {intl.formatMessage({ id: 'lang' }) == 'fa-IR' ?
+        {intl.formatMessage({ id: 'lang' }) === 'fa-IR' ?
           <title>دوره {data?.titleFa} - نماتک</title>
           :
           <title>Course {data?.title} - INSTART</title>

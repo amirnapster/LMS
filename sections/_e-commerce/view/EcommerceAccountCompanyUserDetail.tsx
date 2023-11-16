@@ -1,4 +1,5 @@
 
+import { useIntl } from 'react-intl';
 import { LinearProgress, Typography, Paper, Select, MenuItem, Stack, Autocomplete, TextField, OutlinedInput, InputLabel, CircularProgress } from '@mui/material'
 import { DataGridPro, LicenseInfo, GridColDef } from '@mui/x-data-grid-pro';
 import { useRouter } from 'next/router';
@@ -49,6 +50,7 @@ function EcommerceAccountCompanyUserDetail() {
   LicenseInfo.setLicenseKey("63cdcff003c86a961f1b47b5703dd5e0Tz0wLEU9MjUzNDA0ODY0MDAwMDAwLFM9cHJlbWl1bSxMTT1zdWJzY3JpcHRpb24sS1Y9Mg==");
 
   const { query } = useRouter()
+  const intl =useIntl()
   const { accessToken } = useSelector((state: RootState) => state.auth)
   const [segmentValues, setSegmentValues] = useState<{ [key: number]: number }>({})
   const { data, refetch } = useCompanyUserQuery({ id: Number(query.id) })
@@ -108,7 +110,7 @@ function EcommerceAccountCompanyUserDetail() {
     },
     {
       field: "usedCredit", headerName: "میزان مشاهده", flex: 1, minWidth: 110,
-      renderCell: (params: any) => durationToString(params.value * 60)
+      renderCell: (params: any) => durationToString(params.value * 60,intl.formatMessage({id:'hour'}),intl.formatMessage({id:'minute'}))
     },
     {
       field: "totalCredit", headerName: "اعتبار", flex: 1, minWidth: 110,

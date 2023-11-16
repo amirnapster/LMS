@@ -22,6 +22,7 @@ import FormProvider, { RHFTextField } from 'components/hook-form';
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup';
 import { regex } from 'utils/helpers/validations';
+import { useIntl } from 'react-intl';
 
 dayjs.extend(jalaliday)
 
@@ -33,7 +34,7 @@ function EcommerceAccountCompanyUsers() {
   const { data, isLoading: usersLoading } = useCompanyUsersQuery()
   const [setActivation, { isLoading }] = useSetActivationMutation()
   const [addCompanyUser, { }] = useAddCompanyUserAsyncMutation()
-
+  const intl = useIntl()
   const columns: GridColDef[] = [
     {
       field: "fullname", headerName: "نام", flex: 1, minWidth: 140,
@@ -44,7 +45,7 @@ function EcommerceAccountCompanyUsers() {
     },
     {
       field: "usedCredit", headerName: "میزان مشاهده", flex: 1,
-      renderCell: (params: any) => <span>{durationToString(params.value * 60)} ({params.row.courseCount}) </span>
+      renderCell: (params: any) => <span>{durationToString(params.value * 60, intl.formatMessage({ id: 'hour' }), intl.formatMessage({ id: 'minute' }))} ({params.row.courseCount}) </span>
 
 
     },

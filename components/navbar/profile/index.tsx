@@ -36,7 +36,7 @@ const NavbarProfile = ({ children, data }: NavbarProfileProps) => {
     >
       <>
         {/* {data?.isInCompany ? ( */}
-        {intl.formatMessage({ id: 'lang' }) == 'fa-IR' &&
+        {intl.formatMessage({ id: 'lang' }) === 'fa-IR' &&
 
           <Button
             className={styles['navbarProfile__subscription']}

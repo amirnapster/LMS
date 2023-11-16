@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import { useIntl } from 'react-intl'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearAuth } from 'libs/redux/slices/auth'
 import { ExpandMore } from '@mui/icons-material'
@@ -24,7 +25,6 @@ import { useEffect, useState } from 'react'
 import { Avatar } from '@mui/material'
 import { profileNavItems } from 'utils/statics/navbarStatics'
 import styles from './navbarProfile.module.scss'
-import { useIntl } from 'react-intl'
 
 dayjs.extend(jalaliday)
 

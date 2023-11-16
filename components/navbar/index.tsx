@@ -124,7 +124,7 @@ const Navbar = () => {
               </Button>
 
               {/* {data?.isInCompany ? ( */}
-              {intl.formatMessage({ id: 'lang' }) == 'fa-IR' &&
+              {intl.formatMessage({ id: 'lang' }) === 'fa-IR' &&
                 <Button
                   className={styles['navbar__subscription']}
                   btnType='primary'
