@@ -153,7 +153,16 @@ export const VideoJS = (props: any) => {
             kind: 'subtitles',
             src: s1.src.replace('.mp4', '.vtt'),
             srclang: 'en',
-            label: 'انگلسی',
+            label: 'انگلیسی',
+            default: false,
+          })
+        }
+        if (s1.src.endsWith('m3u8')) {
+          player.addRemoteTextTrack({
+            kind: 'subtitles',
+            src: s1.src.replace('.m3u8', '.vtt'),
+            srclang: 'en',
+            label: 'English',
             default: false,
           })
         }
