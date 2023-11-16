@@ -97,7 +97,7 @@ const NavbarDrawer = ({ login }: NavbarDrawerProps) => {
             </Button>
           </Col>
 
-          {accessToken && (
+          {/* {accessToken && (
             <Col span={22}>
               <Button
                 className={styles['navbar__drawer--upgrade']}
@@ -110,7 +110,7 @@ const NavbarDrawer = ({ login }: NavbarDrawerProps) => {
                 <SvgSprite id='jet' />
               </Button>
             </Col>
-          )}
+          )} */}
         </Row>
       </div>
     </Drawer>
