@@ -54,7 +54,7 @@ export default function ElearningCourseDetailsLessonList({ section,graph ,canPla
 
   return (
     <div>
-      <Typography variant='h4' sx={{ mb: 3 }}>
+      <Typography variant='h4' sx={{ mt: 3,mb:1 }}>
         {section.title}
       </Typography>
 
