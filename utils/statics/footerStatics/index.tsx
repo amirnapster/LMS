@@ -18,10 +18,10 @@ export const footerItems: IFooterLinks = {
       text: 'دوره ها',
       route: '/courses',
     },
-    {
-      text: 'خرید اشتراک',
-      route: '/pricing',
-    },
+    // {
+    //   text: 'خرید اشتراک',
+    //   route: '/pricing',
+    // },
     {
       text: 'سایت نماتک',
       route: "https://namatek.com",
