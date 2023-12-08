@@ -11,7 +11,7 @@ function DashboardPage() {
   return (
     <>
       <Head>
-        <title>داشبورد</title>
+        <title>آموزش‌های من</title>
       </Head>
 
       <EcommerceAccountLayout>

@@ -59,6 +59,14 @@ export const injectedRtkApi = api
         }),
         invalidatesTags: ['Account'],
       }),
+      fromNamatek: build.mutation<FromNamatekApiResponse, FromNamatekApiArg>({
+        query: (queryArg) => ({
+          url: `/Account/FromNamatek`,
+          method: 'POST',
+          body: queryArg.userWithCourse,
+        }),
+        invalidatesTags: ['Account'],
+      }),
       setUserPassword: build.mutation<
         SetUserPasswordApiResponse,
         SetUserPasswordApiArg
@@ -434,6 +442,10 @@ export type VerfySignInByOtpApiArg = {
 export type FromInreApiResponse = /** status 200 Success */ Token
 export type FromInreApiArg = {
   user: User
+}
+export type FromNamatekApiResponse = unknown
+export type FromNamatekApiArg = {
+  userWithCourse: UserWithCourse
 }
 export type SetUserPasswordApiResponse = unknown
 export type SetUserPasswordApiArg = {
@@ -1117,6 +1129,7 @@ export type AspNetUser = {
   companyName?: string | null
   jobTitle?: string | null
   joinDate?: string
+  customerId?: number | null
   aspNetUserClaims?: AspNetUserClaim[] | null
   aspNetUserLogins?: AspNetUserLogin[] | null
   aspNetUserTokens?: AspNetUserToken[] | null
@@ -1146,11 +1159,64 @@ export type Premium = {
   package?: number
   insertDate?: string
   untilDate?: string
+  totalCredit?: number | null
+  usedCredit?: number | null
+  price?: number | null
   user?: AspNetUser
 }
 export type SubUser = {
   id?: number
   username?: string | null
+}
+export type Deal = {
+  id?: number
+  customerId?: number
+  productId?: number
+  stateId?: number
+  note?: string | null
+  insertDate?: string
+  price?: number
+  maxPc?: number
+  share?: number | null
+  usage?: number | null
+  paymentDate?: string
+  operatorId?: string | null
+  duration?: number | null
+  discount?: number | null
+  userAgent?: string | null
+  orderId?: number | null
+  coupons?: string | null
+  customer?: Customer
+}
+export type Customer = {
+  id?: number
+  name?: string | null
+  mobile?: string | null
+  mobile2?: string | null
+  email?: string | null
+  email2?: string | null
+  address?: string | null
+  insertDate?: string
+  note?: string | null
+  lastEdited?: string
+  provinceId?: number | null
+  provinceName?: string | null
+  tags?: string | null
+  operatorId?: string | null
+  usage?: number
+  point?: number | null
+  postalCode?: string | null
+  operatorRate?: number | null
+  lastActivity?: string
+  credit?: number
+  referalBonus?: number
+  company?: string | null
+  hashCode?: string | null
+  validity?: number | null
+  firstName?: string | null
+  lastName?: string | null
+  unreadMessage?: string | null
+  deals?: Deal[] | null
 }
 export type UserInfo = {
   id?: number
@@ -1171,15 +1237,29 @@ export type UserInfo = {
   inCompanyTitle?: string | null
   inCompanyPrimaryColor?: string | null
   inCompanySecondaryColor?: string | null
+  customer?: Customer
+  birthDate?: string | null
+  province?: string | null
+  city?: string | null
+  gender?: boolean | null
 }
 export type ApiError = {
   message?: string | null
   isWarning?: boolean
 }
+export type OptionType = {
+  label?: string | null
+  value?: string | null
+}
 export type SetInfoModel = {
   fullname?: string | null
   companyName?: string | null
   jobTitle?: string | null
+  province?: OptionType
+  city?: OptionType
+  year?: OptionType
+  month?: OptionType
+  day?: OptionType
 }
 export type Token = {
   accessToken?: string | null
@@ -1218,7 +1298,40 @@ export type User = {
   fullname?: string | null
   companyName?: string | null
   jobTitle?: string | null
+  customerId?: number | null
   joinDate?: string
+  birthDate?: string | null
+  province?: string | null
+  city?: string | null
+  gender?: boolean | null
+}
+export type UserWithCourse = {
+  id?: number
+  userName?: string | null
+  normalizedUserName?: string | null
+  email?: string | null
+  normalizedEmail?: string | null
+  emailConfirmed?: boolean
+  passwordHash?: string | null
+  securityStamp?: string | null
+  concurrencyStamp?: string | null
+  phoneNumber?: string | null
+  phoneNumberConfirmed?: boolean
+  twoFactorEnabled?: boolean
+  lockoutEnd?: string | null
+  lockoutEnabled?: boolean
+  accessFailedCount?: number
+  fullname?: string | null
+  companyName?: string | null
+  jobTitle?: string | null
+  customerId?: number | null
+  joinDate?: string
+  birthDate?: string | null
+  province?: string | null
+  city?: string | null
+  gender?: boolean | null
+  coursesIds?: number[] | null
+  password?: string | null
 }
 export type SetPasswordCommand = {
   newPassword: string
@@ -1334,6 +1447,7 @@ export const {
   useSetInfoMutation,
   useVerfySignInByOtpMutation,
   useFromInreMutation,
+  useFromNamatekMutation,
   useSetUserPasswordMutation,
   useAddSubUserMutation,
   useSignInMutation,

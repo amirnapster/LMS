@@ -27,16 +27,18 @@ import { useIntl } from 'react-intl'
 // ----------------------------------------------------------------------
 
 const navigations = [
+
+  {
+    title: 'navbar.profile.profile',
+    path: '/dashboard/profile/',
+    icon: <Iconify icon='ph:user' />,
+  },
   {
     title: 'navbar.profile.dashboard',
     path: '/dashboard/',
     icon: <Iconify icon='carbon:dashboard' />,
   },
   {
-    title: 'navbar.profile.profile',
-    path: '/dashboard/profile/',
-    icon: <Iconify icon='ph:user' />,
-  }, {
     title: 'navbar.profile.gift',
     path: '/dashboard/gift/',
     icon: <Iconify icon='ph:user' />,

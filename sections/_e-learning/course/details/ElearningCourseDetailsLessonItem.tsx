@@ -65,10 +65,6 @@ export default function ElearningCourseDetailsLessonItem({
         onOpen()
       }
   }
-  console.log(graph)
-  const getLast = () => {
-    return graph?.find(t => t?.minute as number + 1 > (lesson.duation as number) / 60)
-  }
   const playIcon = selected ? 'carbon:pause-outline' : 'carbon:play'
   const isLocked = !lesson.isFree && !lesson.isOpen && canPlay
   return (

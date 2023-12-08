@@ -62,9 +62,9 @@ export const NavbarAvatar = () => {
   const packageTypeConverter = () => {
     switch (packageType) {
       case 0:
-        return intl.formatMessage({id:'premium'})
+        return intl.formatMessage({ id: 'premium' })
       default:
-        return intl.formatMessage({id:'premium'})
+        return intl.formatMessage({ id: 'premium' })
     }
   }
 
@@ -90,97 +90,8 @@ export const NavbarAvatar = () => {
   }, [accessToken])
 
   return accessToken ? (
-    <Dropdown
-      id='profile'
-      className='h-100 d-flex items-center'
-      menu={
-        <div
-          className={cn(
-            styles['navbarProfile__avatar'],
-            isSearching ? styles['navbarProfile__avatar--searching'] : ''
-          )}
-        >
-          <Button className='h-100' ripple>
-            <ExpandMore fontSize='medium' color='primary' />
-            <Avatar src='' />
-
-          </Button>
-        </div>
-      }
-    >
-      <Row direction='column' className={styles['navbarProfile__menu']}>
-        <Row
-          direction='column'
-          align='middle'
-          className={styles['navbarProfile__menu__header']}
-        >
-          <Col className={styles['navbarProfile__menu--avatar']}>
-            <Avatar src='' sx={{ width: '64px', height: '64px' }} />
-
-          </Col>
-          <Col span={24} className={styles['navbarProfile__menu--title']}>
-            {data?.fullname}
-          </Col>
-          <Col span={24} className={styles['navbarProfile__menu--title']}>
-            {data?.username}
-          </Col>
-          <Col span={24} className={styles['navbarProfile__menu--remaining']}>
-          {intl.formatMessage({id:'subscription'})}
-            {packageType !== null && packageType !== undefined ? (
-              <>
-                <span data-selector='type'>{packageTypeConverter()}</span>
-                <span data-selector='days'>{dateConverter()}</span>
-                {intl.formatMessage({id:'days.remaining'})}
-              </>
-            ) :
-              (
-                <span data-selector='free'>{intl.formatMessage({id:'free'})}</span>
-              )}
-          </Col>
-        </Row>
-
-        <Row className={styles['navbarProfile__row']} direction='column'>
-          {Object.keys(profileNavItems).map((key) => {
-            const { hasBadge, title, icon, route } = profileNavItems[key]
-            return (
-              <Button
-                className={styles['navbarProfile__menu--item']}
-                color='black'
-                href={route}
-                key={key}
-              >
-                <Row align='middle' gap={0}>
-                  <Col
-                    data-selector='icon'
-                    className='d-flex items-center'
-                    span={18}
-                  >
-                    {icon}
-                    <span>{intl.formatMessage({id:title})}</span>
-                  </Col>
-
-                </Row>
-              </Button>
-            )
-          })}
-        </Row>
-
-        <Divider className={styles['navbarProfile__menu--divider']} />
-        <Button
-          className={styles['navbarProfile__menu--item']}
-          color='text-color-300'
-          onClick={logout}
-        >
-          <Row align='middle' gap={0}>
-            <Col data-selector='icon' className='d-flex items-center' span={3}>
-              {/* <ExitIcon viewBox='0 0 24 24 ' /> */}
-            </Col>
-            <Col data-selector='exitTitle' span={19}>
-            {intl.formatMessage({id:'navbar.profile.logout'})}
-            </Col>
-          </Row>
-        </Button>
-      </Row>
-    </Dropdown>
+    <Button  ripple btnType='ghost' href='/dashboard/profile'>
+      <Avatar src='' />
+    </Button>
   ) : null
 }
