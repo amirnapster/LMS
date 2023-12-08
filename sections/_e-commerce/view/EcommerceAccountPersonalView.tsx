@@ -1408,7 +1408,7 @@ return (
             { value: '1', label: 'مرد' },
           ]}
           getOptionLabel={(option: OptionType | string) =>
-            (option as OptionType).label
+            (option as OptionType).label as string
           }
           isOptionEqualToValue={(option, value) =>
             option.value === value.value
@@ -1429,7 +1429,7 @@ return (
           label='استان'
           options={provinces}
           getOptionLabel={(option: OptionType | string) =>
-            (option as OptionType).label
+            (option as OptionType).label as string
           }
           isOptionEqualToValue={(option, value) =>
             option.value === value.value
@@ -1440,7 +1440,7 @@ return (
           label='شهر'
           options={filteredCities}
           getOptionLabel={(option: OptionType | string) =>
-            (option as OptionType).label
+            (option as OptionType).label as string
           }
           isOptionEqualToValue={(option, value) =>
             option.value === value.value
@@ -1462,7 +1462,7 @@ return (
           label='روز'
           options={Array.from({ length: 31 }, (_, index) => 1 + index).map((i) => ({ label: `${i}`, value: `${i}` } as OptionType))}
           getOptionLabel={(option: OptionType | string) =>
-            (option as OptionType).label
+            (option as OptionType).label as string
           }
           isOptionEqualToValue={(option, value) =>
             option.value === value.value
@@ -1473,7 +1473,7 @@ return (
           label='ماه'
           options={Array.from({ length: 12 }, (_, index) => 1 + index).map((i) => ({ label: `${i}`, value: `${i}` } as OptionType))}
           getOptionLabel={(option: OptionType | string) =>
-            (option as OptionType).label
+            (option as OptionType).label as string
           }
           isOptionEqualToValue={(option, value) =>
             option.value === value.value
@@ -1485,7 +1485,7 @@ return (
           sx={{ width: '120px' }}
           options={Array.from({ length: 92 }, (_, index) => 1392 - index).map((i) => ({ label: `${i}`, value: `${i}` } as OptionType))}
           getOptionLabel={(option: OptionType | string) =>
-            (option as OptionType).label
+            (option as OptionType).label as string
           }
           isOptionEqualToValue={(option, value) =>
             option.value === value.value
