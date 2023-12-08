@@ -36,12 +36,17 @@ const navigations = [
   {
     title: 'navbar.profile.dashboard',
     path: '/dashboard/',
-    icon: <Iconify icon='carbon:dashboard' />,
+    icon: <Iconify icon='mdi:human-male-board-poll' />,
   },
   {
     title: 'navbar.profile.gift',
     path: '/dashboard/gift/',
-    icon: <Iconify icon='ph:user' />,
+    icon: <Iconify icon='mdi:gift-outline' />,
+  },
+  {
+    title: 'تاریخچه سفارش‌ها',
+    path: '/dashboard/orderhistory/',
+    icon: <Iconify icon='mdi:history' />,
   },
   {
     title: 'لیست کارکنان',

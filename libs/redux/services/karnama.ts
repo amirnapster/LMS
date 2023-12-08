@@ -7,6 +7,7 @@ export const addTagTypes = [
   'Courses',
   'Gift',
   'Mentor',
+  'Order',
   'Payments',
   'Pricing',
   'Qualifications',
@@ -358,6 +359,10 @@ export const injectedRtkApi = api
         query: () => ({ url: `/Mentor/GetMentorshipUserLogs`, method: 'POST' }),
         invalidatesTags: ['Mentor'],
       }),
+      getAllOrders: build.query<GetAllOrdersApiResponse, GetAllOrdersApiArg>({
+        query: () => ({ url: `/api/Order/GetAllOrders` }),
+        providesTags: ['Order'],
+      }),
       myPayments: build.query<MyPaymentsApiResponse, MyPaymentsApiArg>({
         query: () => ({ url: `/api/Payments/MyPayments` }),
         providesTags: ['Payments'],
@@ -584,6 +589,8 @@ export type AddSubUsersCreditApiArg = {
 export type GetMentorshipUserLogsApiResponse =
   /** status 200 Success */ MentorUserLog[]
 export type GetMentorshipUserLogsApiArg = void
+export type GetAllOrdersApiResponse = /** status 200 Success */ Order[]
+export type GetAllOrdersApiArg = void
 export type MyPaymentsApiResponse = /** status 200 Success */ Payment[]
 export type MyPaymentsApiArg = void
 export type ReceiptApiResponse = /** status 200 Success */ Payment
@@ -974,6 +981,28 @@ export type Exam = {
   examQuestions?: ExamQuestion[] | null
   userAnswers?: UserAnswer[] | null
 }
+export type Order = {
+  id?: number
+  totalAmount?: number
+  insertDate?: string
+  updateDate?: string
+  discount?: number
+  discountCode?: string | null
+  wooOrderId?: number | null
+  userId?: number
+  orderItems?: OrderItem[] | null
+}
+export type OrderItem = {
+  id?: number
+  orderId?: number
+  courseId?: number
+  price?: number
+  quantity?: number
+  discount?: number | null
+  share?: number | null
+  course?: Course
+  order?: Order
+}
 export type UserMentorCredit = {
   id?: number
   mentorId?: number
@@ -1009,6 +1038,7 @@ export type Course = {
   courseTeachers?: CourseTeacher[] | null
   enrolls?: Enroll[] | null
   exams?: Exam[] | null
+  orderItems?: OrderItem[] | null
   sections?: Section[] | null
   userMentorCredits?: UserMentorCredit[] | null
 }
@@ -1130,6 +1160,10 @@ export type AspNetUser = {
   jobTitle?: string | null
   joinDate?: string
   customerId?: number | null
+  birthDate?: string | null
+  province?: string | null
+  city?: string | null
+  gender?: boolean | null
   aspNetUserClaims?: AspNetUserClaim[] | null
   aspNetUserLogins?: AspNetUserLogin[] | null
   aspNetUserTokens?: AspNetUserToken[] | null
@@ -1255,6 +1289,7 @@ export type SetInfoModel = {
   fullname?: string | null
   companyName?: string | null
   jobTitle?: string | null
+  gender?: OptionType
   province?: OptionType
   city?: OptionType
   year?: OptionType
@@ -1501,6 +1536,8 @@ export const {
   useLazyGetSubUsersCreditQuery,
   useAddSubUsersCreditMutation,
   useGetMentorshipUserLogsMutation,
+  useGetAllOrdersQuery,
+  useLazyGetAllOrdersQuery,
   useMyPaymentsQuery,
   useLazyMyPaymentsQuery,
   useReceiptQuery,

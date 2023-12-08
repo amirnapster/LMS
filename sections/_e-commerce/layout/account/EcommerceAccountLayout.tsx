@@ -53,6 +53,7 @@ export default function EcommerceAccountLayout({ children }: Props) {
             md: 'flex-start',
           }}
           sx={{
+            px:2,
             mt:3,
             mb: {
               xs: 8,
