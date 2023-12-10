@@ -9,9 +9,8 @@
     "airbnb",
     "plugin:@typescript-eslint/recommended",
     "plugin:import/typescript",
-    "prettier",
-    "plugin:storybook/recommended"
-  ],
+    "prettier"
+    ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
