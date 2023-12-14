@@ -31,6 +31,6 @@ export function durationToString(a :number,hour :string,minute : string){
   if(a<60)
   return '-'
   if(a<3600)
-  return `${Math.floor(((a/60)%60)).toFixed(0)} ${hour}`
+  return `${Math.floor(((a/60)%60)).toFixed(0)} ${minute}`
   return `${(Math.floor(a / 3600)).toFixed(0)} ${hour} ${Math.floor(((a/60)%60)).toFixed(0)} ${minute}`
 }
