@@ -35,7 +35,7 @@ export const WEB = {
 
   ADS: '/about-ads',
   FEED: '/feed',
-  DASHBOARD: '/dashboard',
+  DASHBOARD: '/dashboard/mycourses',
   LIST_MANAGEMENTS: '/list-management',
   CONTACT_US: '/contact',
   ABOUT_US: '/about-us',

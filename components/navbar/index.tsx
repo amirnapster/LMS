@@ -46,7 +46,7 @@ const Navbar = () => {
 
   useEffect(() => {
     if ((data?.isInCompany || data?.isCompanyAdmin) && asPath === '/')
-      replace('/dashboard/')
+      replace('/dashboard/mycourses/')
   }, [data, asPath])
 
 

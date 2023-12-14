@@ -1,3 +1,4 @@
+// url:namatek.com/dashboard/profile
 import * as Yup from 'yup'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -1356,155 +1357,153 @@ function EcommerceAccountPersonalView() {
       setValue('fullname', dataInfo?.fullname as string)
       setValue('companyName', dataInfo.companyName as string)
       setValue('jobTitle', dataInfo.jobTitle as string)
-      console.log(dataInfo.province, provinces.find(t => t.label == dataInfo.province))
-      setValue('province', provinces.find(t => t.label == dataInfo.province) as OptionType)
-      const city = cities.find(t => t.label == dataInfo.city)
-      setValue('city', { value: city?.label, label: city?.label } as OptionType)
-      const birthDate = dayjs(dataInfo?.birthDate).calendar('jalali')
-      console.log(dataInfo.birthDate, birthDate)
-      setValue('year', { value: birthDate.format('YYYY'), label: birthDate.format('YYYY') } as OptionType)
-      setValue('month', { value: birthDate.format('MM'), label: birthDate.format('MM') } as OptionType)
-      setValue('day', { value: birthDate.format('DD'), label: birthDate.format('DD') } as OptionType)
-      if (dataInfo?.gender)
+      if (dataInfo.province) {
+        setValue('province', provinces.find(t => t.label == dataInfo.province) as OptionType)
+      }
+      if (dataInfo.city) {
+        const city = cities.find(t => t.label == dataInfo.city)
+        setValue('city', { value: city?.label, label: city?.label } as OptionType)
+      }
+      if (dataInfo?.birthDate) {
+        const birthDate = dayjs(dataInfo?.birthDate).calendar('jalali')
+
+        setValue('year', { value: birthDate.format('YYYY'), label: birthDate.format('YYYY') } as OptionType)
+        setValue('month', { value: birthDate.format('MM'), label: birthDate.format('MM') } as OptionType)
+        setValue('day', { value: birthDate.format('DD'), label: birthDate.format('DD') } as OptionType)
+      }
+      if (dataInfo?.gender != null)
         setValue('gender', { value: dataInfo.gender ? "1" : "0", label: dataInfo.gender ? "مرد" : "زن" } as OptionType)
-}
+    }
   }, [dataInfo])
 
-useEffect(() => {
-  getInfo()
-}, [])
+  useEffect(() => {
+    getInfo()
+  }, [])
 
-useEffect(() => {
-  if (!accessToken) {
-    push('/')
-    return
-  }
-}, [accessToken])
+  useEffect(() => {
+    if (!accessToken) {
+      push('/')
+      return
+    }
+  }, [accessToken])
 
-return (
-  <EcommerceAccountLayout>
-    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      <Typography variant='h5' sx={{ mb: 3 }}>
-        {intl.formatMessage({ id: 'personal.info' })}
-      </Typography>
-      <Box
-        rowGap={2.5}
-        columnGap={2}
-        display='grid'
-        gridTemplateColumns={{ xs: 'repeat(5, 1fr)' }}
-      >
+  return (
+    <EcommerceAccountLayout>
+      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+        <Typography variant='h5' sx={{ mb: 3 }}>
+          {intl.formatMessage({ id: 'personal.info' })}
+        </Typography>
+        <Box
+          rowGap={2.5}
+          columnGap={2}
+          display='grid'
+          gridTemplateColumns={{ xs: 'repeat(1, 1fr)', md: 'repeat(5, 1fr)' }}
+        >
 
-        <RHFTextField name='fullname' label={intl.formatMessage({ id: 'personal.info.name' })} />
-        <RHFTextField name='companyName' label={intl.formatMessage({ id: 'personal.info.job' })} />
-        <RHFTextField name='jobTitle' label={intl.formatMessage({ id: 'personal.info.company' })} />
+          <RHFTextField name='fullname' label={intl.formatMessage({ id: 'personal.info.name' })} />
+          <RHFTextField name='companyName' label={intl.formatMessage({ id: 'personal.info.job' })} />
+          <RHFTextField name='jobTitle' label={intl.formatMessage({ id: 'personal.info.company' })} />
 
-        <RHFAutocomplete
+          <RHFAutocomplete
 
-          name='gender'
-          label='جنسیت'
-          options={[
-            { value: '', label: 'انتخاب نشده' },
-            { value: '0', label: 'زن' },
-            { value: '1', label: 'مرد' },
-          ]}
-          getOptionLabel={(option: OptionType | string) =>
-            (option as OptionType).label as string
-          }
-          isOptionEqualToValue={(option, value) =>
-            option.value === value.value
-          }
-        />
+            name='gender'
+            label='جنسیت'
+            options={[
+              { value: '', label: 'انتخاب نشده' },
+              { value: '0', label: 'زن' },
+              { value: '1', label: 'مرد' },
+            ]}
+            getOptionLabel={(option: OptionType | string) =>
+              (option as OptionType).label as string
+            }
+            isOptionEqualToValue={(option, value) =>
+              option.value === value.value
+            }
+          />
 
-      </Box>
+        </Box>
 
-      <Box
-        rowGap={2.5}
-        columnGap={2}
-        style={{ marginTop: "1rem" }}
-        display='grid'
-        gridTemplateColumns={{ xs: 'repeat(5, 1fr)' }}
-      >
-        <RHFAutocomplete
-          name='province'
-          label='استان'
-          options={provinces}
-          getOptionLabel={(option: OptionType | string) =>
-            (option as OptionType).label as string
-          }
-          isOptionEqualToValue={(option, value) =>
-            option.value === value.value
-          }
-        />
-        <RHFAutocomplete
-          name='city'
-          label='شهر'
-          options={filteredCities}
-          getOptionLabel={(option: OptionType | string) =>
-            (option as OptionType).label as string
-          }
-          isOptionEqualToValue={(option, value) =>
-            option.value === value.value
-          } />
-      </Box>
-      <Typography
-        variant='caption'
-        sx={{
-          textAlign: 'right',
-          fontStyle: 'italic',
-          color: 'text.disabled',
-        }}
-      >
-        تاریخ تولد
-      </Typography>
-      <Stack spacing={1} sx={{ width: 1 }} direction="row" >
-        <RHFAutocomplete
-          name='day'
-          label='روز'
-          options={Array.from({ length: 31 }, (_, index) => 1 + index).map((i) => ({ label: `${i}`, value: `${i}` } as OptionType))}
-          getOptionLabel={(option: OptionType | string) =>
-            (option as OptionType).label as string
-          }
-          isOptionEqualToValue={(option, value) =>
-            option.value === value.value
-          }
-        />
-        <RHFAutocomplete
-          name='month'
-          label='ماه'
-          options={Array.from({ length: 12 }, (_, index) => 1 + index).map((i) => ({ label: `${i}`, value: `${i}` } as OptionType))}
-          getOptionLabel={(option: OptionType | string) =>
-            (option as OptionType).label as string
-          }
-          isOptionEqualToValue={(option, value) =>
-            option.value === value.value
-          }
-        />
-        <RHFAutocomplete
-          name='year'
-          label='سال'
-          sx={{ width: '120px' }}
-          options={Array.from({ length: 92 }, (_, index) => 1392 - index).map((i) => ({ label: `${i}`, value: `${i}` } as OptionType))}
-          getOptionLabel={(option: OptionType | string) =>
-            (option as OptionType).label as string
-          }
-          isOptionEqualToValue={(option, value) =>
-            option.value === value.value
-          }
-        />
-      </Stack>
-      <LoadingButton
-        color='inherit'
-        size='large'
-        type='submit'
-        variant='contained'
-        loading={isLoading}
-        sx={{ marginBlockStart: '3rem' }}
-      >
-        {intl.formatMessage({ id: 'save' })}
-      </LoadingButton>
-    </FormProvider>
-  </EcommerceAccountLayout >
-)
+        <Box
+          rowGap={2.5}
+          columnGap={2.5}
+          style={{ marginTop: "1rem" ,marginBottom:"1.5rem"}}
+          display='grid'
+          gridTemplateColumns={{ xs: 'repeat(1, 1fr)', md: 'repeat(5, 1fr)' }}
+        >
+          <RHFAutocomplete
+            name='province'
+            label='استان'
+            options={provinces}
+            getOptionLabel={(option: OptionType | string) =>
+              (option as OptionType).label as string
+            }
+            isOptionEqualToValue={(option, value) =>
+              option.value === value.value
+            }
+          />
+          <RHFAutocomplete
+            name='city'
+            label='شهر'
+            options={filteredCities}
+            getOptionLabel={(option: OptionType | string) =>
+              (option as OptionType).label as string
+            }
+            isOptionEqualToValue={(option, value) =>
+              option.value === value.value
+            } />
+        </Box>
+        <Typography variant='h5' sx={{ mb: 3 }}>
+          تاریخ تولد
+        </Typography>
+        <Stack spacing={2.5} sx={{ width: 1 }} direction={{ xs: "column", md: "row" }} >
+          <RHFAutocomplete
+            name='day'
+            label='روز'
+            options={Array.from({ length: 31 }, (_, index) => 1 + index).map((i) => ({ label: `${i}`, value: `${i}` } as OptionType))}
+            getOptionLabel={(option: OptionType | string) =>
+              (option as OptionType).label as string
+            }
+            isOptionEqualToValue={(option, value) =>
+              option.value === value.value
+            }
+          />
+          <RHFAutocomplete
+            name='month'
+            label='ماه'
+            options={Array.from({ length: 12 }, (_, index) => 1 + index).map((i) => ({ label: `${i}`, value: `${i}` } as OptionType))}
+            getOptionLabel={(option: OptionType | string) =>
+              (option as OptionType).label as string
+            }
+            isOptionEqualToValue={(option, value) =>
+              option.value === value.value
+            }
+          />
+          <RHFAutocomplete
+            name='year'
+            label='سال'
+            sx={{ width: { md: '120px', xs: "100%" } }}
+            options={Array.from({ length: 92 }, (_, index) => 1392 - index).map((i) => ({ label: `${i}`, value: `${i}` } as OptionType))}
+            getOptionLabel={(option: OptionType | string) =>
+              (option as OptionType).label as string
+            }
+            isOptionEqualToValue={(option, value) =>
+              option.value === value.value
+            }
+          />
+        </Stack>
+        <LoadingButton
+          color='inherit'
+          size='large'
+          type='submit'
+          variant='contained'
+          loading={isLoading}
+          sx={{ marginBlockStart: '3rem' }}
+        >
+          {intl.formatMessage({ id: 'save' })}
+        </LoadingButton>
+      </FormProvider>
+    </EcommerceAccountLayout >
+  )
 }
 
 export default EcommerceAccountPersonalView

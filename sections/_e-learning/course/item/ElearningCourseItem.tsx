@@ -143,7 +143,7 @@ export default function ElearningCourseItem({ course, vertical }: Props) {
                 {course.titleFa}
               </TextMaxLine>
 
-              {asPath.startsWith('/dashboard/') && (
+              {asPath.startsWith('/dashboard/mycourses') && (
                 <>
                   <Row className='w-100' justify='space-between'>
                     <span data-selector='badge'></span>

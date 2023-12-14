@@ -1,9 +1,6 @@
+// url:namatek.com/dashboard/gift
 import * as Yup from 'yup'
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { LoadingButton } from '@mui/lab'
-import { Box, Collapse, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
-import FormProvider, { RHFTextField } from 'components/hook-form'
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 import { EcommerceAccountLayout } from '../layout'
 import {
   Coupon,
@@ -11,7 +8,6 @@ import {
   useCreditLogsAndCouponsQuery,
   useGetDiscountCodeMutation,
   useInfoMutation,
-  useLazyGetGiftQuery,
 } from 'libs/redux/services/karnama'
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
@@ -91,16 +87,7 @@ function EcommerceAccountGiftView() {
     code: '',
   }
 
-  const methods = useForm<typeof defaultValues>({
-    resolver: yupResolver(EcommerceAccountPersonalSchema),
-    defaultValues,
-  })
 
-  const {
-    handleSubmit,
-    setValue,
-    formState: { isSubmitting },
-  } = methods
 
   const onSubmit = async () => {
     getCode().unwrap().then((res) => {
@@ -127,13 +114,12 @@ function EcommerceAccountGiftView() {
 
   return (
     <EcommerceAccountLayout>
-      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-        <Typography variant='h5' sx={{ mb: 3 }}>
-          دریافت کد تخفیف
-        </Typography>
-        <Typography sx={{ mb: 3 }}>با وارد کردن کد تخفیف تا سقف 200 هزار تومان تخفیف محصولات نماتک، برای خرید‌های بیشتر از یک میلیون تومان بهره‌مند شوید. لازم به ذکر است کدهای تخفیفی که می‌سازید یک هفته اعتبار دارند. برای استفاده از کدهای تخفیف 200 هزارتومانی روی دکمه "دریافت کد تخفیف" کلیک کنید.
-        </Typography>
-        {/* <Box
+      <Typography variant='h5' sx={{ mb: 3 }}>
+        دریافت کد تخفیف
+      </Typography>
+      <Typography sx={{ mb: 3 }}>با وارد کردن کد تخفیف تا سقف 200 هزار تومان تخفیف محصولات نماتک، برای خرید‌های بیشتر از یک میلیون تومان بهره‌مند شوید. لازم به ذکر است کدهای تخفیفی که می‌سازید یک هفته اعتبار دارند. برای استفاده از کدهای تخفیف 200 هزارتومانی روی دکمه "دریافت کد تخفیف" کلیک کنید.
+      </Typography>
+      {/* <Box
           rowGap={2.5}
           columnGap={2}
           display='grid'
@@ -143,15 +129,14 @@ function EcommerceAccountGiftView() {
 
         </Box> */}
 
-        <Button
-          btnType='primary'
-          size='large'
-          loading={isLoading}
-          onClick={onSubmit}
-        >
-          دریافت کد تخفیف
-        </Button>
-      </FormProvider>
+      <Button
+        btnType='primary'
+        size='large'
+        loading={isLoading}
+        onClick={onSubmit}
+      >
+        دریافت کد تخفیف
+      </Button>
       {!!creditLogsAndCoupons && (
         <>
           <h3 className='mb-1 mt-3'><Iconify

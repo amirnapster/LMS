@@ -35,7 +35,7 @@ const navigations = [
   },
   {
     title: 'navbar.profile.dashboard',
-    path: '/dashboard/',
+    path: '/dashboard/mycourses/',
     icon: <Iconify icon='mdi:human-male-board-poll' />,
   },
   {

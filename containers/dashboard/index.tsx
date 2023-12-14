@@ -1,3 +1,4 @@
+// url:namatek.com/dashboard/mycourses
 import { useMyQuery } from 'libs/redux/services/karnama'
 import { ElearningCourseItem } from 'sections/_e-learning/course/item'
 import Row from 'components/ui/Row'

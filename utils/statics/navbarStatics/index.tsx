@@ -193,7 +193,7 @@ export const profileNavItems: ProfileNavItemsType = {
   home: {
     title: 'navbar.profile.dashboard',
     icon: <LayoutIcon viewBox='0 0 24 24 ' />,
-    route: '/dashboard/',
+    route: '/dashboard/mycourses/',
   },
   profile: {
     title: 'navbar.profile.profile',
