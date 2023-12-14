@@ -44,9 +44,10 @@ const Otp = ({ changeMode }: AuthCallBackProps) => {
       <span className={styles['otp--title']}>ورود / ثبت نام</span>
 
       <span className={styles['otp--subTitle']}>
-        برای دسترسی رایگان به ویدئوهای آموزشی،<br />
+        برای ورود به پنل کاربری،<br />
         شماره موبایل خود را وارد کنید
       </span>
+      
 
       <form onSubmit={handleSubmit(onSubmit)} className={styles['otp__form']}>
         <Input
