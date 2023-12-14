@@ -31,7 +31,7 @@ export const onLogin = (res: Token) => {
     store.dispatch(setVisible({ visible: true, mode: 'completeProfile' }))
   else store.dispatch(setVisible({ visible: false }))
 
-  // if (asPath === '/') push('/dashboard')
+  if (asPath === '/' || asPath === '/login/') push('/dashboard/mycourses/')
 }
 
 export const AuthForm = ({
