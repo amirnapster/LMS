@@ -115,6 +115,11 @@ export default function EcommerceAccountMenu({ open, onClose }: Props) {
           <TextMaxLine variant='subtitle1' line={1}>
             {data?.username}
           </TextMaxLine>
+          {!!data?.customer?.credit && (
+               <TextMaxLine variant='subtitle2' line={1}>
+               اعتبار شما {data.customer.credit.toLocaleString()} تومان
+             </TextMaxLine>
+          )}
           {/* <TextMaxLine
             variant='body2'
             line={1}

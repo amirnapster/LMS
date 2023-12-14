@@ -29,6 +29,20 @@ export const injectedRtkApi = api
         }),
         invalidatesTags: ['Account'],
       }),
+      creditLogsAndCoupons: build.query<
+        CreditLogsAndCouponsApiResponse,
+        CreditLogsAndCouponsApiArg
+      >({
+        query: () => ({ url: `/Account/CreditLogsAndCoupons` }),
+        providesTags: ['Account'],
+      }),
+      getDiscountCode: build.mutation<
+        GetDiscountCodeApiResponse,
+        GetDiscountCodeApiArg
+      >({
+        query: () => ({ url: `/Account/GetDiscountCode`, method: 'POST' }),
+        invalidatesTags: ['Account'],
+      }),
       info: build.mutation<InfoApiResponse, InfoApiArg>({
         query: () => ({ url: `/Account/Info`, method: 'POST' }),
         invalidatesTags: ['Account'],
@@ -434,6 +448,11 @@ export type SignInByOtpApiResponse = unknown
 export type SignInByOtpApiArg = {
   signInByOtpCommand: SignInByOtpCommand
 }
+export type CreditLogsAndCouponsApiResponse =
+  /** status 200 Success */ CreditLogsAndCouponsModel
+export type CreditLogsAndCouponsApiArg = void
+export type GetDiscountCodeApiResponse = /** status 200 Success */ string
+export type GetDiscountCodeApiArg = void
 export type InfoApiResponse = /** status 200 Success */ UserInfo
 export type InfoApiArg = void
 export type SetInfoApiResponse = /** status 200 Success */ UserInfo
@@ -628,6 +647,87 @@ export type CreateUgqApiArg = {
 }
 export type SignInByOtpCommand = {
   userName?: string | null
+}
+export type Coupon = {
+  id?: number
+  customerId?: number
+  amount?: number
+  code?: string | null
+  insertDate?: string
+  used?: boolean
+  expireDate?: string | null
+  customer?: Customer
+}
+export type Deal = {
+  id?: number
+  customerId?: number
+  productId?: number
+  stateId?: number
+  note?: string | null
+  insertDate?: string
+  price?: number
+  maxPc?: number
+  share?: number | null
+  usage?: number | null
+  paymentDate?: string
+  operatorId?: string | null
+  duration?: number | null
+  discount?: number | null
+  userAgent?: string | null
+  orderId?: number | null
+  coupons?: string | null
+  customer?: Customer
+}
+export type Customer = {
+  id?: number
+  name?: string | null
+  mobile?: string | null
+  mobile2?: string | null
+  email?: string | null
+  email2?: string | null
+  address?: string | null
+  insertDate?: string
+  note?: string | null
+  lastEdited?: string
+  provinceId?: number | null
+  provinceName?: string | null
+  tags?: string | null
+  operatorId?: string | null
+  usage?: number
+  point?: number | null
+  postalCode?: string | null
+  operatorRate?: number | null
+  lastActivity?: string
+  credit?: number
+  referalBonus?: number
+  company?: string | null
+  hashCode?: string | null
+  validity?: number | null
+  firstName?: string | null
+  lastName?: string | null
+  unreadMessage?: string | null
+  newUserId?: number | null
+  coupons?: Coupon[] | null
+  creditLogs?: CreditLog[] | null
+  deals?: Deal[] | null
+}
+export type CreditLog = {
+  id?: number
+  customerId?: number
+  amount?: number
+  insertDate?: string
+  title?: string | null
+  remaining?: number
+  expireDate?: string | null
+  customer?: Customer
+}
+export type CreditLogsAndCouponsModel = {
+  creditLogs?: CreditLog[] | null
+  coupons?: Coupon[] | null
+}
+export type ApiError = {
+  message?: string | null
+  isWarning?: boolean
 }
 export type AspNetUserClaim = {
   id?: number
@@ -1202,56 +1302,6 @@ export type SubUser = {
   id?: number
   username?: string | null
 }
-export type Deal = {
-  id?: number
-  customerId?: number
-  productId?: number
-  stateId?: number
-  note?: string | null
-  insertDate?: string
-  price?: number
-  maxPc?: number
-  share?: number | null
-  usage?: number | null
-  paymentDate?: string
-  operatorId?: string | null
-  duration?: number | null
-  discount?: number | null
-  userAgent?: string | null
-  orderId?: number | null
-  coupons?: string | null
-  customer?: Customer
-}
-export type Customer = {
-  id?: number
-  name?: string | null
-  mobile?: string | null
-  mobile2?: string | null
-  email?: string | null
-  email2?: string | null
-  address?: string | null
-  insertDate?: string
-  note?: string | null
-  lastEdited?: string
-  provinceId?: number | null
-  provinceName?: string | null
-  tags?: string | null
-  operatorId?: string | null
-  usage?: number
-  point?: number | null
-  postalCode?: string | null
-  operatorRate?: number | null
-  lastActivity?: string
-  credit?: number
-  referalBonus?: number
-  company?: string | null
-  hashCode?: string | null
-  validity?: number | null
-  firstName?: string | null
-  lastName?: string | null
-  unreadMessage?: string | null
-  deals?: Deal[] | null
-}
 export type UserInfo = {
   id?: number
   isMentor?: boolean
@@ -1276,10 +1326,6 @@ export type UserInfo = {
   province?: string | null
   city?: string | null
   gender?: boolean | null
-}
-export type ApiError = {
-  message?: string | null
-  isWarning?: boolean
 }
 export type OptionType = {
   label?: string | null
@@ -1478,6 +1524,9 @@ export type CreateUgqModel = {
 }
 export const {
   useSignInByOtpMutation,
+  useCreditLogsAndCouponsQuery,
+  useLazyCreditLogsAndCouponsQuery,
+  useGetDiscountCodeMutation,
   useInfoMutation,
   useSetInfoMutation,
   useVerfySignInByOtpMutation,
