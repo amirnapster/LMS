@@ -24,12 +24,7 @@ type Props = {
 }
 
 export default function ElearningCourseItem({ course, vertical }: Props) {
-  const countRef = useRef<number>(0)
   const { asPath } = useRouter()
-  const lessonCount = course?.sections?.reduce(
-    (acc, section) => (section?.lessons?.length ?? 0) + acc,
-    0
-  )
 
   const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
     height: 7,
@@ -56,11 +51,7 @@ export default function ElearningCourseItem({ course, vertical }: Props) {
         }
 
     }
-  course?.sections?.map((section) => {
-    section?.lessons?.map((lesson) => {
-      countRef.current = countRef.current + (lesson?.duation as number)
-    })
-  })
+
 
   return (
     <Link href={`/courses/${course.id}`}>
@@ -248,14 +239,14 @@ export default function ElearningCourseItem({ course, vertical }: Props) {
                 <Iconify icon='carbon:time' sx={{ mr: 1 }} />{' '}
                 {`${((course.totalDuration as number < 3600 ? 3600 : course.totalDuration as number) / 3600).toFixed(0)} ساعت`}
               </Stack>
-              {lessonCount ?
+              {course.lessonCount ?
                 <Stack
                   direction='row'
                   alignItems='center'
                   sx={{ typography: 'body2' }}
                 >
                   <Iconify icon='carbon:document' sx={{ mr: 1 }} />
-                  {`${lessonCount} درس`}
+                  {`${course.lessonCount} درس`}
                 </Stack>
                 : null}
             </Row>

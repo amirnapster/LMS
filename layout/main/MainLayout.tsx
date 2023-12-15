@@ -58,7 +58,7 @@ export default function MainLayout({ children }: Props) {
 
   const handleBottomMenuChange = useCallback((v: number) => {
     setValue(v);
-    const path = Object.entries(paths).find(([key, value]) => value === v);
+    const path = Object.entries(paths).find(([key, value]) => value === v + 1);
     if (path) {
       push(path[0]);
     }

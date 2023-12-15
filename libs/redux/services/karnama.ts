@@ -559,7 +559,7 @@ export type ChangeCreditApiArg = {
   id?: number
   credit?: number
 }
-export type GetCoursesApiResponse = /** status 200 Success */ Course[]
+export type GetCoursesApiResponse = /** status 200 Success */ CourseDto[]
 export type GetCoursesApiArg = void
 export type GetFeaturedApiResponse = /** status 200 Success */ Course[]
 export type GetFeaturedApiArg = void
@@ -1118,6 +1118,7 @@ export type Course = {
   title?: string | null
   titleFa?: string | null
   totalDuration?: number | null
+  lessonCount?: number | null
   imageUrl?: string | null
   categoryId?: number
   description?: string | null
@@ -1462,6 +1463,17 @@ export type CompanyUserDto = {
   usedCredit?: number
   courseCount?: number
   pendingCount?: number
+}
+export type CourseDto = {
+  id?: number
+  title?: string | null
+  titleFa?: string | null
+  totalDuration?: number | null
+  lessonCount?: number | null
+  imageUrl?: string | null
+  categoryId?: number
+  slug?: string | null
+  category?: Category
 }
 export type PlayLogDto = {
   action?: string | null
