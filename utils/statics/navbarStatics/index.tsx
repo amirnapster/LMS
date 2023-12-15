@@ -20,14 +20,12 @@ import {
   SearchIcon,
   WebServiceIcon,
 } from 'assets/icons'
-import {
-  BusinessOutlined,
-  PersonOutlineOutlined,
-  ViewInArOutlined,
-  FactoryOutlined,
-  EmojiObjectsOutlined,
-  FeedOutlined,
-} from '@mui/icons-material'
+import   BusinessOutlined from '@mui/icons-material/BusinessOutlined'
+import   PersonOutlineOutlined from '@mui/icons-material/PersonOutlineOutlined'
+import   ViewInArOutlined from '@mui/icons-material/ViewInArOutlined'
+import   FactoryOutlined from '@mui/icons-material/FactoryOutlined'
+import   EmojiObjectsOutlined from '@mui/icons-material/EmojiObjectsOutlined'
+import   FeedOutlined from '@mui/icons-material/FeedOutlined'
 import type {
   NavItemsType,
   NavItemType,

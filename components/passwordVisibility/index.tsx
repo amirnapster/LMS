@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Visibility, VisibilityOff } from '@mui/icons-material'
+import  Visibility from '@mui/icons-material/Visibility'
+import  VisibilityOff  from '@mui/icons-material/VisibilityOff'
 import { IconButton } from '@mui/material'
 
 const PasswordVisibility = ({ id }: { id?: string }) => {

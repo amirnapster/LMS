@@ -1,4 +1,4 @@
-import { CloseOutlined } from '@mui/icons-material'
+import  CloseOutlined  from '@mui/icons-material/CloseOutlined'
 import cn from 'classnames'
 
 import type { ReactNode } from 'react'

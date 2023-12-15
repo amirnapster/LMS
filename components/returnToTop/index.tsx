@@ -1,4 +1,4 @@
-import { KeyboardArrowUp } from '@mui/icons-material'
+import  KeyboardArrowUp  from '@mui/icons-material/KeyboardArrowUp'
 import { scrollHandler } from 'utils/helpers/global'
 import Button from 'components/ui/Button'
 

@@ -1,4 +1,4 @@
-import { CloseOutlined } from '@mui/icons-material'
+import  CloseOutlined  from '@mui/icons-material/CloseOutlined'
 import Select from 'react-select'
 import cn from 'classnames'
 

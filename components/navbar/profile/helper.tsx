@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { useIntl } from 'react-intl'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearAuth } from 'libs/redux/slices/auth'
-import { ExpandMore } from '@mui/icons-material'
+import  ExpandMore  from '@mui/icons-material/ExpandMore'
 import { useInfoMutation, useLogoutMutation } from 'libs/redux/services/karnama'
 // import {
 //   ExitIcon,

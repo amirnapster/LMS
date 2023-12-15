@@ -1,5 +1,5 @@
 import { type ReactNode, useEffect, useState, useRef } from 'react'
-import { ExpandMore } from '@mui/icons-material'
+import  ExpandMore  from '@mui/icons-material/ExpandMore'
 import useDidMountEffect from 'utils/hooks/useDidMount'
 import cn from 'classnames'
 import Button from '../Button'

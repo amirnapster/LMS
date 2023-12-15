@@ -1,6 +1,6 @@
 import { WEB } from 'utils/statics/routes/web'
 import { useIntl } from 'react-intl'
-import { KeyboardArrowLeft } from '@mui/icons-material'
+import  KeyboardArrowLeft  from '@mui/icons-material/KeyboardArrowLeft'
 import Col from 'components/ui/Col'
 import Row from 'components/ui/Row'
 import Button from 'components/ui/Button'

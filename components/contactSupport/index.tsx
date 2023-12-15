@@ -1,10 +1,8 @@
 import { useDispatch } from 'react-redux'
-import {
-  Close,
-  ArrowForwardOutlined,
-  LocalPhoneOutlined,
-  EmailOutlined,
-} from '@mui/icons-material'
+import   Close from '@mui/icons-material/Close'
+import   ArrowForwardOutlined from '@mui/icons-material/ArrowForwardOutlined'
+import   LocalPhoneOutlined from '@mui/icons-material/LocalPhoneOutlined'
+import   EmailOutlined from '@mui/icons-material/EmailOutlined'
 import { useIntl } from 'react-intl'
 import Button from 'components/ui/Button'
 import Input from 'components/ui/Input'

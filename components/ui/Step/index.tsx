@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import cn from 'classnames'
 import { RootState } from 'libs/redux/store'
-import { Done } from '@mui/icons-material'
+import  Done  from '@mui/icons-material/Done'
 
 import styles from './step.module.scss'
 

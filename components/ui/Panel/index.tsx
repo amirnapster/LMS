@@ -1,5 +1,5 @@
 import { type MouseEvent, useContext } from 'react'
-import { ExpandMore } from '@mui/icons-material'
+import  ExpandMore  from '@mui/icons-material/ExpandMore'
 import cn from 'classnames'
 import CollapseContext from '../Collapse/CollapseContext'
 import Row from '../Row'

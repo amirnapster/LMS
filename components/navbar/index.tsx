@@ -2,11 +2,9 @@ import { useContext, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  ArrowForwardRounded,
-  LoginOutlined,
-  SearchOutlined,
-} from '@mui/icons-material'
+import   ArrowForwardRounded from '@mui/icons-material/ArrowForwardRounded'
+import   LoginOutlined from '@mui/icons-material/LoginOutlined'
+import   SearchOutlined from '@mui/icons-material/SearchOutlined'
 import { toggleTransition, toggleNavbarSearch } from 'libs/redux/slices/navbar'
 import { NavbarAvatar } from 'components/navbar/profile/helper'
 import { clearAuth, setVisible } from 'libs/redux/slices/auth'

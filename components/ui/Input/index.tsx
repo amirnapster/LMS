@@ -1,6 +1,6 @@
 import React, { type ForwardedRef } from 'react'
 import { useIntl } from 'react-intl'
-import { CloseOutlined } from '@mui/icons-material'
+import  CloseOutlined  from '@mui/icons-material/CloseOutlined'
 import PasswordVisibility from 'components/passwordVisibility'
 import cn from 'classnames'
 

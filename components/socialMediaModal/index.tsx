@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
-import { Close, LinkOutlined } from '@mui/icons-material'
+import  Close from '@mui/icons-material/Close'
+import  LinkOutlined  from '@mui/icons-material/LinkOutlined'
 // import { setSocialModalVisibility } from 'libs/redux/slices/company'
 // import { setSocialModalVisibility as setSocialModalVisibilityPerson } from 'libs/redux/slices/person'
 import Modal from 'components/ui/Modal'
