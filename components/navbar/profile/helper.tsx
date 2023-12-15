@@ -77,7 +77,6 @@ export const NavbarAvatar = () => {
 
   const logout = () => {
     logoutUser()
-      .unwrap()
       .then(() => {
         dispatch(clearAuth())
         replace('/')

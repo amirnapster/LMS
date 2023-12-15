@@ -67,7 +67,6 @@ const Navbar = () => {
   const login = () => {
     if (accessToken) {
       logoutUser()
-        .unwrap()
         .then(() => {
           dispatch(clearAuth())
           replace('/')

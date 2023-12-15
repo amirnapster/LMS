@@ -74,7 +74,6 @@ export default function EcommerceAccountMenu({ open, onClose }: Props) {
   }, [])
   const logout = () => {
     logoutUser()
-      .unwrap()
       .then(() => {
         dispatch(clearAuth())
         replace('/')
