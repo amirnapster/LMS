@@ -76,7 +76,6 @@ export default function ElearningCourseDetailsLessonItem({
           mr: 2,
           top: 18,
           left: 8,
-          zIndex: 9,
           cursor: 'pointer',
           position: 'absolute',
           ...(selected && {

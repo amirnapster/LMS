@@ -107,7 +107,8 @@ export default function MainLayout({ children }: Props) {
       {!asPath.startsWith('/play') && <Footer />}
       {isMdUp ||
 
-        <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+
+        <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, boxShadow: '0px -3px 5px rgba(0,0,0,0.15)' }} >
           <BottomNavigation
             showLabels
             value={value}
