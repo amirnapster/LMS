@@ -118,6 +118,7 @@ const AppHead = () => {
       />
       <meta name='apple-mobile-web-app-capable' content='yes' />
       <meta name='apple-mobile-web-app-status-bar-style' content='black' />
+      <meta name="yn-tag" id="966daff1-55eb-45a6-bfa6-94c505c36f32"/>
       <link rel='prefetch' href='/svg/lock.png' />
       <link rel='prefetch' href='/svg/SVG.svg' />
     </Head>
