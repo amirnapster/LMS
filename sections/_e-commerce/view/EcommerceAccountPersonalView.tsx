@@ -29,6 +29,7 @@ function EcommerceAccountPersonalView() {
   const { push } = useRouter()
   const { accessToken } = useSelector((state: RootState) => state.auth)
   const intl = useIntl()
+  const [disabledEmail, setDisabledEmail] = useState(false)
   const [filteredCities, setFilteredCities] = useState<OptionType[]>([])
   const cities = [{ provinceId: "41", label: "کشکسرای" },
   { provinceId: "41", label: "سهند" },
@@ -1316,6 +1317,7 @@ function EcommerceAccountPersonalView() {
     fullname: '',
     companyName: '',
     jobTitle: '',
+    email: '',
     gender: { value: '', label: 'انتخاب نشده' } as OptionType,
     province: { value: '', label: 'انتخاب نشده' } as OptionType,
     city: { value: '', label: 'انتخاب نشده' } as OptionType,
@@ -1355,6 +1357,10 @@ function EcommerceAccountPersonalView() {
       setValue('fullname', dataInfo?.fullname as string)
       setValue('companyName', dataInfo.companyName as string)
       setValue('jobTitle', dataInfo.jobTitle as string)
+      if (dataInfo.email) {
+        setValue('email', dataInfo.email as string)
+        setDisabledEmail(true)
+      }
       if (dataInfo.province) {
         setValue('province', provinces.find(t => t.label == dataInfo.province) as OptionType)
       }
@@ -1424,7 +1430,7 @@ function EcommerceAccountPersonalView() {
         <Box
           rowGap={2.5}
           columnGap={2.5}
-          style={{ marginTop: "1rem" ,marginBottom:"1.5rem"}}
+          style={{ marginTop: "1rem", marginBottom: "1.5rem" }}
           display='grid'
           gridTemplateColumns={{ xs: 'repeat(1, 1fr)', md: 'repeat(5, 1fr)' }}
         >
@@ -1450,7 +1456,7 @@ function EcommerceAccountPersonalView() {
               option.value === value.value
             } />
         </Box>
-        <Typography variant='h5' sx={{ mb: 3 }}>
+        <Typography variant='h5' sx={{ mb: 2 }}>
           تاریخ تولد
         </Typography>
         <Stack spacing={2.5} sx={{ width: 1 }} direction={{ xs: "column", md: "row" }} >
@@ -1489,6 +1495,20 @@ function EcommerceAccountPersonalView() {
             }
           />
         </Stack>
+        <Typography variant='h5'
+          style={{ marginTop: "1.5rem", marginBottom: "1rem" }}
+        >
+          فعالسازی ایمیل در <a href="https://forum.namatek.com" target="_blank" style={{color:"#007d67"}}>فروم نماتک</a>
+        </Typography>
+        <Box
+          rowGap={2.5}
+          columnGap={2}
+          display='grid'
+          gridTemplateColumns={{ xs: 'repeat(1, 1fr)', md: 'repeat(5, 1fr)' }}
+        >
+
+          <RHFTextField disabled={disabledEmail} name='email' label={intl.formatMessage({ id: 'email' })} />
+        </Box>
         <LoadingButton
           color='inherit'
           size='large'

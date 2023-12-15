@@ -1326,6 +1326,8 @@ export type UserInfo = {
   province?: string | null
   city?: string | null
   gender?: boolean | null
+  discourseResponse?: string | null
+  email?: string | null
 }
 export type OptionType = {
   label?: string | null
@@ -1335,6 +1337,7 @@ export type SetInfoModel = {
   fullname?: string | null
   companyName?: string | null
   jobTitle?: string | null
+  email?: string | null
   gender?: OptionType
   province?: OptionType
   city?: OptionType
