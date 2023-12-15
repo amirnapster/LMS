@@ -115,7 +115,7 @@ const Navbar = () => {
                 />
               </Col> */}
               {isMdUp ||
-                <Col xxs={8}>
+                <Col xxs={8} style={{paddingTop:'7px'}}>
 
                   <MenuIcon onClick={handleMenuOpen}
                     data-selector='navbar-drawer-icon'
@@ -123,11 +123,11 @@ const Navbar = () => {
 
                 </Col>
               }
-              <Col className='d-flex' style={{ justifyContent: "center" }} xxs={8} sm={12} md={15}>
+              <Col className='d-flex' style={{ justifyContent: "center" }} xxs={8}>
                 <Link href='/'>
                   <div className={styles['navbar__tab--img']}>
                     <img
-                      src={data?.logo || '/svg/layout/navbar-logo.svg'}
+                      src={data?.logo || 'https://static.namatek.com/uploads/2021/03/Namatek-Logo-ani.svg'}
                       alt=''
                     />
                   </div>

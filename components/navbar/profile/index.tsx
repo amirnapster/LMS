@@ -65,7 +65,7 @@ const NavbarProfile = ({ children, data }: NavbarProfileProps) => {
         {!accessToken ? (
           <Button
             className={styles['navbarProfile__login']}
-            btnType='secondary'
+            btnType='primary'
             onClick={() => showLoginModal('otp')}
             ripple
           >
