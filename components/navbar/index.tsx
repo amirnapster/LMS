@@ -42,7 +42,11 @@ const Navbar = () => {
   const [menuOpen, setMemuOpen] = useState(false)
 
   const handleMenuOpen = () => {
-    setMemuOpen(true)
+    if (accessToken)
+      setMemuOpen(true)
+    else
+      login()
+
   }
 
   const handleMenuClose = () => {

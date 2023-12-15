@@ -62,7 +62,7 @@ export const baseQueryWithReauth: BaseQueryFn<
         if (refreshResult.error) {
           api.dispatch(clearAuth())
           Router.push('/')
-          notify({ type: 'error', message: 'به دلیل ورود یک کاربر دیگر، شما خارج شدید.',duration:10000 })
+          notify({ type: 'error', message: 'به دلیل ورود یک کاربر دیگر، شما خارج شدید.' })
         }
       } finally {
         release()

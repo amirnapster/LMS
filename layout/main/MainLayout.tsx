@@ -32,6 +32,7 @@ export default function MainLayout({ children }: Props) {
   const isMdUp = useResponsive('up', 'md')
 
   const { isSearching } = useSelector((state: RootState) => state.navbar)
+  const { accessToken } = useSelector((state: RootState) => state.auth)
   const { campaign } = useContext(MyContext)
 
   const dispatch = useDispatch()
@@ -57,12 +58,16 @@ export default function MainLayout({ children }: Props) {
   }, [asPath]);
 
   const handleBottomMenuChange = useCallback((v: number) => {
+    if (v > 0 && !accessToken) {
+      dispatch(setVisible({ visible: true, mode: 'otp' }))
+      return;
+    }
     setValue(v);
     const path = Object.entries(paths).find(([key, value]) => value === v + 1);
     if (path) {
       push(path[0]);
     }
-  }, []);
+  }, [accessToken]);
 
   // @ts-ignore:Unreachable code error
   window.ShowLogin = (force: boolean) => {

@@ -12,7 +12,7 @@ import {
 } from '@mui/material'
 import useResponsive from 'utils/hooks/useResponsive'
 import { NAV } from 'config-global'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { clearAuth } from 'libs/redux/slices/auth'
 import _mock from '_mock'
 import Iconify from 'components/iconify'
@@ -21,6 +21,7 @@ import { useInfoMutation, useLogoutMutation } from 'libs/redux/services/karnama'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useIntl } from 'react-intl'
+import { RootState } from 'libs/redux/store'
 
 // ----------------------------------------------------------------------
 
@@ -65,6 +66,8 @@ export default function EcommerceAccountMenu({ open, onClose }: Props) {
   const intl = useIntl()
   const isMdUp = useResponsive('up', 'md')
   const dispatch = useDispatch()
+  const { accessToken } = useSelector((state: RootState) => state.auth)
+
   const [getInfo, { data }] = useInfoMutation()
   const [logoutUser] = useLogoutMutation()
   const { replace, asPath } = useRouter()
@@ -72,9 +75,12 @@ export default function EcommerceAccountMenu({ open, onClose }: Props) {
   useEffect(() => {
     onClose()
   }, [asPath])
+
   useEffect(() => {
-    getInfo()
-  }, [])
+    if (accessToken)
+      getInfo()
+  }, [accessToken])
+
   const logout = () => {
     logoutUser()
       .then(() => {
