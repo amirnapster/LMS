@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import ArrowForwardRounded from '@mui/icons-material/ArrowForwardRounded'
 import LoginOutlined from '@mui/icons-material/LoginOutlined'
 import SearchOutlined from '@mui/icons-material/SearchOutlined'
+import MenuIcon from '@mui/icons-material/Menu'
 import { toggleTransition, toggleNavbarSearch } from 'libs/redux/slices/navbar'
 import { NavbarAvatar } from 'components/navbar/profile/helper'
 import { setVisible } from 'libs/redux/slices/auth'
@@ -15,16 +16,15 @@ import Row from 'components/ui/Row'
 import Col from 'components/ui/Col'
 import Button from 'components/ui/Button'
 import MyContext from 'utils/context'
+import EcommerceAccountMenu from 'sections/_e-commerce/layout/account/EcommerceAccountMenu'
 import cn from 'classnames'
 
+import useResponsive from 'utils/hooks/useResponsive'
 import type { RootState } from 'libs/redux/store'
 import NavbarProfile from './profile'
 import NavbarSearch from './search'
 import { Logo, NavItem } from './helper'
 import styles from './navbar.module.scss'
-import useResponsive from 'utils/hooks/useResponsive'
-import EcommerceAccountMenu from 'sections/_e-commerce/layout/account/EcommerceAccountMenu'
-import MenuIcon from '@mui/icons-material/Menu'
 
 const Navbar = () => {
   const dispatch = useDispatch()
@@ -79,9 +79,7 @@ const Navbar = () => {
   }, [asPath])
 
   const login = () => {
-    if (accessToken) {
-
-    } else {
+    if (!accessToken) {
       cancelFocus()
       dispatch(setVisible({ visible: true, mode: 'otp' }))
     }

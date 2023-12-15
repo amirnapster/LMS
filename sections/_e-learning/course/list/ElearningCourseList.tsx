@@ -41,7 +41,7 @@ export default function ElearningCourseList({ courses, loading }: Props) {
           md: 'repeat(3, 1fr)',
         },
       }}
-    > { [...Array(3)]?.map((course) => <ElearningCourseItemSkeleton key={course?.id} verticalStyle />)}</Box> :
+    > { [...Array(3)]?.map((course) => <ElearningCourseItemSkeleton key={course?.id} vertical />)}</Box> :
     <InfiniteScroll
       dataLength={coursesPart.length}
       next={loadMoreCourses}

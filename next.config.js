@@ -23,10 +23,10 @@ const next = {
     defaultLocale: 'fa-IR',
     localeDetection: false,
   },
-  experimental: {
-    workerThreads: false,
-    cpus: 1,
-  },
+  // experimental: {
+  //   workerThreads: false,
+  //   cpus: 1,
+  // },
 
   images: {
     remotePatterns: [
