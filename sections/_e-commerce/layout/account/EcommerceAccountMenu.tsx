@@ -158,12 +158,13 @@ export default function EcommerceAccountMenu({ open, onClose }: Props) {
           onClick={logout}
         >
           <ListItemIcon>
-            <Iconify icon='carbon:logout' />
+            <Iconify icon='carbon:logout' color="#e8422c"/>
           </ListItemIcon>
           <ListItemText
             primary={intl.formatMessage({ id: 'navbar.profile.logout' })}
             primaryTypographyProps={{
               typography: 'body2',
+              color:"#e8422c"
             }}
           />
         </ListItemButton>
