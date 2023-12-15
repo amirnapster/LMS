@@ -11,15 +11,13 @@ import {
   ListItemButton,
 } from '@mui/material'
 import useResponsive from 'utils/hooks/useResponsive'
-import useActiveLink from 'utils/hooks/useActiveLink'
 import { NAV } from 'config-global'
-import { paths } from 'routes/paths'
 import { useDispatch } from 'react-redux'
 import { clearAuth } from 'libs/redux/slices/auth'
 import _mock from '_mock'
 import Iconify from 'components/iconify'
 import TextMaxLine from 'components/text-max-line'
-import { useInfoMutation } from 'libs/redux/services/karnama'
+import { useInfoMutation, useLogoutMutation } from 'libs/redux/services/karnama'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useIntl } from 'react-intl'
@@ -68,11 +66,20 @@ export default function EcommerceAccountMenu({ open, onClose }: Props) {
   const isMdUp = useResponsive('up', 'md')
   const dispatch = useDispatch()
   const [getInfo, { data }] = useInfoMutation()
+  const [logoutUser] = useLogoutMutation()
+  const { replace } = useRouter()
 
   useEffect(() => {
     getInfo()
   }, [])
-
+  const logout = () => {
+    logoutUser()
+      .unwrap()
+      .then(() => {
+        dispatch(clearAuth())
+        replace('/')
+      })
+  }
   const renderContent = (
     <Stack
       sx={{
@@ -116,9 +123,9 @@ export default function EcommerceAccountMenu({ open, onClose }: Props) {
             {data?.username}
           </TextMaxLine>
           {!!data?.customer?.credit && (
-               <TextMaxLine variant='subtitle2' line={1}>
-               اعتبار شما {data.customer.credit.toLocaleString()} تومان
-             </TextMaxLine>
+            <TextMaxLine variant='subtitle2' line={1}>
+              اعتبار شما {data.customer.credit.toLocaleString()} تومان
+            </TextMaxLine>
           )}
           {/* <TextMaxLine
             variant='body2'
@@ -149,13 +156,13 @@ export default function EcommerceAccountMenu({ open, onClose }: Props) {
             height: 44,
             borderRadius: 1,
           }}
-          onClick={() => dispatch(clearAuth())}
+          onClick={logout}
         >
           <ListItemIcon>
             <Iconify icon='carbon:logout' />
           </ListItemIcon>
           <ListItemText
-            primary={intl.formatMessage({id:'navbar.profile.logout'})}
+            primary={intl.formatMessage({ id: 'navbar.profile.logout' })}
             primaryTypographyProps={{
               typography: 'body2',
             }}

@@ -35,7 +35,7 @@ function Row(props: { row: Order }) {
           {row.id}
         </TableCell>
         <TableCell >{row.totalAmount?.toLocaleString()}</TableCell>
-        <TableCell >{row.discount}</TableCell>
+        <TableCell >{row.discount?.toLocaleString()}</TableCell>
         <TableCell >{dayjs(row.insertDate)
           .calendar('jalali')
           .locale('fa')
