@@ -1,13 +1,13 @@
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { useDispatch, useSelector } from 'react-redux'
-import   ArrowForwardRounded from '@mui/icons-material/ArrowForwardRounded'
-import   LoginOutlined from '@mui/icons-material/LoginOutlined'
-import   SearchOutlined from '@mui/icons-material/SearchOutlined'
+import ArrowForwardRounded from '@mui/icons-material/ArrowForwardRounded'
+import LoginOutlined from '@mui/icons-material/LoginOutlined'
+import SearchOutlined from '@mui/icons-material/SearchOutlined'
 import { toggleTransition, toggleNavbarSearch } from 'libs/redux/slices/navbar'
 import { NavbarAvatar } from 'components/navbar/profile/helper'
-import { clearAuth, setVisible } from 'libs/redux/slices/auth'
+import { setVisible } from 'libs/redux/slices/auth'
 import { useInfoMutation, useLogoutMutation } from 'libs/redux/services/karnama'
 import { useIntl } from 'react-intl'
 import Container from 'components/container'
@@ -16,13 +16,15 @@ import Col from 'components/ui/Col'
 import Button from 'components/ui/Button'
 import MyContext from 'utils/context'
 import cn from 'classnames'
-import SvgSprite from 'assets/sprite'
 
 import type { RootState } from 'libs/redux/store'
 import NavbarProfile from './profile'
 import NavbarSearch from './search'
 import { Logo, NavItem } from './helper'
 import styles from './navbar.module.scss'
+import useResponsive from 'utils/hooks/useResponsive'
+import EcommerceAccountMenu from 'sections/_e-commerce/layout/account/EcommerceAccountMenu'
+import MenuIcon from '@mui/icons-material/Menu'
 
 const Navbar = () => {
   const dispatch = useDispatch()
@@ -31,10 +33,22 @@ const Navbar = () => {
   const { accessToken } = useSelector((state: RootState) => state.auth)
   const { isSearching } = useSelector((state: RootState) => state.navbar)
   const [getInfo, { data, error }] = useInfoMutation()
+  const isMdUp = useResponsive('up', 'md')
 
   const [logoutUser] = useLogoutMutation()
   const intl = useIntl()
   const toggleDrawerHandler = () => dispatch(toggleTransition(true))
+
+  const [menuOpen, setMemuOpen] = useState(false)
+
+  const handleMenuOpen = () => {
+    setMemuOpen(true)
+  }
+
+  const handleMenuClose = () => {
+    setMemuOpen(false)
+  }
+
 
   const cancelFocus = () => dispatch(toggleNavbarSearch(false))
 
@@ -66,11 +80,7 @@ const Navbar = () => {
 
   const login = () => {
     if (accessToken) {
-      logoutUser()
-        .then(() => {
-          dispatch(clearAuth())
-          replace('/')
-        })
+
     } else {
       cancelFocus()
       dispatch(setVisible({ visible: true, mode: 'otp' }))
@@ -87,6 +97,7 @@ const Navbar = () => {
     >
       {/* <NavbarDrawer login={login} /> */}
 
+      {isMdUp || <EcommerceAccountMenu open={menuOpen} onClose={handleMenuClose} />}
       <Col span={24} data-selector='mobile'>
         {!isSearching && (
           <Col span={24} className={styles['navbar__tab--header']}>
@@ -101,8 +112,16 @@ const Navbar = () => {
                   data-selector='navbar-drawer-icon'
                 />
               </Col> */}
+              {isMdUp ||
+                <Col xxs={8}>
 
-              <Col className='d-flex' xxs={5} sm={12} md={15}>
+                  <MenuIcon onClick={handleMenuOpen}
+                    data-selector='navbar-drawer-icon'
+                  />
+
+                </Col>
+              }
+              <Col className='d-flex' style={{ justifyContent: "center" }} xxs={8} sm={12} md={15}>
                 <Link href='/'>
                   <div className={styles['navbar__tab--img']}>
                     <img
@@ -112,29 +131,32 @@ const Navbar = () => {
                   </div>
                 </Link>
               </Col>
-
-              <Button
-                onClick={() => dispatch(toggleNavbarSearch(true))}
-                className={styles['navbar--searchIcon']}
-              >
-                <SearchOutlined />
-              </Button>
-
-              {/* {data?.isInCompany ? ( */}
-              {intl.formatMessage({ id: 'lang' }) === 'fa-IR' &&
+              <Col className='d-flex' style={{ justifyContent: "end" }} xxs={8} >
                 <Button
-                  className={styles['navbar__subscription']}
-                  btnType='primary'
-                  bgColor='white-blue-gradient'
-                  color='white'
-                  href='/courses'
-                  id='navbar-courses'
-                  ripple
+                  onClick={() => dispatch(toggleNavbarSearch(true))}
+                  className={styles['navbar--searchIcon']}
                 >
-                  <span>همه آموزش‌ها</span>
+                  <SearchOutlined />
                 </Button>
-              }
-              {/* ) : (<Button
+              </Col>
+              {isMdUp && <>
+
+
+                {/* {data?.isInCompany ? ( */}
+                {intl.formatMessage({ id: 'lang' }) === 'fa-IR' &&
+                  <Button
+                    className={styles['navbar__subscription']}
+                    btnType='primary'
+                    bgColor='white-blue-gradient'
+                    color='white'
+                    href='/courses'
+                    id='navbar-courses'
+                    ripple
+                  >
+                    <span>همه آموزش‌ها</span>
+                  </Button>
+                }
+                {/* ) : (<Button
                 className={styles['navbar__subscription']}
                 btnType='primary'
                 bgColor='white-gold-gradient'
@@ -148,21 +170,22 @@ const Navbar = () => {
               </Button>
               )} */}
 
-              <Col className='position-relative'>
-                {accessToken ? (
-                  <NavbarAvatar />
-                ) : (
-                  <Button
-                    className={styles['navbarProfile__login']}
-                    btnType='secondary'
-                    onClick={login}
-                    ripple
-                  >
-                    <span>{intl.formatMessage({ id: 'navbar.login' })}</span>
-                    <LoginOutlined className={styles['login']} />
-                  </Button>
-                )}
-              </Col>
+                <Col className='position-relative'>
+                  {accessToken ? (
+                    <NavbarAvatar />
+                  ) : (
+                    <Button
+                      className={styles['navbarProfile__login']}
+                      btnType='secondary'
+                      onClick={login}
+                      ripple
+                    >
+                      <span>{intl.formatMessage({ id: 'navbar.login' })}</span>
+                      <LoginOutlined className={styles['login']} />
+                    </Button>
+                  )}
+                </Col>
+              </>}
             </Row>
           </Col>
         )}

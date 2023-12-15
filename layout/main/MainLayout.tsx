@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box, Paper, BottomNavigation, BottomNavigationAction } from '@mui/material'
 import { useIntl } from 'react-intl'
 import { HEADER } from 'config-global'
 import Navbar from 'components/navbar'
@@ -9,10 +9,14 @@ import Modal from 'components/ui/Modal'
 import { useDispatch, useSelector } from 'react-redux'
 import type { RootState } from 'libs/redux/store'
 import { clearAuth, setVisible } from 'libs/redux/slices/auth'
-import { useContext, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import MyContext from 'utils/context'
 import Button from 'components/ui/Button'
+import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
+import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
+import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
+import useResponsive from 'utils/hooks/useResponsive'
 
 // ----------------------------------------------------------------------
 
@@ -23,8 +27,9 @@ type Props = {
 }
 
 export default function MainLayout({ children }: Props) {
-  const { asPath } = useRouter()
+  const { asPath, push } = useRouter()
   const intl = useIntl()
+  const isMdUp = useResponsive('up', 'md')
 
   const { isSearching } = useSelector((state: RootState) => state.navbar)
   const { campaign } = useContext(MyContext)
@@ -36,13 +41,34 @@ export default function MainLayout({ children }: Props) {
 
   const [backdropDisable, setBackdropDisable] = useState(false)
 
-  // @ts-ignore:Unreachable code error
+  interface Paths {
+    [key: string]: number;
+  }
+  const paths: Paths = {
+    '/courses/': 1,
+    '/dashboard/mycourses/': 2,
+    '/dashboard/profile/': 3
+  };
 
+  const [value, setValue] = useState(-1);
+
+  useEffect(() => {
+    setValue((paths[asPath] || 0) - 1);
+  }, [asPath]);
+
+  const handleBottomMenuChange = useCallback((v: number) => {
+    setValue(v);
+    const path = Object.entries(paths).find(([key, value]) => value === v);
+    if (path) {
+      push(path[0]);
+    }
+  }, []);
+
+  // @ts-ignore:Unreachable code error
   window.ShowLogin = (force: boolean) => {
     dispatch(setVisible({ visible: true }))
     if (force) setBackdropDisable(true)
   }
-
   // @ts-ignore:Unreachable code error
 
   window.ClearAuth = () => {
@@ -54,7 +80,7 @@ export default function MainLayout({ children }: Props) {
       {campaign && (
         <div data-selector='campaign-wrapper'>
           <Button href='https://inre.ir/register/step1?utm_source=ProNamatek&utm_medium=Banner&utm_campaign=lastweek' target='_blank' btnType='secondary'>
-          نماتک، مجری آموزشی آزمون استخدامی
+            نماتک، مجری آموزشی آزمون استخدامی
           </Button>
         </div>
       )}
@@ -78,7 +104,22 @@ export default function MainLayout({ children }: Props) {
         {isSearching ? <SimpleSearch /> : children}
       </Box>
 
-      {!asPath.startsWith('/play')  && <Footer />}
+      {!asPath.startsWith('/play') && <Footer />}
+      {isMdUp ||
+
+        <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+          <BottomNavigation
+            showLabels
+            value={value}
+            onChange={(event, newValue) => {
+              handleBottomMenuChange(newValue);
+            }}
+          >
+            <BottomNavigationAction label="همه آموزش‌ها" icon={<CategoryOutlinedIcon />} />
+            <BottomNavigationAction label="آموزش‌های من" icon={<SchoolOutlinedIcon />} />
+            <BottomNavigationAction label="نماتک من" icon={<PersonOutlinedIcon />} />
+          </BottomNavigation>
+        </Paper>}
     </Box>
   )
 }

@@ -40,9 +40,9 @@ const NavbarProfile = ({ children, data }: NavbarProfileProps) => {
 
           <Button
             className={styles['navbarProfile__subscription']}
-            btnType='primary'
-            bgColor='white-blue-gradient'
-            color='white'
+            btnType='secondary'
+            
+            color='primary'
             href='/courses'
             id='navbar-courses'
             ripple

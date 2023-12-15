@@ -570,7 +570,6 @@
     [data-selector='mobile'] {
       display: flex;
       flex-wrap: wrap;
-      row-gap: 0.5rem;
 
       [data-selector='not-searching'],
       [data-selector='is-searching'] {
