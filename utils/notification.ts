@@ -8,11 +8,13 @@ type DraggableDirection = 'x' | 'y'
 
 interface Props {
   type?: TypeProps
-  message?: string | ReactElement}
+  message?: string | ReactElement
+  duration?: number
+}
 
-export const notify = ({ type = '', message = '' }: Props) => {
+export const notify = ({ type = '', message = '',duration=4000 }: Props) => {
   const options = {
-    autoClose: 3000,
+    duration,
     newestOnTop: false,
     rtl: true,
     pauseOnFocusLoss: false,

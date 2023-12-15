@@ -11,6 +11,8 @@ import { clearAuth, setUserAuth } from 'libs/redux/slices/auth'
 import { Mutex } from 'async-mutex'
 import { API } from 'utils/statics/routes/api'
 import { Token } from './auth/interface'
+import { notify } from 'utils/notification'
+import Router  from 'next/router'
 
 const mutex = new Mutex()
 const baseQuery = fetchBaseQuery({
@@ -27,6 +29,7 @@ export const baseQueryWithReauth: BaseQueryFn<
   unknown,
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
+ 
   await mutex.waitForUnlock()
   let result = await baseQuery(args, api, extraOptions)
 
@@ -58,7 +61,8 @@ export const baseQueryWithReauth: BaseQueryFn<
         }
         if (refreshResult.error) {
           api.dispatch(clearAuth())
-          window.location.replace('/')
+          Router.push('/')
+          notify({ type: 'error', message: 'به دلیل ورود یک کاربر دیگر، شما خارج شدید.',duration:10000 })
         }
       } finally {
         release()
