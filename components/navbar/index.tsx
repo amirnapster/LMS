@@ -61,7 +61,7 @@ const Navbar = () => {
   }, [accessToken])
 
   useEffect(() => {
-    if ((data?.isInCompany || data?.isCompanyAdmin) && asPath === '/')
+    if (accessToken && (data?.isInCompany || data?.isCompanyAdmin) && asPath === '/')
       replace('/dashboard/mycourses/')
   }, [data, asPath])
 
@@ -115,7 +115,7 @@ const Navbar = () => {
                 />
               </Col> */}
               {isMdUp ||
-                <Col xxs={8} style={{paddingTop:'7px'}}>
+                <Col xxs={8} style={{ paddingTop: '7px' }}>
 
                   <MenuIcon onClick={handleMenuOpen}
                     data-selector='navbar-drawer-icon'
