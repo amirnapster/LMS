@@ -51,7 +51,7 @@ const Otp = ({ changeMode }: AuthCallBackProps) => {
 
       <form onSubmit={handleSubmit(onSubmit)} className={styles['otp__form']}>
         <Input
-          autoComplete='username'
+          autoComplete='tel'
           type='tel'
           register={register('userName', validation.LOGIN_EMAIL_USERNAME)}
           error={errors.userName}
