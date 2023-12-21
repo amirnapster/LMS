@@ -12,9 +12,6 @@
     "analyze": "cross-env ANALYZE=true next build",
     "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
     "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run",
-    "cypress:githubrun": "cypress run --record --key 45be638a-50fa-418f-80f8-2fa0b6bd9d85",
     "gen": "npx @rtk-query/codegen-openapi openapi-config.ts"
   },
   "browserslist": [
@@ -53,7 +50,6 @@
     "classnames": "^2.3.2",
     "copy-webpack-plugin": "^11.0.0",
     "cross-env": "^7.0.3",
-    "cypress": "^10.8.0",
     "date-fns": "^2.29.3",
     "dayjs": "^1.11.4",
     "formik": "^2.2.9",
