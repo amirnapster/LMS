@@ -24,17 +24,17 @@ const Otp = ({ changeMode }: AuthCallBackProps) => {
     register,
     formState: { errors },
     watch,
-  } = useForm({ defaultValues: { userName: '' } })
+  } = useForm({ defaultValues: { mobile: '' } })
 
   const onSubmit = (value: ValueType) => {
-    if ((value?.userName.startsWith("09") === false && value?.userName.startsWith("01") === false) || value?.userName.length < 11) {
+    if ((value?.mobile.startsWith("09") === false && value?.mobile.startsWith("01") === false) || value?.mobile.length < 11) {
       notify({ type: 'warn', message: 'شماره موبایل صحیح نیست' })
       return
     }
-    signInByOTP({ signInByOtpCommand: value })
+    signInByOTP({ signInByOtpCommand: { userName: value.mobile }})
       .unwrap()
       .then(() => {
-        setData(value?.userName)
+        setData(value?.mobile)
         setStep(2)
       })
   }
@@ -47,14 +47,14 @@ const Otp = ({ changeMode }: AuthCallBackProps) => {
         برای ورود به پنل کاربری،<br />
         شماره موبایل خود را وارد کنید
       </span>
-      
+
 
       <form onSubmit={handleSubmit(onSubmit)} className={styles['otp__form']}>
         <Input
           autoComplete='tel'
           type='tel'
-          register={register('userName', validation.LOGIN_EMAIL_USERNAME)}
-          error={errors.userName}
+          register={register('mobile', validation.LOGIN_EMAIL_USERNAME)}
+          error={errors.mobile}
           placeholder='شماره موبایل'
           data-selector='input'
           maxLength={11}
@@ -72,7 +72,7 @@ const Otp = ({ changeMode }: AuthCallBackProps) => {
           btnType='primary'
           bgColor='white-blue-gradient'
           size='large'
-          disabled={!watch('userName')}
+          disabled={!watch('mobile')}
           type='submit'
           data-selector='submit'
           loading={isLoading}

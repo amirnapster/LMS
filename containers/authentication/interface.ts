@@ -39,7 +39,7 @@ export interface SessionProps {
 }
 
 export interface ValueType {
-  userName: string
+  mobile: string
 }
 
 export interface IConfirmNumber {

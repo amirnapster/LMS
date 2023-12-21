@@ -26,26 +26,26 @@ const ForgotPassword = ({ changeMode }: AuthCallBackProps) => {
     formState: { errors },
     watch,
     setError,
-  } = useForm({ defaultValues: { userName: '' } })
+  } = useForm({ defaultValues: { mobile: '' } })
 
   const onSubmit = (value: ValueType) => {
-    setData(value?.userName)
-    forgetPassword({ forgotPasswordForm: value })
+    setData(value?.mobile)
+    forgetPassword({ forgotPasswordForm: { userName: value.mobile } })
       .unwrap()
       .then(() => setStep(2))
       .catch((err) => {
         if (err.status === 400) {
-          setError('userName', {})
+          setError('mobile', {})
           setRegisterError(true)
         }
       })
   }
 
   useEffect(() => {
-    if (!watch('userName')) {
+    if (!watch('mobile')) {
       setRegisterError(false)
     }
-  }, [watch('userName')])
+  }, [watch('mobile')])
 
   return step === 1 ? (
     <Row className={styles['forgot']} direction='column' align='middle'>
@@ -64,10 +64,10 @@ const ForgotPassword = ({ changeMode }: AuthCallBackProps) => {
         className={styles['forgot__form']}
       >
         <Input
-        type='tel'
+          type='tel'
           autoComplete='username'
-          register={register('userName', validation.LOGIN_EMAIL_USERNAME)}
-          error={errors.userName}
+          register={register('mobile', validation.LOGIN_EMAIL_USERNAME)}
+          error={errors.mobile}
           placeholder='شماره موبایل یا ایمیل'
           data-selector='input'
         />
@@ -89,7 +89,7 @@ const ForgotPassword = ({ changeMode }: AuthCallBackProps) => {
           btnType='primary'
           bgColor='white-blue-gradient'
           size='large'
-          disabled={!watch('userName')}
+          disabled={!watch('mobile')}
           type='submit'
           data-selector='submit'
           loading={isLoading}
