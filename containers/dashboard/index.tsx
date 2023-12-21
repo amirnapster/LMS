@@ -19,7 +19,9 @@ const DashboardComponent = () => {
   useEffect(() => {
     if (!accessToken) push('/')
   }, [accessToken])
-
+  useEffect(() => {
+    if (courses && courses.length === 0) push('/dashboard/profile/')
+  }, [courses])
   return (
     <Row
       className={styles['dashboard']}
@@ -28,7 +30,7 @@ const DashboardComponent = () => {
       wrap
     >
       {courses?.map((course) => (
-        <span style={{width:"320px",marginInlineEnd:"1rem",marginBlockEnd:"1rem"}}> 
+        <span style={{ width: "320px", marginInlineEnd: "1rem", marginBlockEnd: "1rem" }}>
           <ElearningCourseItem course={course} vertical />
         </span>
       ))}
