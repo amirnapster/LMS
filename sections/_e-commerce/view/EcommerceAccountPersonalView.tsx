@@ -1347,8 +1347,10 @@ function EcommerceAccountPersonalView() {
     , [watch('province')])
   const onSubmit = async (data: typeof defaultValues) => {
     console.log(data)
-    setInfo({ setInfoModel: data }).unwrap().then(() => {
+    setInfo({ setInfoModel: data }).unwrap().then((data) => {
       notify({ type: 'success', message: "اطلاعات شما با موفقیت ذخیره شد" })
+      if (data?.discourseResponse)
+        notify({ type: 'success', message: data.discourseResponse, duration: 10000 })
     })
   }
 
@@ -1498,7 +1500,7 @@ function EcommerceAccountPersonalView() {
         <Typography variant='h5'
           style={{ marginTop: "1.5rem", marginBottom: "1rem" }}
         >
-          فعالسازی ایمیل در <a href="https://forum.namatek.com" target="_blank" style={{color:"#007d67"}}>فروم نماتک</a>
+          فعالسازی ایمیل در <a href="https://forum.namatek.com" target="_blank" style={{ color: "#007d67" }}>فروم نماتک</a>
         </Typography>
         <Box
           rowGap={2.5}
