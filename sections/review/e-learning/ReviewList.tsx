@@ -2,14 +2,11 @@
 import { Box, Pagination } from '@mui/material'
 import { RootState } from 'libs/redux/store'
 import { useSelector } from 'react-redux'
-// types
-import { IReviewItemProp } from 'types/review'
-//
+
 import ReviewItem from './ReviewItem'
 
 import dayjs from 'dayjs'
 import jalaliday from 'jalaliday'
-import { Comment } from 'libs/redux/services/karnama'
 
 dayjs.extend(jalaliday)
 
@@ -27,8 +24,8 @@ export default function Reviews() {
           id,
           text,
           insertDate,
-          // name,
-           rate,
+          author,
+          rate,
           // helpful,
           // message,
           // postedAt,
@@ -42,7 +39,7 @@ export default function Reviews() {
         return (
           <Box key={id}>
             <ReviewItem
-              name={''}
+              name={author as string}
               avatarUrl={''}
               postedAt={dayjs(insertDate)
                 .calendar('jalali')
@@ -50,7 +47,7 @@ export default function Reviews() {
                 .format('YYYY/MM/DD')}
               message={text as string}
               rating={rate}
-              // helpful={2}
+            // helpful={2}
             />
             {/* {hasReply &&
               replyComment.map((reply) => {

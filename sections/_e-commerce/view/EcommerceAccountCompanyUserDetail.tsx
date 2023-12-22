@@ -9,6 +9,7 @@ import {
   CompanySegment,
   CompanySegmentValue,
   Course,
+  CourseDetailDto,
   SetUserSegmentValueApiArg,
   UserLessonViewMinute,
   useAddCompanyAdminCreditMutation,
@@ -66,7 +67,7 @@ function EcommerceAccountCompanyUserDetail() {
   const [getCourse, { isLoading: courseLoading }] = useLazyGetApiCoursesByIdQuery()
   const [getGraph, { isLoading: graphLoading }] = useLazyGetApiCoursesByIdGraphQuery()
   const [graph, setGraph] = useState<UserLessonViewMinute[]>([])
-  const [course, setCourse] = useState<Course | null>(null)
+  const [course, setCourse] = useState<CourseDetailDto | null>(null)
 
   const getUserGraph = (cuid: number, courseId: number) => {
     getGraph({ id: courseId, cuid }).unwrap().then((t) => {

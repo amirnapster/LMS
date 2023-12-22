@@ -1,5 +1,5 @@
-import type { Course } from 'libs/redux/services/karnama'
+import type { CourseDetailDto } from 'libs/redux/services/karnama'
 
 export interface CourseSlice {
-  details: Course
+  details: CourseDetailDto
 }

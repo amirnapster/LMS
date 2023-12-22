@@ -18,6 +18,7 @@ import Button from 'components/ui/Button'
 import MyContext from 'utils/context'
 import EcommerceAccountMenu from 'sections/_e-commerce/layout/account/EcommerceAccountMenu'
 import cn from 'classnames'
+import { addGoogleEvent } from 'utils/helpers/global'
 
 import useResponsive from 'utils/hooks/useResponsive'
 import type { RootState } from 'libs/redux/store'
@@ -61,8 +62,10 @@ const Navbar = () => {
   }, [accessToken])
 
   useEffect(() => {
-    if (accessToken && (data?.isInCompany || data?.isCompanyAdmin) && asPath === '/')
+    if (accessToken && (data?.isInCompany || data?.isCompanyAdmin) && asPath === '/') {
+      addGoogleEvent({ event: 'userId', userId: data?.id?.toString() })
       replace('/dashboard/mycourses/')
+    }
   }, [data, asPath])
 
 

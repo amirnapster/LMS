@@ -71,3 +71,18 @@ export const closePanel = (cn: string) => {
 }
 export const copyToClipBoard = (text: string) =>
   navigator.clipboard.writeText(text)
+
+export const addGoogleEvent = (arg: any) => {
+  // @ts-ignore
+  if (window?.dataLayer) {
+    // @ts-ignore
+    window.dataLayer.push(arg)
+  }
+  // @ts-ignore
+  if (window?.clarity) {
+    const v = Object.keys(arg).length > 1 ? arg[Object.keys(arg)[1]] : 'true'
+    // @ts-ignore
+    window.clarity('set', arg.event, v)
+  }
+}
+

@@ -592,7 +592,8 @@ export type GetApiCoursesByIdGraphApiArg = {
   id: number
   cuid?: number
 }
-export type GetApiCoursesByIdApiResponse = /** status 200 Success */ Course
+export type GetApiCoursesByIdApiResponse =
+  /** status 200 Success */ CourseDetailDto
 export type GetApiCoursesByIdApiArg = {
   id: number
   lessonId?: number
@@ -754,6 +755,67 @@ export type AspNetUserToken = {
   value?: string | null
   user?: AspNetUser
 }
+export type CourseQualification = {
+  id?: number
+  courseId?: number
+  qualitficationId?: number
+  isMandatory?: number
+  course?: Course
+  qualitfication?: Qualification
+}
+export type QualificationAdmin = {
+  id?: number
+  adminId?: string | null
+  qualificationId?: number
+  qualification?: Qualification
+}
+export type Question = {
+  id?: number
+  question1?: string | null
+  answer1?: string | null
+  answer2?: string | null
+  answer3?: string | null
+  answer4?: string | null
+  difficulty?: number | null
+  adminDesc?: string | null
+  revesionOf?: number | null
+  isPublished?: boolean
+  insertDate?: string
+  qualificationId?: number
+  inreYear?: number | null
+  authorId?: string | null
+  correctAnswer?: number
+  updateDate?: string | null
+  staticNumber?: number | null
+  qualification?: Qualification
+}
+export type Qualification = {
+  id?: number
+  title?: string | null
+  categoryId?: number
+  titleEn?: string | null
+  description?: string | null
+  bookletCode?: string | null
+  isLtr?: boolean
+  category?: Category
+  courseQualifications?: CourseQualification[] | null
+  qualificationAdmins?: QualificationAdmin[] | null
+  questions?: Question[] | null
+}
+export type Category = {
+  id?: number
+  title?: string | null
+  courses?: Course[] | null
+  qualifications?: Qualification[] | null
+}
+export type ContentProvider = {
+  id?: number
+  title?: string | null
+  bio?: string | null
+  avatar?: string | null
+  link?: string | null
+  courses?: Course[] | null
+}
 export type CompanyAdmin = {
   id?: number
   companyId?: number
@@ -836,176 +898,20 @@ export type Company = {
   companySegments?: CompanySegment[] | null
   companyUsers?: CompanyUser[] | null
 }
-export type CourseQualification = {
+export type CompanyAdminCredit = {
   id?: number
-  courseId?: number
-  qualitficationId?: number
-  isMandatory?: number
-  course?: Course
-  qualitfication?: Qualification
-}
-export type QualificationAdmin = {
-  id?: number
-  adminId?: string | null
-  qualificationId?: number
-  qualification?: Qualification
-}
-export type Question = {
-  id?: number
-  question1?: string | null
-  answer1?: string | null
-  answer2?: string | null
-  answer3?: string | null
-  answer4?: string | null
-  difficulty?: number | null
-  adminDesc?: string | null
-  revesionOf?: number | null
-  isPublished?: boolean
-  insertDate?: string
-  qualificationId?: number
-  inreYear?: number | null
-  authorId?: string | null
-  correctAnswer?: number
-  updateDate?: string | null
-  staticNumber?: number | null
-  qualification?: Qualification
-}
-export type Qualification = {
-  id?: number
-  title?: string | null
-  categoryId?: number
-  titleEn?: string | null
-  description?: string | null
-  bookletCode?: string | null
-  isLtr?: boolean
-  category?: Category
-  courseQualifications?: CourseQualification[] | null
-  qualificationAdmins?: QualificationAdmin[] | null
-  questions?: Question[] | null
-}
-export type Category = {
-  id?: number
-  title?: string | null
-  courses?: Course[] | null
-  qualifications?: Qualification[] | null
-}
-export type ContentProvider = {
-  id?: number
-  title?: string | null
-  bio?: string | null
-  avatar?: string | null
-  link?: string | null
-  courses?: Course[] | null
-}
-export type SectionQuestion = {
-  id?: number
-  title?: string | null
-  sectionId?: number
-  lessonId?: number | null
-  imageUrl?: string | null
-  answer1?: string | null
-  answerImage1?: string | null
-  answer2?: string | null
-  answerImage2?: string | null
-  answer3?: string | null
-  answerImage3?: string | null
-  answer4?: string | null
-  answerImage4?: string | null
-  section?: Section
-}
-export type Section = {
-  id?: number
-  courseId?: number
-  title?: string | null
-  titleEn?: string | null
-  weekNumber?: number
-  description?: string | null
-  priority?: number
-  isPublished?: boolean | null
-  filesLink?: string | null
-  course?: Course
-  lessons?: Lesson[] | null
-  sectionQuestions?: SectionQuestion[] | null
-}
-export type Attachment = {
-  id?: number
-  title?: string | null
-  url?: string | null
-  lessonId?: number
-  lesson?: Lesson
-}
-export type PlayLog = {
-  id?: number
+  adminId?: number | null
   userId?: number
-  action?: string | null
+  courseId?: number
+  totalCredit?: number
+  usedCredit?: number
   insertDate?: string
-  lessonId?: number
-  time?: number
-  ip?: string | null
-  speed?: number
-  lesson?: Lesson
+  companyId?: number
+  isActive?: boolean | null
+  admin?: AspNetUser
+  company?: Company
+  course?: Course
   user?: AspNetUser
-}
-export type Ugq = {
-  id?: number
-  userId?: number
-  question?: string | null
-  answer1?: string | null
-  answer2?: string | null
-  answer3?: string | null
-  answer4?: string | null
-  adminDesc?: string | null
-  isConfirmed?: boolean
-  insertDate?: string
-  lessonId?: number
-  timeOfVideo?: number
-  lesson?: Lesson
-}
-export type UserLessonCompleted = {
-  id?: number
-  userId?: number
-  lessonId?: number
-  insertDate?: string
-  timeOfVideo?: number
-  finished?: boolean
-  lesson?: Lesson
-  user?: AspNetUser
-}
-export type Lesson = {
-  id?: number
-  title?: string | null
-  description?: string | null
-  sectionId?: number
-  duation?: number
-  videoUrl?: string | null
-  isQuiz?: boolean
-  priority?: number
-  isFree?: boolean
-  isOpen?: boolean
-  hasSubtitle?: boolean | null
-  filesLink?: string | null
-  poster?: string | null
-  transcript?: string | null
-  uploadDate?: string | null
-  section?: Section
-  attachments?: Attachment[] | null
-  comments?: Comment[] | null
-  playLogs?: PlayLog[] | null
-  ugqs?: Ugq[] | null
-  userLessonCompleteds?: UserLessonCompleted[] | null
-}
-export type Comment = {
-  id?: number
-  text?: string | null
-  courseId?: number
-  lessonId?: number | null
-  userId?: number
-  insertDate?: string
-  approved?: boolean
-  replyId?: number | null
-  rate?: number
-  course?: Course
-  lesson?: Lesson
 }
 export type Tag = {
   id?: number
@@ -1041,6 +947,7 @@ export type Enroll = {
   insertDate?: string
   progress?: number
   course?: Course
+  user?: AspNetUser
 }
 export type UserAnswer = {
   id?: number
@@ -1097,6 +1004,7 @@ export type Order = {
   discountCode?: string | null
   wooOrderId?: number | null
   userId?: number
+  user?: AspNetUser
   orderItems?: OrderItem[] | null
 }
 export type OrderItem = {
@@ -1109,6 +1017,106 @@ export type OrderItem = {
   share?: number | null
   course?: Course
   order?: Order
+}
+export type Attachment = {
+  id?: number
+  title?: string | null
+  url?: string | null
+  lessonId?: number
+  lesson?: Lesson
+}
+export type PlayLog = {
+  id?: number
+  userId?: number
+  action?: string | null
+  insertDate?: string
+  lessonId?: number
+  time?: number
+  ip?: string | null
+  speed?: number
+  isApp?: boolean | null
+  lesson?: Lesson
+  user?: AspNetUser
+}
+export type Ugq = {
+  id?: number
+  userId?: number
+  question?: string | null
+  answer1?: string | null
+  answer2?: string | null
+  answer3?: string | null
+  answer4?: string | null
+  adminDesc?: string | null
+  isConfirmed?: boolean
+  insertDate?: string
+  lessonId?: number
+  timeOfVideo?: number
+  lesson?: Lesson
+  user?: AspNetUser
+}
+export type UserLessonCompleted = {
+  id?: number
+  userId?: number
+  lessonId?: number
+  insertDate?: string
+  timeOfVideo?: number
+  finished?: boolean
+  lesson?: Lesson
+  user?: AspNetUser
+}
+export type Lesson = {
+  id?: number
+  title?: string | null
+  description?: string | null
+  sectionId?: number
+  duation?: number
+  videoUrl?: string | null
+  isQuiz?: boolean
+  priority?: number
+  isFree?: boolean
+  isOpen?: boolean
+  hasSubtitle?: boolean | null
+  filesLink?: string | null
+  filename?: string | null
+  poster?: string | null
+  transcript?: string | null
+  uploadDate?: string | null
+  section?: Section
+  attachments?: Attachment[] | null
+  comments?: Comment[] | null
+  playLogs?: PlayLog[] | null
+  ugqs?: Ugq[] | null
+  userLessonCompleteds?: UserLessonCompleted[] | null
+}
+export type SectionQuestion = {
+  id?: number
+  title?: string | null
+  sectionId?: number
+  lessonId?: number | null
+  imageUrl?: string | null
+  answer1?: string | null
+  answerImage1?: string | null
+  answer2?: string | null
+  answerImage2?: string | null
+  answer3?: string | null
+  answerImage3?: string | null
+  answer4?: string | null
+  answerImage4?: string | null
+  section?: Section
+}
+export type Section = {
+  id?: number
+  courseId?: number
+  title?: string | null
+  titleEn?: string | null
+  weekNumber?: number
+  description?: string | null
+  priority?: number
+  isPublished?: boolean | null
+  filesLink?: string | null
+  course?: Course
+  lessons?: Lesson[] | null
+  sectionQuestions?: SectionQuestion[] | null
 }
 export type UserMentorCredit = {
   id?: number
@@ -1125,7 +1133,6 @@ export type Course = {
   title?: string | null
   titleFa?: string | null
   totalDuration?: number | null
-  lessonCount?: number | null
   imageUrl?: string | null
   categoryId?: number
   description?: string | null
@@ -1137,6 +1144,7 @@ export type Course = {
   priority?: number | null
   superPremium?: boolean
   filesLink?: string | null
+  lessonCount?: number | null
   category?: Category
   provider?: ContentProvider
   comments?: Comment[] | null
@@ -1150,19 +1158,18 @@ export type Course = {
   sections?: Section[] | null
   userMentorCredits?: UserMentorCredit[] | null
 }
-export type CompanyAdminCredit = {
+export type Comment = {
   id?: number
-  adminId?: number | null
-  userId?: number
+  text?: string | null
   courseId?: number
-  totalCredit?: number
-  usedCredit?: number
+  lessonId?: number | null
+  userId?: number
   insertDate?: string
-  companyId?: number
-  isActive?: boolean | null
-  admin?: AspNetUser
-  company?: Company
+  approved?: boolean
+  replyId?: number | null
+  rate?: number
   course?: Course
+  lesson?: Lesson
   user?: AspNetUser
 }
 export type Gift = {
@@ -1210,14 +1217,6 @@ export type Suggestion = {
   userId?: number | null
   text?: string | null
   insertDate?: string
-  user?: AspNetUser
-}
-export type UserMentor = {
-  id?: number
-  mentorId?: number
-  userId?: number
-  description?: string | null
-  mentor?: AspNetUser
   user?: AspNetUser
 }
 export type UserVerification = {
@@ -1275,23 +1274,25 @@ export type AspNetUser = {
   aspNetUserClaims?: AspNetUserClaim[] | null
   aspNetUserLogins?: AspNetUserLogin[] | null
   aspNetUserTokens?: AspNetUserToken[] | null
+  comments?: Comment[] | null
   companyAdminCreditAdmins?: CompanyAdminCredit[] | null
   companyAdminCreditUsers?: CompanyAdminCredit[] | null
   companyAdmins?: CompanyAdmin[] | null
   companyMentorAccesses?: CompanyMentorAccess[] | null
   companyUserSegments?: CompanyUserSegment[] | null
   companyUsers?: CompanyUser[] | null
+  enrolls?: Enroll[] | null
   exams?: Exam[] | null
   giftUsages?: GiftUsage[] | null
+  orders?: Order[] | null
   payments?: Payment[] | null
   playLogs?: PlayLog[] | null
   premia?: Premium[] | null
   sessions?: Session[] | null
   suggestions?: Suggestion[] | null
+  ugqs?: Ugq[] | null
   userAnswers?: UserAnswer[] | null
   userLessonCompleteds?: UserLessonCompleted[] | null
-  userMentorMentors?: UserMentor[] | null
-  userMentorUsers?: UserMentor[] | null
   userVerifications?: UserVerification[] | null
   roles?: AspNetRole[] | null
 }
@@ -1309,6 +1310,12 @@ export type Premium = {
 export type SubUser = {
   id?: number
   username?: string | null
+}
+export type UserMentor = {
+  id?: number
+  mentorId?: number
+  userId?: number
+  description?: string | null
 }
 export type UserInfo = {
   id?: number
@@ -1452,9 +1459,12 @@ export type CategoryCount = {
 }
 export type CommentDto = {
   text?: string | null
+  author?: string | null
   courseId?: number
   lessonId?: number | null
   rate?: number
+  id?: number | null
+  insertDate?: string | null
 }
 export type CompanyUserDto = {
   id?: number
@@ -1495,6 +1505,24 @@ export type UserLessonViewMinute = {
   minute?: number | null
   quantity?: number | null
   speed?: number | null
+}
+export type CourseDetailDto = {
+  id?: number
+  title?: string | null
+  titleFa?: string | null
+  totalDuration?: number | null
+  lessonCount?: number | null
+  imageUrl?: string | null
+  categoryId?: number
+  slug?: string | null
+  filesLink?: string | null
+  sections?: Section[] | null
+  courseTeachers?: CourseTeacher[] | null
+  category?: Category
+  provider?: ContentProvider
+  comments?: CommentDto[] | null
+  description?: string | null
+  superPremium?: boolean
 }
 export type CompanyAdminCreditDto = {
   id?: number
