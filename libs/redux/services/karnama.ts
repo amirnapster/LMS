@@ -338,7 +338,10 @@ export const injectedRtkApi = api
         GetApiCoursesByIdApiResponse,
         GetApiCoursesByIdApiArg
       >({
-        query: (queryArg) => ({ url: `/api/Courses/${queryArg.id}` }),
+        query: (queryArg) => ({
+          url: `/api/Courses/${queryArg.id}`,
+          params: { lessonId: queryArg.lessonId },
+        }),
         providesTags: ['Courses'],
       }),
       getGift: build.query<GetGiftApiResponse, GetGiftApiArg>({
@@ -592,6 +595,7 @@ export type GetApiCoursesByIdGraphApiArg = {
 export type GetApiCoursesByIdApiResponse = /** status 200 Success */ Course
 export type GetApiCoursesByIdApiArg = {
   id: number
+  lessonId?: number
 }
 export type GetGiftApiResponse = unknown
 export type GetGiftApiArg = {
@@ -980,6 +984,9 @@ export type Lesson = {
   isOpen?: boolean
   hasSubtitle?: boolean | null
   filesLink?: string | null
+  poster?: string | null
+  transcript?: string | null
+  uploadDate?: string | null
   section?: Section
   attachments?: Attachment[] | null
   comments?: Comment[] | null
