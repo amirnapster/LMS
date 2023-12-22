@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { useIntl } from 'react-intl'
-import Image from 'next/image'
+import { useRouter } from 'next/router'
 import Container from 'components/container'
 import Row from 'components/ui/Row'
 import Col from 'components/ui/Col'
@@ -11,13 +11,12 @@ import { footerSignItems } from 'utils/statics/footerStatics'
 import type { RootState } from 'libs/redux/store'
 import { FooterBox, FooterInfo } from './helper'
 import styles from './footer.module.scss'
-import { useRouter } from 'next/router'
 
 const Footer = () => {
   const { isSearching } = useSelector((state: RootState) => state.navbar)
   const { asPath } = useRouter()
   const intl = useIntl()
-  return asPath.indexOf('dashboard') > 0 ? <span></span> : (
+  return asPath.indexOf('dashboard') > 0 ? null : (
     <Container>
       <footer className={cn(styles['footer'], isSearching ? 'd-none' : '')}>
         {intl.formatMessage({ id: 'lang' }) === 'fa-IR' && <FooterBox />}
