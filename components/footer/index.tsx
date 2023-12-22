@@ -11,11 +11,13 @@ import { footerSignItems } from 'utils/statics/footerStatics'
 import type { RootState } from 'libs/redux/store'
 import { FooterBox, FooterInfo } from './helper'
 import styles from './footer.module.scss'
+import { useRouter } from 'next/router'
 
 const Footer = () => {
   const { isSearching } = useSelector((state: RootState) => state.navbar)
+  const { asPath } = useRouter()
   const intl = useIntl()
-  return (
+  return asPath.indexOf('dashboard') > 0 ? <span></span> : (
     <Container>
       <footer className={cn(styles['footer'], isSearching ? 'd-none' : '')}>
         {intl.formatMessage({ id: 'lang' }) === 'fa-IR' && <FooterBox />}
@@ -43,7 +45,7 @@ const Footer = () => {
               </a>{' '}
               است.{' '}
               <a target='_blank' href='https://namatek.com' rel='noreferrer'>
-                v1
+                v1.1
               </a></>
               : <>© All rights reserved. INSTART</>
             }

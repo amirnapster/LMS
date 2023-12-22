@@ -20,11 +20,12 @@ import { width } from '@mui/system'
 import { OptionType } from 'libs/redux/services/karnama'
 import dayjs from 'dayjs'
 import jalaliday from 'jalaliday'
+import LoadingScreen from 'components/loading-screen/LoadingScreen'
 dayjs.extend(jalaliday);
 
 
 function EcommerceAccountPersonalView() {
-  const [getInfo, { data: dataInfo }] = useInfoMutation()
+  const [getInfo, { data: dataInfo ,isLoading:firstLoading}] = useInfoMutation()
   const [setInfo, { isLoading }] = useSetInfoMutation()
   const { push } = useRouter()
   const { accessToken } = useSelector((state: RootState) => state.auth)
@@ -1392,7 +1393,9 @@ function EcommerceAccountPersonalView() {
       return
     }
   }, [accessToken])
-
+  if (firstLoading) {
+    return <LoadingScreen />
+  }
   return (
     <EcommerceAccountLayout>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -1500,7 +1503,15 @@ function EcommerceAccountPersonalView() {
         <Typography variant='h5'
           style={{ marginTop: "1.5rem", marginBottom: "1rem" }}
         >
-          فعالسازی ایمیل در <a href="https://forum.namatek.com" target="_blank" style={{ color: "#007d67" }}>فروم نماتک</a>
+          فعالسازی ایمیل در فروم نماتک
+        </Typography>
+        <Typography variant='body1'
+          style={{ marginBottom: "1rem" }}
+        >
+          نماتک برای پاسخ به سوالات شما، بستری به نشانی <a href="https://forum.namatek.com" target="_blank" style={{ color: "#007d67" }}>forum.namatek.com</a> ایجاد کرده است.<br />
+          برای پرسیدن سوالات خود از نماتک، ابتدا ایمیل خود را وارد کنید.<br />
+          سپس از طریق لینکی که به ایمیلتان می‌رسد، ثبت نام کنید.<br />
+          حالا می‌توانید با ایمیل و رمز عبورتان وارد فروم شوید و سوالاتتان را مطرح کنید.
         </Typography>
         <Box
           rowGap={2.5}
@@ -1511,13 +1522,16 @@ function EcommerceAccountPersonalView() {
 
           <RHFTextField disabled={disabledEmail} name='email' label={intl.formatMessage({ id: 'email' })} />
         </Box>
+        {disabledEmail && <Typography variant='body2'
+          style={{ marginTop: "1rem" }}
+        >اگر ایمیل خود را اشتباه وارد کردید، برای تغییر ایمیل با پشتیبانی تماس بگیرید.</Typography>}
         <LoadingButton
-          color='inherit'
+          color='primary'
           size='large'
           type='submit'
           variant='contained'
           loading={isLoading}
-          sx={{ marginBlockStart: '3rem' }}
+          sx={{ marginBlockStart: '1rem' }}
         >
           {intl.formatMessage({ id: 'save' })}
         </LoadingButton>
