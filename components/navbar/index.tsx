@@ -62,10 +62,11 @@ const Navbar = () => {
   }, [accessToken])
 
   useEffect(() => {
-    if (accessToken && (data?.isInCompany || data?.isCompanyAdmin) && asPath === '/') {
+    if (accessToken && data)
       addGoogleEvent({ event: 'userId', userId: data?.id?.toString() })
+    if (accessToken && (data?.isInCompany || data?.isCompanyAdmin) && asPath === '/')
       replace('/dashboard/mycourses/')
-    }
+
   }, [data, asPath])
 
 
