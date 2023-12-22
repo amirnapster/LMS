@@ -41,7 +41,7 @@ const SearchResultContent = () => {
     <Col span={24} className={styles['simpleSearch__body']}>
       {renderData()?.length ? (
         renderData()?.map((course) => (
-          <Link href={`/courses/${course.id}`}>
+          <Link href={`/courses/${course.id}/${course.titleFa}/`}>
             <Card
               sx={{
                 display: { sm: 'flex' },

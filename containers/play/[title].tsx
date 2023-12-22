@@ -50,7 +50,7 @@ function PlayComponent() {
   }, [data, query])
 
   const selectCourseHandler = (lesson: Lesson) => {
-    push(`/play/${data?.id}/${lesson?.id}/${lesson.title}`)
+    push(`/play/${data?.id}/${lesson?.id}/${lesson.title}/`)
     setSelectedLesson(lesson)
   }
 

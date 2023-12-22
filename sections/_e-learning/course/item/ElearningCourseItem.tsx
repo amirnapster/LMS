@@ -54,7 +54,7 @@ export default function ElearningCourseItem({ course, vertical }: Props) {
 
 
   return (
-    <Link href={`/courses/${course.id}`}>
+    <Link href={`/courses/${course.id}/${course.titleFa}/`}>
       <Card
         sx={{
           display: { sm: 'flex' },
