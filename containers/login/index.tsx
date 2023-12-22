@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
 import { ArrowRightIcon } from 'assets/icons'
 
 import Row from 'components/ui/Row'
@@ -6,10 +7,15 @@ import Button from 'components/ui/Button'
 import Authentication from 'containers/authentication'
 
 import styles from './login.module.scss'
+import type { RootState } from 'libs/redux/store'
 
 const Login = () => {
     const { push } = useRouter()
-
+    const { accessToken } = useSelector((state: RootState) => state.auth)
+    
+    if (accessToken) {
+        push('/dashboard/profile/')
+    }
 
     const handleBack = () => {
         if (window.history.length > 1) {
