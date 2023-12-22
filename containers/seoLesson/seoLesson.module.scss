@@ -83,22 +83,11 @@
     font-size: map-get($font-sizes, 2);
   }
 
-  &--drawerBtn {
-    display: none !important;
-    margin-inline-start: 0.5rem !important;
-    font-size: 0.75rem;
-  }
+
 }
 
 @include media-breakpoint-down(lg) {
   .play {
-    &--drawerBtn {
-      display: block !important;
-    }
-
-    &__desktopDrawer {
-      display: none;
-    }
 
     &__videoWrapperWrapper {
       height: auto;
@@ -106,7 +95,7 @@
     }
 
     &__videoWrapperWrapperWrapper {
-      height: 0;
+      height: auto;
       width: 100%;
     }
   }
