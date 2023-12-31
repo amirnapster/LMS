@@ -33,7 +33,7 @@ export default function ElearningLandingView() {
   const intl = useIntl()
   if (intl.formatMessage({ id: 'lang' }) == 'en-US')
     return (<ElearningCourseView />)
-  const { data } = useGetFeaturedQuery()
+  // const { data } = useGetFeaturedQuery()
 
   return (
     <>
@@ -42,13 +42,13 @@ export default function ElearningLandingView() {
       {/* <OurClientsElearning brands={_brandsColor} /> */}
 
       {/* <ElearningLandingIntroduce /> */}
-      <ElearningLandingCategories categories={CATEGORY_NAMES} />
+      {/* <ElearningLandingCategories categories={CATEGORY_NAMES} />
 
       <ElearningLandingFeaturedCourses data={data as Course[]} />
 
 
       <Faq data={faqData} />
-
+ */}
 
       {/* <TeamElearning members={_members.slice(0, 4)} /> */}
 
