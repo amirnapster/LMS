@@ -48,6 +48,11 @@ const navigations = [
     icon: <Iconify icon='mdi:history' />,
   },
   {
+    title: 'آزمون و مدرک',
+    path: '/dashboard/exam/',
+    icon: <Iconify icon='mdi:help-box-multiple-outline' />,
+  },
+  {
     title: 'لیست کارکنان',
     path: '/dashboard/company/users/',
     icon: <Iconify icon='pepicons-print:people' />,

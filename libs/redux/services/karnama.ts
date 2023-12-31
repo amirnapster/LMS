@@ -5,6 +5,7 @@ export const addTagTypes = [
   'Comment',
   'Company',
   'Courses',
+  'Exam',
   'Gift',
   'Mentor',
   'Order',
@@ -344,6 +345,13 @@ export const injectedRtkApi = api
         }),
         providesTags: ['Courses'],
       }),
+      getDistinctedPlayLogs: build.query<
+        GetDistinctedPlayLogsApiResponse,
+        GetDistinctedPlayLogsApiArg
+      >({
+        query: () => ({ url: `/api/Exam/GetDistinctedPlayLogs` }),
+        providesTags: ['Exam'],
+      }),
       getGift: build.query<GetGiftApiResponse, GetGiftApiArg>({
         query: (queryArg) => ({
           url: `/api/Gift/GetGift`,
@@ -598,6 +606,9 @@ export type GetApiCoursesByIdApiArg = {
   id: number
   lessonId?: number
 }
+export type GetDistinctedPlayLogsApiResponse =
+  /** status 200 Success */ DistinctedPlayLog[]
+export type GetDistinctedPlayLogsApiArg = void
 export type GetGiftApiResponse = unknown
 export type GetGiftApiArg = {
   code?: string
@@ -1516,13 +1527,21 @@ export type CourseDetailDto = {
   categoryId?: number
   slug?: string | null
   filesLink?: string | null
+  description?: string | null
+  superPremium?: boolean
   sections?: Section[] | null
   courseTeachers?: CourseTeacher[] | null
   category?: Category
   provider?: ContentProvider
   comments?: CommentDto[] | null
-  description?: string | null
-  superPremium?: boolean
+}
+export type DistinctedPlayLog = {
+  userId?: number
+  courseId?: number
+  seenMinutes?: number | null
+  totalMinutes?: number | null
+  titleFa?: string | null
+  examQuestions?: number | null
 }
 export type CompanyAdminCreditDto = {
   id?: number
@@ -1629,6 +1648,8 @@ export const {
   useLazyGetApiCoursesByIdGraphQuery,
   useGetApiCoursesByIdQuery,
   useLazyGetApiCoursesByIdQuery,
+  useGetDistinctedPlayLogsQuery,
+  useLazyGetDistinctedPlayLogsQuery,
   useGetGiftQuery,
   useLazyGetGiftQuery,
   useGetSubUsersCreditQuery,
