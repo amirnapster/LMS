@@ -2,29 +2,16 @@ import { useRouter } from 'next/router'
 import { useIntl } from 'react-intl'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearAuth } from 'libs/redux/slices/auth'
-import  ExpandMore  from '@mui/icons-material/ExpandMore'
 import { useInfoMutation, useLogoutMutation } from 'libs/redux/services/karnama'
-// import {
-//   ExitIcon,
-//   PricingPlanFree,
-//   PricingPlanPersonal,
-//   PricingPlanCompany,
-//   PricingPlanOrganization,
-// } from 'assets/icons'
-import Row from 'components/ui/Row'
-import Col from 'components/ui/Col'
-import Dropdown from 'components/ui/Dropdown'
-import Divider from 'components/ui/Divider'
+
 import Button from 'components/ui/Button'
 import dayjs from 'dayjs'
 import jalaliday from 'jalaliday'
-import cn from 'classnames'
 
 import type { RootState } from 'libs/redux/store'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Avatar } from '@mui/material'
-import { profileNavItems } from 'utils/statics/navbarStatics'
-import styles from './navbarProfile.module.scss'
+import { emptySplitApi } from 'libs/redux/services/emptyApi'
 
 dayjs.extend(jalaliday)
 
@@ -78,6 +65,7 @@ export const NavbarAvatar = () => {
   const logout = () => {
     logoutUser()
       .then(() => {
+        dispatch(emptySplitApi.util.resetApiState());
         dispatch(clearAuth())
         replace('/')
       })

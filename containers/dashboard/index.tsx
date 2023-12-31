@@ -10,18 +10,19 @@ import Col from 'components/ui/Col'
 
 import styles from './dashboard.module.scss'
 import type { RootState } from 'libs/redux/store'
+import { Alert } from '@mui/material'
+import LoadingScreen from 'components/loading-screen/LoadingScreen'
 
 const DashboardComponent = () => {
-  const { data: courses } = useMyQuery()
+  const { data: courses, isLoading } = useMyQuery()
   const { push } = useRouter()
   const { accessToken } = useSelector((state: RootState) => state.auth)
 
   useEffect(() => {
     if (!accessToken) push('/')
   }, [accessToken])
-  useEffect(() => {
-    if (courses && courses.length === 0) push('/dashboard/profile/')
-  }, [courses])
+  if (isLoading)
+    return <LoadingScreen />
   return (
     <Row
       className={styles['dashboard']}
@@ -29,11 +30,12 @@ const DashboardComponent = () => {
       gutter={[16, 16]}
       wrap
     >
-      {courses?.map((course) => (
+      {courses ? courses?.map((course) => (
         <span style={{ width: "320px", marginInlineEnd: "1rem", marginBlockEnd: "1rem" }}>
           <ElearningCourseItem course={course} vertical />
         </span>
-      ))}
+      )) : <Alert severity="error">در حال حاضر آموزشی برای شما فعال نیست.</Alert>
+      }
     </Row>
   )
 }

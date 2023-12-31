@@ -204,6 +204,7 @@ export const injectedRtkApi = api
             id: queryArg.id,
             courseId: queryArg.courseId,
             credit: queryArg.credit,
+            days: queryArg.days,
           },
         }),
         invalidatesTags: ['Company'],
@@ -536,6 +537,7 @@ export type AddCompanyAdminCreditApiArg = {
   id?: number
   courseId?: number
   credit?: number
+  days?: number
 }
 export type RequestCreditApiResponse = unknown
 export type RequestCreditApiArg = {
@@ -919,6 +921,7 @@ export type CompanyAdminCredit = {
   insertDate?: string
   companyId?: number
   isActive?: boolean | null
+  expireDate?: string | null
   admin?: AspNetUser
   company?: Company
   course?: Course
@@ -1557,6 +1560,7 @@ export type AddCompanyAdminCreditDto = {
   userId?: number
   courseId?: number
   totalCredit?: number
+  days?: number | null
 }
 export type MentorUserLog = {
   mentorId?: number

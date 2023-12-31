@@ -44,6 +44,7 @@ import Input from 'components/ui/Input';
 import { toast } from 'react-hot-toast';
 import ElearningCourseDetailsLessonList from 'sections/_e-learning/course/details/ElearningCourseDetailsLessonList';
 import { durationToString } from 'utils/helpers/formatTime';
+import { AddCompanyAdminCreditApiArg } from 'libs/redux/services/karnama';
 
 dayjs.extend(jalaliday)
 
@@ -51,7 +52,7 @@ function EcommerceAccountCompanyUserDetail() {
   LicenseInfo.setLicenseKey("63cdcff003c86a961f1b47b5703dd5e0Tz0wLEU9MjUzNDA0ODY0MDAwMDAwLFM9cHJlbWl1bSxMTT1zdWJzY3JpcHRpb24sS1Y9Mg==");
 
   const { query } = useRouter()
-  const intl =useIntl()
+  const intl = useIntl()
   const { accessToken } = useSelector((state: RootState) => state.auth)
   const [segmentValues, setSegmentValues] = useState<{ [key: number]: number }>({})
   const { data, refetch } = useCompanyUserQuery({ id: Number(query.id) })
@@ -101,17 +102,28 @@ function EcommerceAccountCompanyUserDetail() {
       field: "course", headerName: "آموزش", flex: 1, minWidth: 110,
       renderCell: (params: any) => params.row.course.titleFa
     }, {
-      field: "insertDate", headerName: "تاریخ", flex: 1, minWidth: 110,
+      field: "insertDate", headerName: "تاریخ ثبت", flex: 1, minWidth: 110,
       renderCell: (params: any) => {
         return dayjs(params.row.insertDate)
           .calendar('jalali')
           .locale('fa')
           .format('YYYY/MM/DD')
       }
+    }, {
+      field: "expireDate", headerName: "تاریخ انقضا", flex: 1, minWidth: 110,
+      renderCell: (params: any) => {
+        if (params.row.expireDate)
+          return <span>{dayjs(params.row.expireDate)
+            .calendar('jalali')
+            .locale('fa')
+            .format('YYYY/MM/DD')}
+            {(new Date(params.row.expireDate) < new Date() ? <span style={{color:"red"}}> منقضی شده</span> : "")}</span>
+        return ''
+      }
     },
     {
       field: "usedCredit", headerName: "میزان مشاهده", flex: 1, minWidth: 110,
-      renderCell: (params: any) => durationToString(params.value * 60,intl.formatMessage({id:'hour'}),intl.formatMessage({id:'minute'}))
+      renderCell: (params: any) => durationToString(params.value * 60, intl.formatMessage({ id: 'hour' }), intl.formatMessage({ id: 'minute' }))
     },
     {
       field: "totalCredit", headerName: "اعتبار", flex: 1, minWidth: 110,
@@ -120,6 +132,8 @@ function EcommerceAccountCompanyUserDetail() {
     {
       field: "isActive", headerName: "وضعیت", flex: 1, maxWidth: 80,
       renderCell: (params: any) => {
+        if (params.row.expireDate && new Date(params.row.expireDate) < new Date())
+          return '❌'
         if (params.value === true)
           return '✅'
         else if (params.value === false)
@@ -144,9 +158,9 @@ function EcommerceAccountCompanyUserDetail() {
             })
 
         };
-
-        return <><Button btnType='primary' className="ml-1" disabled={params.row.isActive === true} onClick={(e: any) => clickHandler(e, true)}>فعال</Button>
-          <Button btnType='secondary' disabled={params.row.isActive === false} onClick={(e: any) => clickHandler(e, false)}> غیرفعال </Button>
+        const expired = params.row.expireDate && new Date(params.row.expireDate) < new Date()
+        return <><Button btnType='primary' className="ml-1" disabled={params.row.isActive === true || expired} onClick={(e: any) => clickHandler(e, true)}>فعال</Button>
+          <Button btnType='secondary' disabled={params.row.isActive === false || expired} onClick={(e: any) => clickHandler(e, false)}> غیرفعال </Button>
           {graphLoading || courseLoading ?
             <CircularProgress
               sx={{
@@ -173,12 +187,13 @@ function EcommerceAccountCompanyUserDetail() {
     id: number
     courseId: number
     credit: number
+    days?: number | null
   }
 
   const defaultValues = {
     id: Number(query.id),
     courseId: 1,
-    credit: 0,
+    credit: 0
   }
 
   const NewReviewSchema = Yup.object().shape({
@@ -186,7 +201,7 @@ function EcommerceAccountCompanyUserDetail() {
     credit: Yup.number().required('credit is required'),
   })
 
-  const methods = useForm<FormValuesProps>({
+  const methods = useForm<AddCompanyAdminCreditApiArg>({
     resolver: yupResolver(NewReviewSchema),
     defaultValues,
   })
@@ -198,7 +213,7 @@ function EcommerceAccountCompanyUserDetail() {
     setValue,
     formState: { errors, isSubmitting },
   } = methods
-  const onSubmit = async (formData: FormValuesProps) => {
+  const onSubmit = async (formData: AddCompanyAdminCreditApiArg) => {
     try {
       if (!formData.credit) {
         notify({ type: 'warn', message: 'مدت اعتبار را بر حسب ساعت وارد کنید' })
@@ -251,6 +266,7 @@ function EcommerceAccountCompanyUserDetail() {
   const autoCompleteOptions =
     courses ?
       courses.map((course) => { return { label: `${course.titleFa} (${course.id})`, id: course.id, totalDuration: course.totalDuration } }) : []
+
   return (
     <EcommerceAccountLayout>
 
@@ -326,6 +342,12 @@ function EcommerceAccountCompanyUserDetail() {
               name='credit'
               type='number'
               label='مدت اعتبار (ساعت)'
+            />
+            <RHFTextField
+              style={{ width: 300 }}
+              name='days'
+              type='number'
+              label='اعتبار تا (روز) بعد'
             />
             <div style={{ alignSelf: 'flex-end' }}>
               <Button btnType='primary' type='submit' onClick={AddCreditHandler} style={{ width: 150, marginBottom: "0.5rem" }} >ثبت</Button>
