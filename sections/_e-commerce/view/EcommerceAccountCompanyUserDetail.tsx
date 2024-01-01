@@ -318,9 +318,14 @@ function EcommerceAccountCompanyUserDetail() {
         width={24}
         marginRight={0.5} />
         تخصیص اعتبار</h3>
+        برای ایجاد دسترسی به آموزش مراحل زیر را انجام دهید:<br/>
+        1- نام دوره را انتخاب کنید.<br/>
+        2- حداکثر زمان مشاهده آموزش را تعیین کنید (اگر فرد به این میزان برسد، آموزش برای او غیرفعال می‌شود)<br/>
+        3- در صورتی که می‌خواهید محدودیت زمانی برای مشاهده آموزش تعیین کنید، این محدودیت را بر حسب تعداد روز مشخص کنید. در صورت عدم تعیین محدودیتی اعمال نخواهد شد.
       <Paper variant='outlined' elevation={12} style={{ padding: 8 }} sx={{ my: 3 }}>
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
 
+          
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignContent={'flex-start'} flexWrap="wrap">
 
             <Autocomplete
@@ -338,16 +343,16 @@ function EcommerceAccountCompanyUserDetail() {
             />
 
             <RHFTextField
-              style={{ width: 300 }}
+              style={{ width: 200 }}
               name='credit'
               type='number'
               label='مدت اعتبار (ساعت)'
             />
             <RHFTextField
-              style={{ width: 300 }}
+              style={{ width: 200 }}
               name='days'
               type='number'
-              label='اعتبار تا (روز) بعد'
+              label='تعداد روز اعتبار(اختیاری)'
             />
             <div style={{ alignSelf: 'flex-end' }}>
               <Button btnType='primary' type='submit' onClick={AddCreditHandler} style={{ width: 150, marginBottom: "0.5rem" }} >ثبت</Button>
