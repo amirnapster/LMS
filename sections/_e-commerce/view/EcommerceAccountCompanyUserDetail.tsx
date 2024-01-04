@@ -8,9 +8,7 @@ import { EcommerceAccountLayout } from '../layout'
 import {
   CompanySegment,
   CompanySegmentValue,
-  Course,
   CourseDetailDto,
-  SetUserSegmentValueApiArg,
   UserLessonViewMinute,
   useAddCompanyAdminCreditMutation,
   useChangeCreditMutation,
@@ -20,8 +18,8 @@ import {
   useLazyGetApiCoursesByIdGraphQuery,
   useLazyGetApiCoursesByIdQuery,
   useOthersQuery,
-  useSetActivationMutation,
   useSetCreditActivationMutation,
+  useSetUserFullnameMutation,
   useSuperPremiumCoursesQuery,
 } from 'libs/redux/services/karnama'
 import { useSelector } from 'react-redux'
@@ -34,7 +32,7 @@ import Iconify from 'components/iconify/Iconify';
 import { useEffect, useMemo, useState } from 'react';
 import { useSetUserSegmentValueMutation } from 'libs/redux/services/karnama';
 import * as Yup from 'yup'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm, } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import FormProvider, { RHFTextField } from 'components/hook-form';
 import Row from 'components/ui/Row';
@@ -62,6 +60,7 @@ function EcommerceAccountCompanyUserDetail() {
   const { data: credits, isLoading: creditsLoading } = useCompanyAdminCreditsQuery({ id: Number(query.id) })
   const [changeCredit] = useChangeCreditMutation()
   const [setActivation, { isLoading }] = useSetCreditActivationMutation()
+  const [setUserFullname] = useSetUserFullnameMutation()
   const [setSegmentValuesApi, { isLoading: updatingSegmentValuesLoading }] = useSetUserSegmentValueMutation()
   const [courseId, setCoruseId] = useState<Number>(0)
   const [addCompanyAdminCredit, { isLoading: addingCompanyAdminCredit }] = useAddCompanyAdminCreditMutation()
@@ -117,7 +116,7 @@ function EcommerceAccountCompanyUserDetail() {
             .calendar('jalali')
             .locale('fa')
             .format('YYYY/MM/DD')}
-            {(new Date(params.row.expireDate) < new Date() ? <span style={{color:"red"}}> منقضی شده</span> : "")}</span>
+            {(new Date(params.row.expireDate) < new Date() ? <span style={{ color: "red" }}> منقضی شده</span> : "")}</span>
         return ''
       }
     },
@@ -183,19 +182,14 @@ function EcommerceAccountCompanyUserDetail() {
   ];
 
 
-  type FormValuesProps = {
-    id: number
-    courseId: number
-    credit: number
-    days?: number | null
-  }
-
   const defaultValues = {
     id: Number(query.id),
     courseId: 1,
     credit: 0
   }
-
+  const nameDefaultValues = {
+    fullname: ''
+  }
   const NewReviewSchema = Yup.object().shape({
     courseId: Yup.number().required('courseId is required'),
     credit: Yup.number().required('credit is required'),
@@ -205,13 +199,14 @@ function EcommerceAccountCompanyUserDetail() {
     resolver: yupResolver(NewReviewSchema),
     defaultValues,
   })
+  const fullnameMethods = useForm({
+    defaultValues: nameDefaultValues,
+  })
 
   const {
     reset,
-    control,
     handleSubmit,
     setValue,
-    formState: { errors, isSubmitting },
   } = methods
   const onSubmit = async (formData: AddCompanyAdminCreditApiArg) => {
     try {
@@ -237,6 +232,8 @@ function EcommerceAccountCompanyUserDetail() {
 
   useEffect(() => {
     if (!data || !segments) return
+    if (data)
+      fullnameMethods.setValue('fullname', data.user?.fullname as string)
     if (data?.user?.companyUserSegments) {
       const initSegments = data.user.companyUserSegments.reduce((acc, obj) => {
         acc[Number(obj.segmentId)] = obj.segmentValueId as number;
@@ -261,7 +258,8 @@ function EcommerceAccountCompanyUserDetail() {
       console.log(`[${key}] = ${value}`);
       setSegmentValuesApi({ id: Number(query.id), segmentId: Number(key), segmentValueId: value })
     }
-
+    const fullName = fullnameMethods.getValues('fullname')
+    setUserFullname({ id: Number(query.id), fullName })
   }
   const autoCompleteOptions =
     courses ?
@@ -281,7 +279,17 @@ function EcommerceAccountCompanyUserDetail() {
         گروه‌بندی سازمانی</h3>
       <Paper variant='outlined' elevation={12} style={{ padding: 8, }}>
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignContent={'flex-start'} flexWrap="wrap">
+          <div >
+            <FormProvider methods={fullnameMethods} >
 
+              <InputLabel >نام</InputLabel>
+              <RHFTextField
+                style={{ width: 300 }}
+                name='fullname'
+                label='نام و نام خانوادگی'
+              />
+            </FormProvider>
+          </div>
           {data && segments?.map((segment: CompanySegment) =>
             <div key={segment.id}>
 
@@ -290,7 +298,7 @@ function EcommerceAccountCompanyUserDetail() {
               <Select
                 labelId={`label-${segment.id}`}
                 defaultValue={segmentValues[segment.id as number]}
-                sx={{ width: 300 }}
+                sx={{ width: 200 }}
                 // value={segmentValues[segment.id as number]}
                 onChange={(event) => {
                   const { target: { value }, } = event
@@ -318,14 +326,14 @@ function EcommerceAccountCompanyUserDetail() {
         width={24}
         marginRight={0.5} />
         تخصیص اعتبار</h3>
-        برای ایجاد دسترسی به آموزش مراحل زیر را انجام دهید:<br/>
-        1- نام دوره را انتخاب کنید.<br/>
-        2- حداکثر زمان مشاهده آموزش را تعیین کنید (اگر فرد به این میزان برسد، آموزش برای او غیرفعال می‌شود)<br/>
-        3- در صورتی که می‌خواهید محدودیت زمانی برای مشاهده آموزش تعیین کنید، این محدودیت را بر حسب تعداد روز مشخص کنید. در صورت عدم تعیین محدودیتی اعمال نخواهد شد.
+      برای ایجاد دسترسی به آموزش مراحل زیر را انجام دهید:<br />
+      1- نام دوره را انتخاب کنید.<br />
+      2- حداکثر زمان مشاهده آموزش را تعیین کنید (اگر فرد به این میزان برسد، آموزش برای او غیرفعال می‌شود)<br />
+      3- در صورتی که می‌خواهید محدودیت زمانی برای مشاهده آموزش تعیین کنید، این محدودیت را بر حسب تعداد روز مشخص کنید. در صورت عدم تعیین محدودیتی اعمال نخواهد شد.
       <Paper variant='outlined' elevation={12} style={{ padding: 8 }} sx={{ my: 3 }}>
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
 
-          
+
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignContent={'flex-start'} flexWrap="wrap">
 
             <Autocomplete

@@ -242,6 +242,17 @@ export const injectedRtkApi = api
         }),
         invalidatesTags: ['Company'],
       }),
+      setUserFullname: build.mutation<
+        SetUserFullnameApiResponse,
+        SetUserFullnameApiArg
+      >({
+        query: (queryArg) => ({
+          url: `/api/Company/SetUserFullname`,
+          method: 'POST',
+          params: { id: queryArg.id, fullName: queryArg.fullName },
+        }),
+        invalidatesTags: ['Company'],
+      }),
       companyUsers: build.query<CompanyUsersApiResponse, CompanyUsersApiArg>({
         query: () => ({ url: `/api/Company/CompanyUsers` }),
         providesTags: ['Company'],
@@ -554,6 +565,11 @@ export type SetUserSegmentValueApiArg = {
   segmentId?: number
   segmentValueId?: number
 }
+export type SetUserFullnameApiResponse = unknown
+export type SetUserFullnameApiArg = {
+  id?: number
+  fullName?: string
+}
 export type CompanyUsersApiResponse = /** status 200 Success */ CompanyUserDto[]
 export type CompanyUsersApiArg = void
 export type SetActivationApiResponse =
@@ -838,6 +854,13 @@ export type CompanyAdmin = {
   admin?: AspNetUser
   company?: Company
 }
+export type CompanyCourseVisiblity = {
+  id?: number
+  companyId?: number
+  courseId?: number
+  company?: Company
+  course?: Course
+}
 export type CompanyCredit = {
   id?: number
   companyId?: number
@@ -845,6 +868,7 @@ export type CompanyCredit = {
   totalCredit?: number
   totalPrice?: number
   insertDate?: string
+  startedUsingDate?: string | null
   company?: Company
 }
 export type CompanyIpRange = {
@@ -903,8 +927,10 @@ export type Company = {
   logo?: string | null
   primaryColor?: string | null
   secondaryColor?: string | null
+  smstemplate?: string | null
   companyAdminCredits?: CompanyAdminCredit[] | null
   companyAdmins?: CompanyAdmin[] | null
+  companyCourseVisiblities?: CompanyCourseVisiblity[] | null
   companyCredits?: CompanyCredit[] | null
   companyIpRanges?: CompanyIpRange[] | null
   companyMentorAccesses?: CompanyMentorAccess[] | null
@@ -1163,6 +1189,7 @@ export type Course = {
   provider?: ContentProvider
   comments?: Comment[] | null
   companyAdminCredits?: CompanyAdminCredit[] | null
+  companyCourseVisiblities?: CompanyCourseVisiblity[] | null
   courseQualifications?: CourseQualification[] | null
   courseTags?: CourseTag[] | null
   courseTeachers?: CourseTeacher[] | null
@@ -1628,6 +1655,7 @@ export const {
   useCompanyUserQuery,
   useLazyCompanyUserQuery,
   useSetUserSegmentValueMutation,
+  useSetUserFullnameMutation,
   useCompanyUsersQuery,
   useLazyCompanyUsersQuery,
   useSetActivationMutation,
