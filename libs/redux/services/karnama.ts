@@ -347,6 +347,16 @@ export const injectedRtkApi = api
         }),
         providesTags: ['Courses'],
       }),
+      getApiCoursesByIdAGraph: build.query<
+        GetApiCoursesByIdAGraphApiResponse,
+        GetApiCoursesByIdAGraphApiArg
+      >({
+        query: (queryArg) => ({
+          url: `/api/Courses/${queryArg.id}/AGraph`,
+          params: { uuid: queryArg.uuid },
+        }),
+        providesTags: ['Courses'],
+      }),
       getApiCoursesById: build.query<
         GetApiCoursesByIdApiResponse,
         GetApiCoursesByIdApiArg
@@ -618,6 +628,12 @@ export type GetApiCoursesByIdGraphApiArg = {
   id: number
   cuid?: number
 }
+export type GetApiCoursesByIdAGraphApiResponse =
+  /** status 200 Success */ UserLessonViewMinute[]
+export type GetApiCoursesByIdAGraphApiArg = {
+  id: number
+  uuid?: string
+}
 export type GetApiCoursesByIdApiResponse =
   /** status 200 Success */ CourseDetailDto
 export type GetApiCoursesByIdApiArg = {
@@ -843,6 +859,7 @@ export type ContentProvider = {
   bio?: string | null
   avatar?: string | null
   link?: string | null
+  adminId?: number | null
   courses?: Course[] | null
 }
 export type CompanyAdmin = {
@@ -1154,6 +1171,7 @@ export type Section = {
   priority?: number
   isPublished?: boolean | null
   filesLink?: string | null
+  filenamePrefix?: string | null
   course?: Course
   lessons?: Lesson[] | null
   sectionQuestions?: SectionQuestion[] | null
@@ -1312,6 +1330,7 @@ export type AspNetUser = {
   province?: string | null
   city?: string | null
   gender?: boolean | null
+  uuid?: string
   aspNetUserClaims?: AspNetUserClaim[] | null
   aspNetUserLogins?: AspNetUserLogin[] | null
   aspNetUserTokens?: AspNetUserToken[] | null
@@ -1678,6 +1697,8 @@ export const {
   useLazyOthersQuery,
   useGetApiCoursesByIdGraphQuery,
   useLazyGetApiCoursesByIdGraphQuery,
+  useGetApiCoursesByIdAGraphQuery,
+  useLazyGetApiCoursesByIdAGraphQuery,
   useGetApiCoursesByIdQuery,
   useLazyGetApiCoursesByIdQuery,
   useGetDistinctedPlayLogsQuery,
