@@ -191,7 +191,7 @@ export default function ElearningCourseDetailsInfo({ course }: Props) {
             href={details?.filesLink as string}
             target='_blank'
           >
-            دانلود فایل‌‌های دوره
+            دانلود فایل‌‌های ضمیمه
           </Button>
         )}
 
