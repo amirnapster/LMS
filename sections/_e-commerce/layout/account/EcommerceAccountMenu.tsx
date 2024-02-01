@@ -58,6 +58,11 @@ const navigations = [
     icon: <Iconify icon='pepicons-print:people' />,
     forCompanyAdmin: true
   },
+  {
+    title: 'گزارش ایراد در سامانه',
+    path: '/dashboard/suggest/',
+    icon: <Iconify icon='mdi:ladybug' />,
+  },
 ]
 
 // ----------------------------------------------------------------------
