@@ -65,7 +65,7 @@ setValue('text','')
           گزارش خطا یا پیشنهاد
         </Typography>
         <Typography variant='body1' sx={{ mb: 3 }}>
-          لطفا برای کمک در بهبود طراحی، نظرات خود را بنویسید. 
+          ایرادات سایت را به ما بگویید
         </Typography>
         
         <Box
@@ -88,7 +88,7 @@ setValue('text','')
           loading={isLoading}
           sx={{ marginBlockStart: '1rem' }}
         >
-          {intl.formatMessage({ id: 'save' })}
+         ثبت نظر
         </LoadingButton>
       </FormProvider>
     </EcommerceAccountLayout >
