@@ -69,7 +69,7 @@ export default function ElearningCourseDetailsLessonsDialog({
           /> */}
       {accessToken && showNewUGQ &&
         <div style={{ position: 'fixed', top: "87%", left: "50%", transform: "translateX(-50%)" }}>
-          <Button btnType='primary' onClick={handleNewUGQ} >طرح سوال</Button>
+          <Button btnType='primary' onClick={handleNewUGQ} >طراحی سوال برای آزمون</Button>
         </div>}
     </Dialog>
   )
