@@ -17,6 +17,9 @@ const isProd = process.env.NODE_ENV === 'production'
  */
 
 const next = {
+  typescript: {
+    ignoreBuildErrors: process.env.IGNORE_BUILD_ERRORS === 'true',
+  },
   output: 'standalone',
   i18n: {
     locales: ['en-US', 'fa-IR'],

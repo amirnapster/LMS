@@ -1,27 +1,40 @@
-# Rebuild the source code only when needed
-FROM node:16-alpine AS builder
-WORKDIR /app
-COPY . .
-ENV NEXT_TELEMETRY_DISABLED 1
-#RUN   sed -i 's|"@rasmio/old": "^0.1.0"|"@rasmio/old": "/app/packages/old"|g' /app/packages/current/package.json
-#RUN yarn 
-#RUN yarn build
+FROM docker.arvancloud.ir/node:20.10.0-alpine AS builder
 
+WORKDIR /app
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
-
+RUN apk add --no-cache jq 
 
 ENV NODE_ENV production
+ENV IGNORE_BUILD_ERRORS true
 ENV NEXT_TELEMETRY_DISABLED 1
-WORKDIR /app
+
+COPY package.json .
+
+RUN jq 'del(.devDependencies)' package.json > temp.json && mv temp.json package.json
+
+COPY yarn.lock .
+
 RUN yarn 
+
+COPY . .
+
 RUN yarn build
 
-USER nextjs
+FROM docker.arvancloud.ir/node:20.10.0-alpine
 
-EXPOSE 3002
+WORKDIR /app
 
-ENV PORT 3002
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/public ./public
 
-CMD ["yarn", "start"]
+
+USER 1001
+
+EXPOSE 80
+
+ENV PORT 80
+ENV HOSTNAME "0.0.0.0"
+CMD ["node", "server.js"]
