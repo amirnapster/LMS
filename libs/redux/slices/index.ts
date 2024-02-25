@@ -23,7 +23,7 @@ const cookiePersistConfig = {
       default: 365 * 86400, // # One Year For Expiration
     },
   }),
-  whitelist: ['accessToken', 'refreshToken', 'packageType'],
+  whitelist: ['accessToken', 'refreshToken', 'packageType','uuid'],
   stateReconciler: autoMergeLevel2, //  # For Only Shallow Merging New States With Defined States
 }
 

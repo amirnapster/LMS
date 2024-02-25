@@ -7,6 +7,7 @@ import type { AuthSlice, IVisibleData, UserData } from './interface'
 const initialState: AuthSlice = {
   mode: 'signUp',
   accessToken: '',
+  uuid: '',
   refreshToken: '',
   visible: false,
   packageType: undefined,
@@ -19,11 +20,11 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     setUserAuth: (state, action: PayloadAction<Token>) => {
-      const { accessToken, refreshToken } = action.payload
+      const { accessToken, refreshToken , uuid } = action.payload
       Cookies.set('token', accessToken as string, {
         expires: new Date(new Date().setFullYear(new Date().getFullYear() + 2)),
       })
-      return { ...state, accessToken, refreshToken }
+      return { ...state, accessToken, refreshToken, uuid }
     },
     clearAuth: (state) => {
       Cookies.remove('token')
@@ -33,6 +34,7 @@ export const authSlice = createSlice({
         ...state,
         accessToken: '',
         refreshToken: '',
+        uuid:'',
         packageType: undefined,
       }
     },

@@ -17,6 +17,7 @@ export interface UserData {
 export interface AuthSlice extends UserData {
   mode: AuthMode
   accessToken: Token['accessToken']
+  uuid?: string
   refreshToken: Token['refreshToken']
   visible: boolean
   packageType?: number

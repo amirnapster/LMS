@@ -1426,6 +1426,7 @@ export type Token = {
   refreshToken?: string | null
   refreshTokenExpirationTime?: string
   isNewUser?: boolean
+  uuid?: string
   completedProfile?: boolean
   packageType?: number
 }

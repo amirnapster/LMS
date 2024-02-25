@@ -3,6 +3,8 @@ import { RootState } from 'libs/redux/store'
 import { useEffect, useMemo, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import videojs from 'video.js'
+import 'videojs-contrib-quality-levels'
+import 'videojs-hls-quality-selector'
 import 'video.js/dist/video-js.css'
 
 export const VideoJS = (props: any) => {
@@ -157,15 +159,20 @@ export const VideoJS = (props: any) => {
             default: false,
           })
         }
-        if (s1.src.endsWith('m3u8')) {
-          player.addRemoteTextTrack({
-            kind: 'subtitles',
-            src: s1.src.replace('.m3u8', '.vtt'),
-            srclang: 'en',
-            label: 'English',
-            default: false,
-          })
-        }
+        // if (s1.src.endsWith('m3u8')) {
+        //   player.addRemoteTextTrack({
+        //     kind: 'subtitles',
+        //     src: s1.src.replace('.m3u8', '.vtt'),
+        //     srclang: 'en',
+        //     label: 'English',
+        //     default: false,
+        //   })
+        // }
+        player.qualityLevels && player.qualityLevels();
+
+        // Initialize the HLS quality selector plugin
+        player.hlsQualitySelector && player.hlsQualitySelector();
+
         if (handlePlayerReady) handlePlayerReady(player)
       })
 

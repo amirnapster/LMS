@@ -206,7 +206,6 @@ const DescriptionItemSvg = '/svg/staticPage/description-item.svg'
 const DescriptionQuestionSvg = '/svg/staticPage/red-circle-question-mark.svg'
 const StaticPageAdsImage = '/image/ads-image.png'
 
-const LockSvg = '/svg/lock.svg'
 const TooltipeIconSvg = '/svg/tooltipe-icon.svg'
 
 const BlockingModalHeaderIcon = '/image/blocking-modal.png'
@@ -392,7 +391,6 @@ export {
   DescriptionQuestionSvg,
   DesktopSessionIcon,
   MobileSessionIcon,
-  LockSvg,
   TooltipeIconSvg,
   InfoIcon,
   FinancialInfoIcon,

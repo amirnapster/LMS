@@ -202,7 +202,7 @@ const FooterLogin = () => {
   return (
     <Row direction='column' gap={2} className={styles['footer__login']}>
       <Col data-selector='title'>
-      ایرادات سایت را به ما بگویید
+      ایرادات سایت را به ما بگویید:
       </Col>
       <div data-selector='bg' />
       <Col className={styles['footer__login--field']}>

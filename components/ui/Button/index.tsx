@@ -1,6 +1,5 @@
 import { forwardRef } from 'react'
 import { CircularProgress } from '@mui/material'
-import { LockSvg } from 'assets/icons'
 import Link from 'next/link'
 import cn from 'classnames'
 import {
