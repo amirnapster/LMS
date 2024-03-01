@@ -52,43 +52,33 @@ export const companyNavigations = [
     apath: `Segment`,
     icon: <Iconify icon='mdi:format-list-group' />,
   },
-  {
-    title: 'قالب پیامک',
-    path: '/dashboard/c/smstemplate/',
-    apath: 'SMSTemplate',
-    icon: <Iconify icon='mdi:file-document-edit' />,
-  },
-  {
-    title: 'ارسال پیامک گروهی',
-    path: '/dashboard/c/sendgroupsms/',
-    apath: 'GroupSMS',
-    icon: <Iconify icon='bxs:chat' />,
-  },
-  {
-    title: 'ارسال شده',
-    path: '/dashboard/c/sentlist/',
-    apath: 'SentSMS',
-    icon: <Iconify icon='mdi:send' />,
-  },
-  // {
-  //   title: 'پیامک',
-  //   path: '',
-  //   apath: '',
-  //   icon: <Iconify icon='mdi:message-text' />,
-  //   sub: [
-  //     {
-  //       title: 'قالب پیامک',
-  //       path: '/dashboard/c/smstemplate/',
-  //       apath: 'SMSTemplate',
-  //       icon: <Iconify icon='mdi:file-document-edit' />
-  //     }, {
-  //       title: 'ارسال شده',
-  //       path: '/dashboard/c/sentlist/',
-  //       apath: 'SentSMS',
-  //       icon: <Iconify icon='mdi:send' />
-  //     }
-  //   ]
-  // },
+ 
+   {
+     title: 'پیامک',
+     path: '',
+     apath: '',
+     icon: <Iconify icon='mdi:message-text' />,
+     sub: [
+      {
+        title: 'قالب پیامک',
+        path: '/dashboard/c/smstemplate/',
+        apath: 'SMSTemplate',
+        icon: <Iconify icon='mdi:file-document-edit' />,
+      },
+      {
+        title: 'ارسال پیامک گروهی',
+        path: '/dashboard/c/sendgroupsms/',
+        apath: 'GroupSMS',
+        icon: <Iconify icon='bxs:chat' />,
+      },
+      {
+        title: 'ارسال شده',
+        path: '/dashboard/c/sentlist/',
+        apath: 'SentSMS',
+        icon: <Iconify icon='mdi:send' />,
+      },
+     ]
+   },
   {
     title: 'آزمون',
     path: '/dashboard/c/certificate/',
