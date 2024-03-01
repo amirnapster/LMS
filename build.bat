@@ -1,2 +1,2 @@
-docker build -t r.rasmio.ir/pro . 
-docker push r.rasmio.ir/pro
+docker build -t majidgoodini/majidgoodini . 
+docker push majidgoodini/majidgoodini
