@@ -18,3 +18,4 @@ export {default as EcommerceAccountExam} from './EcommerceAccountExam';
 export {default as EcommerceAccountUGQView} from './EcommerceAccountUGQView';
 export {default as EcommerceAccountCompanyUsers} from './EcommerceAccountCompanyUsers';
 export {default as EcommerceAccountCompanyUserDetail} from './EcommerceAccountCompanyUserDetail';
+export {default as EcommerceAccountExamView} from './EcommerceAccountExamView';
