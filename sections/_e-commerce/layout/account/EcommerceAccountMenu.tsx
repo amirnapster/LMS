@@ -21,7 +21,7 @@ import _mock from '_mock'
 import Iconify from 'components/iconify'
 import TextMaxLine from 'components/text-max-line'
 import { useInfoMutation, useLogoutMutation } from 'libs/redux/services/karnama'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useIntl } from 'react-intl'
 import { RootState } from 'libs/redux/store'
@@ -32,7 +32,32 @@ import { SvgIconProps } from '@mui/material/SvgIcon'
 import { StyledTreeItem } from 'components/treeMenu'
 import { REACT_LOADABLE_MANIFEST } from 'next/dist/shared/lib/constants'
 // ----------------------------------------------------------------------
-
+export const teacherNavigations = [
+  {
+    title: 'داشبورد',
+    path: '/dashboard/t/d/',
+    apath: `Home`,
+    icon: <Iconify icon='mdi:view-dashboard' />,
+  },
+  {
+    title: 'فروش‌های من',
+    path: '/dashboard/t/sales/',
+    apath: `Sales`,
+    icon: <Iconify icon='mdi:view-dashboard' />,
+  },
+  {
+    title: 'پرداخت‌ها',
+    path: '/dashboard/t/payments/',
+    apath: `Payments`,
+    icon: <Iconify icon='mdi:view-dashboard' />,
+  },
+  {
+    title: 'سوالات',
+    path: '/dashboard/t/questions/',
+    apath: `Questions`,
+    icon: <Iconify icon='mdi:view-dashboard' />,
+  },
+]
 export const companyNavigations = [
   {
     title: 'داشبورد',
@@ -52,13 +77,13 @@ export const companyNavigations = [
     apath: `Segment`,
     icon: <Iconify icon='mdi:format-list-group' />,
   },
- 
-   {
-     title: 'پیامک',
-     path: '',
-     apath: '',
-     icon: <Iconify icon='mdi:message-text' />,
-     sub: [
+
+  {
+    title: 'پیامک',
+    path: '',
+    apath: '',
+    icon: <Iconify icon='mdi:message-text' />,
+    sub: [
       {
         title: 'قالب پیامک',
         path: '/dashboard/c/smstemplate/',
@@ -77,8 +102,8 @@ export const companyNavigations = [
         apath: 'SentSMS',
         icon: <Iconify icon='mdi:send' />,
       },
-     ]
-   },
+    ]
+  },
   {
     title: 'آزمون',
     path: '/dashboard/c/certificate/',
@@ -94,6 +119,15 @@ export function currentCompanyPage(path: string) {
       for (let j = 0; j < (companyNavigations?.[i].sub?.length as number); j++)
         if (companyNavigations[i].sub?.[j].path == path)
           return companyNavigations[i]?.sub?.[j]
+  }
+}export function currentTeacherPage(path: string) {
+  for (let i = 0; i < teacherNavigations.length; i++) {
+    if (!teacherNavigations[i]) continue
+    if (teacherNavigations[i].path == path) return teacherNavigations[i]
+    // if (teacherNavigations[i].sub)
+    //   for (let j = 0; j < (teacherNavigations?.[i].sub?.length as number); j++)
+    //     if (teacherNavigations[i].sub?.[j].path == path)
+    //       return teacherNavigations[i]?.sub?.[j]
   }
 }
 
@@ -165,6 +199,179 @@ export default function EcommerceAccountMenu({ open, onClose }: Props) {
       replace('/')
     })
   }
+
+  const getMenu = useMemo(() => {
+    
+    if (tab == 0 && data?.isCompanyAdmin)
+      return (<>
+        {' '}
+        <Stack spacing={2} sx={{ p: 3, pb: 2 }}>
+          <Stack
+            spacing={2}
+            direction='row'
+            alignItems='center'
+            justifyContent='center'
+          >
+            <Avatar src='' sx={{ width: 64, height: 64 }} />
+          </Stack>
+
+          <Stack alignItems='center' spacing={0.5}>
+            <TextMaxLine variant='subtitle1' line={1}>
+              {data?.inCompanyTitle}
+            </TextMaxLine>
+            {/* <TextMaxLine variant='subtitle1' line={1}>
+              {data?.username}
+            </TextMaxLine>
+            {!!data?.customer?.credit && (
+              <TextMaxLine variant='subtitle2' line={1}>
+                اعتبار شما {data.customer.credit.toLocaleString()} تومان
+              </TextMaxLine>
+            )} */}
+          </Stack>
+        </Stack>
+        <TreeView
+          onNodeSelect={(e, nodeIds) =>
+            nodeIds &&
+            nodeIds.length > 1 &&
+            (asPath == nodeIds ? reload() : push(nodeIds))
+          }
+          defaultSelected={asPath}
+          defaultCollapseIcon={<ArrowDropDownIcon />}
+          defaultExpandIcon={<ArrowLeftIcon />}
+          defaultEndIcon={<div style={{ width: 20 }} />}
+          sx={{ flexGrow: 1, maxWidth: 400, overflowY: 'auto', my: 1 }}
+        >
+          {data?.isCompanyAdmin &&
+            companyNavigations.map((item) => (
+              <StyledTreeItem
+                nodeId={item.path}
+                labelText={item.title}
+                labelIcon={item.icon}
+              >
+                {item.sub?.map((s) => (
+                  <StyledTreeItem
+                    nodeId={s.path}
+                    labelText={s.title}
+                    labelIcon={s.icon}
+                  />
+                ))}
+              </StyledTreeItem>
+            ))}
+        </TreeView>
+      </>)
+    else if (tab == 0 && data?.teacherId)
+    return (<>
+      {' '}
+      <Stack spacing={2} sx={{ p: 3, pb: 2 }}>
+        <Stack
+          spacing={2}
+          direction='row'
+          alignItems='center'
+          justifyContent='center'
+        >
+          <Avatar src='' sx={{ width: 64, height: 64 }} />
+        </Stack>
+
+        <Stack alignItems='center' spacing={0.5}>
+          <TextMaxLine variant='subtitle1' line={1}>
+            {data?.fullname}
+          </TextMaxLine>
+          {/* <TextMaxLine variant='subtitle1' line={1}>
+            {data?.username}
+          </TextMaxLine>
+          {!!data?.customer?.credit && (
+            <TextMaxLine variant='subtitle2' line={1}>
+              اعتبار شما {data.customer.credit.toLocaleString()} تومان
+            </TextMaxLine>
+          )} */}
+        </Stack>
+      </Stack>
+      <TreeView
+        onNodeSelect={(e, nodeIds) =>
+          nodeIds &&
+          nodeIds.length > 1 &&
+          (asPath == nodeIds ? reload() : push(nodeIds))
+        }
+        defaultSelected={asPath}
+        defaultCollapseIcon={<ArrowDropDownIcon />}
+        defaultExpandIcon={<ArrowLeftIcon />}
+        defaultEndIcon={<div style={{ width: 20 }} />}
+        sx={{ flexGrow: 1, maxWidth: 400, overflowY: 'auto', my: 1 }}
+      >
+       
+         { teacherNavigations.map((item) => (
+            <StyledTreeItem
+              nodeId={item.path}
+              labelText={item.title}
+              labelIcon={item.icon}
+            >
+              {/* {item.sub?.map((s) => (
+                <StyledTreeItem
+                  nodeId={s.path}
+                  labelText={s.title}
+                  labelIcon={s.icon}
+                />
+              ))} */}
+            </StyledTreeItem>
+          ))}
+      </TreeView>
+    </>)
+    return (<>
+      <Stack spacing={2} sx={{ p: 3, pb: 2 }}>
+        <Stack
+          spacing={2}
+          direction='row'
+          alignItems='center'
+          justifyContent='center'
+        >
+          <Avatar src='' sx={{ width: 64, height: 64 }} />
+          {/* <Stack
+            direction='row'
+            alignItems='center'
+            sx={{
+              typography: 'caption',
+              cursor: 'pointer',
+              '&:hover': { opacity: 0.72 },
+            }}
+          >
+            <Iconify icon='carbon:edit' sx={{ mr: 1 }} />
+            تغییر عکس
+          </Stack> */}
+        </Stack>
+
+        <Stack alignItems='center' spacing={0.5}>
+          <TextMaxLine variant='subtitle1' line={1}>
+            {data?.fullname}
+          </TextMaxLine>
+          <TextMaxLine variant='subtitle1' line={1}>
+            {data?.username}
+          </TextMaxLine>
+          {!!data?.customer?.credit && (
+            <TextMaxLine variant='subtitle2' line={1}>
+              اعتبار شما {data.customer.credit.toLocaleString()} تومان
+            </TextMaxLine>
+          )}
+        </Stack>
+      </Stack>
+      <TreeView
+        onNodeSelect={(e, nodeIds) => nodeIds && push(nodeIds)}
+        defaultSelected={asPath}
+        defaultCollapseIcon={<ArrowDropDownIcon />}
+        defaultExpandIcon={<ArrowLeftIcon />}
+        defaultEndIcon={<div style={{ width: 20 }} />}
+        sx={{ flexGrow: 1, maxWidth: 400, overflowY: 'auto', my: 1 }}
+      >
+        {navigations.map((item) => (
+          <StyledTreeItem
+            nodeId={item.path}
+            labelText={item.title}
+            labelIcon={item.icon}
+          />
+        ))}
+      </TreeView>
+    </>)
+  },[tab,data?.teacherId])
+
   const renderContent = (
     <Stack
       sx={{
@@ -179,128 +386,17 @@ export default function EcommerceAccountMenu({ open, onClose }: Props) {
       }}
     >
       <Stack sx={{ my: 1, px: 2 }}>
-        {data?.isCompanyAdmin && (
+        {data?.isCompanyAdmin || data?.teacherId && (
           <Box sx={{ width: '100%' }}>
             <Tabs value={tab} onChange={handleChange} centered>
-              <Tab label='شرکت' id='1' />
+              {data?.isCompanyAdmin ? <Tab label='شرکت' id='1' /> : null}
+              {data?.teacherId ? <Tab label='مدرس' id='3' /> : null}
               <Tab label='شخص' id='2' />
             </Tabs>
           </Box>
         )}
-        {data?.isCompanyAdmin && tab == 0 ? (
-          <>
-            {' '}
-            <Stack spacing={2} sx={{ p: 3, pb: 2 }}>
-              <Stack
-                spacing={2}
-                direction='row'
-                alignItems='center'
-                justifyContent='center'
-              >
-                <Avatar src='' sx={{ width: 64, height: 64 }} />
-              </Stack>
+        {getMenu}
 
-              <Stack alignItems='center' spacing={0.5}>
-                <TextMaxLine variant='subtitle1' line={1}>
-                  {data?.inCompanyTitle}
-                </TextMaxLine>
-                {/* <TextMaxLine variant='subtitle1' line={1}>
-              {data?.username}
-            </TextMaxLine>
-            {!!data?.customer?.credit && (
-              <TextMaxLine variant='subtitle2' line={1}>
-                اعتبار شما {data.customer.credit.toLocaleString()} تومان
-              </TextMaxLine>
-            )} */}
-              </Stack>
-            </Stack>
-            <TreeView
-              onNodeSelect={(e, nodeIds) =>
-                nodeIds &&
-                nodeIds.length > 1 &&
-                (asPath == nodeIds ? reload() : push(nodeIds))
-              }
-              defaultSelected={asPath}
-              defaultCollapseIcon={<ArrowDropDownIcon />}
-              defaultExpandIcon={<ArrowLeftIcon />}
-              defaultEndIcon={<div style={{ width: 20 }} />}
-              sx={{ flexGrow: 1, maxWidth: 400, overflowY: 'auto', my: 1 }}
-            >
-              {data?.isCompanyAdmin &&
-                companyNavigations.map((item) => (
-                  <StyledTreeItem
-                    nodeId={item.path}
-                    labelText={item.title}
-                    labelIcon={item.icon}
-                  >
-                    {item.sub?.map((s) => (
-                      <StyledTreeItem
-                        nodeId={s.path}
-                        labelText={s.title}
-                        labelIcon={s.icon}
-                      />
-                    ))}
-                  </StyledTreeItem>
-                ))}
-            </TreeView>
-          </>
-        ) : (
-          <>
-            {' '}
-            <Stack spacing={2} sx={{ p: 3, pb: 2 }}>
-              <Stack
-                spacing={2}
-                direction='row'
-                alignItems='center'
-                justifyContent='center'
-              >
-                <Avatar src='' sx={{ width: 64, height: 64 }} />
-                {/* <Stack
-              direction='row'
-              alignItems='center'
-              sx={{
-                typography: 'caption',
-                cursor: 'pointer',
-                '&:hover': { opacity: 0.72 },
-              }}
-            >
-              <Iconify icon='carbon:edit' sx={{ mr: 1 }} />
-              تغییر عکس
-            </Stack> */}
-              </Stack>
-
-              <Stack alignItems='center' spacing={0.5}>
-                <TextMaxLine variant='subtitle1' line={1}>
-                  {data?.fullname}
-                </TextMaxLine>
-                <TextMaxLine variant='subtitle1' line={1}>
-                  {data?.username}
-                </TextMaxLine>
-                {!!data?.customer?.credit && (
-                  <TextMaxLine variant='subtitle2' line={1}>
-                    اعتبار شما {data.customer.credit.toLocaleString()} تومان
-                  </TextMaxLine>
-                )}
-              </Stack>
-            </Stack>
-            <TreeView
-              onNodeSelect={(e, nodeIds) => nodeIds && push(nodeIds)}
-              defaultSelected={asPath}
-              defaultCollapseIcon={<ArrowDropDownIcon />}
-              defaultExpandIcon={<ArrowLeftIcon />}
-              defaultEndIcon={<div style={{ width: 20 }} />}
-              sx={{ flexGrow: 1, maxWidth: 400, overflowY: 'auto', my: 1 }}
-            >
-              {navigations.map((item) => (
-                <StyledTreeItem
-                  nodeId={item.path}
-                  labelText={item.title}
-                  labelIcon={item.icon}
-                />
-              ))}
-            </TreeView>
-          </>
-        )}
       </Stack>
 
       <Divider sx={{ borderStyle: 'dashed' }} />

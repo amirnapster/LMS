@@ -6,6 +6,7 @@ import videojs from 'video.js'
 import 'videojs-contrib-quality-levels'
 import 'videojs-hls-quality-selector'
 import 'video.js/dist/video-js.css'
+import 'videojs-hotkeys'
 
 export const VideoJS = (props: any) => {
   const videoRef = useRef<any>(null)

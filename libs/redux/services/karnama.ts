@@ -779,6 +779,42 @@ export type ApiError = {
   message?: string | null
   isWarning?: boolean
 }
+export type Province = {
+  id?: number
+  title?: string | null
+  sort?: number | null
+  cities?: City[] | null
+  profiles?: Profile[] | null
+}
+export type City = {
+  id?: number
+  provinceId?: number
+  title?: string | null
+  province?: Province
+  profiles?: Profile[] | null
+}
+export type Country = {
+  id?: number
+  title?: string | null
+  profiles?: Profile[] | null
+}
+export type Profile = {
+  firstName?: string | null
+  lastName?: string | null
+  gender?: boolean | null
+  nationalCode?: string | null
+  birthday?: string | null
+  countryId?: number | null
+  provinceId?: number | null
+  cityId?: number | null
+  jobStatusId?: number | null
+  profileImage?: string | null
+  userId?: number
+  city?: City
+  country?: Country
+  province?: Province
+  user?: AspNetUser
+}
 export type AspNetUserClaim = {
   id?: number
   userId?: number
@@ -800,6 +836,23 @@ export type AspNetUserToken = {
   value?: string | null
   user?: AspNetUser
 }
+export type Skill = {
+  id?: number
+  userId?: number
+  title?: string | null
+  user?: AspNetUser
+  certificates?: Certificate[] | null
+}
+export type Certificate = {
+  id?: number
+  userId?: number
+  title?: string | null
+  certificateImage?: string | null
+  issueDate?: string
+  organization?: string | null
+  user?: AspNetUser
+  skills?: Skill[] | null
+}
 export type CourseQualification = {
   id?: number
   courseId?: number
@@ -808,15 +861,9 @@ export type CourseQualification = {
   course?: Course
   qualitfication?: Qualification
 }
-export type QualificationAdmin = {
+export type InreQuestion = {
   id?: number
-  adminId?: string | null
-  qualificationId?: number
-  qualification?: Qualification
-}
-export type Question = {
-  id?: number
-  question1?: string | null
+  question?: string | null
   answer1?: string | null
   answer2?: string | null
   answer3?: string | null
@@ -834,6 +881,12 @@ export type Question = {
   staticNumber?: number | null
   qualification?: Qualification
 }
+export type QualificationAdmin = {
+  id?: number
+  adminId?: string | null
+  qualificationId?: number
+  qualification?: Qualification
+}
 export type Qualification = {
   id?: number
   title?: string | null
@@ -844,8 +897,8 @@ export type Qualification = {
   isLtr?: boolean
   category?: Category
   courseQualifications?: CourseQualification[] | null
+  inreQuestions?: InreQuestion[] | null
   qualificationAdmins?: QualificationAdmin[] | null
-  questions?: Question[] | null
 }
 export type Category = {
   id?: number
@@ -868,6 +921,7 @@ export type CompanyAdmin = {
   adminId?: number
   insertDate?: string
   isActive?: boolean | null
+  acl?: string | null
   admin?: AspNetUser
   company?: Company
 }
@@ -886,6 +940,8 @@ export type CompanyCredit = {
   totalPrice?: number
   insertDate?: string
   startedUsingDate?: string | null
+  pricePerMinute?: number | null
+  endUsingDate?: string | null
   company?: Company
 }
 export type CompanyIpRange = {
@@ -937,6 +993,90 @@ export type CompanyUser = {
   company?: Company
   user?: AspNetUser
 }
+export type Question = {
+  id?: number
+  userId?: number
+  courseId?: number
+  lessonId?: number | null
+  companyId?: number | null
+  text?: string | null
+  image?: string | null
+  answer1?: string | null
+  answer1Image?: string | null
+  answer2?: string | null
+  answer2Image?: string | null
+  answer3?: string | null
+  answer3Image?: string | null
+  answer4?: string | null
+  answer4Image?: string | null
+  correctAnswer?: number
+  difficulty?: number
+  weight?: number
+  published?: boolean
+  approved?: boolean
+  canShuffleAnswer?: boolean
+  dependencyId?: number | null
+  insertDate?: string
+  updateDate?: string
+  description?: string | null
+  timeOfVideo?: number | null
+  user?: AspNetUser
+  userQuestionAnswers?: UserQuestionAnswer[] | null
+  quizzes?: Quiz[] | null
+}
+export type UserQuestionAnswer = {
+  id?: number
+  examResultId?: number
+  questionId?: number
+  answer?: number | null
+  isCorrect?: boolean | null
+  startDate?: string | null
+  endDate?: string | null
+  examResult?: ExamResult
+  question?: Question
+}
+export type ExamResult = {
+  id?: number
+  userId?: number
+  quizId?: number
+  score1?: number | null
+  score2?: number | null
+  startDate?: string | null
+  endDate?: string | null
+  description?: string | null
+  correct?: number | null
+  wrong?: number | null
+  notAnswered?: number | null
+  serial?: string | null
+  certImage?: string | null
+  passed?: boolean | null
+  quiz?: Quiz
+  user?: AspNetUser
+  userQuestionAnswers?: UserQuestionAnswer[] | null
+}
+export type Quiz = {
+  id?: number
+  courseId?: number
+  companyId?: number | null
+  questionCount?: number
+  canBack?: boolean
+  canSkip?: boolean
+  canShuffle?: boolean
+  description?: string | null
+  questionDuration?: number
+  totalDuration?: number
+  userId?: number
+  acceptScore?: number
+  certImage?: string | null
+  startDate?: string | null
+  endDate?: string | null
+  insertDate?: string
+  hasNegativeScore?: boolean
+  company?: Company
+  course?: Course
+  examResults?: ExamResult[] | null
+  questions?: Question[] | null
+}
 export type Company = {
   id?: number
   title?: string | null
@@ -953,6 +1093,7 @@ export type Company = {
   companyMentorAccesses?: CompanyMentorAccess[] | null
   companySegments?: CompanySegment[] | null
   companyUsers?: CompanyUser[] | null
+  quizzes?: Quiz[] | null
 }
 export type CompanyAdminCredit = {
   id?: number
@@ -988,6 +1129,7 @@ export type Teacher = {
   profession?: string | null
   bio?: string | null
   avatar?: string | null
+  userId?: number | null
   courseTeachers?: CourseTeacher[] | null
 }
 export type CourseTeacher = {
@@ -1214,6 +1356,7 @@ export type Course = {
   enrolls?: Enroll[] | null
   exams?: Exam[] | null
   orderItems?: OrderItem[] | null
+  quizzes?: Quiz[] | null
   sections?: Section[] | null
   userMentorCredits?: UserMentorCredit[] | null
 }
@@ -1229,6 +1372,87 @@ export type Comment = {
   rate?: number
   course?: Course
   lesson?: Lesson
+  user?: AspNetUser
+}
+export type SubStudyField = {
+  id?: number
+  studyFieldId?: number
+  title?: string | null
+  studyField?: StudyField
+  educations?: Education[] | null
+}
+export type StudyField = {
+  id?: number
+  title?: string | null
+  degreeId?: number | null
+  educations?: Education[] | null
+  subStudyFields?: SubStudyField[] | null
+}
+export type StudyPlaceType = {
+  id?: number
+  title?: string | null
+  studyPlaces?: StudyPlace[] | null
+}
+export type StudyPlace = {
+  id?: number
+  title?: string | null
+  typeId?: number | null
+  type?: StudyPlaceType
+  educations?: Education[] | null
+}
+export type Education = {
+  id?: number
+  userid?: number
+  studyPlaceId?: number
+  studyFieldId?: number
+  studySubFieldId?: number | null
+  startYear?: number
+  endYear?: number | null
+  gpa?: number | null
+  degreeId?: number | null
+  certificateImage?: string | null
+  studyField?: StudyField
+  studyPlace?: StudyPlace
+  studySubField?: SubStudyField
+  user?: AspNetUser
+}
+export type Language = {
+  id?: number
+  title?: string | null
+  experienceLanguages?: ExperienceLanguage[] | null
+}
+export type ExperienceLanguage = {
+  id?: number
+  userId?: number
+  languageId?: number
+  level?: number
+  certificateImage?: string | null
+  language?: Language
+  user?: AspNetUser
+}
+export type ExperienceEmployeeType = {
+  id?: number
+  title?: string | null
+  experiences?: Experience[] | null
+}
+export type ExperienceIndustry = {
+  id?: string | null
+  title?: string | null
+  sort?: number | null
+  experiences?: Experience[] | null
+}
+export type Experience = {
+  id?: number
+  userId?: number
+  company?: string | null
+  jobTitle?: string | null
+  startDate?: string
+  endDate?: string | null
+  employeeTypeId?: number
+  location?: string | null
+  industryId?: string | null
+  employeeType?: ExperienceEmployeeType
+  industry?: ExperienceIndustry
   user?: AspNetUser
 }
 export type Gift = {
@@ -1290,6 +1514,11 @@ export type UserVerification = {
   nationalCode?: string | null
   user?: AspNetUser
 }
+export type Favorite = {
+  id?: number
+  title?: string | null
+  users?: AspNetUser[] | null
+}
 export type AspNetRoleClaim = {
   id?: number
   roleId?: number
@@ -1331,9 +1560,11 @@ export type AspNetUser = {
   city?: string | null
   gender?: boolean | null
   uuid?: string
+  profile?: Profile
   aspNetUserClaims?: AspNetUserClaim[] | null
   aspNetUserLogins?: AspNetUserLogin[] | null
   aspNetUserTokens?: AspNetUserToken[] | null
+  certificates?: Certificate[] | null
   comments?: Comment[] | null
   companyAdminCreditAdmins?: CompanyAdminCredit[] | null
   companyAdminCreditUsers?: CompanyAdminCredit[] | null
@@ -1341,19 +1572,26 @@ export type AspNetUser = {
   companyMentorAccesses?: CompanyMentorAccess[] | null
   companyUserSegments?: CompanyUserSegment[] | null
   companyUsers?: CompanyUser[] | null
+  educations?: Education[] | null
   enrolls?: Enroll[] | null
+  examResults?: ExamResult[] | null
   exams?: Exam[] | null
+  experienceLanguages?: ExperienceLanguage[] | null
+  experiences?: Experience[] | null
   giftUsages?: GiftUsage[] | null
   orders?: Order[] | null
   payments?: Payment[] | null
   playLogs?: PlayLog[] | null
   premia?: Premium[] | null
+  questions?: Question[] | null
   sessions?: Session[] | null
+  skills?: Skill[] | null
   suggestions?: Suggestion[] | null
   ugqs?: Ugq[] | null
   userAnswers?: UserAnswer[] | null
   userLessonCompleteds?: UserLessonCompleted[] | null
   userVerifications?: UserVerification[] | null
+  favorites?: Favorite[] | null
   roles?: AspNetRole[] | null
 }
 export type Premium = {
@@ -1403,6 +1641,7 @@ export type UserInfo = {
   gender?: boolean | null
   discourseResponse?: string | null
   email?: string | null
+  teacherId?: number | null
 }
 export type OptionType = {
   label?: string | null
@@ -1426,9 +1665,9 @@ export type Token = {
   refreshToken?: string | null
   refreshTokenExpirationTime?: string
   isNewUser?: boolean
-  uuid?: string
   completedProfile?: boolean
   packageType?: number
+  uuid?: string | null
 }
 export type SessionDto = {
   id?: number
@@ -1463,6 +1702,7 @@ export type User = {
   birthDate?: string | null
   province?: string | null
   city?: string | null
+  uuid?: string
   gender?: boolean | null
 }
 export type UserWithCourse = {
@@ -1489,6 +1729,7 @@ export type UserWithCourse = {
   birthDate?: string | null
   province?: string | null
   city?: string | null
+  uuid?: string
   gender?: boolean | null
   coursesIds?: number[] | null
   password?: string | null
