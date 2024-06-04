@@ -1,4 +1,4 @@
-FROM docker.arvancloud.ir/node:20.10.0-alpine AS builder
+FROM node:20.10.0-alpine AS builder
 
 WORKDIR /app
 
@@ -11,9 +11,6 @@ ENV IGNORE_BUILD_ERRORS true
 ENV NEXT_TELEMETRY_DISABLED 1
 
 COPY package.json .
-
-RUN jq 'del(.devDependencies)' package.json > temp.json && mv temp.json package.json
-
 COPY yarn.lock .
 
 RUN yarn 
@@ -22,7 +19,7 @@ COPY . .
 
 RUN yarn build
 
-FROM docker.arvancloud.ir/node:20.10.0-alpine
+FROM node:20.10.0-alpine
 
 WORKDIR /app
 

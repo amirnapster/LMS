@@ -45,9 +45,10 @@ function EcommerceAccountExam() {
           />
         </Col>
       </Row>
-      {data && data.length ? <>
+      
         <Button className='mt-2' btnType='primary' href="/dashboard/aexam">ورود به سامانه آزمون </Button>
         {/* <Button className='mt-2' btnType='primary' href="http://my.namatek.com/" target='_blank'>ورود به سامانه آزمون قدیم</Button>*/}
+        {data && data.length ? <>
         <h3 className='mb-1 mt-3'><Iconify
           icon={'cil:chart'}
           width={24}
@@ -77,7 +78,7 @@ function EcommerceAccountExam() {
           </Table>
         </TableContainer>
       </> :
-        <Alert severity="error">در حال حاضر آزمونی برای شما فعال نیست.</Alert>
+        null
       }
 
     </EcommerceAccountLayout >

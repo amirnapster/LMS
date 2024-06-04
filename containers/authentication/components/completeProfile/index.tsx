@@ -18,13 +18,15 @@ const CompleteProfileModal = () => {
 
 
   const EcommerceAccountPersonalSchema = Yup.object().shape({
-    fullname: Yup.string().required('نام و نام خانوادگی الزامیست.'),
+    firstname: Yup.string().required('نام الزامیست.'),
+    lastname: Yup.string().required('نام خانوادگی الزامیست.'),
     companyName: Yup.string(),
     jobTitle: Yup.string(),
   })
 
   const defaultValues = {
-    fullname: '',
+    firstname: '',
+    lastname: '',
     companyName: '',
     jobTitle: '',
   }
@@ -54,7 +56,8 @@ const CompleteProfileModal = () => {
       </span>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
 
-        <RHFTextField name='fullname' label='نام و نام خانوادگی' />
+        <RHFTextField name='firstname' label='نام ' />
+        <RHFTextField name='lastname' label='نام خانوادگی' sx={{ marginBlockStart: '1rem' }}/>
 
         <LoadingButton
           color='inherit'

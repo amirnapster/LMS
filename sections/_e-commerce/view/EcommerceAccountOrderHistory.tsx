@@ -54,8 +54,6 @@ function Row(props: { row: Order }) {
                     <TableCell>نام دوره</TableCell>
                     <TableCell>مبلغ</TableCell>
                     <TableCell>تخفیف</TableCell>
-                    <TableCell  >تعداد</TableCell>
-
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -66,8 +64,6 @@ function Row(props: { row: Order }) {
                       </TableCell>
                       <TableCell>{orderItem.price?.toLocaleString()}</TableCell>
                       <TableCell>{orderItem.discount?.toLocaleString()}</TableCell>
-                      <TableCell>{orderItem.quantity}</TableCell>
-
                     </TableRow>
                   ))}
                 </TableBody>

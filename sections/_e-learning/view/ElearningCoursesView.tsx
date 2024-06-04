@@ -6,7 +6,6 @@ import { NAV } from 'config-global'
 // _mock
 import { _courses } from '_mock'
 // components
-import Iconify from 'components/iconify'
 //
 import {
   GetCoursesApiResponse,
@@ -21,16 +20,18 @@ import { ElearningCourseList } from '../course/list'
 export default function ElearningCoursesView() {
   const [mobileOpen, setMobileOpen] = useState(false)
 
-  const { data ,error} = useGetCoursesQuery()
+  const { data, error } = useGetCoursesQuery()
+  const groupedCourses = data && Object.groupBy(data, ({ categoryTitle }) => categoryTitle);
+  console.log(groupedCourses)
 
   const [loading, setLoading] = useState(true)
 
 
   useEffect(() => {
-    console.log("errpr",error)
+    console.log("errpr", error)
     //if(error?.name==403)
     //console.log("403")
-  },[error])
+  }, [error])
   useEffect(() => {
     const fakeLoading = async () => {
       await new Promise((resolve) => {
@@ -60,7 +61,7 @@ export default function ElearningCoursesView() {
             py: 5,
           }}
         >
-          <Typography variant='h2'>دوره ها</Typography>
+          <h1>دوره ها</h1>
 
           {/* <Button
             color='inherit'
@@ -74,26 +75,37 @@ export default function ElearningCoursesView() {
             Filters
           </Button> */}
         </Stack>
+        {groupedCourses&& Object.keys(groupedCourses).map(t => <Button
+        variant='outlined' sx={{mr:2,mb:1}}
+        href={`#category-${groupedCourses[t][0].categoryId}`}>{t}</Button>)}
 
-        <Stack direction={{ xs: 'column', md: 'row' }}>
+        <Stack direction={{ xs: 'column', md: 'column' }}>
           {/* <ElearningFilters
             mobileOpen={mobileOpen}
             onMobileClose={handleMobileClose}
           /> */}
 
-          <Box
-            sx={{
-              flexGrow: 1,
-              pl: { md: 8 },
-              mb: 8,
-              width: { md: `calc(100% - ${NAV.W_DRAWER}px)` },
-            }}
-          >
-            <ElearningCourseList
-              courses={data as GetCoursesApiResponse}
-              loading={loading}
-            />
-          </Box>
+          <br />
+          {(loading || !groupedCourses ? <ElearningCourseList courses={[]} loading={loading} /> :
+            (Object.keys(groupedCourses).map(t =>
+              <>
+                <div id={`category-${groupedCourses[t][0].categoryId}`}></div>
+                <h2   style={{ marginTop: "5rem" }}>{t}</h2>
+                <Box
+                  sx={{
+                    flexGrow: 1,
+                    mb: 8,
+                    mt: 3
+                  }}
+                >
+                  <ElearningCourseList
+                    courses={groupedCourses[t] as GetCoursesApiResponse}
+                    loading={loading}
+                  />
+                </Box>
+              </>
+            )))}
+
         </Stack>
       </Container>
 

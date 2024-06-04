@@ -1396,9 +1396,7 @@ function EcommerceAccountPersonalView() {
   if (firstLoading) {
     return <LoadingScreen />
   }
-  return (
-    <EcommerceAccountLayout>
-      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+  /*
         <Typography variant='h5' sx={{ mb: 3 }}>
           {intl.formatMessage({ id: 'personal.info' })}
         </Typography>
@@ -1499,7 +1497,12 @@ function EcommerceAccountPersonalView() {
               option.value === value.value
             }
           />
-        </Stack>
+        </Stack> */
+
+  return (
+    <EcommerceAccountLayout>
+      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+        
         <Typography variant='h5'
           style={{ marginTop: "1.5rem", marginBottom: "1rem" }}
         >

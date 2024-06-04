@@ -14,12 +14,12 @@ import Iconify from 'components/iconify'
 import TextMaxLine from 'components/text-max-line'
 import Row from 'components/ui/Row'
 
-import type { Course } from 'libs/redux/services/karnama'
+import type { CourseDto } from 'libs/redux/services/karnama'
 import { styled } from '@mui/material/styles'
 import { durationToString } from 'utils/helpers/formatTime'
 
 type Props = {
-  course: Course
+  course: CourseDto
   vertical?: boolean
 }
 
@@ -40,17 +40,6 @@ export default function ElearningCourseItem({ course, vertical }: Props) {
   }))
 
   let duration = 0;
-  if (course?.sections)
-    for (let i = 0; i < course.sections.length; i++) {
-      const section = course.sections[i]
-      if (section?.lessons)
-        for (let j = 0; j < section.lessons.length; j++) {
-          const lesson = section.lessons[j]
-          if (lesson)
-            duration += lesson.duation ?? 0
-        }
-
-    }
 
 
   return (
@@ -252,7 +241,7 @@ export default function ElearningCourseItem({ course, vertical }: Props) {
             </Row>
 
             <Typography variant='overline' sx={{ color: 'primary.main' }}>
-              {course?.category?.title}
+              {course?.categoryTitle}
             </Typography>
           </Stack>
         </Stack>

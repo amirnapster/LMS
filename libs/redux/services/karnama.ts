@@ -172,17 +172,6 @@ export const injectedRtkApi = api
         query: () => ({ url: `/api/Company/CompanySegments` }),
         providesTags: ['Company'],
       }),
-      addCompanyUserAsync: build.mutation<
-        AddCompanyUserAsyncApiResponse,
-        AddCompanyUserAsyncApiArg
-      >({
-        query: (queryArg) => ({
-          url: `/api/Company/AddCompanyUser`,
-          method: 'POST',
-          params: { name: queryArg.name, mobile: queryArg.mobile },
-        }),
-        invalidatesTags: ['Company'],
-      }),
       companyAdminCredits: build.query<
         CompanyAdminCreditsApiResponse,
         CompanyAdminCreditsApiArg
@@ -249,7 +238,11 @@ export const injectedRtkApi = api
         query: (queryArg) => ({
           url: `/api/Company/SetUserFullname`,
           method: 'POST',
-          params: { id: queryArg.id, fullName: queryArg.fullName },
+          params: {
+            id: queryArg.id,
+            firstname: queryArg.firstname,
+            lastname: queryArg.lastname,
+          },
         }),
         invalidatesTags: ['Company'],
       }),
@@ -542,11 +535,6 @@ export type CommentApiArg = {
 export type CompanySegmentsApiResponse =
   /** status 200 Success */ CompanyUserDto[]
 export type CompanySegmentsApiArg = void
-export type AddCompanyUserAsyncApiResponse = unknown
-export type AddCompanyUserAsyncApiArg = {
-  name?: string
-  mobile?: string
-}
 export type CompanyAdminCreditsApiResponse =
   /** status 200 Success */ CompanyUserDto[]
 export type CompanyAdminCreditsApiArg = {
@@ -578,7 +566,8 @@ export type SetUserSegmentValueApiArg = {
 export type SetUserFullnameApiResponse = unknown
 export type SetUserFullnameApiArg = {
   id?: number
-  fullName?: string
+  firstname?: string
+  lastname?: string
 }
 export type CompanyUsersApiResponse = /** status 200 Success */ CompanyUserDto[]
 export type CompanyUsersApiArg = void
@@ -1013,7 +1002,7 @@ export type Question = {
   difficulty?: number
   weight?: number
   published?: boolean
-  approved?: boolean
+  approved?: boolean | null
   canShuffleAnswer?: boolean
   dependencyId?: number | null
   insertDate?: string
@@ -1550,15 +1539,8 @@ export type AspNetUser = {
   lockoutEnd?: string | null
   lockoutEnabled?: boolean
   accessFailedCount?: number
-  fullname?: string | null
-  companyName?: string | null
-  jobTitle?: string | null
   joinDate?: string
   customerId?: number | null
-  birthDate?: string | null
-  province?: string | null
-  city?: string | null
-  gender?: boolean | null
   uuid?: string
   profile?: Profile
   aspNetUserClaims?: AspNetUserClaim[] | null
@@ -1648,7 +1630,8 @@ export type OptionType = {
   value?: string | null
 }
 export type SetInfoModel = {
-  fullname?: string | null
+  firstname?: string | null
+  lastname?: string | null
   companyName?: string | null
   jobTitle?: string | null
   email?: string | null
@@ -1694,16 +1677,9 @@ export type User = {
   lockoutEnd?: string | null
   lockoutEnabled?: boolean
   accessFailedCount?: number
-  fullname?: string | null
-  companyName?: string | null
-  jobTitle?: string | null
   customerId?: number | null
   joinDate?: string
-  birthDate?: string | null
-  province?: string | null
-  city?: string | null
   uuid?: string
-  gender?: boolean | null
 }
 export type UserWithCourse = {
   id?: number
@@ -1721,16 +1697,9 @@ export type UserWithCourse = {
   lockoutEnd?: string | null
   lockoutEnabled?: boolean
   accessFailedCount?: number
-  fullname?: string | null
-  companyName?: string | null
-  jobTitle?: string | null
   customerId?: number | null
   joinDate?: string
-  birthDate?: string | null
-  province?: string | null
-  city?: string | null
   uuid?: string
-  gender?: boolean | null
   coursesIds?: number[] | null
   password?: string | null
 }
@@ -1793,6 +1762,7 @@ export type CourseDto = {
   categoryId?: number
   slug?: string | null
   category?: Category
+  categoryTitle?: string | null
 }
 export type PlayLogDto = {
   action?: string | null
@@ -1810,6 +1780,7 @@ export type UserLessonViewMinute = {
 }
 export type CourseDetailDto = {
   id?: number
+  errorMessage?: string | null
   title?: string | null
   titleFa?: string | null
   totalDuration?: number | null
@@ -1908,7 +1879,6 @@ export const {
   useCommentMutation,
   useCompanySegmentsQuery,
   useLazyCompanySegmentsQuery,
-  useAddCompanyUserAsyncMutation,
   useCompanyAdminCreditsQuery,
   useLazyCompanyAdminCreditsQuery,
   useAddCompanyAdminCreditMutation,

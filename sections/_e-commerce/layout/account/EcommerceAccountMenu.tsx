@@ -43,19 +43,25 @@ export const teacherNavigations = [
     title: 'فروش‌های من',
     path: '/dashboard/t/sales/',
     apath: `Sales`,
-    icon: <Iconify icon='mdi:view-dashboard' />,
+    icon: <Iconify icon='mdi:currency-usd' />,
   },
   {
     title: 'پرداخت‌ها',
     path: '/dashboard/t/payments/',
     apath: `Payments`,
-    icon: <Iconify icon='mdi:view-dashboard' />,
+    icon: <Iconify icon='mdi:credit-card-multiple-outline' />,
   },
   {
     title: 'سوالات',
     path: '/dashboard/t/questions/',
     apath: `Questions`,
-    icon: <Iconify icon='mdi:view-dashboard' />,
+    icon: <Iconify icon='mdi:help-circle-outline' />,
+  },
+  {
+    title: 'نظرات',
+    path: '/dashboard/t/comments/',
+    apath: `Comments`,
+    icon: <Iconify icon='mdi:comment-multiple-outline' />,
   },
 ]
 export const companyNavigations = [
@@ -120,7 +126,7 @@ export function currentCompanyPage(path: string) {
         if (companyNavigations[i].sub?.[j].path == path)
           return companyNavigations[i]?.sub?.[j]
   }
-}export function currentTeacherPage(path: string) {
+} export function currentTeacherPage(path: string) {
   for (let i = 0; i < teacherNavigations.length; i++) {
     if (!teacherNavigations[i]) continue
     if (teacherNavigations[i].path == path) return teacherNavigations[i]
@@ -130,10 +136,23 @@ export function currentCompanyPage(path: string) {
     //       return teacherNavigations[i]?.sub?.[j]
   }
 }
+export function currentUserPage(path: string) {
+  for (let i = 0; i < navigations.length; i++) {
+    if (!navigations[i]) continue
+    if (navigations[i].path == path) return navigations[i]
+
+  }
+}
 
 const navigations = [
   {
-    title: 'navbar.profile.profile',
+    title: 'اطلاعات کاربری',
+    apath: `Profile`,
+    path: '/dashboard/u/profile/',
+    icon: <Iconify icon='ph:user' />,
+  },
+  {
+    title: 'فروم',
     path: '/dashboard/profile/',
     icon: <Iconify icon='ph:user' />,
   },
@@ -179,7 +198,15 @@ export default function EcommerceAccountMenu({ open, onClose }: Props) {
   const { push, reload, asPath, replace } = useRouter()
   const [getInfo, { data }] = useInfoMutation()
   const [logoutUser] = useLogoutMutation()
-  const [tab, setTab] = useState(0)
+
+  const getDefaultTab = () => {
+    console.log(asPath,currentTeacherPage(asPath),currentCompanyPage(asPath))
+    if (currentTeacherPage(asPath) || currentCompanyPage(asPath))
+      return 0
+    return 1
+  }
+
+  const [tab, setTab] = useState(getDefaultTab())
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setTab(newValue)
@@ -201,7 +228,7 @@ export default function EcommerceAccountMenu({ open, onClose }: Props) {
   }
 
   const getMenu = useMemo(() => {
-    
+
     if (tab == 0 && data?.isCompanyAdmin)
       return (<>
         {' '}
@@ -260,23 +287,23 @@ export default function EcommerceAccountMenu({ open, onClose }: Props) {
         </TreeView>
       </>)
     else if (tab == 0 && data?.teacherId)
-    return (<>
-      {' '}
-      <Stack spacing={2} sx={{ p: 3, pb: 2 }}>
-        <Stack
-          spacing={2}
-          direction='row'
-          alignItems='center'
-          justifyContent='center'
-        >
-          <Avatar src='' sx={{ width: 64, height: 64 }} />
-        </Stack>
+      return (<>
+        {' '}
+        <Stack spacing={2} sx={{ p: 3, pb: 2 }}>
+          <Stack
+            spacing={2}
+            direction='row'
+            alignItems='center'
+            justifyContent='center'
+          >
+            <Avatar src='' sx={{ width: 64, height: 64 }} />
+          </Stack>
 
-        <Stack alignItems='center' spacing={0.5}>
-          <TextMaxLine variant='subtitle1' line={1}>
-            {data?.fullname}
-          </TextMaxLine>
-          {/* <TextMaxLine variant='subtitle1' line={1}>
+          <Stack alignItems='center' spacing={0.5}>
+            <TextMaxLine variant='subtitle1' line={1}>
+              {data?.fullname}
+            </TextMaxLine>
+            {/* <TextMaxLine variant='subtitle1' line={1}>
             {data?.username}
           </TextMaxLine>
           {!!data?.customer?.credit && (
@@ -284,22 +311,22 @@ export default function EcommerceAccountMenu({ open, onClose }: Props) {
               اعتبار شما {data.customer.credit.toLocaleString()} تومان
             </TextMaxLine>
           )} */}
+          </Stack>
         </Stack>
-      </Stack>
-      <TreeView
-        onNodeSelect={(e, nodeIds) =>
-          nodeIds &&
-          nodeIds.length > 1 &&
-          (asPath == nodeIds ? reload() : push(nodeIds))
-        }
-        defaultSelected={asPath}
-        defaultCollapseIcon={<ArrowDropDownIcon />}
-        defaultExpandIcon={<ArrowLeftIcon />}
-        defaultEndIcon={<div style={{ width: 20 }} />}
-        sx={{ flexGrow: 1, maxWidth: 400, overflowY: 'auto', my: 1 }}
-      >
-       
-         { teacherNavigations.map((item) => (
+        <TreeView
+          onNodeSelect={(e, nodeIds) =>
+            nodeIds &&
+            nodeIds.length > 1 &&
+            (asPath == nodeIds ? reload() : push(nodeIds))
+          }
+          defaultSelected={asPath}
+          defaultCollapseIcon={<ArrowDropDownIcon />}
+          defaultExpandIcon={<ArrowLeftIcon />}
+          defaultEndIcon={<div style={{ width: 20 }} />}
+          sx={{ flexGrow: 1, maxWidth: 400, overflowY: 'auto', my: 1 }}
+        >
+
+          {teacherNavigations.map((item) => (
             <StyledTreeItem
               nodeId={item.path}
               labelText={item.title}
@@ -314,8 +341,8 @@ export default function EcommerceAccountMenu({ open, onClose }: Props) {
               ))} */}
             </StyledTreeItem>
           ))}
-      </TreeView>
-    </>)
+        </TreeView>
+      </>)
     return (<>
       <Stack spacing={2} sx={{ p: 3, pb: 2 }}>
         <Stack
@@ -370,7 +397,7 @@ export default function EcommerceAccountMenu({ open, onClose }: Props) {
         ))}
       </TreeView>
     </>)
-  },[tab,data?.teacherId])
+  }, [tab, data?.teacherId])
 
   const renderContent = (
     <Stack
@@ -386,7 +413,7 @@ export default function EcommerceAccountMenu({ open, onClose }: Props) {
       }}
     >
       <Stack sx={{ my: 1, px: 2 }}>
-        {data?.isCompanyAdmin || data?.teacherId && (
+        {(data?.isCompanyAdmin || data?.teacherId) && (
           <Box sx={{ width: '100%' }}>
             <Tabs value={tab} onChange={handleChange} centered>
               {data?.isCompanyAdmin ? <Tab label='شرکت' id='1' /> : null}

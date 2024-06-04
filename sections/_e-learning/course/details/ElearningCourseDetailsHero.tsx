@@ -8,6 +8,7 @@ import {
   Container,
   Typography,
   Unstable_Grid2 as Grid,
+  Alert,
 } from '@mui/material'
 // hooks
 import useResponsive from 'utils/hooks/useResponsive'
@@ -53,23 +54,12 @@ type Props = {
 
 export default function ElearningCourseDetailsHero({ course }: Props) {
   const {
-    level,
-    ratings,
-    quizzes,
-    category,
-    languages,
     bestSeller,
-    reviews,
-    students,
-    teachers = [],
   } = course
   const intl = useIntl()
   const { details } = useSelector((state: RootState) => state.course)
 
-  const lessonCount = details?.sections?.reduce(
-    (acc, section) => (section?.lessons?.length ?? 0) + acc,
-    0
-  )
+
 
   const isMdUp = useResponsive('up', 'md')
 
@@ -82,6 +72,11 @@ export default function ElearningCourseDetailsHero({ course }: Props) {
       }}
     >
       <Container sx={{ overflow: 'hidden' }}>
+        {details?.errorMessage && <Alert severity={details.errorMessage.includes('فعال') ? 'success' : 'warning'} sx={{ mb: 3 }}>
+          <div dangerouslySetInnerHTML={{
+            __html:
+              details.errorMessage
+          }}></div></Alert>}
         {intl.formatMessage({ id: 'lang' }) === 'fa-IR' &&
 
           <CustomBreadcrumbs
@@ -129,11 +124,11 @@ export default function ElearningCourseDetailsHero({ course }: Props) {
                   </Label>
                 )}
 
-                {/* <Link href={`/categories/${details.categoryId}`}>
+                <Link href={`/categories/${details.categoryId}`}>
                   <Typography variant='overline' sx={{ color: 'primary.main' }}>
                     {details?.category?.title}
                   </Typography>
-                </Link> */}
+                </Link>
 
                 <Typography variant='h3' component='h1'>
                   {details?.titleFa}

@@ -48,7 +48,7 @@ export default function MainLayout({ children }: Props) {
   const paths: Paths = {
     '/courses/': 1,
     '/dashboard/mycourses/': 2,
-    '/dashboard/profile/': 3
+    '/dashboard/u/profile/': 3
   };
 
   const [value, setValue] = useState(-1);

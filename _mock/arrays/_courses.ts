@@ -62,13 +62,17 @@ export const _courses = [...Array(12)].map((_, index) => ({
 // ----------------------------------------------------------------------
 
 export const CATEGORY_NAMES:CategoryCount[] = [
-  { id: 1,title:'توسعه فردی',count:16},
- { id: 2,title:'فناوری اطلاعات',count:18},
- { id: 3,title:'فروش و بازاریابی',count:9},
- { id: 4,title:'مالی و اداری',count:6},
- { id: 5,title:'مدیریتی',count:6},
- { id: 6,title:'فنی و مهندسی',count:7},
- { id: 7,title:'هنر و رسانه',count:2},
- { id: 8,title:'سلامت',count:2},
+ { id:1, title:	'تاسیسات برقی	', count: 10},
+ { id:2, title:	' الکترونیک و کامپیوتر	', count: 10},
+ { id:3, title:	' کنترل و ابزار دقیق	', count: 10},
+ { id:4, title:	'مکانیک	', count: 14},
+ { id:5, title:	'مواد و بازرسی	', count: 14},
+ { id:6, title:	'پایپینگ و فرآیند	', count: 12},
+ { id:7, title:	'تاسیسات مکانیکی	', count: 8},
+ { id:8, title:	'عمران و معماری	', count: 13},
+ { id:9, title:	'صنایع و مدیریت	', count: 15},
+ { id:10, title:	'عمومی	', count: 9},
+ { id:11, title:	'ماشین آلات	', count: 9},
+ { id:12, title:	'تعمیرات	', count: 11},
 ] 
  

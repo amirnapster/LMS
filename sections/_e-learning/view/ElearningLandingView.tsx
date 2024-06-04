@@ -42,13 +42,13 @@ export default function ElearningLandingView() {
       {/* <OurClientsElearning brands={_brandsColor} /> */}
 
       {/* <ElearningLandingIntroduce /> */}
-      {/* <ElearningLandingCategories categories={CATEGORY_NAMES} />
+      <ElearningLandingCategories categories={CATEGORY_NAMES}/>
 
-      <ElearningLandingFeaturedCourses data={data as Course[]} />
+       {/* <ElearningLandingFeaturedCourses data={data as Course[]} />
 
 
-      <Faq data={faqData} />
- */}
+       <Faq data={faqData} />
+  */}
 
       {/* <TeamElearning members={_members.slice(0, 4)} /> */}
 

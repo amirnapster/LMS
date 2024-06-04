@@ -165,7 +165,7 @@ export const ConfirmOtp = ({ changeMode, data, setStep }: IConfirmOtpProps) => {
         ورود به نماتک
       </Button>
 
-      <Button
+      {/* <Button
         className={styles['confirmOtp--enter']}
         onClick={() => changeMode('signIn')}
         btnType='ghost'
@@ -173,7 +173,7 @@ export const ConfirmOtp = ({ changeMode, data, setStep }: IConfirmOtpProps) => {
         size='large'
       >
         ورود با رمز عبور
-      </Button>
+      </Button> */}
     </Row>
   )
 }

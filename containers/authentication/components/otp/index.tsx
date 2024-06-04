@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { validation } from 'utils/helpers/validations'
 import { useSignInByOtpMutation } from 'libs/redux/services/karnama'
@@ -18,20 +19,20 @@ const Otp = ({ changeMode }: AuthCallBackProps) => {
   const [signInByOTP, { isLoading }] = useSignInByOtpMutation()
   const [step, setStep] = useState<1 | 2>(1)
   const [data, setData] = useState<string | null>(null)
-
+  const { query } = useRouter()
   const {
     handleSubmit,
     register,
     formState: { errors },
     watch,
-  } = useForm({ defaultValues: { mobile: '' } })
+  } = useForm({ defaultValues: { mobile: query?.mobile as string } })
 
   const onSubmit = (value: ValueType) => {
     if ((value?.mobile.startsWith("09") === false && value?.mobile.startsWith("01") === false) || value?.mobile.length < 11) {
       notify({ type: 'warn', message: 'شماره موبایل صحیح نیست' })
       return
     }
-    signInByOTP({ signInByOtpCommand: { userName: value.mobile }})
+    signInByOTP({ signInByOtpCommand: { userName: value.mobile } })
       .unwrap()
       .then(() => {
         setData(value?.mobile)
